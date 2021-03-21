@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="IngSW-AM59" />
+        <module name="AM59" />
       </profile>
     </annotationProcessing>
   </component>

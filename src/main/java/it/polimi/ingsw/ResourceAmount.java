@@ -1,20 +1,20 @@
 package it.polimi.ingsw;
 
 public class ResourceAmount {
-    private Resource resource;
+    private Color color;
     private int amount;
 
-    public ResourceAmount(Resource resource, int amount) {
-        this.resource = resource;
+    public ResourceAmount(Color color, int amount) {
+        this.color = color;
         this.amount = amount;
     }
 
-    public Resource getResource() {
-        return resource;
+    public Color getColor() {
+        return color;
     }
 
-    public void setResource(Resource resource) {
-        this.resource = resource;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public int getAmount() {

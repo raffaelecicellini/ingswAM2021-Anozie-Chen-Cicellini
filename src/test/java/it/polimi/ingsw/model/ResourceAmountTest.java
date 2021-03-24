@@ -1,5 +1,7 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.model.ResourceAmount;
 import org.junit.jupiter.api.Test;
 
 public class ResourceAmountTest {

@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model;
 
 public class ResourceAmount {
     private Color color;
@@ -23,5 +23,13 @@ public class ResourceAmount {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceAmount{" +
+                "color=" + color +
+                ", amount=" + amount +
+                '}';
     }
 }

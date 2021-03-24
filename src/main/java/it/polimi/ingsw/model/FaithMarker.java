@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.model;
 
 public class FaithMarker {
     private int position;
@@ -13,5 +13,12 @@ public class FaithMarker {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    @Override
+    public String toString() {
+        return "FaithMarker{" +
+                "position=" + position +
+                '}';
     }
 }

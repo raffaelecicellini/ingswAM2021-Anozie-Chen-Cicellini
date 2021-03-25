@@ -3,6 +3,11 @@ package it.polimi.ingsw.model;
 import org.junit.jupiter.api.Test;
 
 class DiscardTokenTest {
+    /**
+     * Action test. We are testing if the DiscardToken correctly discard the amount of cards specified by qty and of the
+     * correct color. Also, we are testing if it correctly finds the deck of the minimum level of the specified color that
+     * still has some cards.
+     */
     @Test
     public void discardGreenTest() {
         DiscardToken test= new DiscardToken(Color.GREEN, 2);
@@ -77,6 +82,11 @@ class DiscardTokenTest {
             }
         }
     }
+    /**
+     * Action test. We are testing if the DiscardToken correctly discard the amount of cards specified by qty and of the
+     * correct color. Also, we are testing if it correctly finds the deck of the minimum level of the specified color that
+     * still has some cards.
+     */
     @Test
     public void discardBlueTest() {
         DiscardToken test= new DiscardToken(Color.BLUE, 2);
@@ -151,6 +161,11 @@ class DiscardTokenTest {
             }
         }
     }
+    /**
+     * Action test. We are testing if the DiscardToken correctly discard the amount of cards specified by qty and of the
+     * correct color. Also, we are testing if it correctly finds the deck of the minimum level of the specified color that
+     * still has some cards.
+     */
     @Test
     public void discardYellowTest() {
         DiscardToken test= new DiscardToken(Color.YELLOW, 2);
@@ -225,6 +240,11 @@ class DiscardTokenTest {
             }
         }
     }
+    /**
+     * Action test. We are testing if the DiscardToken correctly discard the amount of cards specified by qty and of the
+     * correct color. Also, we are testing if it correctly finds the deck of the minimum level of the specified color that
+     * still has some cards.
+     */
     @Test
     public void discardPurpleTest() {
         DiscardToken test= new DiscardToken(Color.PURPLE, 2);
@@ -299,6 +319,13 @@ class DiscardTokenTest {
             }
         }
     }
+    /**
+     * Action test. We are testing if the DiscardToken correctly discard the amount of cards specified by qty and of the
+     * correct color. We are testing if the token is able to discard all the cards left from a deck and other cards from
+     * the deck of a higher level in order to discard the correct amount of cards. This happens where there are not enough
+     * cards in the minimum level deck to be discarded, so it is necessary to discard the remain cards from a higher level
+     * deck.
+     */
     @Test
     public void discardOddCardTest() {
         DiscardToken test= new DiscardToken(Color.PURPLE, 2);

@@ -1,13 +1,35 @@
 package it.polimi.ingsw.model;
 
+/**
+ * This class represents a specific type of ActionToken, the DiscardToken.
+ */
 public class DiscardToken implements ActionToken{
+    /**
+     * This attribute defines the Color of the cards to be removed from the decks.
+     */
     private Color color;
+    /**
+     * This attribute defines the amount of cards to be removed from the decks.
+     */
     private int qty;
 
+    /**
+     * It instantiates a DiscardToken.
+     * @param color: it defines the Color of the cards to be removed.
+     * @param qty: it defines the amount of cards to be removed.
+     */
     public DiscardToken(Color color, int qty) {
         this.color=color;
         this.qty=qty;
     }
+
+    /**
+     * This method specifies what needs to be done by the DiscardToken: it removes from the decks an amount of cards(qty)
+     * of the specified Color (color).
+     * @param blackCross: this is the position of "Lorenzo il Magnifico" on the FaithTrack.
+     * @param decks: these are all of the DevelopDecks of the current game.
+     * @return: it returns false, the ActionTokens' array is not to be shuffled.
+     */
     @Override
     public boolean doAction(FaithMarker blackCross, DevelopDeck[][] decks) {
         DevelopDeck res= this.search(decks);
@@ -34,6 +56,12 @@ public class DiscardToken implements ActionToken{
         }
         return false;
     }
+
+    /**
+     * Utility method used in doAction(). It searches the DevelopDeck of the minimum level for the current color that still have cards.
+     * @param decks: these are all of the DevelopDecks of the current game.
+     * @return: the method returns the DevelopDeck of the minimum level for the current color if found, otherwise it returns null.
+     */
     private DevelopDeck search(DevelopDeck[][] decks) {
         for (int i=0; i<4; i++) {
             for (int j=0; j<3; j++) {
@@ -45,6 +73,10 @@ public class DiscardToken implements ActionToken{
         return null;
     }
 
+    /**
+     * Utility method used in tests. It returns the String representation of the token.
+     * @return
+     */
     @Override
     public String toString() {
         return "DiscardToken{" +

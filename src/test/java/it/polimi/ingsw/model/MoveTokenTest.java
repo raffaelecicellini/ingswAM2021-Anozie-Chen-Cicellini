@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MoveTokenTest {
+    /**
+     * Action test. We are testing if the action of the MoveToken is done correctly.
+     */
     @Test
     public void moveTest() {
         MoveToken test= new MoveToken(2);

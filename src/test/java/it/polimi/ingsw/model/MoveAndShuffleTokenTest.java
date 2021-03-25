@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MoveAndShuffleTokenTest {
+    /**
+     * Action test. We are testing if the action of the MoveandShuffleToken is done correctly.
+     */
     @Test
     public void moveShuffleTest() {
         MoveandShuffleToken test= new MoveandShuffleToken(1);

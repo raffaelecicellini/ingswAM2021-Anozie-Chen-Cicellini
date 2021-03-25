@@ -4,15 +4,20 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SoloActionsTest {
+    /**
+     * Creation test. We are testing if the creations of the SoloActions and each single ActionToken is done correctly.
+     * Also, we are testing if the tokens' array is shuffled correctly when created.
+     */
     @Test
     public void creationTest() {
         SoloActions test= new SoloActions();
         System.out.println(test.toString());
     }
 
+    /**
+     * Action test. We are testing if a single action done by the first ActionToken is done correctly.
+     */
     @Test
     public void doActionTest() {
         SoloActions test= new SoloActions();

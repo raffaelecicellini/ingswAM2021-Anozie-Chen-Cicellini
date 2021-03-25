@@ -2,12 +2,32 @@ package it.polimi.ingsw.model;
 
 import java.util.*;
 
+/**
+ * This class represents a DevelopDeck, a deck of DevelopCards of a certain color and level.
+ */
 public class DevelopDeck {
+    /**
+     * This attribute represents the array of the DevelopCards of the current deck.
+     */
     private DevelopCard[] cards;
+    /**
+     * This attribute specifies the level of the cards of the current DevelopDeck.
+     */
     private int level;
+    /**
+     * This attribute represents the color of the cards of the current DevelopDeck.
+     */
     private Color color;
+    /**
+     * This attribute specifies the top of the deck. The card in this position is the one that can be bought by the user.
+     */
     private int top;
 
+    /**
+     * It instantiates a DevelopDeck.
+     * @param level: it specifies the level of the current DevelopDeck.
+     * @param color: it specifies the color of the current DevelopDeck.
+     */
     public DevelopDeck(int level, Color color) {
         this.level = level;
         this.color = color;
@@ -17,24 +37,42 @@ public class DevelopDeck {
         this.shuffle();
     }
 
+    /**
+     * Simple method to get the level value.
+     * @return: the level of this deck.
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Simple method to get the color value.
+     * @return: the color of this deck.
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Simple method to get the top value.
+     * @return: the top of this deck.
+     */
     public int getTop() {
         return top;
     }
 
+    /**
+     * Utility method used to shuffle tha array of cards.
+     */
     private void shuffle() {
         List<DevelopCard> list= Arrays.asList(cards);
         Collections.shuffle(list);
         list.toArray(cards);
     }
 
+    /**
+     * Simple method used when a player buys correctly a card from the current deck.
+     */
     public void removeCard() {
         if (this.top>=0) {
             this.top=this.top-1;
@@ -42,6 +80,10 @@ public class DevelopDeck {
 
     }
 
+    /**
+     * Simple method used when a player wants to buy a card from the current deck.
+     * @return: it returns the card in the top position.
+     */
     public DevelopCard getCard() {
         if (this.top>=0) {
             return this.cards[top];
@@ -49,6 +91,9 @@ public class DevelopDeck {
         else return null;
     }
 
+    /**
+     * Utility method used to generate the DevelopCards of level and color specified by the attributes.
+     */
     private void generateCards() {
         int vp=0;
         int faith=0;
@@ -959,6 +1004,11 @@ public class DevelopDeck {
         }
     }
 
+    /**
+     * Utility method used in tests. It returns the string representation of the current deck (the cards, the level, color
+     * and top).
+     * @return
+     */
     @Override
     public String toString() {
         return "DevelopDeck{" +

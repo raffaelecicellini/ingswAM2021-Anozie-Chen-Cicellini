@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DevelopCardTest {
+    /**
+     * Level test. We are testing if the get and set level methods work.
+     */
     @Test
     public void levelTest() {
         int level=1;
@@ -33,6 +36,10 @@ class DevelopCardTest {
         assertEquals(2, test.getLevel());
 
     }
+
+    /**
+     * Victory points test. We are testing if the get and set victory points methods work.
+     */
     @Test
     public void victoryPointsTest() {
         int level=1;
@@ -60,6 +67,10 @@ class DevelopCardTest {
         test.setVictoryPoints(3);
         assertEquals(3, test.getVictoryPoints());
     }
+
+    /**
+     * Faith output test. We are testing if get and set faith output methods work.
+     */
     @Test
     public void faithOutputTest() {
         int level=1;
@@ -87,6 +98,10 @@ class DevelopCardTest {
         test.setFaithOutput(3);
         assertEquals(3, test.getFaithOutput());
     }
+
+    /**
+     * Color test. We are testing if the get and set color methods work.
+     */
     @Test
     public void colorTest() {
         int level=1;
@@ -114,6 +129,10 @@ class DevelopCardTest {
         test.setColor(Color.YELLOW);
         assertEquals(Color.YELLOW, test.getColor());
     }
+
+    /**
+     * Cost test. We are testing if the get and set cost method work.
+     */
     @Test
     public void costTest() {
         int level=1;
@@ -154,6 +173,10 @@ class DevelopCardTest {
             i++;
         }
     }
+
+    /**
+     * Input test. We are testing if the get and set input methods work.
+     */
     @Test
     public void inputTest() {
         int level=1;
@@ -194,6 +217,10 @@ class DevelopCardTest {
             i++;
         }
     }
+
+    /**
+     * Output test. We are testing if the get and set output method work.
+     */
     @Test
     public void outputTest() {
         int level=1;

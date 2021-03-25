@@ -5,8 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * FavorTileTest class tests FavorTile class.
+ */
 class FavorTileTest {
 
+    /**
+     * Tests if the method sets correctly the FavorTile's victory points.
+     */
     @Test
     void setVictoryPoints() {
         FavorTile a = new FavorTile(4,true);
@@ -16,6 +22,9 @@ class FavorTileTest {
 
     }
 
+    /**
+     * Tests if the method returns the correct amount of the FavorTile's victory points.
+     */
     @Test
     void getVictoryPoints() {
         FavorTile a = new FavorTile(99,true);
@@ -25,6 +34,9 @@ class FavorTileTest {
         assertEquals(b.getVictoryPoints(),0);
     }
 
+    /**
+     * Tests if the method sets correctly the state of the FavorTile.
+     */
     @Test
     void setActive() {
         FavorTile a = new FavorTile(2,true);
@@ -35,6 +47,9 @@ class FavorTileTest {
 
     }
 
+    /**
+     * Tests if the correct value of the FavorTile's state is returned.
+     */
     @Test
     void isActive() {
         FavorTile a = new FavorTile(2,true);

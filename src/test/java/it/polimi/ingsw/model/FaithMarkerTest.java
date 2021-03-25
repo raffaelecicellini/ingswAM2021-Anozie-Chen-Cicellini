@@ -5,8 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * FaithMarkerTest class tests FaithMarker class.
+ */
 class FaithMarkerTest {
 
+    /**
+     * Tests if the correct value is returned by the getPosition method.
+     */
     @Test
     void getPosition() {
         FaithMarker a = new FaithMarker(2);
@@ -17,6 +23,9 @@ class FaithMarkerTest {
 
     }
 
+    /**
+     * Tests if the method sets correctly the FaithMarker's position.
+     */
     @Test
     void setPosition() {
         FaithMarker a = new FaithMarker(2);

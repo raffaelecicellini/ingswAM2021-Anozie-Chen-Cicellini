@@ -20,13 +20,13 @@ class LevTwoLeaderTest {
         DevelopCard w = new DevelopCard(1,1,1, Color.GREY,null,null,null);
         b[0] = q;
         b[1] = w;
-        assertFalse(a.checkRequirements(null,b,b,b,null));
+        assertFalse(a.checkRequirements(null,b,b,b,null,null));
         DevelopCard e = new DevelopCard(1,1,1, Color.GREY,null,null,null);
         b[2] = e;
-        assertFalse(a.checkRequirements(null,b,b,b,null));
+        assertFalse(a.checkRequirements(null,b,b,b,null,null));
         e.setLevel(2);
         e.setColor(Color.GREEN);
-        assertTrue(a.checkRequirements(null,b,b,b,null));
+        assertTrue(a.checkRequirements(null,b,b,b,null,null));
     }
 
     /**

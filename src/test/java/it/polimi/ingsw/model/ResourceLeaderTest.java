@@ -17,6 +17,7 @@ class ResourceLeaderTest {
     @Test
     void checkRequirements() {
         ResourceAmount req = new ResourceAmount(Color.YELLOW,5);
+        ResourceAmount[] ts = new ResourceAmount[4];
         LeaderCard a = new ResourceLeader(3,"Deposit",false,false,req,Color.GREY);
         ArrayList<ResourceAmount> deposit = new ArrayList<>();
         ResourceAmount q = new ResourceAmount(Color.YELLOW,3);
@@ -29,9 +30,14 @@ class ResourceLeaderTest {
         deposit.add(e);
         deposit.add(r);
         deposit.add(t);
-        assertTrue(a.checkRequirements(deposit,null,null,null,null));
+        ts[0] = q;
+        ts[1] = w;
+        ts[2] = e;
+        ts[3] = r;
+        assertTrue(a.checkRequirements(deposit,null,null,null,null,ts));
         deposit.remove(0);
-        assertFalse(a.checkRequirements(deposit,null,null,null,null));
+        ResourceAmount[] tr = new ResourceAmount[4];
+        assertFalse(a.checkRequirements(deposit,null,null,null,null,tr));
     }
 
     /**

@@ -35,10 +35,11 @@ public class OneAndOneLeader extends LeaderCard {
      * @param slot2 is the player's second stack of development cards.
      * @param slot3 is the player's third stack of development cards.
      * @param faithMarker is the player's faith marker.
+     * @param strongbox is the player's strongbox
      * @return if the player respects the requirements.
      */
     @Override
-    public boolean checkRequirements(ArrayList<ResourceAmount> deposits, DevelopCard[] slot1, DevelopCard[] slot2, DevelopCard[] slot3, FaithMarker faithMarker) {
+    public boolean checkRequirements(ArrayList<ResourceAmount> deposits, DevelopCard[] slot1, DevelopCard[] slot2, DevelopCard[] slot3, FaithMarker faithMarker, ResourceAmount[] strongbox) {
         boolean first = false;
         boolean second = false;
 

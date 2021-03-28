@@ -32,12 +32,16 @@ public class ResourceLeader extends LeaderCard{
      * @param slot2 is the player's second stack of development cards.
      * @param slot3 is the player's third stack of development cards.
      * @param faithMarker is the player's faith marker.
+     * @param strongbox is the player's strongbox
      * @return if the player respects the requirements.
      */
     @Override
-    public boolean checkRequirements(ArrayList<ResourceAmount> deposits, DevelopCard[] slot1, DevelopCard[] slot2, DevelopCard[] slot3, FaithMarker faithMarker) {
+    public boolean checkRequirements(ArrayList<ResourceAmount> deposits, DevelopCard[] slot1, DevelopCard[] slot2, DevelopCard[] slot3, FaithMarker faithMarker, ResourceAmount[] strongbox) {
         int counter = 0;
         for (ResourceAmount x : deposits)
+            if (x!= null && x.getColor() == requirements.getColor())
+                counter+= x.getAmount();
+        for (ResourceAmount x: strongbox)
             if (x!= null && x.getColor() == requirements.getColor())
                 counter+= x.getAmount();
         if (counter >= requirements.getAmount())

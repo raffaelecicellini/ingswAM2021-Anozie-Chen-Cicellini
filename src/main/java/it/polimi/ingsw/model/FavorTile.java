@@ -7,15 +7,21 @@ package it.polimi.ingsw.model;
 public class FavorTile {
     private int victoryPoints;
     private boolean active;
+    private int start;
+    private int end;
 
     /**
      * Constructor FavorTile creates a new FavorTile instance.
      * @param victoryPoints is the amount of Victory Points this FavorTile has.
      * @param active is the state of the FavorTile.
+     * @param start is where the vatican report section starts, might be null.
+     * @param end is where the vatican report section ends, might be null.
      */
-    public FavorTile(int victoryPoints,boolean active) {
+    public FavorTile(int victoryPoints,boolean active, int start, int end) {
         this.victoryPoints = victoryPoints;
         this.active = active;
+        this.start = start;
+        this.end = end;
     }
 
     /**
@@ -48,5 +54,21 @@ public class FavorTile {
      */
     public boolean isActive() {
         return active;
+    }
+
+    /**
+     * This method returns the end of the report section.
+     * @return end of the report section.
+     */
+    public int getEnd() {
+        return end;
+    }
+
+    /**
+     * This method returns the start of the report section.
+     * @return the start of the report section.
+     */
+    public int getStart() {
+        return start;
     }
 }

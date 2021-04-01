@@ -1,6 +1,11 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.exceptions.InvalidActionException;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents a DevelopCard that can be bought by a player or discarded in the Solo game.
@@ -106,7 +111,7 @@ public class DevelopCard {
 
     /**
      * Simple method to get the color of the card.: the value of the color attribute.
-     * @return
+     * @return the color of the card
      */
     public Color getColor() {
         return color;
@@ -133,7 +138,7 @@ public class DevelopCard {
     }
 
     /**
-     * Simple method to set the cost rquested by the card.
+     * Simple method to set the cost requested by the card.
      * @param cost: the new array of cost.
      */
     public void setCost(ResourceAmount[] cost) {
@@ -198,8 +203,134 @@ public class DevelopCard {
     }
 
     /**
+     * Method to activate a production on a single Develop Card
+     */
+    public void activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException{
+
+        boolean exit;
+
+        // re-writing input in another vector (newInput)
+        ResourceAmount[] newInput = new ResourceAmount[2];
+        int cont, j = 0;
+        for (ResourceAmount resourceAmount : input) {
+            cont = 0;
+            while (cont != resourceAmount.getAmount()) {
+                newInput[j] = new ResourceAmount(resourceAmount.getColor(), 1);
+                j++;
+                cont++;
+            }
+        }
+
+        // try to modify the temporary strongbox and deposits
+        for (Map.Entry<String, String> m : map.entrySet()) {
+
+            exit = false;
+
+            String s = m.getKey().replaceAll("[^0-9]", "");
+            int i = 0;
+            int k = Integer.parseInt(s) - 1;
+
+            if (m.getValue().equals("Strongbox")) {
+                    while (i < strongbox.length && !exit) {
+                        if (newInput[k].getColor() == strongbox[i].getColor()) {
+                            if (strongbox[i].getAmount() > 0) {
+                                strongbox[i].setAmount(strongbox[i].getAmount() - 1);
+                                exit = true;
+                            } else
+                                throw new InvalidActionException("There's not enough " + newInput[k].getColor() + " resource in the Strongbox! [" + newInput[k].getAmount() + "]");
+                        }
+                        i++;
+                    }
+            } else
+                if (m.getValue().equals("Deposits")) {
+                while (i < deposits.size() && !exit) {
+                    if (deposits.get(i) != null) {
+                        if (newInput[k].getColor() == deposits.get(i).getColor()) {
+                            if (deposits.get(i).getAmount() > 0) {
+                                deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
+                                exit = true;
+                            } else
+                                throw new InvalidActionException("There's not enough " + newInput[k].getColor() + " resource in the Deposits! [" + newInput[k].getAmount() + "]");
+                        }
+                    }
+                    i++;
+                    if ( i == deposits.size() && !exit ) throw new InvalidActionException("There's no " + newInput[k].getColor() + " resource in the Deposits!");
+                }
+
+            }
+        }
+
+
+        // if there is no errors, put everything in the strongboxOutput
+        for (int i = 0; i < output.length; i++) {
+            int x = 0;
+            while (output[x].getColor() != strongboxOutput[i].getColor()) { x++; }
+            strongboxOutput[i].setAmount(strongboxOutput[i].getAmount() + output[x].getAmount());
+        }
+    }
+
+
+    /**
+     * Method to buy the develop card
+     */
+    public void buyDevelopCard(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits) throws InvalidActionException{
+
+        boolean exit;
+
+        // re-writing cost in another vector (newCost)
+        ResourceAmount[] newCost = new ResourceAmount[8];
+        int cont, j = 0;
+        for (ResourceAmount resourceAmount : cost) {
+            cont = 0;
+            while (cont != resourceAmount.getAmount()) {
+                newCost[j] = new ResourceAmount(resourceAmount.getColor(), 1);
+                j++;
+                cont++;
+            }
+        }
+
+        for (Map.Entry<String, String> m : map.entrySet()) {
+
+            exit = false;
+
+            String s = m.getKey().replaceAll("[^0-9]", "");
+            int i = 0;
+            int k = Integer.parseInt(s) - 1;
+
+            if (m.getValue().equals("Strongbox")) {
+                while (i < strongbox.length && !exit) {
+                    if (newCost[k].getColor() == strongbox[i].getColor()) {
+                        if (strongbox[i].getAmount() > 0) {
+                            strongbox[i].setAmount(strongbox[i].getAmount() - 1);
+                            exit = true;
+                        } else
+                            throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resource in the Strongbox! [" + newCost[k].getAmount() + "]");
+                    }
+                    i++;
+                }
+            } else
+            if (m.getValue().equals("Deposits")) {
+                while (i < deposits.size() && !exit) {
+                    if (deposits.get(i) != null) {
+                        if (newCost[k].getColor() == deposits.get(i).getColor()) {
+                            if (deposits.get(i).getAmount() > 0) {
+                                deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
+                                exit = true;
+                            } else
+                                throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resource in the Deposits! [" + newCost[k].getAmount() + "]");
+                        }
+                    }
+                    i++;
+                    if ( i == deposits.size() && !exit ) throw new InvalidActionException("There's no " + newCost[k].getColor() + " resource in the Deposits!");
+                }
+
+            }
+        }
+    }
+
+
+    /**
      * Utility method used in tests. It returns the String representation of the current card.
-     * @return
      */
     @Override
     public String toString() {

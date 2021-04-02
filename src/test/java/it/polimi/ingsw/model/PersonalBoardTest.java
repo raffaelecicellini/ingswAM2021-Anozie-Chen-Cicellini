@@ -229,4 +229,171 @@ public class PersonalBoardTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Tests if addToStrongbox works as expected.
+     */
+    @Test
+    void addToStrongbox() {
+        PersonalBoard pb = new PersonalBoard();
+        ResourceAmount[] test1 = new ResourceAmount[4];
+        test1[0] = new ResourceAmount(Color.GREY,9);
+        test1[1] = new ResourceAmount(Color.GREY,9);
+        test1[2] = new ResourceAmount(Color.GREY,9);
+        test1[3] = new ResourceAmount(Color.GREY,9);
+        pb.addToStrongbox(test1);
+        assertEquals(pb.getStrongbox()[2].getAmount(),36);
+        ResourceAmount[] test2 = new ResourceAmount[0];
+        for (int i = 0; i < test2.length; i++)
+            test2[i] = new ResourceAmount(null,99);
+        pb.addToStrongbox(test2);
+        assertEquals(pb.getStrongbox()[2].getAmount(),36);
+        assertEquals(pb.getStrongbox()[0].getAmount(),0);
+        assertEquals(pb.getStrongbox()[1].getAmount(),0);
+        assertEquals(pb.getStrongbox()[3].getAmount(),0);
+        ResourceAmount[] test3 = new ResourceAmount[8];
+        test3[0] = new ResourceAmount(Color.YELLOW,1);
+        test3[1] = new ResourceAmount(Color.GREY,2);
+        test3[2] = new ResourceAmount(Color.PURPLE,3);
+        test3[3] = new ResourceAmount(Color.BLUE,4);
+        test3[4] = new ResourceAmount(Color.GREY,5);
+        test3[5] = new ResourceAmount(Color.YELLOW,6);
+        test3[6] = new ResourceAmount(Color.BLUE,7);
+        test3[7] = new ResourceAmount(Color.PURPLE,8);
+        pb.addToStrongbox(test3);
+        assertEquals(pb.getStrongbox()[2].getAmount(),43);
+        assertEquals(pb.getStrongbox()[0].getAmount(),11);
+        assertEquals(pb.getStrongbox()[1].getAmount(),11);
+        assertEquals(pb.getStrongbox()[3].getAmount(),7);
+    }
+
+    /**
+     * Tests if getPosition works as expected.
+     */
+    @Test
+    void getPosition() {
+        PersonalBoard pb = new PersonalBoard();
+        assertEquals(pb.getPosition(),0);
+        pb.getFaithMarker().setPosition(4);
+        assertEquals(pb.getPosition(),4);
+
+    }
+
+    /**
+     * Tests if setPosition works as expected.
+     */
+    @Test
+    void setPosition() {
+        PersonalBoard pb = new PersonalBoard();
+        assertEquals(pb.getPosition(),0);
+        pb.setPosition(4);
+        assertEquals(pb.getPosition(),4);
+
+    }
+
+    /**
+     * Tests if getStrongbox works as expected.
+     */
+    @Test
+    void getStrongbox() {
+        PersonalBoard pb = new PersonalBoard();
+        for (ResourceAmount x : pb.getStrongbox())
+            assertEquals(x.getAmount(),0);
+        assertEquals(pb.getStrongbox()[0].getColor(),Color.BLUE);
+        assertEquals(pb.getStrongbox()[1].getColor(),Color.PURPLE);
+        assertEquals(pb.getStrongbox()[2].getColor(),Color.GREY);
+        assertEquals(pb.getStrongbox()[3].getColor(),Color.YELLOW);
+    }
+
+    /**
+     * Tests if setStrongbox works as expected.
+     */
+    @Test
+    void setStrongbox() {
+        PersonalBoard pb = new PersonalBoard();
+        ResourceAmount[] test = new ResourceAmount[4];
+        for (ResourceAmount x : pb.getStrongbox())
+            assertEquals(x.getAmount(),0);
+        assertEquals(pb.getStrongbox()[0].getColor(),Color.BLUE);
+        assertEquals(pb.getStrongbox()[1].getColor(),Color.PURPLE);
+        assertEquals(pb.getStrongbox()[2].getColor(),Color.GREY);
+        assertEquals(pb.getStrongbox()[3].getColor(),Color.YELLOW);
+        test[0] = new ResourceAmount(Color.PURPLE,3);
+        test[1] = new ResourceAmount(Color.BLUE,3);
+        test[2] = new ResourceAmount(Color.GREY,3);
+        test[3] = new ResourceAmount(Color.YELLOW,3);
+        pb.setStrongbox(test);
+        for (ResourceAmount x : pb.getStrongbox())
+            assertEquals(x.getAmount(),3);
+        assertEquals(pb.getStrongbox()[0].getColor(),Color.PURPLE);
+        assertEquals(pb.getStrongbox()[1].getColor(),Color.BLUE);
+        assertEquals(pb.getStrongbox()[2].getColor(),Color.GREY);
+        assertEquals(pb.getStrongbox()[3].getColor(),Color.YELLOW);
+    }
+
+    /**
+     * Tests if getCell works as expected.
+     */
+    @Test
+    void getCell() {
+        PersonalBoard pb = new PersonalBoard();
+        for (int i = 0; i < 25; i++)
+            if (i == 8 || i == 16 || i == 24)
+                assertTrue(pb.getCell(i).isPopeSpace());
+            else
+                assertFalse(pb.getCell(i).isPopeSpace());
+        for (int i = 0; i <=2; i++)
+            assertEquals(pb.getCell(i).getVictoryPoints(),0);
+        for (int i = 3; i <=5; i++)
+            assertEquals(pb.getCell(i).getVictoryPoints(),1);
+        for (int i = 6; i <=8; i++)
+            assertEquals(pb.getCell(i).getVictoryPoints(),2);
+        for (int i = 9; i <=11; i++)
+            assertEquals(pb.getCell(i).getVictoryPoints(),4);
+        for (int i = 12; i <=14; i++)
+            assertEquals(pb.getCell(i).getVictoryPoints(),6);
+        for (int i = 15; i <=17; i++)
+            assertEquals(pb.getCell(i).getVictoryPoints(),9);
+        for (int i = 18; i <=20; i++)
+            assertEquals(pb.getCell(i).getVictoryPoints(),12);
+        for (int i = 21; i <=23; i++)
+            assertEquals(pb.getCell(i).getVictoryPoints(),16);
+        assertEquals(pb.getCell(24).getVictoryPoints(),20);
+    }
+
+    /**
+     * Test if getTile works as expected.
+     */
+    @Test
+    void getTile() {
+        PersonalBoard pb = new PersonalBoard();
+        for (int i = 0; i < 3; i++)
+            assertFalse(pb.getTile(i));
+    }
+
+    /**
+     * Test if setTile works as expected.
+     */
+    @Test
+    void setTile() {
+        PersonalBoard pb = new PersonalBoard();
+        for (int i = 0; i < 3; i++)
+            assertFalse(pb.getTile(i));
+        pb.setTile(0,true);
+        pb.setTile(1,true);
+        pb.setTile(2,true);
+        for (int i = 0; i < 3; i++)
+            assertTrue(pb.getTile(i));
+    }
+
+    /**
+     * Tests if getFaithMarker works as expected.
+     */
+    @Test
+    void getFaithMarker() {
+        PersonalBoard pb = new PersonalBoard();
+        assertNotNull(pb.getFaithMarker());
+        assertEquals(pb.getFaithMarker().getPosition(),0);
+
+    }
 }

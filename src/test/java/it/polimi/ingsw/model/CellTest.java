@@ -64,6 +64,6 @@ class CellTest {
         assertTrue(b.isPopeSpace());
         b.setPopeSpace(true);
         assertTrue(b.isPopeSpace());
-
     }
+
 }

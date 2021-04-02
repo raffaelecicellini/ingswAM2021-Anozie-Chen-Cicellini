@@ -37,7 +37,7 @@ public class Cell {
      * @return if the Cell is Pope Space.
      */
     public boolean isPopeSpace() {
-        return popeSpace;
+        return this.popeSpace;
     }
 
     /**

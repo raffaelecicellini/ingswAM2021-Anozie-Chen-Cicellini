@@ -204,6 +204,10 @@ public class DevelopCard {
 
     /**
      * Method to activate a production on a single Develop Card
+     * @param map: the map indicates which resource and from where you want to take it, to start a production
+     * @param strongbox : indicates the reference to the strongbox
+     * @param deposits : indicates the reference to the deposits
+     * @param strongboxOutput : indicates the output strongbox, which contains the resources that have been produced
      */
     public void activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException{
 
@@ -273,6 +277,9 @@ public class DevelopCard {
 
     /**
      * Method to buy the develop card
+     * @param map: the map indicates which resource and from where you want to take it, to buy a Develop Card
+     * @param strongbox : indicates the reference to the strongbox
+     * @param deposits : indicates the reference to the deposits
      */
     public void buyDevelopCard(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits) throws InvalidActionException{
 

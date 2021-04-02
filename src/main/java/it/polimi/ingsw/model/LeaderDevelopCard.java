@@ -23,6 +23,13 @@ public class LeaderDevelopCard extends DevelopCard{
     }
 
 
+    /**
+     * Method to activate a production on a Leader Develop Card
+     * @param map: the map indicates which resource and from where you want to take it, to start a production
+     * @param strongbox : indicates the reference to the strongbox
+     * @param deposits : indicates the reference to the deposits
+     * @param strongboxOutput : indicates the output strongbox, which contains the resource that has been produced
+     */
     @Override
     public void activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException {
 

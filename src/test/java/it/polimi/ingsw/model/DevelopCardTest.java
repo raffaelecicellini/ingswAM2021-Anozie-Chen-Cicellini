@@ -436,8 +436,8 @@ class DevelopCardTest {
         strongboxOutput[3] = new ResourceAmount(Color.BLUE, 0);
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Deposits");
-        map.put("Res2", "Deposits");
+        map.put("Res1", "small");
+        map.put("Res2", "big");
 
         try {
             test.activateProduction(map, strongbox, deposits, strongboxOutput);
@@ -455,7 +455,7 @@ class DevelopCardTest {
     }
 
     /**
-     * 2 same resources from strongbox
+     * 2 same resources from deposits
      */
     @Test
     public void activateProductionTest4() {
@@ -500,8 +500,8 @@ class DevelopCardTest {
         strongboxOutput[3] = new ResourceAmount(Color.BLUE, 0);
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Deposits");
-        map.put("Res2", "Deposits");
+        map.put("Res1", "mid");
+        map.put("Res2", "mid");
 
         try {
             test.activateProduction(map, strongbox, deposits, strongboxOutput);
@@ -565,7 +565,7 @@ class DevelopCardTest {
         strongboxOutput[3] = new ResourceAmount(Color.BLUE, 0);
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Deposits");
+        map.put("Res1", "mid");
         map.put("Res2", "Strongbox");
 
         try {
@@ -589,7 +589,7 @@ class DevelopCardTest {
     }
 
     /**
-     * trying activateProduction exceptions
+     * trying invalid comands
      */
     @Test
     public void activateProductionTest6() {
@@ -634,8 +634,8 @@ class DevelopCardTest {
         strongboxOutput[3] = new ResourceAmount(Color.BLUE, 0);
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Deposits");
-        map.put("Res2", "Deposits");
+        map.put("Res1", "mid");
+        //map.put("Res2", "Deposits");
 
         try {
             test.activateProduction(map, strongbox, deposits, strongboxOutput);
@@ -691,7 +691,7 @@ class DevelopCardTest {
         strongboxOutput[3] = new ResourceAmount(Color.BLUE, 0);
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Strongbo");
+        //map.put("Res1", "Strongbo");
         //map.put("Res", "Strongbox");
 
         try {
@@ -805,9 +805,9 @@ class DevelopCardTest {
         deposits.add(new ResourceAmount(Color.YELLOW, 3));
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Deposits");
-        map.put("Res2", "Deposits");
-        map.put("Res3", "Deposits");
+        map.put("Res1", "big");
+        map.put("Res2", "big");
+        map.put("Res3", "small");
 
         try {
             test.buyDevelopCard(map, strongbox, deposits);
@@ -864,9 +864,9 @@ class DevelopCardTest {
         deposits.add(new ResourceAmount(Color.YELLOW, 3));
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Deposits");
-        map.put("Res2", "Deposits");
-        map.put("Res3", "Deposits");
+        map.put("Res1", "big");
+        map.put("Res2", "big");
+        map.put("Res3", "big");
         map.put("Res4", "Strongbox");
         map.put("Res5", "Strongbox");
         map.put("Res6", "Strongbox");
@@ -926,13 +926,13 @@ class DevelopCardTest {
         deposits.add(new ResourceAmount(Color.YELLOW, 3));
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Deposits");
-        map.put("Res2", "Deposits");
-        map.put("Res3", "Deposits");
+        map.put("Res1", "small");
+        map.put("Res2", "mid");
+        map.put("Res3", "big");
         map.put("Res4", "Strongbox");
         map.put("Res5", "Strongbox");
         map.put("Res6", "Strongbox");
-        map.put("Res7", "Deposits");
+        map.put("Res7", "small");
         map.put("Res8", "Strongbox");
 
         try {
@@ -940,13 +940,5 @@ class DevelopCardTest {
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
-
-        /*assertEquals(1, deposits.get(0).getAmount());
-        assertEquals(2, deposits.get(1).getAmount());
-        assertEquals(0, deposits.get(2).getAmount());
-        assertEquals(0, strongbox[0].getAmount());
-        assertEquals(0, strongbox[1].getAmount());
-        assertEquals(0, strongbox[2].getAmount());
-        assertEquals(3, strongbox[3].getAmount());*/
     }
 }

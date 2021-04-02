@@ -37,9 +37,9 @@ public class PersonalBoard {
     public PersonalBoard() {
         this.faithMarker= new FaithMarker(0);
         this.favorTile= new FavorTile[3];
-        for (int i=0; i<3; i++){
-            this.favorTile[i]=new FavorTile(i+2, false);
-        }
+        this.favorTile[0] = new FavorTile(2,false,5,8);
+        this.favorTile[1] = new FavorTile(3,false,12,16);
+        this.favorTile[2] = new FavorTile(4,false,19,24);
         this.slots= new ArrayList<>();
         for (int i=0; i<3; i++){
             this.slots.add(new DevelopCard[3]);
@@ -59,36 +59,40 @@ public class PersonalBoard {
                 if (i==8) faithTrack[i]= new Cell(2, true);
                 else if (i==16) faithTrack[i]= new Cell(9, true);
                 else faithTrack[i]= new Cell(20, true);
-            }
-            if (i<=2) faithTrack[i]= new Cell(0, false);
-            else if (i<=5) faithTrack[i]= new Cell(1, false);
-            else if (i<=7) faithTrack[i]= new Cell(2, false);
-            else if (i<=11) faithTrack[i]= new Cell(4, false);
-            else if (i<=14) faithTrack[i]= new Cell(6, false);
-            else if (i==15 || i==17) faithTrack[i]= new Cell(9, false);
-            else if (i<=20) faithTrack[i]= new Cell(12, false);
-            else if (i<=23) faithTrack[i]= new Cell(16, false);
+            } else if (i<=2) faithTrack[i]= new Cell(0, false);
+            else if (i>=3 && i<=5) faithTrack[i]= new Cell(1, false);
+            else if (i>=6 && i<=8) faithTrack[i]= new Cell(2, false);
+            else if (i>=9 && i<=11) faithTrack[i]= new Cell(4, false);
+            else if (i>=12 && i<=14) faithTrack[i]= new Cell(6, false);
+            else if (i>=15 && i<=17) faithTrack[i]= new Cell(9, false);
+            else if (i>=18 && i<=20) faithTrack[i]= new Cell(12, false);
+            else if (i>=21 && i<=23) faithTrack[i]= new Cell(16, false);
         }
     }
 
     /**
-     * This method returns the position of .
+     * This method returns the position of the faith marker.
      */
     public int getPosition() {
-        return 0;
+        return faithMarker.getPosition();
     }
 
     /**
-     *
+     *This method changes the faith marker's position.
      */
     public void setPosition(int position) {
-
+        faithMarker.setPosition(position);
     }
 
     /**
-     *
+     *This method adds resources to the strongbox
+     * @param res is the array of resources.
      */
     public void addToStrongbox(ResourceAmount[] res) {
+        for (ResourceAmount x : res)
+            for (ResourceAmount y: strongbox)
+                if (x.getColor() == y.getColor())
+                    y.setAmount(y.getAmount()+x.getAmount());
 
     }
 
@@ -259,5 +263,56 @@ public class PersonalBoard {
             slot[0]=card;
             slots.add(slot);
         }
+    }
+
+    /**
+     * This method returns the strongbox.
+     * @return the strongbox.
+     */
+    public ResourceAmount[] getStrongbox() {
+        return strongbox;
+    }
+
+    /**
+     * This method changes the strongbox reference.
+     * @param strongbox is the new strongbox reference.
+     */
+    public void setStrongbox(ResourceAmount[] strongbox) {
+        this.strongbox = strongbox;
+    }
+
+    /**
+     * This method returns the Cell at that index.
+     * @param pos is the index.
+     * @return the Cell at that index.
+     */
+    public Cell getCell(int pos) {
+        return faithTrack[pos];
+    }
+
+    /**
+     * This method returns the state of a FavorTile at a specific index.
+     * @param pos is the index of the FavorTile.
+     * @return the state of the FavorTile.
+     */
+    public boolean getTile (int pos) {
+        return favorTile[pos].isActive();
+    }
+
+    /**
+     * This method changes the status of a FavorTile at a specific index.
+     * @param pos is the index of the FavorTile.
+     * @param status is the new status of the FavorTile.
+     */
+    public void setTile (int pos, boolean status) {
+        favorTile[pos].setActive(status);
+    }
+
+    /**
+     * This method returns the FaithMarker.
+     * @return the FaithMarker.
+     */
+    public FaithMarker getFaithMarker() {
+        return faithMarker;
     }
 }

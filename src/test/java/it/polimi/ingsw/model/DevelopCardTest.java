@@ -650,6 +650,59 @@ class DevelopCardTest {
         assertEquals(0, strongboxOutput[3].getAmount());
     }
 
+    /**
+     *  trying wrong inputs
+     */
+    @Test
+    public void activateProductionTest7() {
+        int level=1;
+        int victoryPoints=1;
+        int faithOutput=1;
+        Color color=Color.BLUE;
+        ResourceAmount[] cost= new ResourceAmount[4];
+        cost[0]= new ResourceAmount(Color.YELLOW,2);
+        cost[1]= new ResourceAmount(Color.BLUE, 0);
+        cost[2]= new ResourceAmount(Color.PURPLE, 0);
+        cost[3]= new ResourceAmount(Color.GREEN, 0);
+        ResourceAmount[] input= new ResourceAmount[4];
+        input[0]= new ResourceAmount(Color.YELLOW,1);
+        input[1]= new ResourceAmount(Color.PURPLE, 0);
+        input[2]= new ResourceAmount(Color.BLUE, 0);
+        input[3]= new ResourceAmount(Color.GREY, 0);
+        ResourceAmount[] output= new ResourceAmount[4];
+        output[0]= new ResourceAmount(Color.YELLOW,1);
+        output[1]= new ResourceAmount(Color.BLUE, 1);
+        output[2]= new ResourceAmount(Color.PURPLE, 0);
+        output[3]= new ResourceAmount(Color.GREY, 0);
+
+        DevelopCard test = new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+
+        ResourceAmount[] strongbox = new ResourceAmount[2];
+        strongbox[0] = new ResourceAmount(Color.YELLOW, 6);
+        strongbox[1] = new ResourceAmount(Color.PURPLE, 4);
+
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(Color.BLUE, 1));
+
+        ResourceAmount[] strongboxOutput = new ResourceAmount[4];
+        strongboxOutput[0] = new ResourceAmount(Color.YELLOW, 0);
+        strongboxOutput[1] = new ResourceAmount(Color.PURPLE, 0);
+        strongboxOutput[2] = new ResourceAmount(Color.GREY, 0);
+        strongboxOutput[3] = new ResourceAmount(Color.BLUE, 0);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("Res1", "Strongbo");
+        //map.put("Res", "Strongbox");
+
+        try {
+            test.activateProduction(map, strongbox, deposits, strongboxOutput);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     // Testing buyDevelopCard method
 

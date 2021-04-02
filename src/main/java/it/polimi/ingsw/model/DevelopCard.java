@@ -227,6 +227,7 @@ public class DevelopCard {
             exit = false;
 
             String s = m.getKey().replaceAll("[^0-9]", "");
+            if (s.equals("")) throw new InvalidActionException("Invalid action! Only [\"Res#\"] accepted!");
             int i = 0;
             int k = Integer.parseInt(s) - 1;
 
@@ -257,7 +258,7 @@ public class DevelopCard {
                     if ( i == deposits.size() && !exit ) throw new InvalidActionException("There's no " + newInput[k].getColor() + " resource in the Deposits!");
                 }
 
-            }
+            } else throw new InvalidActionException("Invalid action! Only [\"Strongbox\"]/[\"Deposits\"] accepted!");
         }
 
 
@@ -294,6 +295,7 @@ public class DevelopCard {
             exit = false;
 
             String s = m.getKey().replaceAll("[^0-9]", "");
+            if (s.equals("")) throw new InvalidActionException("Invalid action! Only [\"Res#\"] accepted!");
             int i = 0;
             int k = Integer.parseInt(s) - 1;
 
@@ -304,7 +306,7 @@ public class DevelopCard {
                             strongbox[i].setAmount(strongbox[i].getAmount() - 1);
                             exit = true;
                         } else
-                            throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resource in the Strongbox! [" + newCost[k].getAmount() + "]");
+                            throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resources in the Strongbox! [" + newCost[k].getAmount() + "]");
                     }
                     i++;
                 }
@@ -317,14 +319,14 @@ public class DevelopCard {
                                 deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
                                 exit = true;
                             } else
-                                throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resource in the Deposits! [" + newCost[k].getAmount() + "]");
+                                throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resources in the Deposits! [" + newCost[k].getAmount() + "]");
                         }
                     }
                     i++;
-                    if ( i == deposits.size() && !exit ) throw new InvalidActionException("There's no " + newCost[k].getColor() + " resource in the Deposits!");
+                    if ( i == deposits.size() && !exit ) throw new InvalidActionException("There's no " + newCost[k].getColor() + " resources in the Deposits!");
                 }
 
-            }
+            } else throw new InvalidActionException("Invalid action! Only [\"Strongbox\"]/[\"Deposits\"] accepted!");
         }
     }
 

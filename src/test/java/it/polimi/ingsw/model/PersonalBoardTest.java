@@ -292,7 +292,7 @@ public class PersonalBoardTest {
     }
 
     /**
-     * Tests if getStrongbox works as expected.
+     * Tests if getStrongbox works as expected (doesn't change the private strongbox).
      */
     @Test
     void getStrongbox() {
@@ -302,6 +302,8 @@ public class PersonalBoardTest {
         assertEquals(pb.getStrongbox()[0].getColor(),Color.BLUE);
         assertEquals(pb.getStrongbox()[1].getColor(),Color.PURPLE);
         assertEquals(pb.getStrongbox()[2].getColor(),Color.GREY);
+        assertEquals(pb.getStrongbox()[3].getColor(),Color.YELLOW);
+        pb.getStrongbox()[3].setColor(Color.BLUE);
         assertEquals(pb.getStrongbox()[3].getColor(),Color.YELLOW);
     }
 

@@ -266,11 +266,14 @@ public class PersonalBoard {
     }
 
     /**
-     * This method returns the strongbox.
+     * This method returns a copy of the strongbox.
      * @return the strongbox.
      */
     public ResourceAmount[] getStrongbox() {
-        return strongbox;
+        ResourceAmount[] clone = new ResourceAmount[4];
+        for (int i = 0; i < 4; i++)
+            clone[i] = new ResourceAmount(strongbox[i].getColor(),strongbox[i].getAmount());
+        return clone;
     }
 
     /**

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class LeaderDevelopCard extends DevelopCard{
@@ -33,13 +34,14 @@ public class LeaderDevelopCard extends DevelopCard{
     @Override
     public void activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException {
 
+        if (map.size() != 2) throw new InvalidActionException("Invalid action! Check the number of resources!");
 
         for (Map.Entry<String, String> m : map.entrySet()) {
 
             boolean exit = false;
             int i = parseChoice(m.getValue());
 
-                if (m.getValue().equals("Strongbox")) {
+                if (m.getValue().toLowerCase(Locale.ROOT).equals("strongbox")) {
                     i = 0;
                 while (i < strongbox.length && !exit) {
                     if (getInput()[0].getColor() == strongbox[i].getColor()) {

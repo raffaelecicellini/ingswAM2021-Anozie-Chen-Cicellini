@@ -200,7 +200,7 @@ public class DevelopCard {
     }
 
     protected int parseChoice(String chosen){
-        switch (chosen.toLowerCase(Locale.ROOT)){
+        switch (chosen.toLowerCase()){
             case "small": return 0;
             case "mid": return 1;
             case "big": return 2;
@@ -217,7 +217,7 @@ public class DevelopCard {
      * @param deposits : indicates the reference to the deposits
      * @param strongboxOutput : indicates the output strongbox, which contains the resources that have been produced
      */
-    public void activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException{
+    public int activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException{
 
         boolean exit;
 
@@ -244,7 +244,7 @@ public class DevelopCard {
             int i;
             int k = Integer.parseInt(s) - 1;
 
-            if (m.getValue().toLowerCase(Locale.ROOT).equals("strongbox")) {
+            if (m.getValue().toLowerCase().equals("strongbox")) {
                 i = 0;
                     while (i < strongbox.length && !exit) {
                         if (newInput[k].getColor() == strongbox[i].getColor()) {
@@ -289,6 +289,7 @@ public class DevelopCard {
             while (output[x].getColor() != strongboxOutput[i].getColor()) { x++; }
             strongboxOutput[i].setAmount(strongboxOutput[i].getAmount() + output[x].getAmount());
         }
+        return faithOutput;
     }
 
 
@@ -324,7 +325,7 @@ public class DevelopCard {
             int i = parseChoice(m.getValue());
             int k = Integer.parseInt(s) - 1;
 
-            if (m.getValue().toLowerCase(Locale.ROOT).equals("strongbox")) {
+            if (m.getValue().toLowerCase().equals("strongbox")) {
                 i = 0;
                 while (i < strongbox.length && !exit) {
                     if (newCost[k].getColor() == strongbox[i].getColor()) {

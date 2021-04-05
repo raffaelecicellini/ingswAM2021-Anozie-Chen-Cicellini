@@ -32,7 +32,7 @@ public class LeaderDevelopCard extends DevelopCard{
      * @param strongboxOutput : indicates the output strongbox, which contains the resource that has been produced
      */
     @Override
-    public void activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException {
+    public int activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException {
 
         if (map.size() != 2) throw new InvalidActionException("Invalid action! Check the number of resources!");
 
@@ -76,11 +76,12 @@ public class LeaderDevelopCard extends DevelopCard{
                             if (m.getKey().equals("Resout")) {
                                 i = 0;
                                 while (i < strongboxOutput.length && !exit) {
-                                    if (!strongboxOutput[i].getColor().toString().equals(m.getValue())) i++;
+                                    if (!strongboxOutput[i].getColor().toString().toLowerCase().equals(m.getValue())) i++;
                                     else exit = true;
                                 }
                                 strongboxOutput[i].setAmount(strongboxOutput[i].getAmount() + 1);
                     } else throw new InvalidActionException("Invalid action! ( suggestion: ([\"Res1\"], [\"Strongbox\"]/[\"Deposits\"]), ([\"Resout\"], [\"COLOR\"]) )");
                 }
+        return getFaithOutput();
     }
 }

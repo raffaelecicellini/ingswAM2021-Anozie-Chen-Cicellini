@@ -200,7 +200,7 @@ public class DevelopCard {
     }
 
     protected int parseChoice(String chosen){
-        switch (chosen){
+        switch (chosen.toLowerCase(Locale.ROOT)){
             case "small": return 0;
             case "mid": return 1;
             case "big": return 2;
@@ -232,6 +232,7 @@ public class DevelopCard {
                 cont++;
             }
         }
+        if (map.size() != j) throw new InvalidActionException("Invalid action! Check the number of resources!");
 
         // try to modify the temporary strongbox and deposits
         for (Map.Entry<String, String> m : map.entrySet()) {
@@ -243,7 +244,7 @@ public class DevelopCard {
             int i;
             int k = Integer.parseInt(s) - 1;
 
-            if (m.getValue().equals("Strongbox")) {
+            if (m.getValue().toLowerCase(Locale.ROOT).equals("strongbox")) {
                 i = 0;
                     while (i < strongbox.length && !exit) {
                         if (newInput[k].getColor() == strongbox[i].getColor()) {
@@ -320,7 +321,7 @@ public class DevelopCard {
 
             String s = m.getKey().replaceAll("[^0-9]", "");
             if (s.equals("")) throw new InvalidActionException("Invalid action! Only [\"res#\"] accepted!");
-            int i = parseChoice(m.getValue().toLowerCase(Locale.ROOT));
+            int i = parseChoice(m.getValue());
             int k = Integer.parseInt(s) - 1;
 
             if (m.getValue().toLowerCase(Locale.ROOT).equals("strongbox")) {

@@ -57,7 +57,7 @@ public class LeaderDevelopCardTest {
 
         Map<String, String> map = new HashMap<>();
         map.put("Res1", "Strongbox");
-        map.put("Resout", "BLUE");
+        map.put("Resout", "blue");
 
         try {
             test.activateProduction(map, strongbox, deposits, strongboxOutput);
@@ -115,8 +115,8 @@ public class LeaderDevelopCardTest {
         strongboxOutput[3] = new ResourceAmount(Color.BLUE, 0);
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Deposits");
-        map.put("Resout", "BLUE");
+        map.put("Res1", "small");
+        map.put("Resout", "blue");
 
         try {
             test.activateProduction(map, strongbox, deposits, strongboxOutput);
@@ -185,7 +185,7 @@ public class LeaderDevelopCardTest {
         Map<String, String> map = new HashMap<>();
         map.put("Res1", "Deposits");
         //map.put("Res1", "Strongbox");
-        map.put("Resout", "BLUE");
+        map.put("Resout", "blue");
 
         try {
             test.activateProduction(map, strongbox, deposits, strongboxOutput);

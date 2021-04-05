@@ -2,10 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class represents a DevelopCard that can be bought by a player or discarded in the Solo game.
@@ -203,7 +200,7 @@ public class DevelopCard {
     }
 
     protected int parseChoice(String chosen){
-        switch (chosen){
+        switch (chosen.toLowerCase()){
             case "small": return 0;
             case "mid": return 1;
             case "big": return 2;
@@ -220,7 +217,7 @@ public class DevelopCard {
      * @param deposits : indicates the reference to the deposits
      * @param strongboxOutput : indicates the output strongbox, which contains the resources that have been produced
      */
-    public void activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException{
+    public int activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException{
 
         boolean exit;
 
@@ -235,6 +232,7 @@ public class DevelopCard {
                 cont++;
             }
         }
+        if (map.size() != j) throw new InvalidActionException("Invalid action! Check the number of resources!");
 
         // try to modify the temporary strongbox and deposits
         for (Map.Entry<String, String> m : map.entrySet()) {
@@ -243,10 +241,10 @@ public class DevelopCard {
 
             String s = m.getKey().replaceAll("[^0-9]", "");
             if (s.equals("")) throw new InvalidActionException("Invalid action! Only [\"Res#\"] accepted!");
-            int i = parseChoice(m.getValue());
+            int i;
             int k = Integer.parseInt(s) - 1;
 
-            if (m.getValue().equals("Strongbox")) {
+            if (m.getValue().toLowerCase().equals("strongbox")) {
                 i = 0;
                     while (i < strongbox.length && !exit) {
                         if (newInput[k].getColor() == strongbox[i].getColor()) {
@@ -257,26 +255,31 @@ public class DevelopCard {
                         }
                         i++;
                     }
-            } else
+            } else {
+                i = parseChoice(m.getValue());
                 if (i >= 0 && i <= 2) {
                     if (deposits.get(i) != null) {
                         if (newInput[k].getColor() == deposits.get(i).getColor()) {
                             if (deposits.get(i).getAmount() > 0) {
                                 deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
-                            } else throw new InvalidActionException("There's not enough " + newInput[k].getColor() + " resource in that Deposit!");
-                        } else throw new InvalidActionException("There's no " + newInput[k].getColor() + " resource in that Deposit! Try choosing another one!");
+                            } else
+                                throw new InvalidActionException("There's not enough " + newInput[k].getColor() + " resource in that Deposit!");
+                        } else
+                            throw new InvalidActionException("There's no " + newInput[k].getColor() + " resource in that Deposit! Try choosing another one!");
                     } else throw new InvalidActionException("The chosen Deposit is empty!");
-                } else
-                    if (i >= 3 && i <= 4) {
+                } else if (i >= 3 && i <= 4) {
                     if (deposits.get(parseChoice(m.getValue())) != null) {
                         if (newInput[k].getColor() == deposits.get(i).getColor()) {
                             if (deposits.get(i).getAmount() > 0) {
                                 deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
-                            } else throw new InvalidActionException("There's not enough " + newInput[k].getColor() + " resource in that Deposits!");
-                        } else throw new InvalidActionException("There's no " + newInput[k].getColor() + " resource in that Deposits! Try choosing another one!");
+                            } else
+                                throw new InvalidActionException("There's not enough " + newInput[k].getColor() + " resource in that Deposits!");
+                        } else
+                            throw new InvalidActionException("There's no " + newInput[k].getColor() + " resource in that Deposits! Try choosing another one!");
                     } else throw new InvalidActionException("That Deposit does not exist, yet!");
                 } else
-                throw new InvalidActionException("Invalid action! Be sure you typed correctly!");
+                    throw new InvalidActionException("Invalid action! Be sure you typed correctly!");
+            }
         }
 
 
@@ -286,6 +289,7 @@ public class DevelopCard {
             while (output[x].getColor() != strongboxOutput[i].getColor()) { x++; }
             strongboxOutput[i].setAmount(strongboxOutput[i].getAmount() + output[x].getAmount());
         }
+        return faithOutput;
     }
 
 
@@ -310,17 +314,18 @@ public class DevelopCard {
                 cont++;
             }
         }
+        if (map.size() != j) throw new InvalidActionException("Invalid action! Check the number of resources!");
 
         for (Map.Entry<String, String> m : map.entrySet()) {
 
             exit = false;
 
             String s = m.getKey().replaceAll("[^0-9]", "");
-            if (s.equals("")) throw new InvalidActionException("Invalid action! Only [\"Res#\"] accepted!");
+            if (s.equals("")) throw new InvalidActionException("Invalid action! Only [\"res#\"] accepted!");
             int i = parseChoice(m.getValue());
             int k = Integer.parseInt(s) - 1;
 
-            if (m.getValue().equals("Strongbox")) {
+            if (m.getValue().toLowerCase().equals("strongbox")) {
                 i = 0;
                 while (i < strongbox.length && !exit) {
                     if (newCost[k].getColor() == strongbox[i].getColor()) {

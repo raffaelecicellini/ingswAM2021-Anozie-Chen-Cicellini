@@ -34,10 +34,10 @@ class ResourceLeaderTest {
         ts[1] = w;
         ts[2] = e;
         ts[3] = r;
-        assertTrue(a.checkRequirements(deposit,null,null,null,null,ts));
+        assertTrue(a.checkRequirements(deposit,null,null,ts));
         deposit.remove(0);
         ResourceAmount[] tr = new ResourceAmount[4];
-        assertFalse(a.checkRequirements(deposit,null,null,null,null,tr));
+        assertFalse(a.checkRequirements(deposit,null,null,tr));
     }
 
     /**

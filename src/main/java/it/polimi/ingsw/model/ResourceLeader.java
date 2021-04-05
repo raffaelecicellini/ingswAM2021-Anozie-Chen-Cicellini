@@ -28,15 +28,13 @@ public class ResourceLeader extends LeaderCard{
     /**
      * This method checks if the player respects the requirements. Not all parameters may be used.
      * @param deposits is the list of the player's deposits.
-     * @param slot1 is the player's first stack of development cards.
-     * @param slot2 is the player's second stack of development cards.
-     * @param slot3 is the player's third stack of development cards.
+     * @param slots is the list of the player's Developcard slots.
      * @param faithMarker is the player's faith marker.
      * @param strongbox is the player's strongbox
      * @return if the player respects the requirements.
      */
     @Override
-    public boolean checkRequirements(ArrayList<ResourceAmount> deposits, DevelopCard[] slot1, DevelopCard[] slot2, DevelopCard[] slot3, FaithMarker faithMarker, ResourceAmount[] strongbox) {
+    public boolean checkRequirements(ArrayList<ResourceAmount> deposits, ArrayList<DevelopCard[]> slots, FaithMarker faithMarker, ResourceAmount[] strongbox) {
         int counter = 0;
         for (ResourceAmount x : deposits)
             if (x!= null && x.getColor() == requirements.getColor())

@@ -28,15 +28,16 @@ public class LevTwoLeader extends LeaderCard {
     /**
      * This method checks if the player respects the requirements. Not all parameters may be used.
      * @param deposits is the list of the player's deposits.
-     * @param slot1 is the player's first stack of development cards.
-     * @param slot2 is the player's second stack of development cards.
-     * @param slot3 is the player's third stack of development cards.
+     * @param slots is the list of the player's DevelopCard slots.
      * @param faithMarker is the player's faith marker.
      * @param strongbox is the player's strongbox
      * @return if the player respects the requirements.
      */
     @Override
-    public boolean checkRequirements(ArrayList<ResourceAmount> deposits, DevelopCard[] slot1, DevelopCard[] slot2, DevelopCard[] slot3, FaithMarker faithMarker, ResourceAmount[] strongbox) {
+    public boolean checkRequirements(ArrayList<ResourceAmount> deposits, ArrayList<DevelopCard[]> slots, FaithMarker faithMarker, ResourceAmount[] strongbox) {
+        DevelopCard[] slot1= slots.get(0);
+        DevelopCard[] slot2= slots.get(1);
+        DevelopCard[] slot3= slots.get(2);
         for (DevelopCard x : slot1)
             if (x!= null && x.getColor() == color && x.getLevel() == 2)
                 return true;

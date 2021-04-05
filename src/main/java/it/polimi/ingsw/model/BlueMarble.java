@@ -115,7 +115,7 @@ public class BlueMarble implements Marble{
      * @return: the index of the chosen deposit
      */
     private int parseChoice(String chosen){
-        switch (chosen){
+        switch (chosen.toLowerCase()){
             case "small": return 0;
             case "mid": return 1;
             case "big": return 2;

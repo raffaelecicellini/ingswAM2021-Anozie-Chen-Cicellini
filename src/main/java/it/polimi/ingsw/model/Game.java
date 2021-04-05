@@ -1,15 +1,20 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.exceptions.InvalidActionException;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 public class Game {
     /**
      * Players that are in the Game
      */
-    private Player[] players;
-
+    private ArrayList<Player> players;
+    private int current;
     /**
      * Current Active Players in the Game
      */
-    private Player[] activePlayers;
+    private ArrayList<Player> activePlayers;
 
     /**
      * Current Player (has the turn)
@@ -66,4 +71,60 @@ public class Game {
      */
     private SoloActions soloActions;
 
+    public Game(){
+        this.players= new ArrayList<>();
+        this.activePlayers= new ArrayList<>();
+        this.market= new Market();
+        this.leaderDeck= new LeaderDeck();
+        this.developDecks= new DevelopDeck[4][3];
+        Color color;
+        for (int col=0; col<4; col++){
+            color= parseColor(col);
+            for (int row=0; row<3; row++){
+                this.developDecks[col][row]= new DevelopDeck(row+1, color);
+            }
+        }
+    }
+    private Color parseColor(int col){
+        switch (col){
+            case 0: return Color.GREEN;
+            case 1: return Color.BLUE;
+            case 2: return Color.YELLOW;
+            case 3: return Color.PURPLE;
+        }
+        return null;
+    }
+
+    public void start(){
+
+    }
+
+    private void chooseFirst(){
+
+    }
+
+    public void createPlayer(String name){
+        Player player= new Player(name);
+        players.add(player);
+        activePlayers.add(player);
+    }
+
+    public void produce(String player, Map<String, String> info) throws InvalidActionException {
+        if (currentPlayer.getName().equals(player)) currentPlayer.produce(info);
+        else throw new InvalidActionException("It is not your turn!");
+    }
+
+    public void activateLeader(String player, int pos) throws InvalidActionException{
+        if (currentPlayer.getName().equals(player)) currentPlayer.activateLeader(pos);
+        else throw new InvalidActionException("It is not your turn!");
+    }
+
+    public void discardLeader(String player, int pos) throws InvalidActionException{
+        if (currentPlayer.getName().equals(player)) currentPlayer.discardLeader(pos);
+        else throw new InvalidActionException("It is not your turn!");
+    }
+
+    public void endTurn(){
+
+    }
 }

@@ -203,7 +203,7 @@ public class DevelopCard {
     }
 
     protected int parseChoice(String chosen){
-        switch (chosen){
+        switch (chosen.toLowerCase()){
             case "small": return 0;
             case "mid": return 1;
             case "big": return 2;
@@ -220,7 +220,7 @@ public class DevelopCard {
      * @param deposits : indicates the reference to the deposits
      * @param strongboxOutput : indicates the output strongbox, which contains the resources that have been produced
      */
-    public void activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException{
+    public int activateProduction(Map<String, String> map, ResourceAmount[] strongbox, List<ResourceAmount> deposits, ResourceAmount[] strongboxOutput) throws InvalidActionException{
 
         boolean exit;
 
@@ -286,6 +286,7 @@ public class DevelopCard {
             while (output[x].getColor() != strongboxOutput[i].getColor()) { x++; }
             strongboxOutput[i].setAmount(strongboxOutput[i].getAmount() + output[x].getAmount());
         }
+        return faithOutput;
     }
 
 

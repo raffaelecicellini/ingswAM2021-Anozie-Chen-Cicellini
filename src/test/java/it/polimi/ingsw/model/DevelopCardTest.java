@@ -746,7 +746,7 @@ class DevelopCardTest {
         deposits.add(new ResourceAmount(Color.PURPLE, 3));
 
         Map<String, String> map = new HashMap<>();
-        map.put("Res1", "Strongbox");
+        map.put("Res1", "STRONGBOX");
         map.put("Res2", "Strongbox");
         map.put("Res3", "Strongbox");
         map.put("Res4", "Strongbox");
@@ -806,8 +806,8 @@ class DevelopCardTest {
 
         Map<String, String> map = new HashMap<>();
         map.put("Res1", "big");
-        map.put("Res2", "big");
-        map.put("Res3", "small");
+        map.put("RES2", "big");
+        map.put("Res3", "sMaLl");
 
         try {
             test.buyDevelopCard(map, strongbox, deposits);
@@ -866,10 +866,10 @@ class DevelopCardTest {
         Map<String, String> map = new HashMap<>();
         map.put("Res1", "big");
         map.put("Res2", "big");
-        map.put("Res3", "big");
+        map.put("Res3", "bIG");
         map.put("Res4", "Strongbox");
         map.put("Res5", "Strongbox");
-        map.put("Res6", "Strongbox");
+        map.put("RES6", "Strongbox");
 
         try {
             test.buyDevelopCard(map, strongbox, deposits);

@@ -127,4 +127,50 @@ public class Game {
     public void endTurn(){
 
     }
+
+    /**
+     * This method is used for a chooseInitialResource move at the start of the game.
+     * @param player is the player's name.
+     * @param map is where the information is stored.
+     * @throws InvalidActionException is the move is not valid.
+     */
+    public void chooseInitialResource(String player,Map<String, String> map) throws InvalidActionException {
+        if (currentPlayer.getName().equals(player)) currentPlayer.chooseInitialResource(map);
+        else throw new InvalidActionException("It is not your turn!");
+    }
+
+    /**
+     * This method is used for a buy move during the turn.
+     * @param player is the player's name.
+     * @param map is where the information is stored.
+     * @throws InvalidActionException if the move is not valid.
+     * @throws NumberFormatException if the format is not valid.
+     */
+    public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
+        if (!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
+        if (doneMandatory) throw new InvalidActionException("you have already done a mandatory operation in this turn.");
+        if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("you didn't select the card.");
+        int row = Integer.parseInt(map.get("row"));
+        int column = Integer.parseInt(map.get("column"));
+        if (row<0 || row>4 || column<0 || column>3) throw new InvalidActionException("wrong indexes selected ");
+        boolean end;
+        DevelopCard card = developDecks[row][column].getCard();
+        end = currentPlayer.buy(map, card);
+        developDecks[row][column].removeCard();
+        if (end)
+            isEndGame = true;
+        doneMandatory = true;
+    }
+
+    /**
+     * This method is used for a swapDeposit move during the turn.
+     * @param player is the player's name.
+     * @param map is where the information is stored.
+     * @throws InvalidActionException if the move is not valid.
+     */
+    public void swapDeposit(String player, Map<String,String> map) throws InvalidActionException {
+        if (currentPlayer.getName().equals(player)) currentPlayer.swapDeposit(map);
+        else throw new InvalidActionException("It is not your turn!");
+    }
+
 }

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Player {
@@ -191,5 +192,47 @@ public class Player {
             case "strongbox": return 5;
         }
         return -1;
+    }
+
+    public int fromMarket(Map<String, String> map, Marble[] marbles) throws InvalidActionException{
+
+        for (Map.Entry<String, String> m : map.entrySet()){
+
+            int dep = parseChoice(m.getValue()); // which deposit
+            if (dep == -1 || dep == 5) throw new InvalidActionException("Invalid action! You didn't insert a correct deposit!");
+
+            String pos = m.getKey().replaceAll("\\d", "").toLowerCase(Locale.ROOT);  // checking if it is "pos#"
+            if (pos.equals("pos")) {
+                String num_res = m.getKey().replaceAll("[^0-9]", "");
+                int ind_res = Integer.parseInt(num_res) - 1; // resource's index
+
+                String key = "Res" + ind_res;
+
+                if (map.containsKey(key)){
+
+                    if (marbles[ind_res].action(m.getValue(), personalBoard.getDeposits(), personalBoard.getFaithMarker(), leaders, null) >= 0){
+
+                    }
+                } else {
+                    personalBoard.setPosition(personalBoard.getPosition() + marbles[ind_res].action(m.getValue(), personalBoard.getDeposits(), personalBoard.getFaithMarker(), leaders, null) );
+                }
+
+            } else throw new InvalidActionException("Invalid action! You didn't type correctly!");
+        }
+
+        return 0;
+    }
+
+    public void receiveLeaders(ArrayList<LeaderCard> leaderCards){
+        leaders.addAll(leaderCards);
+    }
+
+    public void chooseLeader(int leader1, int leader2) throws InvalidActionException {
+        if (leader1 != leader2 && leader1 >= 1 && leader1 <= leaders.size() && leader2 >= 1 && leader2 <= leaders.size()) {
+            ArrayList<LeaderCard> temp = new ArrayList<LeaderCard>();
+            temp.add(leaders.get(leader1 - 1));
+            temp.add(leaders.get(leader2 - 1));
+            leaders = temp;
+        } else throw new InvalidActionException("Invalid action! Try typing two different indexes [1-4]!");
     }
 }

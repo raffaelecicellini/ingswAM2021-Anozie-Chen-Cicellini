@@ -61,16 +61,6 @@ public class Game {
      */
     private boolean isSolo;
 
-    /**
-     * this attribute represents Lorenzo il Magnifico in a Single Player Game
-     */
-    private FaithMarker blackCross;
-
-    /**
-     * Solo Actions used in a Single Player Game
-     */
-    private SoloActions soloActions;
-
     public Game(){
         this.players= new ArrayList<>();
         this.activePlayers= new ArrayList<>();
@@ -85,6 +75,7 @@ public class Game {
             }
         }
     }
+
     private Color parseColor(int col){
         switch (col){
             case 0: return Color.GREEN;
@@ -127,4 +118,10 @@ public class Game {
     public void endTurn(){
 
     }
+
+    public void fromMarket(String player, int i, Map<String, String> map) throws InvalidActionException {
+        if (currentPlayer.getName().equals(player)) currentPlayer.fromMarket(map, market.selectColumn(i));
+        else throw new InvalidActionException("It is not your turn!");
+    }
+
 }

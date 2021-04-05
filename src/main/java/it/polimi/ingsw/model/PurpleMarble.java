@@ -37,7 +37,7 @@ public class PurpleMarble implements Marble{
      * @throws InvalidActionException: it is thrown when the action can't be performed
      */
     @Override
-    public int action(String chosen, ArrayList<ResourceAmount> deposits, FaithMarker faith, LeaderCard[] leaders, Color chosenColor)
+    public int action(String chosen, ArrayList<ResourceAmount> deposits, FaithMarker faith, ArrayList<LeaderCard> leaders, Color chosenColor)
             throws InvalidActionException {
         int dep= this.parseChoice(chosen);
         if (dep>=0 && dep<3){

@@ -410,4 +410,30 @@ public class PlayerTest {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * testing chooseLeader
+     */
+    @Test
+    public void chooseLeaderTest(){
+        ArrayList<LeaderCard> leaders = new ArrayList<LeaderCard>();
+        leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE));
+        leaders.add(new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY));
+        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE));
+        leaders.add(new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE));
+
+        Player player = new Player("giacomino");
+        player.receiveLeaders(leaders);
+
+        try {
+            player.chooseLeader(1, 2);
+            assertEquals("OneAndOne", player.leaders.get(0).getType());
+            assertEquals("Resource", player.leaders.get(1).getType());
+            assertEquals(2, player.leaders.size());
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

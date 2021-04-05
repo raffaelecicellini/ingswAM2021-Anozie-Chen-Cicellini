@@ -1,5 +1,11 @@
 package it.polimi.ingsw.model;
 
+import com.sun.tools.javac.util.ArrayUtils;
+import it.polimi.ingsw.model.exceptions.InvalidActionException;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Game {
     /**
      * Players that are in the Game
@@ -66,4 +72,27 @@ public class Game {
      */
     private SoloActions soloActions;
 
+
+    public void endTurn() {
+
+    }
+
+    public void chooseInitialResource(String player,Map<String, String> map) throws InvalidActionException {
+        currentPlayer.chooseInitialResource(map);
+    }
+
+    public void buy(String player,Map<String, String> map) throws InvalidActionException, NumberFormatException {
+        if (doneMandatory == true) throw new InvalidActionException("you have already done a mandatory operation");
+        if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("you didn't select the card.");
+        int row = Integer.parseInt(map.get("row"));
+        int column = Integer.parseInt(map.get("column"));
+        if (row<0 || row>4 || column<0 || column>3) throw new InvalidActionException("wrong indexes selected ");
+        boolean end;
+        DevelopCard card = developDecks[row][column].getCard();
+        end = currentPlayer.buy(map, card);
+        developDecks[row][column].removeCard();
+        if (end)
+            isEndGame = true;
+        doneMandatory = true;
+    }
 }

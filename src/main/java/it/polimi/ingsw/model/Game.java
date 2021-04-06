@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 public class Game {
@@ -70,7 +71,9 @@ public class Game {
      * Solo Actions used in a Single Player Game
      */
     private SoloActions soloActions;
-
+    /**
+     * Used to check if the game is still in configuration phase
+     */
     private boolean isFirstTurn;
 
     public Game(){
@@ -88,6 +91,12 @@ public class Game {
         }
         this.isEndGame=false;
     }
+
+    /**
+     * Simple utility method used in Game's contructor to instantiate the DevelopDeck of a certain color
+     * @param col is the index of the column correspondent to a color
+     * @return the color correspondent to col
+     */
     private Color parseColor(int col){
         switch (col){
             case 0: return Color.GREEN;
@@ -99,19 +108,42 @@ public class Game {
     }
 
     public void start(){
+        //choose first player
+        Collections.shuffle(this.activePlayers);
 
+        //receive initial leaders
+
+
+        //receive initial faith and resources
+        for (int i=0; i<activePlayers.size(); i++){
+            if (i==1){
+                activePlayers.get(i).receiveInitialResource(1);
+            }
+            else if (i>1){
+                activePlayers.get(i).receiveInitialResource(i-1);
+                activePlayers.get(i).receiveInitialFaith(1);
+            }
+        }
     }
 
-    private void chooseFirst(){
-
-    }
-
+    /**
+     * This method is used when a player joins the game
+     * @param name
+     */
     public void createPlayer(String name){
         Player player= new Player(name);
         players.add(player);
         activePlayers.add(player);
     }
 
+    /**
+     * This method is called by the controller when a client decided to activate productions. It checks if the player who wants
+     * to do the action is the current one (if it is his turn), then calls the player's produce method.
+     * @param player is the player who wants to do the action
+     * @param info this map contains the info about all the productions that the player wants to activate
+     * @throws InvalidActionException when it is not the turn of the player who wants to act, when he already did a mandatory action
+     * or when the one of the productions was invalid (no resources or wrong positions from where to take them)
+     */
     public void produce(String player, Map<String, String> info) throws InvalidActionException {
         if (currentPlayer.getName().equals(player) && !doneMandatory) {
             currentPlayer.produce(info);
@@ -121,6 +153,14 @@ public class Game {
         else throw new InvalidActionException("It is not your turn!");
     }
 
+    /**
+     * This method is called by the controller when a client decided to activate a leader. It checks if the player who wants
+     * to do the action is the current one (if it is his turn), then calls the player's activateLeader method.
+     * @param player is the player who wants to do the action
+     * @param pos it represents the leader that the player wants to activate
+     * @throws InvalidActionException when it is not the turn of the player, when he already activated/discarded his leaders,
+     * when he doesn't respect the requirements of the selected leader.
+     */
     public void activateLeader(String player, int pos) throws InvalidActionException{
         if (currentPlayer.getName().equals(player) && doneLeader<2) {
             currentPlayer.activateLeader(pos);
@@ -130,6 +170,13 @@ public class Game {
         else throw new InvalidActionException("It is not your turn!");
     }
 
+    /**
+     * This method is called by the controller when a client decided to discard a leader. It checks if the player who wants
+     * to do the action is the current one (if it is his turn), then calls the player's discardLeader method.
+     * @param player is the player who wants to do the action
+     * @param pos it represents the leader that the player wants to discard
+     * @throws InvalidActionException when it is not the turn of the player, when he already activated/discarded his leaders.
+     */
     public void discardLeader(String player, int pos) throws InvalidActionException{
         if (currentPlayer.getName().equals(player) && doneLeader<2) {
             currentPlayer.discardLeader(pos);
@@ -139,17 +186,26 @@ public class Game {
         else throw new InvalidActionException("It is not your turn!");
     }
 
-    public void endTurn(){
+    /**
+     * This method is called by the controller when a client decided to end his turn. It checks if the player who wants
+     * to do the action is the current one (if it is his turn), then it activates the Pope's reports if needed (setting or
+     * discarding the FavorTiles of each player) and controls if the game is at the end: if so, it counts the points of
+     * each player and selects the winner; otherwise, it chooses the next player that can do actions (currentPlayer).
+     * @param player is the player who wants to end the turn
+     * @throws InvalidActionException when it is not the turn of the player
+     */
+    public void endTurn(String player) throws InvalidActionException {
+        if(!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
         //select max position and set the tiles if needed: if someone is at the end, set isEndgame
         int max=0;
         int curr;
         boolean exit=false;
         Player maxPlayer=null;
-        for (Player player: activePlayers) {
-            curr=player.getPersonalBoard().getFaithMarker().getPosition();
+        for (Player p: activePlayers) {
+            curr=p.getPersonalBoard().getFaithMarker().getPosition();
             if (curr>max){
                 max=curr;
-                maxPlayer=player;
+                maxPlayer=p;
             }
         }
         for (int i=2; i>=0 && !exit && maxPlayer!=null; i--) {
@@ -192,8 +248,13 @@ public class Game {
         }
     }
 
+    /**
+     * Utility method used when a player reaches a pope' space on the FaithTrack. It checks the other players' positions
+     * and activate/discard their FavorTile depending on their position.
+     * @param max it is the player that triggered the action: his FavorTile has already been set in endTurn()
+     * @param pos it indicates which of the 3 FavorTiles needs to be activated or discarded for each player
+     */
     private void setTiles(Player max, int pos){
-        //CHECK DISCARDED
         for (Player player: activePlayers) {
             if (!player.getName().equals(max.getName())){
                 FavorTile tile=player.getPersonalBoard().getTile(pos);
@@ -205,6 +266,11 @@ public class Game {
         }
     }
 
+    /**
+     * Utility method used to count the victory points cumulated by a player.
+     * @param player the player whose points are going to be calculated
+     * @return the number of points of the player passed as a parameter
+     */
     private int getPoints(Player player){
         int points=0;
         PersonalBoard pb= player.getPersonalBoard();
@@ -242,6 +308,13 @@ public class Game {
         return points;
     }
 
+    /**
+     * Utility method called when two players have the same amount of victory points. It chooses the winner based on the
+     * amount of resources left for each player.
+     * @param p1 the first player
+     * @param p2 th second player
+     * @return the winner (the player that has more resources)
+     */
     private Player winnerByResources(Player p1, Player p2){
         int res1=0;
         int res2=0;

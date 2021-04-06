@@ -3,11 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.Test;
 
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -410,4 +406,387 @@ public class PlayerTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Tests if the player can the same resources in the same deposit.
+     */
+    @Test
+    public void chooseInitialResourceTest1() {
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","yellow");
+        test.put("pos1","mid");
+        test.put("pos2","mid");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        try {
+            p1.chooseInitialResource(test);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),2);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *Test where you can see that the player can't put two different resources in the same deposit. The deposits are unchanged.
+     */
+    @Test
+    public void chooseInitialResourceTest2() {
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","blue");
+        test.put("pos1","mid");
+        test.put("pos2","mid");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        try {
+            p1.chooseInitialResource(test);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+            p1.receiveInitialResource(2);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        }
+    }
+
+    /**
+     * Test where you can see that the player can put two resources in two different deposits.
+     */
+    @Test
+    public void chooseInitialResourceTest3() {
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","blue");
+        test.put("pos1","mid");
+        test.put("pos2","small");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        try {
+            p1.chooseInitialResource(test);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Test where you can see that the player can put two resources in two different deposits.
+     */
+    @Test
+    public void chooseInitialResourceTest4() {
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","blue");
+        test.put("pos1","mid");
+        test.put("pos2","big");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        try {
+            p1.chooseInitialResource(test);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),Color.BLUE);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Test where you can see that the player can't put resources in the extra deposit. The player's deposits are unchanged.
+     */
+    @Test
+    public void chooseInitialResourceTest5() {
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","blue");
+        test.put("pos1","mid");
+        test.put("pos2","sp2");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        p1.receiveInitialResource(2);
+        try {
+            p1.chooseInitialResource(test);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+            p1.receiveInitialResource(2);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        }
+    }
+
+    /**
+     * Test where you can see that the player can't get more resources than he should. The player's deposits are unchanged.
+     */
+    @Test
+    public void chooseInitialResourceTest6() {
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","blue");
+        test.put("pos1","mid");
+        test.put("pos2","sp2");
+        test.put("pos3","mid");
+        test.put("res3","yellow");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        p1.receiveInitialResource(2);
+        try {
+            p1.chooseInitialResource(test);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+            p1.receiveInitialResource(2);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        }
+    }
+
+    /**
+     * Test where you can see that the player can't store the same resource in two different deposits and the player's deposit are unchanged.
+     */
+    @Test
+    public void chooseInitialResourceTest7() {
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","yellow");
+        test.put("pos1","mid");
+        test.put("pos2","small");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        try {
+            p1.chooseInitialResource(test);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        }
+    }
+
+    /**
+     * Test if swapDeposits works as expected.
+     */
+    @Test
+    public void swapTest1() {
+        Map<String,String> map = new HashMap<>();
+        map.put("source","big");
+        map.put("dest","mid");
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","blue");
+        test.put("pos1","mid");
+        test.put("pos2","big");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        try {
+            p1.chooseInitialResource(test);
+            p1.swapDeposit(map);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.BLUE);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Test shows that swapDeposit will throw an exception if the amount of information is not as expected.
+     */
+    @Test
+    public void swapTest2() {
+        Map<String,String> map = new HashMap<>();
+        map.put("source","big");
+        map.put("dest","mid");
+        map.put("test","test");
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("res2","blue");
+        test.put("pos1","mid");
+        test.put("pos2","big");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(2);
+        try {
+            p1.chooseInitialResource(test);
+            p1.swapDeposit(map);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),Color.BLUE);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+        }
+    }
+
+    /**
+     * Tests the receiveInitialFaith method.
+     */
+    @Test
+    public void receiveInitialFaithTest() {
+        Player p1 = new Player("1");
+        Player p2 = new Player("2");
+        Player p3 = new Player("3");
+        Player p4 = new Player("4");
+        p1.receiveInitialFaith(0);
+        p2.receiveInitialFaith(1);
+        p3.receiveInitialFaith(2);
+        p4.receiveInitialFaith(3);
+        assertEquals(p1.getPersonalBoard().getPosition(),0);
+        assertEquals(p2.getPersonalBoard().getPosition(),1);
+        assertEquals(p3.getPersonalBoard().getPosition(),2);
+        assertEquals(p4.getPersonalBoard().getPosition(),3);
+    }
+
+    /**
+     * Tests if cards are bought correctly.
+     */
+    @Test
+    public void buyTest1() {
+        Player p = new Player("test");
+        ResourceAmount[] strongbox = new ResourceAmount[4];
+        strongbox[0]= new ResourceAmount(Color.BLUE, 10);
+        strongbox[1]= new ResourceAmount(Color.PURPLE, 10);
+        strongbox[2]= new ResourceAmount(Color.GREY, 10);
+        strongbox[3]= new ResourceAmount(Color.YELLOW, 10);
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(Color.BLUE,1));
+        deposits.add(new ResourceAmount(Color.GREY,2));
+        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        ResourceAmount[] cost = new ResourceAmount[4];
+        cost[0] = new ResourceAmount(Color.BLUE,1);
+        cost[1] = new ResourceAmount(Color.PURPLE,1);
+        cost[2] = new ResourceAmount(Color.GREY,1);
+        cost[3] = new ResourceAmount(Color.YELLOW,0);
+        ResourceAmount[] cost1 = new ResourceAmount[4];
+        cost1[0] = new ResourceAmount(Color.BLUE,0);
+        cost1[1] = new ResourceAmount(Color.PURPLE,0);
+        cost1[2] = new ResourceAmount(Color.GREY,3);
+        cost1[3] = new ResourceAmount(Color.YELLOW,3);
+        p.getPersonalBoard().setDeposits(deposits);
+        p.getPersonalBoard().setStrongbox(strongbox);
+        DevelopCard t = new DevelopCard(1,2,0,Color.GREEN,cost,null,null);
+        DevelopCard t1 = new DevelopCard(2,1,0,Color.BLUE,cost1,null,null);
+        Map<String,String> map = new HashMap<>();
+        map.put("res1","small");
+        map.put("res2","strongbox");
+        map.put("res3","mid");
+        map.put("ind","1");
+        Map<String,String> map1 = new HashMap<>();
+        map1.put("res1","mid");
+        map1.put("res2","strongbox");
+        map1.put("res3","strongbox");
+        map1.put("res4","strongbox");
+        map1.put("res5","strongbox");
+        map1.put("res6","strongbox");
+        map1.put("ind","1");
+        try {
+            p.buy(map,t);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(),Color.GREY);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(),1);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(),Color.YELLOW);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(),3);
+            assertEquals(p.getPersonalBoard().getStrongbox()[1].getAmount(),9);
+            assertEquals(p.getPersonalBoard().getStrongbox()[1].getColor(),Color.PURPLE);
+            p.buy(map1,t1);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(),Color.GREY);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+            assertEquals(p.getPersonalBoard().getTopCard(1),t1);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Test shows that the player can't buy a level 2 card and place it on an empty stack. The player's deposits and strongbox are unchanged.
+     */
+    @Test
+    public void buyTest2() {
+        Player p = new Player("test");
+        ResourceAmount[] strongbox = new ResourceAmount[4];
+        strongbox[0]= new ResourceAmount(Color.BLUE, 10);
+        strongbox[1]= new ResourceAmount(Color.PURPLE, 10);
+        strongbox[2]= new ResourceAmount(Color.GREY, 10);
+        strongbox[3]= new ResourceAmount(Color.YELLOW, 10);
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(Color.BLUE,1));
+        deposits.add(new ResourceAmount(Color.GREY,2));
+        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        ResourceAmount[] cost = new ResourceAmount[4];
+        cost[0] = new ResourceAmount(Color.BLUE,1);
+        cost[1] = new ResourceAmount(Color.PURPLE,1);
+        cost[2] = new ResourceAmount(Color.GREY,1);
+        cost[3] = new ResourceAmount(Color.YELLOW,0);
+        p.getPersonalBoard().setDeposits(deposits);
+        p.getPersonalBoard().setStrongbox(strongbox);
+        DevelopCard t = new DevelopCard(2,2,0,Color.GREEN,cost,null,null);
+        Map<String,String> map = new HashMap<>();
+        map.put("res1","small");
+        map.put("res2","strongbox");
+        map.put("res3","mid");
+        map.put("ind","1");
+        try {
+            p.buy(map,t);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(),1);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(),Color.GREY);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(),2);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(),Color.YELLOW);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(),3);
+        }
+    }
+
 }

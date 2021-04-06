@@ -7,6 +7,7 @@ package it.polimi.ingsw.model;
 public class FavorTile {
     private int victoryPoints;
     private boolean active;
+    private boolean discarded;
     private int start;
     private int end;
 
@@ -41,7 +42,7 @@ public class FavorTile {
     }
 
     /**
-     * This method sets the state of the FavorTile.
+     * This method sets the state (active) of the FavorTile.
      * @param active is the new state of the FavorTIle.
      */
     public void setActive(boolean active) {
@@ -49,11 +50,27 @@ public class FavorTile {
     }
 
     /**
+     * This method sets the state (discarded) of the FavorTile.
+     * @param discarded is the new state of the FavorTIle.
+     */
+    public void setDiscarded(boolean discarded) {
+        this.discarded = discarded;
+    }
+
+    /**
      * This method returns the state of the FavorTile.
-     * @return the state of the FavorTile.
+     * @return the state (active) of the FavorTile.
      */
     public boolean isActive() {
         return active;
+    }
+
+    /**
+     * This method sets the state of the FavorTile.
+     * @return the state(discarded) of the FavorTile.
+     */
+    public boolean isDiscarded() {
+        return this.discarded;
     }
 
     /**

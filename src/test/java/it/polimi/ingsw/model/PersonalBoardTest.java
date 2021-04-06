@@ -367,10 +367,10 @@ public class PersonalBoardTest {
      * Test if getTile works as expected.
      */
     @Test
-    void getTile() {
+    void getTileState() {
         PersonalBoard pb = new PersonalBoard();
         for (int i = 0; i < 3; i++)
-            assertFalse(pb.getTile(i));
+            assertFalse(pb.getTileState(i));
     }
 
     /**
@@ -380,12 +380,12 @@ public class PersonalBoardTest {
     void setTile() {
         PersonalBoard pb = new PersonalBoard();
         for (int i = 0; i < 3; i++)
-            assertFalse(pb.getTile(i));
+            assertFalse(pb.getTileState(i));
         pb.setTile(0,true);
         pb.setTile(1,true);
         pb.setTile(2,true);
         for (int i = 0; i < 3; i++)
-            assertTrue(pb.getTile(i));
+            assertTrue(pb.getTileState(i));
     }
 
     /**

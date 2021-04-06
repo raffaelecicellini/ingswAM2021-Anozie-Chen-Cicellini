@@ -71,6 +71,8 @@ public class Game {
      */
     private SoloActions soloActions;
 
+    private boolean isFirstTurn;
+
     public Game(){
         this.players= new ArrayList<>();
         this.activePlayers= new ArrayList<>();
@@ -84,6 +86,7 @@ public class Game {
                 this.developDecks[col][row]= new DevelopDeck(row+1, color);
             }
         }
+        this.isEndGame=false;
     }
     private Color parseColor(int col){
         switch (col){
@@ -110,21 +113,162 @@ public class Game {
     }
 
     public void produce(String player, Map<String, String> info) throws InvalidActionException {
-        if (currentPlayer.getName().equals(player)) currentPlayer.produce(info);
+        if (currentPlayer.getName().equals(player) && !doneMandatory) {
+            currentPlayer.produce(info);
+            doneMandatory=true;
+        }
+        else if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action!");
         else throw new InvalidActionException("It is not your turn!");
     }
 
     public void activateLeader(String player, int pos) throws InvalidActionException{
-        if (currentPlayer.getName().equals(player)) currentPlayer.activateLeader(pos);
+        if (currentPlayer.getName().equals(player) && doneLeader<2) {
+            currentPlayer.activateLeader(pos);
+            doneLeader++;
+        }
+        else if (doneLeader==2) throw new InvalidActionException("You can't activate another leader");
         else throw new InvalidActionException("It is not your turn!");
     }
 
     public void discardLeader(String player, int pos) throws InvalidActionException{
-        if (currentPlayer.getName().equals(player)) currentPlayer.discardLeader(pos);
+        if (currentPlayer.getName().equals(player) && doneLeader<2) {
+            currentPlayer.discardLeader(pos);
+            doneLeader++;
+        }
+        else if (doneLeader==2) throw new InvalidActionException("You can't discard another leader");
         else throw new InvalidActionException("It is not your turn!");
     }
 
     public void endTurn(){
+        //select max position and set the tiles if needed: if someone is at the end, set isEndgame
+        int max=0;
+        int curr;
+        boolean exit=false;
+        Player maxPlayer=null;
+        for (Player player: activePlayers) {
+            curr=player.getPersonalBoard().getFaithMarker().getPosition();
+            if (curr>max){
+                max=curr;
+                maxPlayer=player;
+            }
+        }
+        for (int i=2; i>=0 && !exit && maxPlayer!=null; i--) {
+            FavorTile tile=maxPlayer.getPersonalBoard().getTile(i);
+            if (max>=tile.getEnd() && !tile.isActive() && !tile.isDiscarded()){
+                exit=true;
+                tile.setActive(true);
+                this.setTiles(maxPlayer, i);
+                if (i==2){
+                    this.isEndGame=true;
+                }
+            }
+        }
+        //check endGame and nextPlayer: if true and =first, count points e select winner; else go on
+        if (current==activePlayers.size()-1){
+            current=0;
+            if (isFirstTurn) isFirstTurn=false;
+        }
+        else current++;
+        currentPlayer=activePlayers.get(current);
+        doneLeader=0;
+        doneMandatory=false;
 
+        if (isEndGame && currentPlayer.getName().equals(firstPlayer.getName())){
+            //count points
+            int maxpoints=0;
+            Player winner=null;
+            int[] points= new int[activePlayers.size()];
+            for (int i=0; i<activePlayers.size(); i++){
+                points[i]= getPoints(activePlayers.get(i));
+                if (points[i]>maxpoints){
+                    maxpoints=points[i];
+                    winner=activePlayers.get(i);
+                }
+                else if (points[i]==maxpoints){
+                    winner=winnerByResources(activePlayers.get(i), winner);
+                }
+            }
+            //segnala winner
+        }
+    }
+
+    private void setTiles(Player max, int pos){
+        //CHECK DISCARDED
+        for (Player player: activePlayers) {
+            if (!player.getName().equals(max.getName())){
+                FavorTile tile=player.getPersonalBoard().getTile(pos);
+                if (player.getPersonalBoard().getPosition()>=tile.getStart() && !tile.isDiscarded()){
+                    tile.setActive(true);
+                }
+                else tile.setDiscarded(true);
+            }
+        }
+    }
+
+    private int getPoints(Player player){
+        int points=0;
+        PersonalBoard pb= player.getPersonalBoard();
+        DevelopCard[] slot;
+        for (int i=0; i<3; i++){
+            try {
+                slot=pb.getSlot(i);
+                for (DevelopCard card: slot) {
+                    points=points+card.getVictoryPoints();
+                }
+            } catch (InvalidActionException e) {
+                e.printStackTrace();
+            }
+        }
+        points=points+ pb.getCell(pb.getPosition()).getVictoryPoints();
+        for (int i=0; i<3; i++){
+            if (pb.getTileState(i)){
+                points=points+pb.getTile(i).getVictoryPoints();
+            }
+        }
+        for (LeaderCard leader: player.leaders) {
+            if(leader.isActive()) points=points+leader.getVictoryPoints();
+        }
+        int res=0;
+        ArrayList<ResourceAmount> deps=pb.getDeposits();
+        ResourceAmount[] strongbox=pb.getStrongbox();
+        for (ResourceAmount dep: deps) {
+            res=res+dep.getAmount();
+        }
+        for(ResourceAmount x: strongbox){
+            res=res+x.getAmount();
+        }
+        res=res%5;
+        points=points+res;
+        return points;
+    }
+
+    private Player winnerByResources(Player p1, Player p2){
+        int res1=0;
+        int res2=0;
+        if (p2!=null){
+            PersonalBoard pb1=p1.getPersonalBoard();
+            PersonalBoard pb2=p2.getPersonalBoard();
+
+            ArrayList<ResourceAmount> deps=pb1.getDeposits();
+            ResourceAmount[] strongbox=pb1.getStrongbox();
+            for (ResourceAmount dep: deps) {
+                res1=res1+dep.getAmount();
+            }
+            for(ResourceAmount x: strongbox){
+                res1=res1+x.getAmount();
+            }
+
+            deps=pb2.getDeposits();
+            strongbox=pb2.getStrongbox();
+            for (ResourceAmount dep: deps) {
+                res2=res2+dep.getAmount();
+            }
+            for(ResourceAmount x: strongbox){
+                res2=res2+x.getAmount();
+            }
+
+            return res1>res2? p1 : p2;
+        }
+        else return p1;
     }
 }

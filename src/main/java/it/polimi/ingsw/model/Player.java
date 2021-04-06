@@ -244,10 +244,20 @@ public class Player {
         this.personalBoard.setDeposits(deposits);
     }
 
+    /**
+     * This method is used for assigning 4 Leader Cards to the Player.
+     * @param leaderCards is the arraylist of LeaderCards
+     */
     public void receiveLeaders(ArrayList<LeaderCard> leaderCards){
         leaders.addAll(leaderCards);
     }
 
+    /**
+     * This method is used to let the Player choose which Leader Cards he wants to keep.
+     * @param leader1 is the index of the first Leader Card
+     * @param leader2 is the index of the second Leader Card
+     * @throws InvalidActionException
+     */
     public void chooseLeader(int leader1, int leader2) throws InvalidActionException {
         if (leader1 != leader2 && leader1 >= 1 && leader1 <= leaders.size() && leader2 >= 1 && leader2 <= leaders.size()) {
             ArrayList<LeaderCard> temp = new ArrayList<LeaderCard>();
@@ -256,7 +266,8 @@ public class Player {
             leaders = temp;
         } else throw new InvalidActionException("Invalid action! Try typing two different indexes [1-4]!");
     }
-}
+
+
     /**
      * This method is used for swapping deposits.
      * @param map is where the information is stored.
@@ -286,7 +297,7 @@ public class Player {
         map.remove("row");
         map.remove("column");
         map.remove("ind");
-        if(ind<0 || ind>3) throw new InvalidActionException("Wrong card index");
+        if(ind<0 || ind>2) throw new InvalidActionException("Wrong card index");
         if (personalBoard.getTopCard(ind) == null)
             if (card.getLevel()==1)
                 card.buyDevelopCard(map,strongbox,deposit);
@@ -301,6 +312,10 @@ public class Player {
         this.personalBoard.setDeposits(deposit);
         this.numberDevelopCards++;
         return numberDevelopCards == 7;
+    }
+
+    public void fromMarket(Map<String, String> map, Marble[] marbles) {
+
     }
 
     /**

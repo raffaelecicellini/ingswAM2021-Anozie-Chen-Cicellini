@@ -12,6 +12,8 @@ public class SoloGame extends Game{
      */
     private SoloActions soloActions;
 
+    Market market;
+
     @Override
     public void start() {
         super.start();

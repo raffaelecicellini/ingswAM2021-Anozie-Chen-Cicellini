@@ -153,7 +153,7 @@ public class Game {
         if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("you didn't select the card.");
         int row = Integer.parseInt(map.get("row"));
         int column = Integer.parseInt(map.get("column"));
-        if (row<0 || row>4 || column<0 || column>3) throw new InvalidActionException("wrong indexes selected ");
+        if (row<0 || row>=4 || column<0 || column>=3) throw new InvalidActionException("wrong indexes selected ");
         boolean end;
         DevelopCard card = developDecks[row][column].getCard();
         end = currentPlayer.buy(map, card);

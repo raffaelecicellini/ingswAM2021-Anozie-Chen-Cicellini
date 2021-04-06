@@ -40,7 +40,7 @@ public class WhiteMarble implements Marble{
      * @throws InvalidActionException: it is thrown when the action can't be performed
      */
     @Override
-    public int action(String chosen, ArrayList<ResourceAmount> deposits, FaithMarker faith, LeaderCard[] leaders, Color chosenColor)
+    public int action(String chosen, ArrayList<ResourceAmount> deposits, FaithMarker faith, ArrayList<LeaderCard> leaders, Color chosenColor)
             throws InvalidActionException
     {
         //check active leaders and call getWhiteBall(): if !=null and I have two active WBLeaders, check the chosenColor (exception

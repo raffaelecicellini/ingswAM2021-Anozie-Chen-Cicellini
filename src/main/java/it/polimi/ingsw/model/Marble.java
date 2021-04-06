@@ -18,5 +18,5 @@ public interface Marble {
      * @return: the amount of resources discarded during the action (can be 0 or 1)
      * @throws InvalidActionException: it is thrown when the action can't be performed
      */
-    public int action (String chosen, ArrayList<ResourceAmount> deposits, FaithMarker faith, LeaderCard[] leaders, Color chosenColor) throws InvalidActionException;
+    public int action (String chosen, ArrayList<ResourceAmount> deposits, FaithMarker faith, ArrayList<LeaderCard> leaders, Color chosenColor) throws InvalidActionException;
 }

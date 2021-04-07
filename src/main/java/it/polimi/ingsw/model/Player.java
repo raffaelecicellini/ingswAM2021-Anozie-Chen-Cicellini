@@ -8,6 +8,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents a Player of the game "Maestri del Rinascimento". Each client connected to the game is represented
+ * by a Player instance. It contains an instance of PersonalBoard, that has the informations about the deposits and strongbox
+ * of the player and about the DevelopCards that he has.
+ */
 public class Player {
 
     /**
@@ -36,20 +41,38 @@ public class Player {
      */
     private int numberDevelopCards;
 
+    /**
+     * Constructor of the Player's class.
+     * @param name the name of the new player
+     */
     public Player(String name){
         this.name=name;
         this.personalBoard= new PersonalBoard();
         this.leaders= new ArrayList<>();
     }
 
+    /**
+     * Simple method that returns the name of the Player.
+     * @return the name of the Player
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     * Simple method that returns a reference to the Player's PersonalBoard.
+     * @return the player's PersonalBoard
+     */
     public PersonalBoard getPersonalBoard(){
         return this.personalBoard;
     }
 
+    /**
+     * This method is used when the player wants to discard a leader.
+     * @param pos the position of the leader to discard in the ArrayList
+     * @throws InvalidActionException when the position is wrong or when the selected leader is already active (so it can't
+     * be discarded)
+     */
     public void discardLeader(int pos) throws InvalidActionException {
         if (pos<0 || pos>1) throw new InvalidActionException("The index is invalid! Try again (index=0 || index=1");
         LeaderCard current= leaders.get(pos);
@@ -62,6 +85,13 @@ public class Player {
 
     }
 
+    /**
+     * This method is used when the player wants to activate a leader.
+     * @param pos the position of the leader to activate in the ArrayList
+     * @throws InvalidActionException when the position is wrong or when the selected leader is already discarded(so it
+     * can't be activated). Also, it can be thrown if the player doesn't have the needed requirements to activate the
+     * selected leader
+     */
     public void activateLeader(int pos) throws InvalidActionException{
         if (pos<0 || pos>1) throw new InvalidActionException("The index is invalid! Try again (index=0 || index=1");
         LeaderCard current= leaders.get(pos);
@@ -91,6 +121,13 @@ public class Player {
         }
     }
 
+    /**
+     * This method is used when a player wants to activate production.
+     * @param info this map contains the info about the productions that the player wants to activate (such as what productions
+     *             he wants to activate, where to take the resources, etc.)
+     * @throws InvalidActionException when the player selected a DevelopCard slot that does not contain a card or if one
+     * of the chosen productions can't be executed (no resources, wrong positions from where to take them, etc.)
+     */
     public void produce(Map<String, String> info) throws InvalidActionException{
         String curr;
         String key;
@@ -145,6 +182,16 @@ public class Player {
         fm.setPosition(fm.getPosition()+faith);
     }
 
+    /**
+     * This method is used inside the produce() method when a player wants to activate the base production (printed on the
+     * personal board in the physical game). It removes the selected input resources from the selected places and adds a
+     * selected output resource in the outputStrongbox
+     * @param info this map contains the info about the selected resources and the place from where to take them
+     * @param inputStrongbox this is the strongbox where to retrieve the resources if needed
+     * @param deps these are the deposits where to retrieve the resources if needed
+     * @param outputStrongbox this is the strongbox where to put the produced resource
+     * @throws InvalidActionException
+     */
     private void baseProduction(Map<String, String> info, ResourceAmount[] inputStrongbox, ArrayList<ResourceAmount> deps, ResourceAmount[] outputStrongbox)
             throws InvalidActionException{
         int index;
@@ -179,10 +226,16 @@ public class Player {
             else throw new InvalidActionException("Wrong position!");
         }
         for (ResourceAmount res: outputStrongbox){
-            if (res.getColor().toString().toLowerCase().equals(info.get("out"))) res.setAmount(res.getAmount()+1);
+            if (res.getColor().toString().toLowerCase().equals(info.get("out").toLowerCase())) res.setAmount(res.getAmount()+1);
         }
     }
 
+    /**
+     * Simple utility method used in baseProduction() to retrieve the index of a deposit (or the strongbox) correspondent
+     * to the selected place.
+     * @param chosen the place (deposit/strongbox) from where to take the resources
+     * @return the index correspondent to the selected place
+     */
     private int parseChoice(String chosen){
         switch (chosen.toLowerCase()){
             case "small": return 0;

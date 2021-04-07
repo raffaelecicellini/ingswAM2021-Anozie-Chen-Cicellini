@@ -298,10 +298,13 @@ public class PersonalBoard {
      * @param pos is the index of the FavorTile.
      * @return the state of the FavorTile.
      */
-    public boolean getTile (int pos) {
+    public boolean getTileState (int pos) {
         return favorTile[pos].isActive();
     }
 
+    public FavorTile getTile (int pos){
+        return favorTile[pos];
+    }
     /**
      * This method changes the status of a FavorTile at a specific index.
      * @param pos is the index of the FavorTile.

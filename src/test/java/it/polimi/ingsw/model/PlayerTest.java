@@ -817,15 +817,16 @@ public class PlayerTest {
 
 
     /**
-     * Testing fromMarket
+     * Testing fromMarket, all successful inserts
      */
     @Test
     public void fromMarketTest1(){
         Player p = new Player("test");
+
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,1));
-        deposits.add(new ResourceAmount(Color.GREY,2));
-        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        deposits.add(new ResourceAmount(Color.BLUE,0));
+        deposits.add(new ResourceAmount(Color.GREY,0));
+        deposits.add(new ResourceAmount(Color.YELLOW,0));
         p.getPersonalBoard().setDeposits(deposits);
 
         Map<String,String> map = new HashMap<>();
@@ -834,9 +835,32 @@ public class PlayerTest {
         map.put("pos3","big");
 
         Marble[] marbles = new Marble[3];
-        marbles[0] = new BlueMarble();
+        marbles[0] = BlueMarble.getInstance();
+        marbles[1] = GreyMarble.getInstance();
+        marbles[2] = YellowMarble.getInstance();
 
-        p.fromMarket(map, );
+
+        System.out.println(p.getPersonalBoard().getDeposits());
+        /*try {
+            p.fromMarket(map, marbles);
+
+            assertEquals(Color.BLUE, p.getPersonalBoard().getDeposits().get(0).getColor());
+            assertEquals(Color.GREY, p.getPersonalBoard().getDeposits().get(1).getColor());
+            assertEquals(Color.YELLOW, p.getPersonalBoard().getDeposits().get(2).getColor());
+            assertEquals(1, p.getPersonalBoard().getDeposits().get(0).getAmount());
+            assertEquals(1, p.getPersonalBoard().getDeposits().get(1).getAmount());
+            assertEquals(1, p.getPersonalBoard().getDeposits().get(2).getAmount());
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    /**
+     * Testing fromMarket, exceptions
+     */
+    @Test
+    public void fromMarketTest2(){
+
     }
 
 }

@@ -4,7 +4,9 @@ import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Game {
     /**
@@ -399,8 +401,46 @@ public class Game {
     }
 
 
-    public void fromMarket(String player, int i, Map<String, String> map) throws InvalidActionException {
-        if (currentPlayer.getName().equals(player)) currentPlayer.fromMarket(map, market.selectColumn(i));
+    /**
+     * This method is used for taking resources from the Market
+     * @param player is the Player's name
+     * @param map is the map with the information
+     * @throws InvalidActionException if the move is not valid
+     */
+    public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
+
+        if (currentPlayer.getName().equals(player)){
+
+            if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");
+
+            // to lowercase the entire map
+            Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
+                    e1 -> e1.getKey().toLowerCase(Locale.ROOT),
+                    e1 -> e1.getValue().toLowerCase(Locale.ROOT)));
+
+            if (mapCopy.containsKey("row")) {
+                int row = Integer.parseInt(mapCopy.get("row"));
+                if (row >= 1 && row <= 3) {
+                    if (mapCopy.size() >= 5) {
+                        mapCopy.remove("row");
+                        currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                        doneMandatory = true;
+                    } else throw new InvalidActionException("Invalid action! You didn't insert a valid number of parameters");
+                } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
+            } else
+                if (mapCopy.containsKey("col")) {
+                    int col = Integer.parseInt(mapCopy.get("col"));
+                    if (col >= 1 && col <= 4) {
+                        // SBAGLIATO DA CAMBIARE
+                        if (mapCopy.size() >= 4) {
+                            mapCopy.remove("col");
+                            currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                            doneMandatory = true;
+                        } else throw new InvalidActionException("Invalid action! You didn't insert a valid number of parameters");
+                    } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
+
+                } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
+        }
         else throw new InvalidActionException("It is not your turn!");
     }
 

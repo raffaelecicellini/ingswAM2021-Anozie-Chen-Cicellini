@@ -43,19 +43,22 @@ public class BlueMarble implements Marble{
     throws InvalidActionException {
         int dep= this.parseChoice(chosen);
         if (dep>=0 && dep<3){
+            // small, mid or big
             ResourceAmount current= deposits.get(dep);
             if ((current.getColor()==Color.BLUE && current.getAmount()<(dep+1)) || current.getAmount()==0){
                 int duplicate= checkDuplicates(deposits, dep);
                 if (duplicate>=0 && deposits.get(duplicate).getAmount()<(duplicate+1)){
-                    throw new InvalidActionException("You can't put it here but you can put it in another deposit");
+                    // another deposit has the BLUE ResourceAmount &&
+                    throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + "deposit, but you can put it in another one!");
                 }
                 else if (duplicate>=0){
+                    // another deposit has the BLUE ResourceAmount
                     if (checkSwap(deposits, duplicate)){
-                        throw new InvalidActionException("You can't put it here, but you can do a swap to put it in a deposit");
+                        throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + "deposit, but you can do a swap to put it in another one!");
                     }
                     if ((deposits.size()>3 && deposits.get(3).getColor()==Color.BLUE && deposits.get(3).getAmount()<2) ||
                             (deposits.size()>4 && deposits.get(4).getColor()==Color.BLUE && deposits.get(4).getAmount()<2)){
-                        throw new InvalidActionException("You can't put it here but you can put it in another deposit");
+                        throw new InvalidActionException("You can't put You can't put the " + BlueMarble.getInstance() + " in the " + chosen + "deposit, but you can put it in another one!");
                     }
                     return 1;
                 }

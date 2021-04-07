@@ -58,24 +58,13 @@ public class Game {
     private int doneLeader;
 
     /**
-     * this attribute establishes if a Game is in a Single Player Mode or not
-     */
-    private boolean isSolo;
-
-    /**
-     * this attribute represents Lorenzo il Magnifico in a Single Player Game
-     */
-    private FaithMarker blackCross;
-
-    /**
-     * Solo Actions used in a Single Player Game
-     */
-    private SoloActions soloActions;
-    /**
      * Used to check if the game is still in configuration phase
      */
     private boolean isFirstTurn;
 
+    /**
+     * Constructor of the Game class. It instantiates the Market, the LeaderDeck and the DevelopDecks for the current game.
+     */
     public Game(){
         this.players= new ArrayList<>();
         this.activePlayers= new ArrayList<>();
@@ -107,12 +96,26 @@ public class Game {
         return null;
     }
 
+    /**
+     * This method is called by the controller when the last player is connected to the game. It shuffles the list of
+     * activePlayers to select the first one. Then gives the leaders to each player (4 cards, they have to choose 2) and the
+     * initial resources and faith to each player if they have to.
+     */
     public void start(){
         //choose first player
         Collections.shuffle(this.activePlayers);
+        firstPlayer=activePlayers.get(0);
 
         //receive initial leaders
-
+        ArrayList<LeaderCard> cards= new ArrayList<>();
+        LeaderCard card;
+        for (Player p: this.activePlayers) {
+            for (int i=0; i<4; i++){
+                card=leaderDeck.removeCard();
+                cards.add(card);
+            }
+            p.receiveLeaders(cards);
+        }
 
         //receive initial faith and resources
         for (int i=0; i<activePlayers.size(); i++){
@@ -124,6 +127,9 @@ public class Game {
                 activePlayers.get(i).receiveInitialFaith(1);
             }
         }
+
+        isFirstTurn=true;
+        isEndGame=false;
     }
 
     /**
@@ -196,6 +202,8 @@ public class Game {
      */
     public void endTurn(String player) throws InvalidActionException {
         if(!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
+        else if (!doneMandatory) throw new InvalidActionException("You have to do a mandatory action (buy a DevelopCard, activate production or take resources from market)");
+
         //select max position and set the tiles if needed: if someone is at the end, set isEndgame
         int max=0;
         int curr;
@@ -249,7 +257,7 @@ public class Game {
     }
 
     /**
-     * Utility method used when a player reaches a pope' space on the FaithTrack. It checks the other players' positions
+     * Utility method used when a player reaches a pope's space on the FaithTrack. It checks the other players' positions
      * and activate/discard their FavorTile depending on their position.
      * @param max it is the player that triggered the action: his FavorTile has already been set in endTurn()
      * @param pos it indicates which of the 3 FavorTiles needs to be activated or discarded for each player
@@ -371,9 +379,9 @@ public class Game {
         int column = Integer.parseInt(map.get("column"));
         if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("wrong indexes selected ");
         boolean end;
-        DevelopCard card = developDecks[row][column].getCard();
+        DevelopCard card = developDecks[column][row].getCard();
         end = currentPlayer.buy(map, card);
-        developDecks[row][column].removeCard();
+        developDecks[column][row].removeCard();
         if (end)
             isEndGame = true;
         doneMandatory = true;

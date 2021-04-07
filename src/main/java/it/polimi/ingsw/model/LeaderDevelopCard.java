@@ -76,7 +76,7 @@ public class LeaderDevelopCard extends DevelopCard{
                             if (m.getKey().equals("Resout")) {
                                 i = 0;
                                 while (i < strongboxOutput.length && !exit) {
-                                    if (!strongboxOutput[i].getColor().toString().toLowerCase().equals(m.getValue())) i++;
+                                    if (!strongboxOutput[i].getColor().toString().toLowerCase().equals(m.getValue().toLowerCase())) i++;
                                     else exit = true;
                                 }
                                 strongboxOutput[i].setAmount(strongboxOutput[i].getAmount() + 1);

@@ -225,7 +225,7 @@ public class Player {
             else throw new InvalidActionException("Wrong position!");
         }
         for (ResourceAmount res: outputStrongbox){
-            if (res.getColor().toString().toLowerCase().equals(info.get("out"))) res.setAmount(res.getAmount()+1);
+            if (res.getColor().toString().toLowerCase().equals(info.get("out").toLowerCase())) res.setAmount(res.getAmount()+1);
         }
     }
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Player {
 
@@ -314,7 +315,34 @@ public class Player {
         return numberDevelopCards == 7;
     }
 
-    public void fromMarket(Map<String, String> map, Marble[] marbles) {
+    public void fromMarket(Map<String, String> map, Marble[] marbles) throws InvalidActionException{
+
+        ArrayList<ResourceAmount> deposits = personalBoard.getDeposits();
+        int discarded = 0;
+
+        Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
+                e1 -> e1.getKey().toLowerCase(Locale.ROOT),
+                e1 -> e1.getValue().toLowerCase(Locale.ROOT)));
+
+        for (Map.Entry<String, String> m : mapCopy.entrySet()){
+            String pos = m.getKey().replaceAll("\\d", "");
+            if (pos.equals("res")){
+                int ind_res = Integer.parseInt(m.getKey().replaceAll("[^0-9]", "")) - 1;
+                if (ind_res >= 0 && ind_res <= 3){
+                    if (!mapCopy.containsKey("res" + ind_res)){
+                        int i = parseChoice(m.getValue());
+                        if (i>=0 && i<=4){
+                            discarded += marbles[ind_res].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, null);
+                        } else throw new InvalidActionException("Invalid action! You typed a wrong deposit!");
+                    } else {
+                        Color color = Color.valueOf(mapCopy.get("res" + ind_res));
+                        discarded += marbles[ind_res].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, color);
+                    }
+                } else throw new InvalidActionException("Invalid action! You typed a wrong index!");
+            }
+        }
+
+        personalBoard.setPosition(personalBoard.getPosition() + discarded);
 
     }
 

@@ -815,4 +815,28 @@ public class PlayerTest {
         }
     }
 
+
+    /**
+     * Testing fromMarket
+     */
+    @Test
+    public void fromMarketTest1(){
+        Player p = new Player("test");
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(Color.BLUE,1));
+        deposits.add(new ResourceAmount(Color.GREY,2));
+        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        p.getPersonalBoard().setDeposits(deposits);
+
+        Map<String,String> map = new HashMap<>();
+        map.put("pos1","small");
+        map.put("pos2","mid");
+        map.put("pos3","big");
+
+        Marble[] marbles = new Marble[3];
+        marbles[0] = new BlueMarble();
+
+        p.fromMarket(map, );
+    }
+
 }

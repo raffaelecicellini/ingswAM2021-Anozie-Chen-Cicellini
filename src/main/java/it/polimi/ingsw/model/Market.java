@@ -46,7 +46,7 @@ public class Market {
     }
 
     /**
-     * Method calle dby the constructor. It creates the matrix of the market and instantiates the outMarble
+     * Method called by the constructor. It creates the matrix of the market and instantiates the outMarble
      * @param list: the list of the marbles
      */
     private void instantiate(List<Marble> list) {

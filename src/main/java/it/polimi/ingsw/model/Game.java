@@ -136,7 +136,7 @@ public class Game {
 
     /**
      * This method is used when a player joins the game
-     * @param name
+     * @param name is the Player's name
      */
     public void createPlayer(String name){
         Player player= new Player(name);
@@ -421,22 +421,17 @@ public class Game {
             if (mapCopy.containsKey("row")) {
                 int row = Integer.parseInt(mapCopy.get("row"));
                 if (row >= 1 && row <= 3) {
-                    if (mapCopy.size() >= 5) {
-                        mapCopy.remove("row");
-                        currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
-                        doneMandatory = true;
-                    } else throw new InvalidActionException("Invalid action! You didn't insert a valid number of parameters");
+                    mapCopy.remove("row");
+                    currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                    doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             } else
                 if (mapCopy.containsKey("col")) {
                     int col = Integer.parseInt(mapCopy.get("col"));
                     if (col >= 1 && col <= 4) {
-                        // SBAGLIATO DA CAMBIARE
-                        if (mapCopy.size() >= 4) {
-                            mapCopy.remove("col");
-                            currentPlayer.fromMarket(map, market.selectColumn(col - 1));
-                            doneMandatory = true;
-                        } else throw new InvalidActionException("Invalid action! You didn't insert a valid number of parameters");
+                        mapCopy.remove("col");
+                        currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                        doneMandatory = true;
                     } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
 
                 } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");

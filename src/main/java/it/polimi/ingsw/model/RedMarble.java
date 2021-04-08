@@ -27,7 +27,7 @@ public class RedMarble implements Marble{
         return instance;
     }
     /**
-     * This method defines the action performed by a RedMarble. It increases by 1 the positionof the player's FaithMarker.
+     * This method defines the action performed by a RedMarble. It increases by 1 the position of the player's FaithMarker.
      * @param chosen: a String representing the deposit chosen by the client in which to put the resource
      * @param deposits: a List of all the deposits of the player
      * @param faith: the FaithMarker of the player

@@ -314,7 +314,7 @@ public class Player {
      */
     public void chooseLeader(int leader1, int leader2) throws InvalidActionException {
         if (leader1 != leader2 && leader1 >= 1 && leader1 <= leaders.size() && leader2 >= 1 && leader2 <= leaders.size()) {
-            ArrayList<LeaderCard> temp = new ArrayList<LeaderCard>();
+            ArrayList<LeaderCard> temp = new ArrayList<>();
             temp.add(leaders.get(leader1 - 1));
             temp.add(leaders.get(leader2 - 1));
             leaders = temp;
@@ -375,12 +375,12 @@ public class Player {
 
         for (Map.Entry<String, String> m : map.entrySet()){
             String pos = m.getKey().replaceAll("\\d", "");
-            if (pos.equals("res")){
+            if (pos.equals("pos")){
                 int ind_res = Integer.parseInt(m.getKey().replaceAll("[^0-9]", "")) - 1;
                 if (ind_res >= 0 && ind_res <= 3){
+                    int dep = parseChoice(m.getValue());
                     if (!map.containsKey("res" + ind_res)){
-                        int i = parseChoice(m.getValue());
-                        if (i>=0 && i<=4){
+                        if (dep>=0 && dep<=4){
                             discarded += marbles[ind_res].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, null);
                         } else throw new InvalidActionException("Invalid action! You typed a wrong deposit!");
                     } else {
@@ -390,6 +390,8 @@ public class Player {
                 } else throw new InvalidActionException("Invalid action! You typed a wrong index!");
             }
         }
+
+        //System.out.println(deposits);
 
         personalBoard.setDeposits(deposits);
         personalBoard.setPosition(personalBoard.getPosition() + discarded);

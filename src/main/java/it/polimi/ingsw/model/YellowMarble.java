@@ -46,15 +46,15 @@ public class YellowMarble implements Marble{
             if ((current.getColor()==Color.YELLOW && current.getAmount()<(dep+1)) || current.getAmount()==0){
                 int duplicate= checkDuplicates(deposits, dep);
                 if (duplicate>=0 && deposits.get(duplicate).getAmount()<(duplicate+1)){
-                    throw new InvalidActionException("You can't put it here but you can put it in another deposit");
+                    throw new InvalidActionException("You can't put the " + YellowMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one!");
                 }
                 else if (duplicate>=0){
                     if (checkSwap(deposits, duplicate)){
-                        throw new InvalidActionException("You can't put it here, but you can do a swap to put it in a deposit");
+                        throw new InvalidActionException("You can't put the " + YellowMarble.getInstance() + " in the " + chosen + " deposit, but you can do a swap to put it in another one!");
                     }
                     if ((deposits.size()>3 && deposits.get(3).getColor()==Color.YELLOW && deposits.get(3).getAmount()<2) ||
                             (deposits.size()>4 && deposits.get(4).getColor()==Color.YELLOW && deposits.get(4).getAmount()<2)){
-                        throw new InvalidActionException("You can't put it here but you can put it in another deposit");
+                        throw new InvalidActionException("You can't put the " + YellowMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one!");
                     }
                     return 1;
                 }
@@ -63,22 +63,22 @@ public class YellowMarble implements Marble{
             }
             else if (current.getColor()==Color.YELLOW && current.getAmount()==(dep+1)){
                 if (checkSwap(deposits, dep)){
-                    throw new InvalidActionException("You can't put it here, but you can do a swap to put it in a deposit");
+                    throw new InvalidActionException("You can't put the " + YellowMarble.getInstance() + " in the " + chosen + " deposit, but you can do a swap to put it in another one!");
                 }
                 if ((deposits.size()>3 && deposits.get(3).getColor()==Color.YELLOW && deposits.get(3).getAmount()<2) ||
                         (deposits.size()>4 && deposits.get(4).getColor()==Color.YELLOW && deposits.get(4).getAmount()<2)){
-                    throw new InvalidActionException("You can't put it here but you can put it in another deposit");
+                    throw new InvalidActionException("You can't put the " + YellowMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one!");
                 }
                 return 1;
             }
             else if (current.getColor()!=Color.YELLOW){
                 boolean space=checkSpace(deposits);
                 if (space){
-                    throw new InvalidActionException("You can't put it here but you can put it in another deposit (maybe with a swap)");
+                    throw new InvalidActionException("You can't put the " + YellowMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one! (maybe with a swap)");
                 }
                 if ((deposits.size()>3 && deposits.get(3).getColor()==Color.YELLOW && deposits.get(3).getAmount()<2) ||
                         (deposits.size()>4 && deposits.get(4).getColor()==Color.YELLOW && deposits.get(4).getAmount()<2)){
-                    throw new InvalidActionException("You can't put it here but you can put it in another deposit");
+                    throw new InvalidActionException("You can't put the " + YellowMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one!");
                 }
                 return 1;
             }
@@ -87,7 +87,7 @@ public class YellowMarble implements Marble{
             if (deposits.size()>dep){
                 ResourceAmount current=deposits.get(dep);
                 if (current.getColor()!=Color.YELLOW){
-                    throw new InvalidActionException("You don't have a deposit leader of this type in this position");
+                    throw new InvalidActionException("You don't have a deposit leader of " + YellowMarble.getInstance() + " in this position");
                 }
                 if (current.getColor()==Color.YELLOW && current.getAmount()<2){
                     ResourceAmount newval= new ResourceAmount(Color.YELLOW, current.getAmount()+1);
@@ -96,13 +96,13 @@ public class YellowMarble implements Marble{
                 else if (current.getColor()==Color.YELLOW && current.getAmount()==2){
                     boolean space=checkSpace(deposits);
                     if (space){
-                        throw new InvalidActionException("You can't put it here but you can put it in another deposit (maybe with a swap)");
+                        throw new InvalidActionException("You can't put the " + YellowMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one! (maybe with a swap)");
                     }
                     return 1;
                 }
             }
             else {
-                throw new InvalidActionException("You don't have an active deposit leader");
+                throw new InvalidActionException("You don't have an active deposit leader in the selected position for the " + YellowMarble.getInstance());
             }
         }
         return 0;

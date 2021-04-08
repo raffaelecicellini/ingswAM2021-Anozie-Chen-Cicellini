@@ -413,7 +413,7 @@ public class PlayerTest {
      */
     @Test
     public void chooseLeaderTest(){
-        ArrayList<LeaderCard> leaders = new ArrayList<LeaderCard>();
+        ArrayList<LeaderCard> leaders = new ArrayList<>();
         leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE));
         leaders.add(new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY));
         leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE));
@@ -840,10 +840,8 @@ public class PlayerTest {
         marbles[2] = YellowMarble.getInstance();
 
 
-        System.out.println(p.getPersonalBoard().getDeposits());
-        /*try {
+        try {
             p.fromMarket(map, marbles);
-
             assertEquals(Color.BLUE, p.getPersonalBoard().getDeposits().get(0).getColor());
             assertEquals(Color.GREY, p.getPersonalBoard().getDeposits().get(1).getColor());
             assertEquals(Color.YELLOW, p.getPersonalBoard().getDeposits().get(2).getColor());
@@ -852,15 +850,137 @@ public class PlayerTest {
             assertEquals(1, p.getPersonalBoard().getDeposits().get(2).getAmount());
         } catch (InvalidActionException e) {
             e.printStackTrace();
-        }*/
+        }
+
+        map.clear();
+        map.put("pos1","mid");
+        map.put("pos2","big");
+        map.put("pos3","big");
+        marbles[0] = GreyMarble.getInstance();
+        marbles[1] = YellowMarble.getInstance();
+        marbles[2] = YellowMarble.getInstance();
+
+        try {
+            p.fromMarket(map, marbles);
+            assertEquals(Color.BLUE, p.getPersonalBoard().getDeposits().get(0).getColor());
+            assertEquals(Color.GREY, p.getPersonalBoard().getDeposits().get(1).getColor());
+            assertEquals(Color.YELLOW, p.getPersonalBoard().getDeposits().get(2).getColor());
+            assertEquals(1, p.getPersonalBoard().getDeposits().get(0).getAmount());
+            assertEquals(2, p.getPersonalBoard().getDeposits().get(1).getAmount());
+            assertEquals(3, p.getPersonalBoard().getDeposits().get(2).getAmount());
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Testing fromMarket, random order inserting
+     */
+    @Test
+    public void fromMarketTest2(){
+        Player p = new Player("test");
+
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(Color.BLUE,0));
+        deposits.add(new ResourceAmount(Color.GREY,0));
+        deposits.add(new ResourceAmount(Color.YELLOW,0));
+        p.getPersonalBoard().setDeposits(deposits);
+
+        Marble[] marbles = new Marble[3];
+        marbles[0] = BlueMarble.getInstance();
+        marbles[1] = GreyMarble.getInstance();
+        marbles[2] = YellowMarble.getInstance();
+
+        Map<String,String> map = new HashMap<>();
+        map.put("pos1","mid");
+        map.put("pos2","BIG");
+        map.put("pos3","SmAlL");
+
+
+        try {
+            p.fromMarket(map, marbles);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(Color.YELLOW, p.getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(Color.BLUE, p.getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(Color.GREY, p.getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(1, p.getPersonalBoard().getDeposits().get(0).getAmount());
+        assertEquals(1, p.getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(1, p.getPersonalBoard().getDeposits().get(2).getAmount());
+    }
+
+    /**
+     * Testing fromMarket, full deposits -> increasing faith marker's position
+     */
+    @Test
+    public void fromMarketTest3(){
+        Player p = new Player("test");
+
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(Color.BLUE,1));
+        deposits.add(new ResourceAmount(Color.GREY,2));
+        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        p.getPersonalBoard().setDeposits(deposits);
+
+        Marble[] marbles = new Marble[3];
+        marbles[0] = BlueMarble.getInstance();
+        marbles[1] = GreyMarble.getInstance();
+        marbles[2] = YellowMarble.getInstance();
+
+        Map<String,String> map = new HashMap<>();
+        map.put("pos1","mid");
+        map.put("pos2","BIG");
+        map.put("pos3","SmAlL");
+
+
+        try {
+            p.fromMarket(map, marbles);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(Color.BLUE, p.getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(Color.GREY, p.getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(Color.YELLOW, p.getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(1, p.getPersonalBoard().getDeposits().get(0).getAmount());
+        assertEquals(2, p.getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(3, p.getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(3, p.getPersonalBoard().getPosition());
     }
 
     /**
      * Testing fromMarket, exceptions
      */
     @Test
-    public void fromMarketTest2(){
+    public void fromMarketTest4(){
+        Player p = new Player("test");
 
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(Color.BLUE,0));
+        deposits.add(new ResourceAmount(Color.GREY,2));
+        deposits.add(new ResourceAmount(Color.YELLOW,0));
+        p.getPersonalBoard().setDeposits(deposits);
+
+        Marble[] marbles = new Marble[3];
+        marbles[0] = BlueMarble.getInstance();
+        marbles[1] = GreyMarble.getInstance();
+        marbles[2] = YellowMarble.getInstance();
+
+        Map<String,String> map = new HashMap<>();
+        map.put("pos1","mid");
+        //map.put("pos2","BIG");
+        //map.put("pos3","SmAlL");
+
+
+        try {
+            p.fromMarket(map, marbles);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
     }
+
 
 }

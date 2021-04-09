@@ -54,7 +54,7 @@ public class BlueMarble implements Marble{
                 else if (duplicate>=0){
                     // another deposit has the BLUE ResourceAmount but it's full
                     if (checkSwap(deposits, duplicate)){
-                        throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can do a swap to put it in another one!");
+                        throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can try doing a swap!");
                     }
                     if ((deposits.size()>3 && deposits.get(3).getColor()==Color.BLUE && deposits.get(3).getAmount()<2) ||
                             (deposits.size()>4 && deposits.get(4).getColor()==Color.BLUE && deposits.get(4).getAmount()<2)){
@@ -68,7 +68,7 @@ public class BlueMarble implements Marble{
             else if (current.getColor()==Color.BLUE && current.getAmount()==(dep+1)){
                 // current is BLUE and it's full
                 if (checkSwap(deposits, dep)){
-                    throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can do a swap to put it in another one!");
+                    throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can try doing a swap!");
                 }
                 if ((deposits.size()>3 && deposits.get(3).getColor()==Color.BLUE && deposits.get(3).getAmount()<2) ||
                         (deposits.size()>4 && deposits.get(4).getColor()==Color.BLUE && deposits.get(4).getAmount()<2)){
@@ -101,7 +101,7 @@ public class BlueMarble implements Marble{
                 else if (current.getColor()==Color.BLUE && current.getAmount()==2){
                     boolean space=checkSpace(deposits);
                     if (space){
-                        throw new InvalidActionException("You can't put You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one! (maybe with a swap)");
+                        throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one! (maybe with a swap)");
                     }
                     return 1;
                 }

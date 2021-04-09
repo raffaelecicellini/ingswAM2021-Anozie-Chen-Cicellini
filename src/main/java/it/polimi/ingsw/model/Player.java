@@ -4,9 +4,7 @@ import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * This class represents a Player of the game "Maestri del Rinascimento". Each client connected to the game is represented
@@ -190,7 +188,7 @@ public class Player {
      * @param inputStrongbox this is the strongbox where to retrieve the resources if needed
      * @param deps these are the deposits where to retrieve the resources if needed
      * @param outputStrongbox this is the strongbox where to put the produced resource
-     * @throws InvalidActionException
+     * @throws InvalidActionException when some Invalid Action occurs
      */
     private void baseProduction(Map<String, String> info, ResourceAmount[] inputStrongbox, ArrayList<ResourceAmount> deps, ResourceAmount[] outputStrongbox)
             throws InvalidActionException{
@@ -310,7 +308,7 @@ public class Player {
      * This method is used to let the Player choose which Leader Cards he wants to keep.
      * @param leader1 is the index of the first Leader Card
      * @param leader2 is the index of the second Leader Card
-     * @throws InvalidActionException
+     * @throws InvalidActionException when a wrong index is given [1-4]
      */
     public void chooseLeader(int leader1, int leader2) throws InvalidActionException {
         if (leader1 != leader2 && leader1 >= 1 && leader1 <= leaders.size() && leader2 >= 1 && leader2 <= leaders.size()) {
@@ -368,6 +366,13 @@ public class Player {
         return numberDevelopCards == 7;
     }
 
+
+    /**
+     * This method is used when a Player wants to take resources from the Market
+     * @param map is where the instructions are stored.
+     * @param marbles is the array of Marbles that has been selected
+     * @throws InvalidActionException when an invalid action occurs
+     */
     public void fromMarket(Map<String, String> map, Marble[] marbles) throws InvalidActionException{
 
         ArrayList<ResourceAmount> deposits = personalBoard.getDeposits();
@@ -376,16 +381,24 @@ public class Player {
         for (Map.Entry<String, String> m : map.entrySet()){
             String pos = m.getKey().replaceAll("\\d", "");
             if (pos.equals("pos")){
-                int ind_res = Integer.parseInt(m.getKey().replaceAll("[^0-9]", "")) - 1;
-                if (ind_res >= 0 && ind_res <= 3){
+                int ind_pos = Integer.parseInt(m.getKey().replaceAll("[^0-9]", "")) - 1;
+                if (ind_pos >= 0 && ind_pos <= 3){
                     int dep = parseChoice(m.getValue());
-                    if (!map.containsKey("res" + ind_res)){
+                    if (!map.containsKey("res" + (ind_pos+1))){
+                        // normal marble
                         if (dep>=0 && dep<=4){
-                            discarded += marbles[ind_res].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, null);
+                            if (leaders.get(0).getType().equals("TwoAndOne") && leaders.get(0).isActive() && leaders.get(1).getType().equals("TwoAndOne") && !leaders.get(1).isActive()) {
+                                discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(0).getWhiteBall());
+                            } else if (leaders.get(0).getType().equals("TwoAndOne") && !leaders.get(0).isActive() && leaders.get(1).getType().equals("TwoAndOne") && leaders.get(1).isActive()) {
+                                discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(1).getWhiteBall());
+                            } else {
+                                discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, null);
+                            }
                         } else throw new InvalidActionException("Invalid action! You typed a wrong deposit!");
                     } else {
-                        Color color = Color.valueOf(map.get("res" + ind_res));
-                        discarded += marbles[ind_res].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, color);
+                        // 2 possible colors to choose
+                        Color color = Color.valueOf(map.get("res" + (ind_pos+1)));
+                        discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, color);
                     }
                 } else throw new InvalidActionException("Invalid action! You typed a wrong index!");
             }

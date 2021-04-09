@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -415,8 +414,8 @@ public class Game {
 
             // to lowercase the entire map
             Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                    e1 -> e1.getKey().toLowerCase(Locale.ROOT),
-                    e1 -> e1.getValue().toLowerCase(Locale.ROOT)));
+                    e1 -> e1.getKey().toLowerCase(),
+                    e1 -> e1.getValue().toLowerCase()));
 
             if (mapCopy.containsKey("row")) {
                 int row = Integer.parseInt(mapCopy.get("row"));

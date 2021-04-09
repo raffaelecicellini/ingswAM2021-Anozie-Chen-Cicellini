@@ -50,6 +50,18 @@ public class Player {
         this.leaders= new ArrayList<>();
     }
 
+    public ArrayList<LeaderCard> getLeaders() {
+        return leaders;
+    }
+
+    public int getNumberInitialResource() {
+        return numberInitialResource;
+    }
+
+    public int getNumberDevelopCards() {
+        return numberDevelopCards;
+    }
+
     /**
      * Simple method that returns the name of the Player.
      * @return the name of the Player

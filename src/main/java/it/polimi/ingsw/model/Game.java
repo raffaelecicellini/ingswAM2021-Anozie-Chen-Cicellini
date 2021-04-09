@@ -81,6 +81,22 @@ public class Game {
         this.isEndGame=false;
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public ArrayList<Player> getActivePlayers() {
+        return activePlayers;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public boolean isDoneMandatory() {
+        return doneMandatory;
+    }
+
     /**
      * Simple utility method used in Game's contructor to instantiate the DevelopDeck of a certain color
      * @param col is the index of the column correspondent to a color
@@ -105,11 +121,13 @@ public class Game {
         //choose first player
         Collections.shuffle(this.activePlayers);
         firstPlayer=activePlayers.get(0);
+        currentPlayer=activePlayers.get(0);
+        current=0;
 
         //receive initial leaders
-        ArrayList<LeaderCard> cards= new ArrayList<>();
         LeaderCard card;
         for (Player p: this.activePlayers) {
+            ArrayList<LeaderCard> cards= new ArrayList<>();
             for (int i=0; i<4; i++){
                 card=leaderDeck.removeCard();
                 cards.add(card);
@@ -155,7 +173,7 @@ public class Game {
             currentPlayer.produce(info);
             doneMandatory=true;
         }
-        else if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action!");
+        else if (currentPlayer.getName().equals(player) && doneMandatory) throw new InvalidActionException("You have already done a mandatory action!");
         else throw new InvalidActionException("It is not your turn!");
     }
 
@@ -172,7 +190,7 @@ public class Game {
             currentPlayer.activateLeader(pos);
             doneLeader++;
         }
-        else if (doneLeader==2) throw new InvalidActionException("You can't activate another leader");
+        else if (currentPlayer.getName().equals(player) && doneLeader==2) throw new InvalidActionException("You can't activate another leader");
         else throw new InvalidActionException("It is not your turn!");
     }
 
@@ -188,7 +206,7 @@ public class Game {
             currentPlayer.discardLeader(pos);
             doneLeader++;
         }
-        else if (doneLeader==2) throw new InvalidActionException("You can't discard another leader");
+        else if (currentPlayer.getName().equals(player) && doneLeader==2) throw new InvalidActionException("You can't discard another leader");
         else throw new InvalidActionException("It is not your turn!");
     }
 

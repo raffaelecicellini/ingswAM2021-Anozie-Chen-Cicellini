@@ -302,6 +302,11 @@ public class PersonalBoard {
         return favorTile[pos].isActive();
     }
 
+    /**
+     * This method returns the FavorTile in the selected index
+     * @param pos is the index of the position in the Faith Track
+     * @return the FavorTile
+     */
     public FavorTile getTile (int pos){
         return favorTile[pos];
     }

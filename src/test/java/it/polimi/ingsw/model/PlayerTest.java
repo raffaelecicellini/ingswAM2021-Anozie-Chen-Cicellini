@@ -1204,7 +1204,7 @@ public class PlayerTest {
         marbles[2] = YellowMarble.getInstance();
 
         Map<String,String> map = new HashMap<>();
-        map.put("pos1","small");
+        map.put("pos1","big");
         //map.put("res1","BLUE");
         map.put("res1","YELLOW");
         map.put("pos2","mid");
@@ -1221,7 +1221,7 @@ public class PlayerTest {
         assertEquals(Color.GREY, p.getPersonalBoard().getDeposits().get(1).getColor());
         assertEquals(Color.YELLOW, p.getPersonalBoard().getDeposits().get(2).getColor());
         assertEquals(0, p.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertEquals(0, p.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(0, p.getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(1, p.getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(2, p.getPersonalBoard().getDeposits().get(2).getAmount());
     }
 }

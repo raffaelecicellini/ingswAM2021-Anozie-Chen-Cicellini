@@ -435,7 +435,7 @@ public class Player {
                         } else throw new InvalidActionException("Invalid action! You typed a wrong deposit!");
                     } else {
                         // 2 possible colors to choose
-                        Color color = Color.valueOf(map.get("res" + (ind_pos+1)));
+                        Color color = Color.valueOf(map.get("res" + (ind_pos+1)).toUpperCase());
                         discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, color);
                     }
                 } else throw new InvalidActionException("Invalid action! You typed a wrong index!");
@@ -462,6 +462,13 @@ public class Player {
             case "purple": return Color.PURPLE;
             default: return null;
         }
+    }
+
+    /**
+     * Just for testing
+     */
+    public void clearLeaders(){
+        leaders.clear();
     }
 
 }

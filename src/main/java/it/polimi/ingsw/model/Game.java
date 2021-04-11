@@ -12,7 +12,12 @@ public class Game {
      * Players that are in the Game
      */
     private ArrayList<Player> players;
+
+    /**
+     * The index of the current Player
+     */
     private int current;
+
     /**
      * Current Active Players in the Game
      */
@@ -31,32 +36,32 @@ public class Game {
     /**
      * defines if a Game is over
      */
-    private boolean isEndGame;
+    protected boolean isEndGame;
 
     /**
      * the Game's Market
      */
-    private Market market;
+    protected Market market;
 
     /**
      * the Game's Develop Decks
      */
-    private DevelopDeck[][] developDecks;
+    protected DevelopDeck[][] developDecks;
 
     /**
      * the Game's Leader Deck
      */
-    private LeaderDeck leaderDeck;
+    protected LeaderDeck leaderDeck;
 
     /**
      * this attribute establishes if a Player has already done a mandatory action
      */
-    private boolean doneMandatory;
+    protected boolean doneMandatory;
 
     /**
      * this attribute counts how many Leader actions a Player has done
      */
-    private int doneLeader;
+    protected int doneLeader;
 
     /**
      * Used to check if the game is still in configuration phase
@@ -103,7 +108,7 @@ public class Game {
      * @param col is the index of the column correspondent to a color
      * @return the color correspondent to col
      */
-    private Color parseColor(int col){
+    protected Color parseColor(int col){
         switch (col){
             case 0: return Color.GREEN;
             case 1: return Color.BLUE;
@@ -298,7 +303,7 @@ public class Game {
      * @param player the player whose points are going to be calculated
      * @return the number of points of the player passed as a parameter
      */
-    private int getPoints(Player player){
+    protected int getPoints(Player player){
         int points=0;
         PersonalBoard pb= player.getPersonalBoard();
         DevelopCard[] slot;
@@ -330,7 +335,7 @@ public class Game {
         for(ResourceAmount x: strongbox){
             res=res+x.getAmount();
         }
-        res=res%5;
+        res=res/5;
         points=points+res;
         return points;
     }
@@ -392,11 +397,11 @@ public class Game {
      */
     public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
         if (!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
-        if (doneMandatory) throw new InvalidActionException("you have already done a mandatory operation in this turn.");
-        if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("you didn't select the card.");
+        if (doneMandatory) throw new InvalidActionException("You have already done a mandatory operation in this turn.");
+        if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("You didn't select the card.");
         int row = Integer.parseInt(map.get("row"));
         int column = Integer.parseInt(map.get("column"));
-        if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("wrong indexes selected ");
+        if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("Wrong indexes selected ");
         boolean end;
         DevelopCard card = developDecks[column][row].getCard();
         end = currentPlayer.buy(map, card);
@@ -416,7 +421,6 @@ public class Game {
         if (currentPlayer.getName().equals(player)) currentPlayer.swapDeposit(map);
         else throw new InvalidActionException("It is not your turn!");
     }
-
 
     /**
      * This method is used for taking resources from the Market
@@ -440,6 +444,7 @@ public class Game {
                 if (row >= 1 && row <= 3) {
                     mapCopy.remove("row");
                     currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                    market.pushRow(row-1);
                     doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             } else
@@ -448,6 +453,7 @@ public class Game {
                     if (col >= 1 && col <= 4) {
                         mapCopy.remove("col");
                         currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                        market.pushColumn(col-1);
                         doneMandatory = true;
                     } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
 

@@ -411,7 +411,7 @@ public class Player {
      * @param marbles is the array of Marbles that has been selected
      * @throws InvalidActionException when an invalid action occurs
      */
-    public void fromMarket(Map<String, String> map, Marble[] marbles) throws InvalidActionException{
+    public int fromMarket(Map<String, String> map, Marble[] marbles) throws InvalidActionException{
 
         ArrayList<ResourceAmount> deposits = personalBoard.getDeposits();
         int discarded = 0;
@@ -445,8 +445,8 @@ public class Player {
         //System.out.println(deposits);
 
         personalBoard.setDeposits(deposits);
-        personalBoard.setPosition(personalBoard.getPosition() + discarded);
-
+        //personalBoard.setPosition(personalBoard.getPosition() + discarded);
+        return discarded;
     }
 
     /**

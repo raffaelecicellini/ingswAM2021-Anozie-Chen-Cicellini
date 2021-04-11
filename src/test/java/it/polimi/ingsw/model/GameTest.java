@@ -122,16 +122,15 @@ public class GameTest {
         Player first = game.getCurrentPlayer();
         Player second = game.getActivePlayers().get(1);
 
-        /*Map<String, String> res = new HashMap<>();
+        Map<String, String> res = new HashMap<>();
         res.put("res1", "blue");
         res.put("pos1", "small");
-        res.put("res2", "blue");
-        res.put("pos2", "small");
         try {
             second.chooseInitialResource(res);
         } catch (InvalidActionException e) {
             e.printStackTrace();
-        }*/
+        }
+
         ArrayList<LeaderCard> leaders1 = new ArrayList<>();
         leaders1.add(new ResourceLeader(3, "Resource", false, false, new ResourceAmount(Color.YELLOW, 5), Color.GREY));
         leaders1.add(new ResourceLeader(3, "Resource", false, false, new ResourceAmount(Color.PURPLE, 5), Color.BLUE));
@@ -198,6 +197,7 @@ public class GameTest {
         assertEquals(0, first.getPersonalBoard().getDeposits().get(1).getAmount());
         assertEquals(Color.PURPLE, first.getPersonalBoard().getDeposits().get(2).getColor());
         assertEquals(1, first.getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(0, first.getPersonalBoard().getPosition());
         assertTrue(game.doneMandatory);
 
         /* first player tries to do the mandatory action again
@@ -235,8 +235,8 @@ public class GameTest {
             e.printStackTrace();
         }
 
-        assertEquals(null, second.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(0, second.getPersonalBoard().getDeposits().get(0).getAmount());
+        assertEquals(Color.BLUE, second.getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, second.getPersonalBoard().getDeposits().get(0).getAmount());
         assertEquals(Color.GREY, second.getPersonalBoard().getDeposits().get(1).getColor());
         assertEquals(2, second.getPersonalBoard().getDeposits().get(1).getAmount());
         assertEquals(null, second.getPersonalBoard().getDeposits().get(2).getColor());
@@ -310,6 +310,16 @@ public class GameTest {
         // SECOND
 
         map.clear();
+        map.put("source", "small");
+        map.put("dest", "big");
+
+        try {
+            second.swapDeposit(map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        map.clear();
         map.put("row", "2");
         map.put("pos1", "big");
         map.put("res1", "BLUE");
@@ -332,6 +342,7 @@ public class GameTest {
         assertEquals(Color.BLUE, second.getPersonalBoard().getDeposits().get(2).getColor());
         assertEquals(3, second.getPersonalBoard().getDeposits().get(2).getAmount());
         assertEquals(1, second.getPersonalBoard().getPosition());
+        assertEquals(1, first.getPersonalBoard().getPosition());
         assertTrue(game.doneMandatory);
 
     }

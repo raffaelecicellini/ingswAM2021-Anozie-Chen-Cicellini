@@ -443,8 +443,11 @@ public class Game {
                 int row = Integer.parseInt(mapCopy.get("row"));
                 if (row >= 1 && row <= 3) {
                     mapCopy.remove("row");
-                    currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                    int discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
                     market.pushRow(row-1);
+                    for (Player p : players) {
+                        if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
+                    }
                     doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             } else
@@ -452,8 +455,11 @@ public class Game {
                     int col = Integer.parseInt(mapCopy.get("col"));
                     if (col >= 1 && col <= 4) {
                         mapCopy.remove("col");
-                        currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                        int discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
                         market.pushColumn(col-1);
+                        for (Player p : players) {
+                            if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
+                        }
                         doneMandatory = true;
                     } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
 

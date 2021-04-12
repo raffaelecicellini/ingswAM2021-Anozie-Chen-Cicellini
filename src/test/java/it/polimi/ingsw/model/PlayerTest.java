@@ -1204,7 +1204,7 @@ public class PlayerTest {
         marbles[2] = YellowMarble.getInstance();
 
         Map<String,String> map = new HashMap<>();
-        map.put("pos1","small");
+        map.put("pos1","big");
         //map.put("res1","BLUE");
         map.put("res1","YELLOW");
         map.put("pos2","mid");
@@ -1221,7 +1221,36 @@ public class PlayerTest {
         assertEquals(Color.GREY, p.getPersonalBoard().getDeposits().get(1).getColor());
         assertEquals(Color.YELLOW, p.getPersonalBoard().getDeposits().get(2).getColor());
         assertEquals(0, p.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertEquals(0, p.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(0, p.getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(1, p.getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(2, p.getPersonalBoard().getDeposits().get(2).getAmount());
+    }
+
+    /**
+     * Tests that the player can correctly receive one initial resource.
+     */
+    @Test
+    public void chooseInitialResourceTest8() {
+        Map<String,String> test = new HashMap<>();
+        test.put("res1","yellow");
+        test.put("pos1","mid");
+        Player p1 = new Player("test");
+        p1.receiveInitialResource(1);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        try {
+            p1.chooseInitialResource(test);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -6,10 +6,12 @@ import java.util.*;
  * This class represents the ActionTokens' array used in the Solo game.
  */
 public class SoloActions {
+
     /**
      * This attribute represents the ActionTokens' array of the current game.
      */
     private ActionToken[] tokens;
+
     /**
      * This attribute specifies the current token that is yet to be activated.
      */
@@ -36,7 +38,7 @@ public class SoloActions {
     }
 
     /**
-     * This method is called by the Game if it is a Solo game. It calls the doAction() method of the ActionToken indicated
+     * This method is called by the Solo game. It calls the doAction() method of the ActionToken indicated
      * by current and, eventually, shuffles the array (if the current token is a MoveandShuffleToken).
      * @param blackCross: this is the position of "Lorenzo il Magnifico" on the FaithTrack.
      * @param decks: these are all of the DevelopDecks of the current game.
@@ -64,7 +66,7 @@ public class SoloActions {
 
     /**
      * Utility method used in tests. It returns the String representation of the token's array and the value of current.
-     * @return
+     * @return the String representation of SoloActions
      */
     @Override
     public String toString() {

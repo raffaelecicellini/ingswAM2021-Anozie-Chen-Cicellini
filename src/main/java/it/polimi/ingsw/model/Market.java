@@ -125,4 +125,19 @@ public class Market {
                 ", table=" + Arrays.deepToString(table) +
                 '}';
     }
+
+    /**
+     * Just for testing: sets the market not randomly
+     * @param list the list of marbles
+     */
+    public void setMarket(ArrayList<Marble> list){
+        int counter=0;
+        for(int col=0; col<4; col++) {
+            for(int row=0; row<3; row++){
+                this.table[col][row]= list.get(counter);
+                counter++;
+            }
+        }
+        this.outMarble=list.get(counter);
+    }
 }

@@ -26,7 +26,7 @@ public class Game {
     /**
      * Current Player (has the turn)
      */
-    private Player currentPlayer;
+    protected Player currentPlayer;
 
     /**
      * First Player
@@ -87,18 +87,34 @@ public class Game {
         this.isEndGame=false;
     }
 
+    /**
+     * This method returns the players in the current game.
+     * @return the list of Player
+     */
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * This method returns the active players in the current game.
+     * @return the list of ActivePlayer
+     */
     public ArrayList<Player> getActivePlayers() {
         return activePlayers;
     }
 
+    /**
+     * This method returns the current player.
+     * @return the currentPlayer
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * This method returns if the mandatory action has been done
+     * @return true if the Mandatory Action has already been done
+     */
     public boolean isDoneMandatory() {
         return doneMandatory;
     }
@@ -120,7 +136,7 @@ public class Game {
 
     /**
      * This method is called by the controller when the last player is connected to the game. It shuffles the list of
-     * activePlayers to select the first one. Then gives the leaders to each player (4 cards, they have to choose 2) and the
+     * activePlayers to select the first one. Then gives the leaders to each player (4 cards, in which 2 to be chosen) and the
      * initial resources and faith to each player if they have to.
      */
     public void start(){
@@ -311,6 +327,7 @@ public class Game {
             try {
                 slot=pb.getSlot(i);
                 for (DevelopCard card: slot) {
+                    if (card!=null)
                     points=points+card.getVictoryPoints();
                 }
             } catch (InvalidActionException e) {
@@ -449,8 +466,11 @@ public class Game {
                 int row = Integer.parseInt(mapCopy.get("row"));
                 if (row >= 1 && row <= 3) {
                     mapCopy.remove("row");
-                    currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                    int discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
                     market.pushRow(row-1);
+                    for (Player p : players) {
+                        if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
+                    }
                     doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             } else
@@ -458,8 +478,11 @@ public class Game {
                     int col = Integer.parseInt(mapCopy.get("col"));
                     if (col >= 1 && col <= 4) {
                         mapCopy.remove("col");
-                        currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                        int discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
                         market.pushColumn(col-1);
+                        for (Player p : players) {
+                            if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
+                        }
                         doneMandatory = true;
                     } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
 
@@ -468,4 +491,10 @@ public class Game {
         else throw new InvalidActionException("It is not your turn!");
     }
 
+    /**
+     * Just for testing
+     */
+    public void printSoloActions(){
+
+    }
 }

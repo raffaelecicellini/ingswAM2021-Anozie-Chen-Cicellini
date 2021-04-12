@@ -1019,7 +1019,7 @@ public class PlayerTest {
     }
 
     /**
-     * Testing fromMarket, full deposits -> increasing faith marker's position
+     * Testing fromMarket, full deposits
      */
     @Test
     public void fromMarketTest3(){
@@ -1045,9 +1045,10 @@ public class PlayerTest {
         map.put("pos2","BIG");
         map.put("pos3","SmAlL");
 
+        int disc = 0;
 
         try {
-            p.fromMarket(map, marbles);
+            disc = p.fromMarket(map, marbles);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -1058,7 +1059,7 @@ public class PlayerTest {
         assertEquals(1, p.getPersonalBoard().getDeposits().get(0).getAmount());
         assertEquals(2, p.getPersonalBoard().getDeposits().get(1).getAmount());
         assertEquals(3, p.getPersonalBoard().getDeposits().get(2).getAmount());
-        assertEquals(3, p.getPersonalBoard().getPosition());
+        assertEquals(3, disc);
     }
 
     /**

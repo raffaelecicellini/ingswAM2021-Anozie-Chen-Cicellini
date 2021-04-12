@@ -75,7 +75,7 @@ public class DiscardToken implements ActionToken{
 
     /**
      * Utility method used in tests. It returns the String representation of the token.
-     * @return
+     * @return the String representation of DiscardToken
      */
     @Override
     public String toString() {

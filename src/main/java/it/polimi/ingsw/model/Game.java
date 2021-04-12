@@ -235,7 +235,7 @@ public class Game {
                 maxPlayer=p;
             }
         }
-        for (int i=2; i>=0 && !exit && maxPlayer!=null; i--) {
+        for (int i=2; i>=0 && !exit && maxPlayer!=null && !isEndGame; i--) {
             FavorTile tile=maxPlayer.getPersonalBoard().getTile(i);
             if (max>=tile.getEnd() && !tile.isActive() && !tile.isDiscarded()){
                 exit=true;
@@ -259,19 +259,24 @@ public class Game {
         if (isEndGame && currentPlayer.getName().equals(firstPlayer.getName())){
             //count points
             int maxpoints=0;
+            int currpoints;
             Player winner=null;
             int[] points= new int[activePlayers.size()];
             for (int i=0; i<activePlayers.size(); i++){
                 points[i]= getPoints(activePlayers.get(i));
-                if (points[i]>maxpoints){
+                //System.out.println("Points of "+activePlayers.get(i).getName()+": "+points[i]);
+                currpoints= points[i];
+                if (currpoints>maxpoints){
                     maxpoints=points[i];
                     winner=activePlayers.get(i);
                 }
-                else if (points[i]==maxpoints){
+                else if (currpoints==maxpoints){
                     winner=winnerByResources(activePlayers.get(i), winner);
                 }
             }
             //segnala winner
+            assert winner != null;
+            System.out.println("The winner is: "+winner.getName());
         }
     }
 
@@ -306,21 +311,25 @@ public class Game {
             try {
                 slot=pb.getSlot(i);
                 for (DevelopCard card: slot) {
-                    points=points+card.getVictoryPoints();
+                    if (card!=null) points=points+card.getVictoryPoints();
                 }
             } catch (InvalidActionException e) {
                 e.printStackTrace();
             }
         }
+        //System.out.println("Points after DevelopCard: "+points);
         points=points+ pb.getCell(pb.getPosition()).getVictoryPoints();
+        //System.out.println("Points after checking faithTrack position: "+points);
         for (int i=0; i<3; i++){
             if (pb.getTileState(i)){
                 points=points+pb.getTile(i).getVictoryPoints();
             }
         }
+        //System.out.println("Points after FavorTiles: "+points);
         for (LeaderCard leader: player.leaders) {
             if(leader.isActive()) points=points+leader.getVictoryPoints();
         }
+        //System.out.println("Points after LeaderCards: "+points);
         int res=0;
         ArrayList<ResourceAmount> deps=pb.getDeposits();
         ResourceAmount[] strongbox=pb.getStrongbox();
@@ -330,8 +339,9 @@ public class Game {
         for(ResourceAmount x: strongbox){
             res=res+x.getAmount();
         }
-        res=res%5;
+        res=res/5;
         points=points+res;
+        //System.out.println("Points after resources: "+points);
         return points;
     }
 

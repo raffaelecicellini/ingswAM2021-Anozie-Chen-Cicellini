@@ -384,7 +384,13 @@ public class Game {
      * @throws InvalidActionException is the move is not valid.
      */
     public void chooseInitialResource(String player,Map<String, String> map) throws InvalidActionException {
-        if (currentPlayer.getName().equals(player)) currentPlayer.chooseInitialResource(map);
+        if (currentPlayer.getName().equals(player)) {
+            if (currentPlayer.getNumberInitialResource() != 0)
+                currentPlayer.chooseInitialResource(map);
+            if (current < activePlayers.size()-1)
+                current++;
+            currentPlayer = this.activePlayers.get(current);
+        }
         else throw new InvalidActionException("It is not your turn!");
     }
 

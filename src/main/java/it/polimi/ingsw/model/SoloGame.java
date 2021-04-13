@@ -69,6 +69,7 @@ public class SoloGame extends Game{
      * @throws InvalidActionException if the move is not valid.
      * @throws NumberFormatException if the format is not valid.
      */
+    @Override
     public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory operation in this turn.");
         if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("You didn't select the card.");
@@ -91,6 +92,7 @@ public class SoloGame extends Game{
      * @param info this map contains the info about all the productions that the player wants to activate
      * @throws InvalidActionException if the move is not valid.
      */
+    @Override
     public void produce(String player, Map<String, String> info) throws InvalidActionException {
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory operation in this turn.");
         currentPlayer.produce(info);
@@ -103,6 +105,7 @@ public class SoloGame extends Game{
      * @param map is the map with the information
      * @throws InvalidActionException if the move is not valid.
      */
+    @Override
     public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");
 
@@ -139,6 +142,7 @@ public class SoloGame extends Game{
      * @param map is where the information is stored.
      * @throws InvalidActionException if the move is not valid.
      */
+    @Override
     public void swapDeposit(String player, Map<String,String> map) throws InvalidActionException {
         currentPlayer.swapDeposit(map);
     }
@@ -149,6 +153,7 @@ public class SoloGame extends Game{
      * @param pos it represents the leader that the player wants to activate
      * @throws InvalidActionException if the move is not valid.
      */
+    @Override
     public void activateLeader(String player, int pos) throws InvalidActionException{
         if (doneLeader<2) {
             currentPlayer.activateLeader(pos);
@@ -162,6 +167,7 @@ public class SoloGame extends Game{
      * @param pos it represents the leader that the player wants to discard
      * @throws InvalidActionException if the move is not valid.
      */
+    @Override
     public void discardLeader(String player, int pos) throws InvalidActionException{
         if (doneLeader<2) {
             currentPlayer.discardLeader(pos);
@@ -177,6 +183,7 @@ public class SoloGame extends Game{
      * @param player is ignored
      * @throws InvalidActionException if the move is not valid.
      */
+    @Override
     public void endTurn(String player) throws InvalidActionException{
 
      if (!doneMandatory) throw new InvalidActionException("You have to do a mandatory action (buy a DevelopCard, activate production or take resources from market)");
@@ -242,6 +249,7 @@ public class SoloGame extends Game{
     /**
      * Just for testing
      */
+    @Override
     public void printSoloActions() {
         System.out.println(soloActions);
     }

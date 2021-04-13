@@ -64,9 +64,9 @@ public class Game {
     protected int doneLeader;
 
     /**
-     * Used to check if the game is still in configuration phase
+     * Used to check the phase of the game (if an action can be done)
      */
-    private boolean isFirstTurn;
+    private GamePhase phase;
 
     /**
      * Constructor of the Game class. It instantiates the Market, the LeaderDeck and the DevelopDecks for the current game.
@@ -85,6 +85,15 @@ public class Game {
             }
         }
         this.isEndGame=false;
+        this.phase=GamePhase.NOTSTARTED;
+    }
+
+    /**
+     * Simple method that returns the current GamePhase.
+     * @return the current GamePhase
+     */
+    public GamePhase getPhase(){
+        return this.phase;
     }
 
     /**
@@ -168,8 +177,9 @@ public class Game {
             }
         }
 
-        isFirstTurn=true;
         isEndGame=false;
+        phase=GamePhase.LEADER;
+        //notify the first player to choose the leaders
     }
 
     /**
@@ -270,7 +280,6 @@ public class Game {
         //check endGame and nextPlayer: if true and =first, count points e select winner; else go on
         if (current==activePlayers.size()-1){
             current=0;
-            if (isFirstTurn) isFirstTurn=false;
         }
         else current++;
         currentPlayer=activePlayers.get(current);
@@ -298,6 +307,8 @@ public class Game {
             //segnala winner
             assert winner != null;
             System.out.println("The winner is: "+winner.getName());
+
+            this.phase=GamePhase.ENDED;
         }
     }
 
@@ -407,6 +418,27 @@ public class Game {
     public void chooseInitialResource(String player,Map<String, String> map) throws InvalidActionException {
         if (currentPlayer.getName().equals(player)) currentPlayer.chooseInitialResource(map);
         else throw new InvalidActionException("It is not your turn!");
+        //notify next player, if nextplayer is first change GamePhase to FullGame
+    }
+
+    /**
+     * This method is called when a player chooses his leaders.
+     * @param player the player who wants to do the action
+     * @param map this map contains the indexes of the two leaders chosen
+     * @throws InvalidActionException when one or both indexes are missing or if it is not the turn of the player.
+     */
+    public void chooseLeaders(String player, Map<String, String> map) throws InvalidActionException {
+        if (currentPlayer.getName().equals(player)) {
+            int leader1, leader2;
+            if (map.containsKey("ind1") && map.containsKey("ind2")){
+                leader1=Integer.parseInt(map.get("ind1"));
+                leader2=Integer.parseInt(map.get("ind2"));
+                currentPlayer.chooseLeader(leader1, leader2);
+            }
+            else throw new InvalidActionException("Missing parameters!");
+        }
+        else throw new InvalidActionException("It is not your turn!");
+        //notify next player. If next is first, change phase to Resource
     }
 
     /**

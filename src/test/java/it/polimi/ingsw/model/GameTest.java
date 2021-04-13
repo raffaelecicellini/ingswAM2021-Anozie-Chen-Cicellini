@@ -15,11 +15,13 @@ public class GameTest {
     @Test
     public void creationTest(){
         Game test= new Game();
+        assertEquals(GamePhase.NOTSTARTED, test.getPhase());
         test.createPlayer("test");
         assertEquals("test", test.getPlayers().get(0).getName());
         test.createPlayer("second");
         assertEquals("second", test.getPlayers().get(1).getName());
         test.start();
+        assertEquals(GamePhase.LEADER, test.getPhase());
         assertEquals(4, test.getActivePlayers().get(0).getLeaders().size());
         assertEquals(4, test.getActivePlayers().get(1).getLeaders().size());
         System.out.println(test.getActivePlayers().get(0).getLeaders().toString());
@@ -39,6 +41,7 @@ public class GameTest {
             e.printStackTrace();
             assertEquals(curr.getName(), test.getCurrentPlayer().getName());
         }
+        assertEquals(GamePhase.LEADER, test.getPhase());
     }
 
     /**
@@ -50,9 +53,11 @@ public class GameTest {
     @Test
     public void leaderActionTest(){
         Game test= new Game();
+        assertEquals(GamePhase.NOTSTARTED, test.getPhase());
         test.createPlayer("test");
         test.createPlayer("second");
         test.start();
+        assertEquals(GamePhase.LEADER, test.getPhase());
         Player curr= test.getCurrentPlayer();
         Player second= test.getActivePlayers().get(1);
 
@@ -271,6 +276,7 @@ public class GameTest {
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
+        assertEquals(GamePhase.ENDED, test.getPhase());
     }
 
     /**
@@ -342,6 +348,7 @@ public class GameTest {
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
+        assertEquals(GamePhase.ENDED, test.getPhase());
     }
 
     /**

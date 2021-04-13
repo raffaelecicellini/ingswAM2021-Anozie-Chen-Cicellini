@@ -77,9 +77,8 @@ public class Game {
         this.market= new Market();
         this.leaderDeck= new LeaderDeck();
         this.developDecks= new DevelopDeck[4][3];
-        Color color;
         for (int col=0; col<4; col++){
-            color= parseColor(col);
+            Color color = parseColor(col);
             for (int row=0; row<3; row++){
                 this.developDecks[col][row]= new DevelopDeck(row+1, color);
             }
@@ -530,8 +529,22 @@ public class Game {
     /**
      * Just for testing
      */
-    public void printSoloActions(){
+    protected void printSoloActions(){
 
+    }
+
+    /**
+     *  Just for testing
+     */
+    protected FaithMarker getBlackCross(){
+        return null;
+    }
+
+    /**
+     * Just for testing
+     * @param soloActions soloActions
+     */
+    protected void setSoloActions(SoloActions soloActions) {
     }
 
 }

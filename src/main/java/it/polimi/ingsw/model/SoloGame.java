@@ -31,13 +31,11 @@ public class SoloGame extends Game{
      * Constructor of the SoloGame class. It instantiates the Market, the LeaderDeck and the DevelopDecks for the current game.
      */
     public SoloGame() {
-        soloActions = new SoloActions();
         this.market= new Market();
         this.leaderDeck= new LeaderDeck();
         this.developDecks= new DevelopDeck[4][3];
-        Color color;
         for (int col=0; col<4; col++){
-            color= parseColor(col);
+            Color color = parseColor(col);
             for (int row=0; row<3; row++){
                 this.developDecks[col][row]= new DevelopDeck(row+1, color);
             }
@@ -50,6 +48,7 @@ public class SoloGame extends Game{
      */
     @Override
     public void start() {
+        this.soloActions = new SoloActions();
         blackCross = new FaithMarker(0);
         //receive initial leaders
         LeaderCard card;
@@ -206,7 +205,7 @@ public class SoloGame extends Game{
      if (!doneMandatory) throw new InvalidActionException("You have to do a mandatory action (buy a DevelopCard, activate production or take resources from market)");
 
 
-     //if (!isEndGame) {
+     if (!isEndGame) {
 
          soloActions.doAction(blackCross, developDecks);
 
@@ -226,7 +225,7 @@ public class SoloGame extends Game{
          if (blackCross.getPosition() > currentPlayer.getPersonalBoard().getPosition()) {
              if (blackCross.getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
                  isEndGame = true;
-                 System.out.println("You lost");
+                 System.out.println("You lost!");
                  exit = true;
              }
              for (int j = 1; j >= 0 && !exit; j--) {
@@ -258,16 +257,34 @@ public class SoloGame extends Game{
                  }
              }
          }
-     //}
 
+     }
 
+    }
+
+    /**
+     * Method to get the black cross (JUST FOR TESTING)
+     * @return the blackCross
+     */
+    @Override
+    protected FaithMarker getBlackCross() {
+        return blackCross;
     }
 
     /**
      * Just for testing
      */
     @Override
-    public void printSoloActions() {
+    protected void printSoloActions() {
         System.out.println(soloActions);
+    }
+
+    /**
+     * Just for testing
+     * @param soloActions soloActions
+     */
+    @Override
+    protected void setSoloActions(SoloActions soloActions) {
+        this.soloActions = soloActions;
     }
 }

@@ -10,16 +10,30 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SoloGameTest {
+
     /**
      * Testing a Solo Game
      */
     @Test
-    public void soloGameTest(){
+    public void soloGameTest1(){
         Game soloGame = new SoloGame();
         soloGame.createPlayer("player");
         soloGame.start();
-        soloGame.printSoloActions();
-        Player first = soloGame.getCurrentPlayer();
+
+        // setting soloActions
+        SoloActions soloActions = new SoloActions();
+        ActionToken[] actionTokens = new ActionToken[7];
+        actionTokens[0]= new DiscardToken(Color.BLUE, 2);
+        actionTokens[1]= new DiscardToken(Color.GREEN, 2);
+        actionTokens[2]= new DiscardToken(Color.PURPLE, 2);
+        actionTokens[3]= new DiscardToken(Color.YELLOW, 2);
+        actionTokens[4]= new MoveToken(2);
+        actionTokens[5]= new MoveToken(2);
+        actionTokens[6]= new MoveandShuffleToken(1);
+        soloActions.setTokens(actionTokens);
+        soloGame.setSoloActions(soloActions);
+
+        //soloGame.printSoloActions();
 
         ArrayList<LeaderCard> leaders1 = new ArrayList<>();
         leaders1.add(new ResourceLeader(3, "Resource", false, false, new ResourceAmount(Color.YELLOW, 5), Color.GREY));
@@ -27,13 +41,19 @@ public class SoloGameTest {
         leaders1.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.BLUE, Color.YELLOW, Color.GREY));
         leaders1.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW));
 
-        first.clearLeaders();
-        first.receiveLeaders(leaders1);
+        soloGame.getCurrentPlayer().clearLeaders();
+        soloGame.getCurrentPlayer().receiveLeaders(leaders1);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("ind1", "2");
+        map.put("ind2", "1");
+
         try {
-            first.chooseLeader(3, 4);
+            soloGame.chooseLeaders("", map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
+
 
         ArrayList<Marble> marbles = new ArrayList<>();
         marbles.add(WhiteMarble.getInstance());
@@ -52,7 +72,7 @@ public class SoloGameTest {
         soloGame.market.setMarket(marbles);
 
 
-        Map<String, String> map = new HashMap<>();
+        map.clear();
         map.put("row", "2");
         map.put("pos1", "small");
         map.put("pos2", "mid");
@@ -66,13 +86,14 @@ public class SoloGameTest {
             e.printStackTrace();
         }
 
-        assertEquals(Color.BLUE, first.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertNull(first.getPersonalBoard().getDeposits().get(1).getColor());
-        assertEquals(0, first.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(Color.PURPLE, first.getPersonalBoard().getDeposits().get(2).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(2).getAmount());
-        assertEquals(0, first.getPersonalBoard().getPosition());
+        assertEquals(Color.BLUE, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertNull(soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(0, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(Color.PURPLE, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
+
+        assertEquals(0, soloGame.getCurrentPlayer().getPersonalBoard().getPosition());
         assertTrue(soloGame.doneMandatory);
 
         try {
@@ -88,17 +109,17 @@ public class SoloGameTest {
         map.put("dest", "big");
 
         try {
-            first.swapDeposit(map);
+            soloGame.swapDeposit("", map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        assertEquals(Color.PURPLE, first.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertNull(first.getPersonalBoard().getDeposits().get(1).getColor());
-        assertEquals(0, first.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(Color.BLUE, first.getPersonalBoard().getDeposits().get(2).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(Color.PURPLE, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertNull(soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(0, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(Color.BLUE, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
         assertFalse(soloGame.doneMandatory);
 
         map.clear();
@@ -108,26 +129,181 @@ public class SoloGameTest {
         map.put("pos3", "big");
 
         try {
-            soloGame.fromMarket(first.getName(), map);
+            soloGame.fromMarket("", map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        assertEquals(Color.PURPLE, first.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertEquals(Color.YELLOW, first.getPersonalBoard().getDeposits().get(1).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(Color.BLUE, first.getPersonalBoard().getDeposits().get(2).getColor());
-        assertEquals(2, first.getPersonalBoard().getDeposits().get(2).getAmount());
-        assertEquals(0, first.getPersonalBoard().getPosition());
+        assertEquals(Color.PURPLE, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertEquals(Color.YELLOW, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(Color.BLUE, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(2, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
+
+        assertEquals(0, soloGame.getCurrentPlayer().getPersonalBoard().getPosition());
+        assertEquals(0, soloGame.getBlackCross().getPosition());
         assertTrue(soloGame.doneMandatory);
 
-        for (LeaderCard l : first.getLeaders()) {
-            l.setActive(true);
+
+        //first.getPersonalBoard().setPosition(24);
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        // THIRD TURN
+
+        map.clear();
+        map.put("col", "4");
+        map.put("pos1", "big");
+        map.put("pos2", "big");
+        map.put("pos3", "big");
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(Color.PURPLE, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertEquals(Color.YELLOW, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(Color.BLUE, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(3, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
+
+        assertEquals(0, soloGame.getCurrentPlayer().getPersonalBoard().getPosition());
+        assertEquals(1, soloGame.getBlackCross().getPosition());
+        assertTrue(soloGame.doneMandatory);
+
+        try {
+            soloGame.discardLeader("", 1);
+            soloGame.discardLeader("", 0);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(2, soloGame.getCurrentPlayer().getPersonalBoard().getPosition());
+    }
+
+    /**
+     * Testing endTurn in SoloGame - no more develop cards
+     */
+    @Test
+    public void soloGameTest2(){
+        Game soloGame = new SoloGame();
+        soloGame.createPlayer("player");
+        soloGame.start();
+
+        // setting soloActions
+        SoloActions soloActions = new SoloActions();
+        ActionToken[] actionTokens = new ActionToken[7];
+        actionTokens[0]= new DiscardToken(Color.BLUE, 2);
+        actionTokens[1]= new DiscardToken(Color.BLUE, 2);
+        actionTokens[2]= new DiscardToken(Color.BLUE, 2);
+        actionTokens[3]= new DiscardToken(Color.BLUE, 2);
+        actionTokens[4]= new DiscardToken(Color.BLUE, 2);
+        actionTokens[5]= new DiscardToken(Color.BLUE, 2);
+        actionTokens[6]= new DiscardToken(Color.BLUE, 2);
+        soloActions.setTokens(actionTokens);
+        soloGame.setSoloActions(soloActions);
+
+        ArrayList<Marble> marbles = new ArrayList<>();
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        soloGame.market.setMarket(marbles);
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("col", "4");
+        map.put("pos1", "small");
+        map.put("pos2", "mid");
+        map.put("pos3", "big");
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
         }
 
 
-        first.getPersonalBoard().setPosition(24);
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
 
         try {
             soloGame.endTurn("");
@@ -136,4 +312,209 @@ public class SoloGameTest {
         }
 
     }
+
+    /**
+     * Testing endTurn in SoloGame - black cross at the end
+     */
+    @Test
+    public void soloGameTest3(){
+        Game soloGame = new SoloGame();
+        soloGame.createPlayer("player");
+        soloGame.start();
+
+        // setting soloActions
+        SoloActions soloActions = new SoloActions();
+        ActionToken[] actionTokens = new ActionToken[7];
+        actionTokens[0]= new MoveToken(2);
+        actionTokens[1]= new MoveToken(2);
+        actionTokens[2]= new MoveToken(2);
+        actionTokens[3]= new MoveToken(2);
+        actionTokens[4]= new MoveToken(2);
+        actionTokens[5]= new MoveToken(2);
+        actionTokens[6]= new MoveToken(2);
+        soloActions.setTokens(actionTokens);
+        soloGame.setSoloActions(soloActions);
+
+        ArrayList<Marble> marbles = new ArrayList<>();
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        marbles.add(WhiteMarble.getInstance());
+        soloGame.market.setMarket(marbles);
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("col", "4");
+        map.put("pos1", "small");
+        map.put("pos2", "mid");
+        map.put("pos3", "big");
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            soloGame.fromMarket("", map);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            soloGame.endTurn("");
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 }

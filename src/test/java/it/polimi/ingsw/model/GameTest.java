@@ -361,14 +361,14 @@ public class GameTest {
         game.createPlayer("one");
         game.createPlayer("two");
         game.start();
-        Player first = game.getCurrentPlayer();
-        Player second = game.getActivePlayers().get(1);
+        // Player first = game.getCurrentPlayer();
+        // Player second = game.getActivePlayers().get(1);
 
         Map<String, String> res = new HashMap<>();
         res.put("res1", "blue");
         res.put("pos1", "small");
         try {
-            second.chooseInitialResource(res);
+            game.getActivePlayers().get(1).chooseInitialResource(res);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -385,18 +385,18 @@ public class GameTest {
         leaders2.add(new ResourceLeader(3, "Resource", false, false, new ResourceAmount(Color.YELLOW, 5), Color.GREY));
         leaders2.add(new ResourceLeader(3, "Resource", false, false, new ResourceAmount(Color.PURPLE, 5), Color.BLUE));
 
-        first.clearLeaders();
-        second.clearLeaders();
-        first.receiveLeaders(leaders1);
-        second.receiveLeaders(leaders2);
+        game.getCurrentPlayer().clearLeaders();
+        game.getActivePlayers().get(1).clearLeaders();
+        game.getCurrentPlayer().receiveLeaders(leaders1);
+        game.getActivePlayers().get(1).receiveLeaders(leaders2);
 
         try {
-            first.chooseLeader(3, 4);
+            game.getCurrentPlayer().chooseLeader(3, 4);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
         try {
-            second.chooseLeader(1, 2);
+            game.getActivePlayers().get(1).chooseLeader(1, 2);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -428,18 +428,18 @@ public class GameTest {
 
 
         try {
-            game.fromMarket(first.getName(), map);
+            game.fromMarket(game.getCurrentPlayer().getName(), map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        assertEquals(Color.BLUE, first.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertNull(first.getPersonalBoard().getDeposits().get(1).getColor());
-        assertEquals(0, first.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(Color.PURPLE, first.getPersonalBoard().getDeposits().get(2).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(2).getAmount());
-        assertEquals(0, first.getPersonalBoard().getPosition());
+        assertEquals(Color.BLUE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertNull(game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(0, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(Color.PURPLE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(0, game.getCurrentPlayer().getPersonalBoard().getPosition());
         assertTrue(game.doneMandatory);
 
         /* first player tries to do the mandatory action again
@@ -456,7 +456,7 @@ public class GameTest {
 
 
         try {
-            game.endTurn(first.getName());
+            game.endTurn(game.getCurrentPlayer().getName());
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -472,33 +472,33 @@ public class GameTest {
 
 
         try {
-            game.fromMarket(second.getName(), map);
+            game.fromMarket(game.getCurrentPlayer().getName(), map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        assertEquals(Color.BLUE, second.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(1, second.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertEquals(Color.GREY, second.getPersonalBoard().getDeposits().get(1).getColor());
-        assertEquals(2, second.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(null, second.getPersonalBoard().getDeposits().get(2).getColor());
-        assertEquals(0, second.getPersonalBoard().getDeposits().get(2).getAmount());
-        assertEquals(1, second.getPersonalBoard().getPosition());
+        assertEquals(Color.BLUE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertEquals(Color.GREY, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(2, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(null, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(0, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getPosition());
         assertTrue(game.doneMandatory);
 
 
         try {
-            game.endTurn(second.getName());
+            game.endTurn(game.getCurrentPlayer().getName());
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
         // SET ACTIVE LEADERS
 
-        for (LeaderCard l : first.getLeaders()) {
+        for (LeaderCard l : game.getCurrentPlayer().getLeaders()) {
             l.setActive(true);
         }
-        for (LeaderCard l : second.getLeaders()) {
+        for (LeaderCard l : game.getActivePlayers().get(1).getLeaders()) {
             l.setActive(true);
         }
 
@@ -509,17 +509,17 @@ public class GameTest {
         map.put("dest", "big");
 
         try {
-            first.swapDeposit(map);
+            game.getCurrentPlayer().swapDeposit(map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        assertEquals(Color.PURPLE, first.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertNull(first.getPersonalBoard().getDeposits().get(1).getColor());
-        assertEquals(0, first.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(Color.BLUE, first.getPersonalBoard().getDeposits().get(2).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(Color.PURPLE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertNull(game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(0, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(Color.BLUE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
         assertFalse(game.doneMandatory);
 
         map.clear();
@@ -529,22 +529,22 @@ public class GameTest {
         map.put("pos3", "big");
 
         try {
-            game.fromMarket(first.getName(), map);
+            game.fromMarket(game.getCurrentPlayer().getName(), map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        assertEquals(Color.PURPLE, first.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertEquals(Color.YELLOW, first.getPersonalBoard().getDeposits().get(1).getColor());
-        assertEquals(1, first.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(Color.BLUE, first.getPersonalBoard().getDeposits().get(2).getColor());
-        assertEquals(3, first.getPersonalBoard().getDeposits().get(2).getAmount());
-        assertEquals(0, first.getPersonalBoard().getPosition());
+        assertEquals(Color.PURPLE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertEquals(Color.YELLOW, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(Color.BLUE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(3, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(0, game.getCurrentPlayer().getPersonalBoard().getPosition());
         assertTrue(game.doneMandatory);
 
         try {
-            game.endTurn(first.getName());
+            game.endTurn(game.getCurrentPlayer().getName());
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -556,7 +556,7 @@ public class GameTest {
         map.put("dest", "big");
 
         try {
-            second.swapDeposit(map);
+            game.getCurrentPlayer().swapDeposit(map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -572,19 +572,19 @@ public class GameTest {
 
 
         try {
-            game.fromMarket(second.getName(), map);
+            game.fromMarket(game.getCurrentPlayer().getName(), map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        assertEquals(Color.PURPLE, second.getPersonalBoard().getDeposits().get(0).getColor());
-        assertEquals(1, second.getPersonalBoard().getDeposits().get(0).getAmount());
-        assertEquals(Color.GREY, second.getPersonalBoard().getDeposits().get(1).getColor());
-        assertEquals(2, second.getPersonalBoard().getDeposits().get(1).getAmount());
-        assertEquals(Color.BLUE, second.getPersonalBoard().getDeposits().get(2).getColor());
-        assertEquals(3, second.getPersonalBoard().getDeposits().get(2).getAmount());
-        assertEquals(1, second.getPersonalBoard().getPosition());
-        assertEquals(1, first.getPersonalBoard().getPosition());
+        assertEquals(Color.PURPLE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getColor());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(0).getAmount());
+        assertEquals(Color.GREY, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getColor());
+        assertEquals(2, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(1).getAmount());
+        assertEquals(Color.BLUE, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getColor());
+        assertEquals(3, game.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
+        assertEquals(1, game.getCurrentPlayer().getPersonalBoard().getPosition());
+        assertEquals(1, game.getActivePlayers().get(0).getPersonalBoard().getPosition());
         assertTrue(game.doneMandatory);
 
     }

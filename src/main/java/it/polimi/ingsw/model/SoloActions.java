@@ -45,7 +45,7 @@ public class SoloActions {
      */
     public void doAction(FaithMarker blackCross, DevelopDeck[][] decks) {
         boolean res=tokens[current].doAction(blackCross, decks);
-        if (res) {
+        if (res || current==6) {
             this.shuffle();
         }
         else this.current++;
@@ -74,5 +74,13 @@ public class SoloActions {
                 "tokens=" + Arrays.toString(tokens) +
                 ", "+ current +
                 '}';
+    }
+
+    /**
+     * Just for testing
+     * @param tokens tokens
+     */
+    protected void setTokens(ActionToken[] tokens) {
+        this.tokens = tokens;
     }
 }

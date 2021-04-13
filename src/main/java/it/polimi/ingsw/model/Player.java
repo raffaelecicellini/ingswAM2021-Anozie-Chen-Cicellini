@@ -153,7 +153,7 @@ public class Player {
         for (int i=0; i<6; i++){
             Map<String, String> production= new HashMap<>();
             curr="prod"+i;
-            if (info.containsKey(curr) && info.get(curr).equals("yes")){
+            if (info.containsKey(curr) && info.get(curr).toLowerCase().equals("yes")){
                 if (i==0){
                     production.put("in1", info.get("in01"));
                     production.put("pos1", info.get("pos01"));
@@ -226,7 +226,7 @@ public class Player {
             else if (index>=0 && index<=4){
                 if (deps.size()>index){
                     ResourceAmount dep= deps.get(index);
-                    if (dep.getColor().toString().toLowerCase().equals(info.get(type).toLowerCase()) && dep.getAmount()>0){
+                    if (dep.getColor()!=null && dep.getColor().toString().toLowerCase().equals(info.get(type).toLowerCase()) && dep.getAmount()>0){
                         dep.setAmount(dep.getAmount()-1);
                     }
                     else throw new InvalidActionException("The resource is not in the specified position ("+info.get(pos)+")");

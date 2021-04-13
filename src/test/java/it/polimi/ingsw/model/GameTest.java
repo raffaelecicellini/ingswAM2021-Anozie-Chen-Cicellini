@@ -785,6 +785,88 @@ public class GameTest {
         }
     }
 
+    /**
+     * Tests that the player can successfully buy a card in his turn.
+     */
+    @Test
+    public void buyTest() {
+        Game test = new Game();
+        test.createPlayer("one");
+        test.start();
+        Player one = test.getActivePlayers().get(0);
+        ResourceAmount[] strongbox = new ResourceAmount[4];
+        strongbox[0] = new ResourceAmount(Color.BLUE,100);
+        strongbox[1] = new ResourceAmount(Color.PURPLE,100);
+        strongbox[2] = new ResourceAmount(Color.GREY,100);
+        strongbox[3] = new ResourceAmount(Color.YELLOW,100);
+        Map<String,String> map = new HashMap<>();
+        map.put("res1","strongbox");
+        map.put("res2","strongbox");
+        map.put("res3","strongbox");
+        map.put("res4","strongbox");
+        map.put("row","0");
+        map.put("column","0");
+        map.put("ind","0");
+        one.getPersonalBoard().setStrongbox(strongbox);
+        assertEquals(one.getNumberDevelopCards(),0);
+        try {
+            test.buy("one",map);
+            System.out.println("yes1");
+            assertEquals(one.getNumberDevelopCards(),1);
+        }catch (InvalidActionException e) {
+            System.out.println("no1");
+            e.printStackTrace();
+            assertEquals(one.getNumberDevelopCards(),0);
+            map.remove("res4");
+            try {
+                test.buy("one",map);
+                System.out.println("yes2");
+                assertEquals(one.getNumberDevelopCards(),1);
+            }catch (InvalidActionException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Tests that the player can't successfully buy a card in his turn if he doesn't have resources.
+     */
+    @Test
+    public void buyTest1() {
+        Game test = new Game();
+        test.createPlayer("one");
+        test.start();
+        Player one = test.getActivePlayers().get(0);
+        ResourceAmount[] strongbox = new ResourceAmount[4];
+        strongbox[0] = new ResourceAmount(Color.BLUE,0);
+        strongbox[1] = new ResourceAmount(Color.PURPLE,0);
+        strongbox[2] = new ResourceAmount(Color.GREY,0);
+        strongbox[3] = new ResourceAmount(Color.YELLOW,0);
+        Map<String,String> map = new HashMap<>();
+        map.put("res1","strongbox");
+        map.put("res2","strongbox");
+        map.put("res3","strongbox");
+        map.put("res4","strongbox");
+        map.put("row","0");
+        map.put("column","0");
+        map.put("ind","1");
+        one.getPersonalBoard().setStrongbox(strongbox);
+        assertEquals(one.getNumberDevelopCards(),0);
+        try {
+            test.buy("one",map);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+            assertEquals(one.getNumberDevelopCards(),0);
+            map.remove("res4");
+            try {
+                test.buy("one",map);
+            }catch (InvalidActionException e1) {
+                e1.printStackTrace();
+                assertEquals(one.getNumberDevelopCards(),0);
+            }
+        }
+    }
+
 
 
 }

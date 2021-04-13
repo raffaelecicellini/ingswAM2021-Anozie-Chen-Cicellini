@@ -148,6 +148,23 @@ public class SoloGame extends Game{
     }
 
     /**
+     * This method is called when the player chooses his leaders.
+     * @param player is ignored
+     * @param map this map contains the indexes of the two leaders chosen
+     * @throws InvalidActionException when one or both indexes are missing
+     */
+    @Override
+    public void chooseLeaders(String player, Map<String, String> map) throws InvalidActionException{
+        int leader1, leader2;
+        if (map.containsKey("ind1") && map.containsKey("ind2")){
+            leader1=Integer.parseInt(map.get("ind1"));
+            leader2=Integer.parseInt(map.get("ind2"));
+            currentPlayer.chooseLeader(leader1, leader2);
+        }
+        else throw new InvalidActionException("Missing parameters!");
+    }
+
+    /**
      * This method is called by the controller when the player decided to activate a leader. It calls the player's activateLeader method.
      * @param player is ignored
      * @param pos it represents the leader that the player wants to activate

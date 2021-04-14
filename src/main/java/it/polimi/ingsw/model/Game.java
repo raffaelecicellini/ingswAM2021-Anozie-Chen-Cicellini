@@ -523,26 +523,4 @@ public class Game {
         }
         else throw new InvalidActionException("It is not your turn!");
     }
-
-    /**
-     * Just for testing
-     */
-    protected void printSoloActions(){
-
-    }
-
-    /**
-     *  Just for testing
-     */
-    protected FaithMarker getBlackCross(){
-        return null;
-    }
-
-    /**
-     * Just for testing
-     * @param soloActions soloActions
-     */
-    protected void setSoloActions(SoloActions soloActions) {
-    }
-
 }

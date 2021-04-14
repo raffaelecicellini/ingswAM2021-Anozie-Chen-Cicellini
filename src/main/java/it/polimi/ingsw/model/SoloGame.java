@@ -263,7 +263,6 @@ public class SoloGame extends Game{
      * Method to get the black cross (JUST FOR TESTING)
      * @return the blackCross
      */
-    @Override
     protected FaithMarker getBlackCross() {
         return blackCross;
     }
@@ -271,7 +270,6 @@ public class SoloGame extends Game{
     /**
      * Just for testing
      */
-    @Override
     protected void printSoloActions() {
         System.out.println(soloActions);
     }
@@ -280,7 +278,6 @@ public class SoloGame extends Game{
      * Just for testing
      * @param soloActions soloActions
      */
-    @Override
     protected void setSoloActions(SoloActions soloActions) {
         this.soloActions = soloActions;
     }

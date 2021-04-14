@@ -390,13 +390,12 @@ public class GameTest {
         game.getCurrentPlayer().receiveLeaders(leaders1);
         game.getActivePlayers().get(1).receiveLeaders(leaders2);
 
+        Map<String, String> map = new HashMap<>();
+        map.put("ind1", "2");
+        map.put("ind2", "1");
+
         try {
-            game.getCurrentPlayer().chooseLeader(3, 4);
-        } catch (InvalidActionException e) {
-            e.printStackTrace();
-        }
-        try {
-            game.getActivePlayers().get(1).chooseLeader(1, 2);
+            game.chooseLeaders(game.getCurrentPlayer().getName(), map);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -419,7 +418,7 @@ public class GameTest {
 
         // FIRST
 
-        Map<String, String> map = new HashMap<>();
+        map = new HashMap<>();
         map.put("row", "2");
         map.put("pos1", "small");
         map.put("pos2", "mid");

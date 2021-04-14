@@ -16,7 +16,7 @@ public class SoloGameTest {
      */
     @Test
     public void soloGameTest1(){
-        Game soloGame = new SoloGame();
+        SoloGame soloGame = new SoloGame();
         soloGame.createPlayer("player");
         soloGame.start();
 
@@ -194,7 +194,7 @@ public class SoloGameTest {
      */
     @Test
     public void soloGameTest2(){
-        Game soloGame = new SoloGame();
+        SoloGame soloGame = new SoloGame();
         soloGame.createPlayer("player");
         soloGame.start();
 
@@ -318,7 +318,7 @@ public class SoloGameTest {
      */
     @Test
     public void soloGameTest3(){
-        Game soloGame = new SoloGame();
+        SoloGame soloGame = new SoloGame();
         soloGame.createPlayer("player");
         soloGame.start();
 

@@ -467,7 +467,7 @@ public class Player {
     /**
      * Just for testing
      */
-    public void clearLeaders(){
+    protected void clearLeaders(){
         leaders.clear();
     }
 

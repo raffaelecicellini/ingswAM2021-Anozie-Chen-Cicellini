@@ -221,14 +221,13 @@ public class SoloGame extends Game{
 
 
          //select max position and set the tiles if needed: if someone is at the end, set isEndgame
-         boolean exit = false;
+
          if (blackCross.getPosition() > currentPlayer.getPersonalBoard().getPosition()) {
              if (blackCross.getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
                  isEndGame = true;
                  System.out.println("You lost!");
-                 exit = true;
              }
-             for (int j = 1; j >= 0 && !exit; j--) {
+             for (int j = 1; j >= 0; j--) {
                  FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
                  if (blackCross.getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
                      if (currentPlayer.getPersonalBoard().getPosition() >= tile.getStart()) {
@@ -236,26 +235,24 @@ public class SoloGame extends Game{
                              tile.setActive(true);
                          } else tile.setDiscarded(true);
                      }
-                     exit = true;
                  }
              }
          } else {
+             for (int j = 1; j >= 0; j--) {
+             FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
+             if (currentPlayer.getPersonalBoard().getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
+                 if (currentPlayer.getPersonalBoard().getPosition() >= tile.getStart()) {
+                     if (!tile.isDiscarded()) {
+                         tile.setActive(true);
+                     } else tile.setDiscarded(true);
+                 }
+             }
+         }
              if (currentPlayer.getPersonalBoard().getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
                  isEndGame = true;
                  System.out.println("You won! You made " + getPoints(currentPlayer) + " points!");
-                 exit = true;
              }
-             for (int j = 1; j >= 0 && !exit; j--) {
-                 FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
-                 if (currentPlayer.getPersonalBoard().getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
-                     exit = true;
-                     if (currentPlayer.getPersonalBoard().getPosition() >= tile.getStart()) {
-                         if (!tile.isDiscarded()) {
-                             tile.setActive(true);
-                         } else tile.setDiscarded(true);
-                     }
-                 }
-             }
+
          }
 
      }

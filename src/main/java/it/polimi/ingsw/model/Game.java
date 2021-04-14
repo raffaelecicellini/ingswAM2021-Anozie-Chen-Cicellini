@@ -257,7 +257,6 @@ public class Game {
         //select max position and set the tiles if needed: if someone is at the end, set isEndgame
         int max=0;
         int curr;
-        boolean exit=false;
         Player maxPlayer=null;
         for (Player p: activePlayers) {
             curr=p.getPersonalBoard().getFaithMarker().getPosition();
@@ -266,10 +265,9 @@ public class Game {
                 maxPlayer=p;
             }
         }
-        for (int i=2; i>=0 && !exit && maxPlayer!=null && !isEndGame; i--) {
+        for (int i=2; i>=0 && maxPlayer!=null && !isEndGame; i--) {
             FavorTile tile=maxPlayer.getPersonalBoard().getTile(i);
             if (max>=tile.getEnd() && !tile.isActive() && !tile.isDiscarded()){
-                exit=true;
                 tile.setActive(true);
                 this.setTiles(maxPlayer, i);
                 if (i==2){

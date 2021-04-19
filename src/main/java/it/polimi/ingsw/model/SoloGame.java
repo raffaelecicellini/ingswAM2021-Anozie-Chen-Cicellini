@@ -19,6 +19,11 @@ public class SoloGame extends Game{
     private SoloActions soloActions;
 
     /**
+     * Used to check the phase of the game (if an action can be done)
+     */
+    private GamePhase phase;
+
+    /**
      * This method is used when the player joins the game
      * @param name is the Player's name
      */
@@ -40,6 +45,7 @@ public class SoloGame extends Game{
                 this.developDecks[col][row]= new DevelopDeck(row+1, color);
             }
         }
+        phase=GamePhase.NOTSTARTED;
     }
 
     /**
@@ -58,6 +64,8 @@ public class SoloGame extends Game{
             cards.add(card);
         }
         currentPlayer.receiveLeaders(cards);
+        phase=GamePhase.LEADER;
+        //notify the player to choose the leaders
     }
 
 
@@ -161,6 +169,8 @@ public class SoloGame extends Game{
             currentPlayer.chooseLeader(leader1, leader2);
         }
         else throw new InvalidActionException("Missing parameters!");
+        phase=GamePhase.FULLGAME;
+        //notify the player that it is his turn
     }
 
     /**

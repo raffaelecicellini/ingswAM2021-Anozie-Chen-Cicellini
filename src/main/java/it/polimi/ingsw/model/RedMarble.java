@@ -50,6 +50,6 @@ public class RedMarble implements Marble{
      * @return: the String representation of a RedMarble
      */
     public String toString() {
-        return "RedMarble";
+        return "RED";
     }
 }

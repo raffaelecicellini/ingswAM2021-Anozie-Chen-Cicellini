@@ -19,4 +19,10 @@ public interface Marble {
      * @throws InvalidActionException: it is thrown when the action can't be performed
      */
     public int action (String chosen, ArrayList<ResourceAmount> deposits, FaithMarker faith, ArrayList<LeaderCard> leaders, Color chosenColor) throws InvalidActionException;
+
+    /**
+     * Overrides standard toString for a Marble (it is overridden by each type of Marble)
+     * @return a String representation of the Marble
+     */
+    public String toString();
 }

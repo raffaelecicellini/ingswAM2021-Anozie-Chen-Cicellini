@@ -21,8 +21,8 @@ public class TwoAndOneLeader extends LeaderCard{
      * @param oneColor is the color of the other development card needed.
      * @param newType is how the white marbles will be handled.
      */
-    public TwoAndOneLeader(int victoryPoints, String type, boolean active, boolean discarded, Color twoColor, Color oneColor, Color newType) {
-        super(victoryPoints, type, active, discarded);
+    public TwoAndOneLeader(int victoryPoints, String type, boolean active, boolean discarded, Color twoColor, Color oneColor, Color newType, int id) {
+        super(victoryPoints, type, active, discarded, id);
         this.twoColor = twoColor;
         this.oneColor = oneColor;
         this.newType = newType;

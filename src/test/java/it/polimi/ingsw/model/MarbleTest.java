@@ -536,8 +536,8 @@ public class MarbleTest {
         FaithMarker faith= new FaithMarker(0);
         Color chosenColor=null;
         ArrayList<LeaderCard> leaders= new ArrayList<LeaderCard>();
-        leaders.add( new LevTwoLeader(4, "LevTwo", true, false, Color.YELLOW, Color.BLUE) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW) );
+        leaders.add( new LevTwoLeader(4, "LevTwo", true, false, Color.YELLOW, Color.BLUE, 0) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
         Marble test= WhiteMarble.getInstance();
         try {
             int res= test.action(chosen, deposits, faith, leaders, chosenColor);
@@ -561,8 +561,8 @@ public class MarbleTest {
         faith= new FaithMarker(0);
         chosenColor=null;
         leaders.clear();
-        leaders.add( new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW) );
+        leaders.add( new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE, 0) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
         test= WhiteMarble.getInstance();
         try {
             int res= test.action(chosen, deposits, faith, leaders, chosenColor);
@@ -595,8 +595,8 @@ public class MarbleTest {
         FaithMarker faith= new FaithMarker(0);
         Color chosenColor=null;
         ArrayList<LeaderCard> leaders= new ArrayList<LeaderCard>();
-        leaders.add( new LevTwoLeader(4, "LevTwo", true, false, Color.YELLOW, Color.BLUE) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW) );
+        leaders.add( new LevTwoLeader(4, "LevTwo", true, false, Color.YELLOW, Color.BLUE, 0) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
         Marble test= WhiteMarble.getInstance();
         try {
             int res= test.action(chosen, deposits, faith, leaders, chosenColor);
@@ -621,8 +621,8 @@ public class MarbleTest {
         faith= new FaithMarker(0);
         chosenColor=null;
         leaders.clear();
-        leaders.add( new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW) );
+        leaders.add( new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE, 0) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
         test= WhiteMarble.getInstance();
         try {
             int res= test.action(chosen, deposits, faith, leaders, chosenColor);
@@ -648,8 +648,8 @@ public class MarbleTest {
         faith= new FaithMarker(0);
         chosenColor=null;
         leaders.clear();
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.YELLOW,Color.BLUE,Color.PURPLE) );
-        leaders.add( new ResourceLeader(3,"Resource",true,false, new ResourceAmount(Color.GREY,5),Color.PURPLE) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 0) );
+        leaders.add( new ResourceLeader(3,"Resource",true,false, new ResourceAmount(Color.GREY,5),Color.PURPLE, 0) );
         test= WhiteMarble.getInstance();
         try {
             int res= test.action(chosen, deposits, faith, leaders, chosenColor);
@@ -677,8 +677,8 @@ public class MarbleTest {
         FaithMarker faith= new FaithMarker(0);
         Color chosenColor=Color.YELLOW;
         ArrayList<LeaderCard> leaders= new ArrayList<LeaderCard>();
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY, 0) );
         Marble test= WhiteMarble.getInstance();
         try {
             int res= test.action(chosen, deposits, faith, leaders, chosenColor);
@@ -703,8 +703,8 @@ public class MarbleTest {
         faith= new FaithMarker(0);
         chosenColor=Color.GREY;
         leaders.clear();
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY, 0) );
         test= WhiteMarble.getInstance();
         try {
             int res= test.action(chosen, deposits, faith, leaders, chosenColor);
@@ -729,8 +729,8 @@ public class MarbleTest {
         faith= new FaithMarker(0);
         chosenColor=Color.BLUE;
         leaders.clear();
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
+        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY, 0) );
         test= WhiteMarble.getInstance();
         try {
             int res= test.action(chosen, deposits, faith, leaders, chosenColor);

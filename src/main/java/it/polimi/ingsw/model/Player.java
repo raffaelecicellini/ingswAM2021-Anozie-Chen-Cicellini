@@ -123,7 +123,7 @@ public class Player {
                 }
                 else if (current.getType().equals("LevTwo")){
                     ResourceAmount[] input={new ResourceAmount(current.getProduction(), 1), null, null, null};
-                    LeaderDevelopCard card= new LeaderDevelopCard(0, 0, 1, null, null, input, null);
+                    LeaderDevelopCard card= new LeaderDevelopCard(0, 0, 1, null, null, input, null, 0);
                     personalBoard.addCard(0, card, true);
                 }
             }

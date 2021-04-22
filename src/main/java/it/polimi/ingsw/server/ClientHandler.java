@@ -1,7 +1,9 @@
 package it.polimi.ingsw.server;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable{
@@ -10,7 +12,7 @@ public class ClientHandler implements Runnable{
     private GameHandler game;
     private String name;
     private InputStream input;
-    private OutputStream output;
+    private PrintWriter output;
     private boolean active;
 
     public boolean setup() {

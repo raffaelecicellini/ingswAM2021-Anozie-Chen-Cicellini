@@ -2,9 +2,9 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Game {
@@ -21,7 +21,7 @@ public class Game {
     /**
      * Current Active Players in the Game
      */
-    private ArrayList<Player> activePlayers;
+    protected ArrayList<Player> activePlayers;
 
     /**
      * Current Player (has the turn)
@@ -68,6 +68,8 @@ public class Game {
      */
     private GamePhase phase;
 
+    private final PropertyChangeSupport listener=new PropertyChangeSupport(this);
+
     /**
      * Constructor of the Game class. It instantiates the Market, the LeaderDeck and the DevelopDecks for the current game.
      */
@@ -85,6 +87,14 @@ public class Game {
         }
         this.isEndGame=false;
         this.phase=GamePhase.NOTSTARTED;
+    }
+
+    /**
+     * Simple method used to set the view as listener of the model
+     * @param view the view object that implements PropertyChangeListener
+     */
+    public void setListener(PropertyChangeListener view){
+        this.listener.addPropertyChangeListener(view);
     }
 
     /**
@@ -178,7 +188,56 @@ public class Game {
 
         isEndGame=false;
         phase=GamePhase.LEADER;
+        //send the initial state (market and developdecks) to all clients
+        notifyInitialState();
+
         //notify the first player to choose the leaders
+        notifyLeaders("chooseLeaders");
+    }
+
+    private void notifyInitialState(){
+        Map<String, String> state= new HashMap<>();
+        String cardId, marbleId, marble;
+        Marble[] array;
+        int id;
+
+        state.put("action", "started");
+        for (int col=0; col<4; col++){
+            for (int row=0; row<3; row++){
+                cardId="card"+col+row;
+                id=developDecks[col][row].getCard().getId();
+                state.put(cardId, String.valueOf(id));
+            }
+        }
+        state.put("outMarble", market.getOutMarble().toString());
+        for (int i=0; i<3; i++){
+            array=market.selectRow(i);
+            for (int j=0; j<4; j++){
+                marbleId="marble"+j+i;
+                marble=array[j].toString();
+                state.put(marbleId, marble);
+            }
+        }
+
+        listener.firePropertyChange(state.get("action"), null, state);
+    }
+
+    private void notifyLeaders(String action){
+        Map<String, String> state= new HashMap<>();
+        List<LeaderCard> leaders;
+        String cardId;
+        int id;
+
+        state.put("action", action);
+        state.put("player", currentPlayer.getName());
+        leaders=currentPlayer.getLeaders();
+        for (int i=0; i<leaders.size(); i++){
+            cardId="card"+i;
+            id=leaders.get(i).getId();
+            state.put(cardId, String.valueOf(id));
+        }
+
+        listener.firePropertyChange(state.get("action"), null, state);
     }
 
     /**
@@ -191,6 +250,14 @@ public class Game {
         activePlayers.add(player);
     }
 
+    public void removePlayer(String name){
+        for (int i=0; i<activePlayers.size(); i++){
+            if (activePlayers.get(i).getName().equals(name)) activePlayers.remove(i);
+        }
+        for (int i=0; i<players.size(); i++){
+            if (players.get(i).getName().equals(name)) players.remove(i);
+        }
+    }
     /**
      * This method is called by the controller when a client decided to activate productions. It checks if the player who wants
      * to do the action is the current one (if it is his turn), then calls the player's produce method.
@@ -206,6 +273,49 @@ public class Game {
         }
         else if (currentPlayer.getName().equals(player) && doneMandatory) throw new InvalidActionException("You have already done a mandatory action!");
         else throw new InvalidActionException("It is not your turn!");
+        //notify changes to player
+        notifyProduce();
+    }
+
+    private void notifyProduce(){
+        Map<String, String> state= new HashMap<>();
+        List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
+        ResourceAmount[] box=currentPlayer.getPersonalBoard().getStrongbox();
+        String[] colors= new String[deps.size()];
+        String boxres, boxqty;
+        int pos=currentPlayer.getPersonalBoard().getPosition();
+
+        state.put("action", "produce");
+        state.put("player", currentPlayer.getName());
+        state.put("newPos", String.valueOf(pos));
+
+        for (int i=0; i<deps.size(); i++){
+            if (deps.get(i).getColor()!=null) colors[i]=deps.get(i).getColor().toString();
+            else colors[i]="empty";
+        }
+        state.put("smallres", colors[0]);
+        state.put("smallqty", String.valueOf(deps.get(0).getAmount()));
+        state.put("midres", colors[1]);
+        state.put("midqty", String.valueOf(deps.get(1).getAmount()));
+        state.put("bigres", colors[2]);
+        state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
+        if (deps.size()>3){
+            state.put("sp1res", colors[3]);
+            state.put("sp1qty", String.valueOf(deps.get(3).getAmount()));
+        }
+        if (deps.size()==5){
+            state.put("sp2res", colors[4]);
+            state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
+        }
+
+        for (int i=0; i<box.length; i++){
+            boxres="strres"+i;
+            boxqty="strqty"+i;
+            state.put(boxres, box[i].getColor().toString());
+            state.put(boxqty, String.valueOf(box[i].getAmount()));
+        }
+
+        listener.firePropertyChange(state.get("action"), null, state);
     }
 
     /**
@@ -223,6 +333,23 @@ public class Game {
         }
         else if (currentPlayer.getName().equals(player) && doneLeader==2) throw new InvalidActionException("You can't activate another leader");
         else throw new InvalidActionException("It is not your turn!");
+        //notify changes to player
+        notifyLeaderAction("activate", pos);
+    }
+
+    private void notifyLeaderAction(String action, int pos){
+        Map<String, String> state= new HashMap<>();
+
+        state.put("action", action);
+        state.put("player", currentPlayer.getName());
+        state.put("index", String.valueOf(pos));
+
+        if (action.equalsIgnoreCase("discard")){
+            int newPos= currentPlayer.getPersonalBoard().getPosition();
+            state.put("newPos", String.valueOf(newPos));
+        }
+
+        this.listener.firePropertyChange(state.get("action"), null, state);
     }
 
     /**
@@ -239,6 +366,8 @@ public class Game {
         }
         else if (currentPlayer.getName().equals(player) && doneLeader==2) throw new InvalidActionException("You can't discard another leader");
         else throw new InvalidActionException("It is not your turn!");
+        //notify changes to player
+        notifyLeaderAction("discard", pos);
     }
 
     /**
@@ -279,6 +408,7 @@ public class Game {
             current=0;
         }
         else current++;
+        Player ended=currentPlayer;
         currentPlayer=activePlayers.get(current);
         doneLeader=0;
         doneMandatory=false;
@@ -287,7 +417,7 @@ public class Game {
             //count points
             int maxpoints=0;
             int currpoints;
-            Player winner=null;
+            Player winner=activePlayers.get(0);
             int[] points= new int[activePlayers.size()];
             for (int i=0; i<activePlayers.size(); i++){
                 points[i]= getPoints(activePlayers.get(i));
@@ -301,12 +431,53 @@ public class Game {
                     winner=winnerByResources(activePlayers.get(i), winner);
                 }
             }
-            //segnala winner
-            assert winner != null;
-            System.out.println("The winner is: "+winner.getName());
+            //notify players win/lose
+            for (int i=0; i<activePlayers.size(); i++){
+                notifyEndGame(activePlayers.get(i).getName(), winner.getName(), points[i]);
+            }
 
             this.phase=GamePhase.ENDED;
         }
+        else {
+            //notify endturn
+            FavorTile[] tiles;
+            for (int i=0; i<activePlayers.size(); i++){
+                tiles=activePlayers.get(i).getPersonalBoard().getTiles();
+                notifyEndTurn(activePlayers.get(i).getName(), ended.getName(), tiles);
+            }
+            notifyTurn();
+        }
+    }
+
+    private void notifyEndTurn(String player, String ended, FavorTile[] tiles){
+        Map<String, String> state= new HashMap<>();
+        String tile;
+        state.put("action", "endturn");
+        state.put("player", player);
+        state.put("endedTurnPlayer", ended);
+
+        for (int i=0; i<tiles.length; i++){
+            tile="tile"+i;
+            if (tiles[i].isActive()){
+                state.put(tile, "active");
+            }
+            else if (tiles[i].isDiscarded()){
+                state.put(tile, "discarded");
+            }
+            else state.put(tile, "nothing");
+        }
+
+        this.listener.firePropertyChange(state.get("action"), null, state);
+    }
+
+    private void notifyEndGame(String player, String winner, int points){
+        Map<String, String> state= new HashMap<>();
+        state.put("action", "endgame");
+        state.put("player", player);
+        state.put("winner", winner);
+        state.put("points", String.valueOf(points));
+
+        this.listener.firePropertyChange(state.get("action"), null, state);
     }
 
     /**
@@ -416,12 +587,23 @@ public class Game {
         if (currentPlayer.getName().equals(player)) {
             if (currentPlayer.getNumberInitialResource() != 0)
                 currentPlayer.chooseInitialResource(map);
-            if (current < activePlayers.size()-1)
-                current++;
-            currentPlayer = this.activePlayers.get(current);
         }
         else throw new InvalidActionException("It is not your turn!");
+        //notify changes to player
+        notifyResources("okResources");
+
         //notify next player, if nextplayer is first change GamePhase to FullGame
+        if (current==activePlayers.size()-1){
+            current=0;
+        }
+        else current++;
+        currentPlayer=activePlayers.get(current);
+        if (current==0){
+            //FullGame Phase
+            this.phase=GamePhase.FULLGAME;
+            notifyTurn();
+        }
+        else notifyResources("chooseResources");
     }
 
     /**
@@ -441,7 +623,65 @@ public class Game {
             else throw new InvalidActionException("Missing parameters!");
         }
         else throw new InvalidActionException("It is not your turn!");
+
+        //notify changes to player
+        notifyLeaders("okleaders");
+
         //notify next player. If next is first, change phase to Resource
+        if (current==activePlayers.size()-1){
+            current=0;
+        }
+        else current++;
+        currentPlayer=activePlayers.get(current);
+        if (current==0){
+            //Resource Phase
+            this.phase=GamePhase.RESOURCE;
+            current++;
+            currentPlayer=activePlayers.get(current);
+            notifyResources("chooseResources");
+        }
+        else {
+            notifyLeaders("chooseLeaders");
+        }
+    }
+
+    private void notifyResources(String action){
+        Map<String, String> state= new HashMap<>();
+        int qty=currentPlayer.getNumberInitialResource();
+        int faith=currentPlayer.getPersonalBoard().getPosition();
+        List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
+        String[] colors= new String[deps.size()];
+
+        state.put("action", action);
+        state.put("player", currentPlayer.getName());
+        if (action.equalsIgnoreCase("chooseResources")){
+            state.put("qty", String.valueOf(qty));
+            if (faith>0) state.put("addpos", String.valueOf(faith));
+        }
+        else if (action.equalsIgnoreCase("okResources")){
+            for (int i=0; i<deps.size(); i++){
+                if (deps.get(i).getColor()!=null) colors[i]=deps.get(i).getColor().toString();
+                else colors[i]="empty";
+            }
+            state.put("smallres", colors[0]);
+            state.put("smallqty", String.valueOf(deps.get(0).getAmount()));
+            state.put("midres", colors[1]);
+            state.put("midqty", String.valueOf(deps.get(1).getAmount()));
+            state.put("bigres", colors[2]);
+            state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
+        }
+
+        listener.firePropertyChange(state.get("action"), null, state);
+    }
+
+    private void notifyTurn(){
+        Map<String, String> state= new HashMap<>();
+        String content= "It is your turn! You must do one action of your choice between buy, market, produce";
+        state.put("action", "yourTurn");
+        state.put("content", content);
+        state.put("player", currentPlayer.getName());
+
+        listener.firePropertyChange(state.get("action"), null, state);
     }
 
     /**
@@ -459,12 +699,69 @@ public class Game {
         int column = Integer.parseInt(map.get("column"));
         if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("Wrong indexes selected ");
         boolean end;
+        int slot, id;
         DevelopCard card = developDecks[column][row].getCard();
+        if (card==null) throw new InvalidActionException("No more cards in this deck!");
+        id=card.getId();
+        slot=Integer.parseInt(map.get("ind"));
         end = currentPlayer.buy(map, card);
         developDecks[column][row].removeCard();
         if (end)
             isEndGame = true;
         doneMandatory = true;
+
+        //notify changes to players (it is the listener that separates the infos
+        notifyBuy(slot, id, column, row);
+    }
+
+    private void notifyBuy(int slot, int bought, int col, int row){
+        Map<String, String> state= new HashMap<>();
+        DevelopCard card=developDecks[col][row].getCard();
+        int idNew=-1;
+        if (card!=null) idNew=card.getId();
+
+        String res, qty, boxres, boxqty;
+        List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
+        ResourceAmount[] box=currentPlayer.getPersonalBoard().getStrongbox();
+        String [] colors= new String[deps.size()];
+
+        state.put("action", "buy");
+        state.put("player", currentPlayer.getName());
+        state.put("col", String.valueOf(col));
+        state.put("row", String.valueOf(row));
+        if (idNew>0) state.put("idNew", String.valueOf(idNew));
+        else state.put("idNew", "empty");
+
+        state.put("slot", String.valueOf(slot));
+        state.put("idBought", String.valueOf(bought));
+
+        for (int i=0; i<deps.size(); i++){
+            if (deps.get(i).getColor()!=null) colors[i]=deps.get(i).getColor().toString();
+            else colors[i]="empty";
+        }
+        state.put("smallres", colors[0]);
+        state.put("smallqty", String.valueOf(deps.get(0).getAmount()));
+        state.put("midres", colors[1]);
+        state.put("midqty", String.valueOf(deps.get(1).getAmount()));
+        state.put("bigres", colors[2]);
+        state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
+        if (deps.size()>3){
+            state.put("sp1res", colors[3]);
+            state.put("sp1qty", String.valueOf(deps.get(3).getAmount()));
+        }
+        if (deps.size()==5){
+            state.put("sp2res", colors[4]);
+            state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
+        }
+
+        for (int i=0; i<box.length; i++){
+            boxres="strres"+i;
+            boxqty="strqty"+i;
+            state.put(boxres, box[i].getColor().toString());
+            state.put(boxqty, String.valueOf(box[i].getAmount()));
+        }
+
+        listener.firePropertyChange(state.get("action"), null, state);
     }
 
     /**
@@ -476,6 +773,38 @@ public class Game {
     public void swapDeposit(String player, Map<String,String> map) throws InvalidActionException {
         if (currentPlayer.getName().equals(player)) currentPlayer.swapDeposit(map);
         else throw new InvalidActionException("It is not your turn!");
+        //notify changes to player
+        notifySwap();
+    }
+
+    private void notifySwap(){
+        Map<String, String> state=new HashMap<>();
+        List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
+        String colors[]= new String[deps.size()];
+
+        state.put("action", "swap");
+        state.put("player", currentPlayer.getName());
+
+        for (int i=0; i<deps.size(); i++){
+            if (deps.get(i).getColor()!=null) colors[i]=deps.get(i).getColor().toString();
+            else colors[i]="empty";
+        }
+        state.put("smallres", colors[0]);
+        state.put("smallqty", String.valueOf(deps.get(0).getAmount()));
+        state.put("midres", colors[1]);
+        state.put("midqty", String.valueOf(deps.get(1).getAmount()));
+        state.put("bigres", colors[2]);
+        state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
+        if (deps.size()>3){
+            state.put("sp1res", colors[3]);
+            state.put("sp1qty", String.valueOf(deps.get(3).getAmount()));
+        }
+        if (deps.size()==5){
+            state.put("sp2res", colors[4]);
+            state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
+        }
+
+        listener.firePropertyChange(state.get("action"), null, state);
     }
 
     /**
@@ -485,7 +814,9 @@ public class Game {
      * @throws InvalidActionException if the move is not valid
      */
     public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
-
+        int value;
+        String chosen;
+        int discarded;
         if (currentPlayer.getName().equals(player)){
 
             if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");
@@ -497,9 +828,11 @@ public class Game {
 
             if (mapCopy.containsKey("row")) {
                 int row = Integer.parseInt(mapCopy.get("row"));
+                value=row-1;
+                chosen="row";
                 if (row >= 1 && row <= 3) {
                     mapCopy.remove("row");
-                    int discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                    discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
                     market.pushRow(row-1);
                     for (Player p : players) {
                         if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
@@ -509,9 +842,11 @@ public class Game {
             } else
                 if (mapCopy.containsKey("col")) {
                     int col = Integer.parseInt(mapCopy.get("col"));
+                    value=col-1;
+                    chosen="col";
                     if (col >= 1 && col <= 4) {
                         mapCopy.remove("col");
-                        int discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                        discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
                         market.pushColumn(col-1);
                         for (Player p : players) {
                             if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
@@ -522,5 +857,61 @@ public class Game {
                 } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
         }
         else throw new InvalidActionException("It is not your turn!");
+        //notify changes
+        notifyMarket(chosen, value, discarded);
+    }
+
+    private void notifyMarket(String chosen, int value, int discarded){
+        Map<String, String> state=new HashMap<>();
+        List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
+        Marble[] marbles;
+        Marble out;
+        String res;
+        String colors[]= new String[deps.size()];
+
+        state.put("action", "market");
+        state.put("player", currentPlayer.getName());
+
+        state.put("discarded", String.valueOf(discarded));
+        state.put("newPos", String.valueOf(currentPlayer.getPersonalBoard().getPosition()));
+        if (chosen.equalsIgnoreCase("col")){
+            state.put("col", String.valueOf(value));
+            marbles=market.selectColumn(value);
+            for (int i=0; i<marbles.length; i++){
+                res="res"+i;
+                state.put(res, marbles[i].toString());
+            }
+        }
+        else if (chosen.equalsIgnoreCase("row")){
+            state.put("row", String.valueOf(value));
+            marbles=market.selectRow(value);
+            for (int i=0; i<marbles.length; i++){
+                res="res"+i;
+                state.put(res, marbles[i].toString());
+            }
+        }
+        out=market.getOutMarble();
+        state.put("out", out.toString());
+
+        for (int i=0; i<deps.size(); i++){
+            if (deps.get(i).getColor()!=null) colors[i]=deps.get(i).getColor().toString();
+            else colors[i]="empty";
+        }
+        state.put("smallres", colors[0]);
+        state.put("smallqty", String.valueOf(deps.get(0).getAmount()));
+        state.put("midres", colors[1]);
+        state.put("midqty", String.valueOf(deps.get(1).getAmount()));
+        state.put("bigres", colors[2]);
+        state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
+        if (deps.size()>3){
+            state.put("sp1res", colors[3]);
+            state.put("sp1qty", String.valueOf(deps.get(3).getAmount()));
+        }
+        if (deps.size()==5){
+            state.put("sp2res", colors[4]);
+            state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
+        }
+
+        listener.firePropertyChange(state.get("action"), null, state);
     }
 }

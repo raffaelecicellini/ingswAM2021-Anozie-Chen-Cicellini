@@ -13,6 +13,8 @@ public class DiscardToken implements ActionToken{
      */
     private int qty;
 
+    private int id;
+
     /**
      * It instantiates a DiscardToken.
      * @param color: it defines the Color of the cards to be removed.
@@ -21,6 +23,20 @@ public class DiscardToken implements ActionToken{
     public DiscardToken(Color color, int qty) {
         this.color=color;
         this.qty=qty;
+        this.id=parseColor(color);
+    }
+
+    private int parseColor(Color color){
+        switch (color){
+            case BLUE: return 1;
+            case GREEN: return 2;
+            case PURPLE: return 3;
+            case YELLOW: return 4;
+        }
+        return 0;
+    }
+    public int getId(){
+        return this.id;
     }
 
     /**

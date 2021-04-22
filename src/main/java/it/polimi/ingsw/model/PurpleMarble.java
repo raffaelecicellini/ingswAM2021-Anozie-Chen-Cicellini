@@ -182,6 +182,6 @@ public class PurpleMarble implements Marble{
      * @return: the String representation of a PurpleMarble
      */
     public String toString() {
-        return "PurpleMarble";
+        return "PURPLE";
     }
 }

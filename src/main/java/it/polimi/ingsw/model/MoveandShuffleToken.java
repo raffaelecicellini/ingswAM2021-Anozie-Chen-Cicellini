@@ -9,12 +9,19 @@ public class MoveandShuffleToken implements ActionToken{
      */
     private int qty;
 
+    private int id;
+
     /**
      * It instantiates a MoveandShuffleToken.
      * @param qty: it specifies how much the current position of the FaithMarker needs to be increased.
      */
     public MoveandShuffleToken(int qty) {
         this.qty=qty;
+        this.id=6;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     /**

@@ -114,6 +114,11 @@ public class Market {
         return res;
     }
 
+
+    public Marble getOutMarble(){
+        return this.outMarble;
+    }
+
     /**
      * Utility method used in tests
      * @return: the String representation of the market

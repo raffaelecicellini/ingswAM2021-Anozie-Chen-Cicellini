@@ -14,8 +14,8 @@ public class OneOfAllLeader extends LeaderCard {
      * @param active is the state of the card.
      * @param discarded is the state of the card.
      */
-    public OneOfAllLeader(int victoryPoints, String type, boolean active, boolean discarded) {
-        super(victoryPoints, type, active, discarded);
+    public OneOfAllLeader(int victoryPoints, String type, boolean active, boolean discarded, int id) {
+        super(victoryPoints, type, active, discarded, id);
     }
 
     /**

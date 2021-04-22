@@ -183,6 +183,6 @@ public class YellowMarble implements Marble{
      * @return: the String representation of a YellowMarble
      */
     public String toString() {
-        return "YellowMarble";
+        return "YELLOW";
     }
 }

@@ -194,6 +194,6 @@ public class BlueMarble implements Marble{
      */
     @Override
     public String toString() {
-        return "BlueMarble";
+        return "BLUE";
     }
 }

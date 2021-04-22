@@ -10,6 +10,10 @@ public abstract class LeaderCard {
     private String type;
     private boolean active;
     private boolean discarded;
+    /**
+     * This attribute is the id of the card: it is sent to the client as a representation of the card
+     */
+    private int id;
 
     /**
      * Constructor LeaderCard creates a new LeaderCard instance.
@@ -18,11 +22,12 @@ public abstract class LeaderCard {
      * @param active is the state of the card.
      * @param discarded is the state of the card.
      */
-    public LeaderCard(int victoryPoints, String type, boolean active, boolean discarded) {
+    public LeaderCard(int victoryPoints, String type, boolean active, boolean discarded, int id) {
         this.victoryPoints = victoryPoints;
         this.type = type;
         this.active = active;
         this.discarded = discarded;
+        this.id=id;
     }
 
     /**
@@ -114,6 +119,14 @@ public abstract class LeaderCard {
      * @return if the player respects the requirements.
      */
     public abstract boolean checkRequirements(ArrayList<ResourceAmount> deposits, ArrayList<DevelopCard[]> slots, FaithMarker faithMarker, ResourceAmount[] strongbox);
+
+    /**
+     * This method returns the id representing the card
+     * @return the id of the card
+     */
+    public int getId(){
+        return this.id;
+    }
 
     /**
      * This method returns a String which represents the object.

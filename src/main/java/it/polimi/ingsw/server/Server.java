@@ -64,7 +64,6 @@ public class Server{
             GameHandler game = new GameHandler(1);
             client.setGame(game);
             game.setPlayer(client);
-            games.add(game);
             client.getGame().start();
         } else {
             waitingClients.add(client);

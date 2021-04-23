@@ -103,7 +103,7 @@ public class Player {
      * selected leader
      */
     public void activateLeader(int pos) throws InvalidActionException{
-        if (pos<0 || pos>1) throw new InvalidActionException("The index is invalid! Try again (index=0 || index=1");
+        if (pos<0 || pos>1) throw new InvalidActionException("The index is invalid! Try again (index=0 || index=1)");
         LeaderCard current= leaders.get(pos);
         if (current.isDiscarded()) throw new InvalidActionException("The leader is already discarded, you can't activate it");
         if (!current.isActive() && !current.isDiscarded()) {
@@ -244,7 +244,7 @@ public class Player {
      * Simple utility method used in baseProduction() to retrieve the index of a deposit (or the strongbox) correspondent
      * to the selected place.
      * @param chosen the place (deposit/strongbox) from where to take the resources
-     * @return the index correspondent to the selected place
+     * @return the index correspondent to the selected place [0-5] (if incorrect input, -1)
      */
     private int parseChoice(String chosen){
         switch (chosen.toLowerCase()){
@@ -340,15 +340,15 @@ public class Player {
 
     /**
      * This method is used to let the Player choose which Leader Cards he wants to keep.
-     * @param leader1 is the index of the first Leader Card
-     * @param leader2 is the index of the second Leader Card
-     * @throws InvalidActionException when a wrong index is given [1-4]
+     * @param leader1 is the index [0-1] of the first Leader Card
+     * @param leader2 is the index [0-1] of the second Leader Card
+     * @throws InvalidActionException when a wrong index is given (only [0-1] accepted)
      */
     public void chooseLeader(int leader1, int leader2) throws InvalidActionException {
         if (leader1 != leader2 && leader1 >= 1 && leader1 <= leaders.size() && leader2 >= 1 && leader2 <= leaders.size()) {
             ArrayList<LeaderCard> temp = new ArrayList<>();
-            temp.add(leaders.get(leader1 - 1));
-            temp.add(leaders.get(leader2 - 1));
+            temp.add(leaders.get(leader1-1));
+            temp.add(leaders.get(leader2-1));
             leaders = temp;
         } else throw new InvalidActionException("Invalid action! Try typing two different indexes [1-4]!");
     }
@@ -360,12 +360,12 @@ public class Player {
      * @throws InvalidActionException if the move is not valid.
      */
     public void swapDeposit(Map<String,String> map) throws InvalidActionException {
-        if (map.size()!= 2) throw new InvalidActionException("select the source and the destination");
+        if (map.size()!= 2) throw new InvalidActionException("Invalid action! Make sure to select the source and the destination!");
         String source = map.get("source");
         String dest = map.get("dest");
-        if (source == null || dest == null) throw new InvalidActionException("you didn't select the source and the destination");
-        if(parseChoice(source)==5 || parseChoice(dest)==5) throw new InvalidActionException("you can't select the strongbox");
-        if(parseChoice(source)==-1 || parseChoice(dest)==-1) throw new InvalidActionException("select the source and the destination");
+        if (source == null || dest == null) throw new InvalidActionException("Invalid action! You didn't select the source and/or the destination!");
+        if(parseChoice(source)==5 || parseChoice(dest)==5) throw new InvalidActionException("Invalid action! You can't select the strongbox!");
+        if(parseChoice(source)==-1 || parseChoice(dest)==-1) throw new InvalidActionException("Invalid action! Make sure you typed the source and the destination correctly!");
         personalBoard.swapDeposits(source,dest);
     }
 

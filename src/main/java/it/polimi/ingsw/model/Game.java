@@ -497,22 +497,22 @@ public class Game {
 
             if (mapCopy.containsKey("row")) {
                 int row = Integer.parseInt(mapCopy.get("row"));
-                if (row >= 1 && row <= 3) {
+                if (row >= 0 && row <= market.selectColumn(0).length-1) {
                     mapCopy.remove("row");
-                    int discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
-                    market.pushRow(row-1);
+                    int discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row));
+                    market.pushRow(row);
                     for (Player p : players) {
                         if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
                     }
                     doneMandatory = true;
-                } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
+                } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row! [0-4]");
             } else
                 if (mapCopy.containsKey("col")) {
                     int col = Integer.parseInt(mapCopy.get("col"));
-                    if (col >= 1 && col <= 4) {
+                    if (col >= 0 && col <= market.selectRow(0).length-1) {
                         mapCopy.remove("col");
-                        int discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
-                        market.pushColumn(col-1);
+                        int discarded = currentPlayer.fromMarket(map, market.selectColumn(col));
+                        market.pushColumn(col);
                         for (Player p : players) {
                             if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
                         }

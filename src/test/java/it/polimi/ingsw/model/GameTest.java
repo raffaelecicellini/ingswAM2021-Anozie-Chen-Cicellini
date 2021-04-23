@@ -352,7 +352,7 @@ public class GameTest {
     }
 
     /**
-     * lowercasing a map
+     * Testing fromMarket, all the cases
      */
     @Test
     public void fromMarket1() {
@@ -419,7 +419,7 @@ public class GameTest {
         // FIRST
 
         map = new HashMap<>();
-        map.put("row", "2");
+        map.put("row", "1");
         map.put("pos1", "small");
         map.put("pos2", "mid");
         map.put("pos3", "big");
@@ -463,7 +463,7 @@ public class GameTest {
         //SECOND
 
         map.clear();
-        map.put("row", "3");
+        map.put("row", "2");
         map.put("pos1", "mid");
         map.put("pos2", "mid");
         map.put("pos3", "mid");
@@ -522,7 +522,7 @@ public class GameTest {
         assertFalse(game.doneMandatory);
 
         map.clear();
-        map.put("col", "4");
+        map.put("col", "3");
         map.put("pos1", "mid");
         map.put("pos2", "big");
         map.put("pos3", "big");
@@ -561,7 +561,7 @@ public class GameTest {
         }
 
         map.clear();
-        map.put("row", "2");
+        map.put("row", "1");
         map.put("pos1", "big");
         map.put("res1", "BLUE");
         map.put("pos2", "big");

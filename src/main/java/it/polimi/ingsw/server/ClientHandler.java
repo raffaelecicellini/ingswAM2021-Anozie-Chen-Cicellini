@@ -57,7 +57,7 @@ public class ClientHandler implements Runnable{
         String action = message.get("action");
         switch (action.toLowerCase()) {
             case "setup": setup(message);
-            case "disconnect": server.removeClient(this);
+            case "disconnect": server.manageDisconnection(this);
             case "buy" : makeAction(message);
             case "produce": makeAction(message);
             case "swap": makeAction(message);
@@ -146,6 +146,10 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    public void removeClient() {
+        server.removeClient(this);
+    }
+
     @Override
     public void run() {
         while (isActive()) {
@@ -154,7 +158,7 @@ public class ClientHandler implements Runnable{
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 if (name != null)
-                    server.removeClient(this);
+                    server.manageDisconnection(this);
             }
         }
 

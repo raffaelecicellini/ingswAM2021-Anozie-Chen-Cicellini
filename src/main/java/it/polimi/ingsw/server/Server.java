@@ -44,8 +44,7 @@ public class Server{
         executor.shutdown();
     }
 
-    //chiudere la partita
-    public synchronized void removeClient(ClientHandler client) {
+    public synchronized void manageDisconnection(ClientHandler client) {
         connectedClients.remove(client.getName());
         waitingClients.remove(client);
         if (client.getGame() != null)
@@ -58,6 +57,12 @@ public class Server{
             } else
                 client.getGame().removePlayer(client);
     }
+
+    public synchronized  void removeClient(ClientHandler client) {
+        connectedClients.remove(client.getName());
+        games.remove(client.getGame());
+    }
+
 
     public synchronized void addToGame(ClientHandler client){
         if (client.getPrefNumber() == 1) {

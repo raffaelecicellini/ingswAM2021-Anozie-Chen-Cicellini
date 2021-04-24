@@ -12,7 +12,9 @@ public class DiscardToken implements ActionToken{
      * This attribute defines the amount of cards to be removed from the decks.
      */
     private int qty;
-
+    /**
+     * This attribute defines the id of the token (it is passed to the client)
+     */
     private int id;
 
     /**
@@ -35,6 +37,11 @@ public class DiscardToken implements ActionToken{
         }
         return 0;
     }
+
+    /**
+     * id getter method
+     * @return the value of the id attribute
+     */
     public int getId(){
         return this.id;
     }

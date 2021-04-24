@@ -10,7 +10,7 @@ public class Controller implements PropertyChangeListener {
     private Game model;
     private GameHandler handler;
 
-    public Controller(GameHandler handler, Game game){
+    public Controller(PropertyChangeListener handler, Game game){
 
     }
     private void buy(){

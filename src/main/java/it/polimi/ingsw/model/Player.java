@@ -49,14 +49,26 @@ public class Player {
         this.leaders= new ArrayList<>();
     }
 
+    /**
+     * leaders getter method
+     * @return the ArrayList of leaders
+     */
     public ArrayList<LeaderCard> getLeaders() {
         return leaders;
     }
 
+    /**
+     * numberInitialResource getter method
+     * @return the value of numberInitialResource
+     */
     public int getNumberInitialResource() {
         return numberInitialResource;
     }
 
+    /**
+     * numberDevelopCards getter method
+     * @return the value of numberDevelopCards
+     */
     public int getNumberDevelopCards() {
         return numberDevelopCards;
     }

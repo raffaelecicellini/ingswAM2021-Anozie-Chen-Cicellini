@@ -328,6 +328,10 @@ public class PersonalBoard {
         return faithMarker;
     }
 
+    /**
+     * This method returns the FavorTile array
+     * @return the FavorTile array
+     */
     public FavorTile[] getTiles() {
         return favorTile;
     }

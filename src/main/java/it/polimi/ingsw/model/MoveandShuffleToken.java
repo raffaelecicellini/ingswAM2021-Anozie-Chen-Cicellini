@@ -8,7 +8,9 @@ public class MoveandShuffleToken implements ActionToken{
      * This attribute specifies how much the current position of the FaithMarker needs to be increased.
      */
     private int qty;
-
+    /**
+     * This attribute specifies the id of the token (it is sent to the client)
+     */
     private int id;
 
     /**
@@ -20,6 +22,10 @@ public class MoveandShuffleToken implements ActionToken{
         this.id=6;
     }
 
+    /**
+     * id getter method
+     * @return the value of the id attribute
+     */
     public int getId(){
         return this.id;
     }

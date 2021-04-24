@@ -11,5 +11,10 @@ public interface ActionToken {
      * @return: this method returns true if the array of the ActionTokens needs to be shuffled.
      */
     boolean doAction(FaithMarker blackCross, DevelopDeck[][] decks);
+
+    /**
+     * Method used to get the id for the ActionToken (it is overridden by each type of ActionToken)
+     * @return the value of the id
+     */
     int getId();
 }

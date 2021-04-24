@@ -27,6 +27,9 @@ public class SoloGame extends Game{
      */
     private GamePhase phase;
 
+    /**
+     * @see PropertyChangeSupport
+     */
     private final PropertyChangeSupport listener=new PropertyChangeSupport(this);
 
     /**
@@ -109,6 +112,7 @@ public class SoloGame extends Game{
         notifyBuy(ind, card.getId(), column, row);
         if (isEndGame) {
             notifyEndGame(true, getPoints(currentPlayer));
+            phase=GamePhase.ENDED;
         }
     }
 
@@ -254,7 +258,10 @@ public class SoloGame extends Game{
              if (developDecks[i][2].getTop() == -1) isEndGame = true;
              else i++;
          }
-         if (isEndGame) notifyEndGame(false, getPoints(currentPlayer));
+         if (isEndGame) {
+             notifyEndGame(false, getPoints(currentPlayer));
+             phase=GamePhase.ENDED;
+         }
 
 
          //select max position and set the tiles if needed: if someone is at the end, set isEndgame
@@ -263,6 +270,7 @@ public class SoloGame extends Game{
              if (blackCross.getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
                  isEndGame = true;
                  notifyEndGame(false, getPoints(currentPlayer));
+                 phase=GamePhase.ENDED;
              }
              for (int j = 1; j >= 0; j--) {
                  FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
@@ -288,6 +296,7 @@ public class SoloGame extends Game{
              if (currentPlayer.getPersonalBoard().getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
                  isEndGame = true;
                  notifyEndGame(true, getPoints(currentPlayer));
+                 phase=GamePhase.ENDED;
              }
 
          }
@@ -299,6 +308,9 @@ public class SoloGame extends Game{
 
     }
 
+    /**
+     * Utility method used to notify the view of the initial state of the market and of the developDecks
+     */
     private void notifyInitialState(){
         Map<String, String> state= new HashMap<>();
         String cardId, marbleId, marble;
@@ -326,6 +338,13 @@ public class SoloGame extends Game{
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view that the currentPlayer needs to choose his leaders or to notify him of the
+     * correct selection of the leaders
+     * @param action the action that is to be sent to the player (choose leader: the player needs to choose his leaders,
+     *               the id of the leaders between the player needs to choose are sent; ok leaders: the selection of the
+     *               leaders is correct and the id of the selected leaders are sent)
+     */
     private void notifyLeaders(String action){
         Map<String, String> state= new HashMap<>();
         List<LeaderCard> leaders;
@@ -344,6 +363,9 @@ public class SoloGame extends Game{
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view that is the turn of the currentPlayer
+     */
     private void notifyTurn(){
         Map<String, String> state= new HashMap<>();
         String content= "It is your turn! You must do one action of your choice between buy, market, produce";
@@ -354,6 +376,15 @@ public class SoloGame extends Game{
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view that the buy action went fine. It sends to the client the new situation of
+     * deposits and strongbox, the id of the new top card for the deck from where he bought the card, and the id of the bought
+     * card
+     * @param slot the index of the slot where the player put the bought card
+     * @param bought the id of the bought card
+     * @param col the col of the deck where the player bought the card
+     * @param row the row of the deck where the player bought the card
+     */
     private void notifyBuy(int slot, int bought, int col, int row){
         Map<String, String> state= new HashMap<>();
         int idNew=developDecks[col][row].getCard().getId();
@@ -400,6 +431,10 @@ public class SoloGame extends Game{
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view of the corrected execution of a produce action. It sends to the view the
+     * new situation of the deposits and strongbox of the player that did the action
+     */
     private void notifyProduce(){
         Map<String, String> state= new HashMap<>();
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
@@ -441,6 +476,13 @@ public class SoloGame extends Game{
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view that a fromMarket action went fine. It sends to the client the new situation
+     * of the deposits and strongbox, the new situation of the market and the new positions of the client faithmarker and
+     * of the blackCross
+     * @param chosen row or col of the market chosen by the player
+     * @param value the index of the row or col
+     */
     private void notifyMarket(String chosen, int value){
         Map<String, String> state=new HashMap<>();
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
@@ -495,6 +537,10 @@ public class SoloGame extends Game{
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view that the swap action went fine. It sends to the client the new situation
+     * of the deposits and strongbox
+     */
     private void notifySwap(){
         Map<String, String> state=new HashMap<>();
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
@@ -525,6 +571,13 @@ public class SoloGame extends Game{
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view of a corrected execution of a leader action (activate/discard). it sends to
+     * the view the index of the activated/discarded leader, the action performed and the new position of the player (if
+     * the leader has been discarded)
+     * @param action the action performed
+     * @param pos the new position of the player
+     */
     private void notifyLeaderAction(String action, int pos){
         Map<String, String> state= new HashMap<>();
 
@@ -540,6 +593,11 @@ public class SoloGame extends Game{
         this.listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the corrected execution of the end turn action. It sends to the view the new situation
+     * of the player's FavorTile. This method also sends the current position of the blackCross and the activated token
+     * @param token is the activated token at the end of the turn
+     */
     private void notifyEndTurn(int token){
         Map<String, String> state= new HashMap<>();
         FavorTile[]tiles= currentPlayer.getPersonalBoard().getTiles();
@@ -579,6 +637,11 @@ public class SoloGame extends Game{
         this.listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * This method notifies the view that the game is ended. It sends the client the points scored and if he won or lost
+     * @param win boolean indicating if the client won
+     * @param points the points scored by the client
+     */
     private void notifyEndGame(boolean win, int points){
         Map<String, String> state= new HashMap<>();
         String content;

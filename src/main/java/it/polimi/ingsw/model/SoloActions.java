@@ -37,6 +37,10 @@ public class SoloActions {
         this.current=0;
     }
 
+    /**
+     * Utility method that returns the id of the current ActionToken
+     * @return the id of the current ActionToken
+     */
     public int getCurrentId(){
         return this.tokens[current].getId();
     }

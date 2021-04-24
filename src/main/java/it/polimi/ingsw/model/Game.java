@@ -67,7 +67,9 @@ public class Game {
      * Used to check the phase of the game (if an action can be done)
      */
     private GamePhase phase;
-
+    /**
+     * @see PropertyChangeSupport
+     */
     private final PropertyChangeSupport listener=new PropertyChangeSupport(this);
 
     /**
@@ -195,6 +197,9 @@ public class Game {
         notifyLeaders("chooseLeaders");
     }
 
+    /**
+     * Utility method used to notify the view of the initial state of the market and of the developDecks
+     */
     private void notifyInitialState(){
         Map<String, String> state= new HashMap<>();
         String cardId, marbleId, marble;
@@ -222,6 +227,13 @@ public class Game {
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view that the currentPlayer needs to choose his leaders or to notify him of the
+     * correct selection of the leaders
+     * @param action the action that is to be sent to the player (choose leader: the player needs to choose his leaders,
+     *               the id of the leaders between the player needs to choose are sent; ok leaders: the selection of the
+     *               leaders is correct and the id of the selected leaders are sent)
+     */
     private void notifyLeaders(String action){
         Map<String, String> state= new HashMap<>();
         List<LeaderCard> leaders;
@@ -250,6 +262,10 @@ public class Game {
         activePlayers.add(player);
     }
 
+    /**
+     * This method is used when a player leaves the game (when the match has not started yet)
+     * @param name the name of the disconnected player
+     */
     public void removePlayer(String name){
         for (int i=0; i<activePlayers.size(); i++){
             if (activePlayers.get(i).getName().equals(name)) activePlayers.remove(i);
@@ -277,6 +293,10 @@ public class Game {
         notifyProduce();
     }
 
+    /**
+     * Utility method used to notify the view of the corrected execution of a produce action. It sends to the view the
+     * new situation of the deposits and strongbox of the player that did the action
+     */
     private void notifyProduce(){
         Map<String, String> state= new HashMap<>();
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
@@ -337,6 +357,13 @@ public class Game {
         notifyLeaderAction("activate", pos);
     }
 
+    /**
+     * Utility method used to notify the view of a corrected execution of a leader action (activate/discard). it sends to
+     * the view the index of the activated/discarded leader, the action performed and the new position of the player (if
+     * the leader has been discarded)
+     * @param action the action performed
+     * @param pos the new position of the player
+     */
     private void notifyLeaderAction(String action, int pos){
         Map<String, String> state= new HashMap<>();
 
@@ -449,6 +476,13 @@ public class Game {
         }
     }
 
+    /**
+     * Utility method used to notify the corrected execution of the end turn action. It sends to the view the new situation
+     * of the player's FavorTile. This method is called once for each player connected to the game
+     * @param player the addresse player of the message
+     * @param ended the player that ended the turn
+     * @param tiles the tiles of the addressee player
+     */
     private void notifyEndTurn(String player, String ended, FavorTile[] tiles){
         Map<String, String> state= new HashMap<>();
         String tile;
@@ -470,6 +504,13 @@ public class Game {
         this.listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * This method is called once for each player of the game. It sends to the view the name of the winner and the amount of points
+     * scored by the addressee player
+     * @param player the name of the addressee player
+     * @param winner the name of the winner
+     * @param points the points scored by the addressee
+     */
     private void notifyEndGame(String player, String winner, int points){
         Map<String, String> state= new HashMap<>();
         state.put("action", "endgame");
@@ -645,6 +686,11 @@ public class Game {
         }
     }
 
+    /**
+     * Utility method used to notify the view that the player needs to choose the type and position of the initial resources
+     * or that the action is completed
+     * @param action the action that is to be sent to the view (chooseResources or okResources)
+     */
     private void notifyResources(String action){
         Map<String, String> state= new HashMap<>();
         int qty=currentPlayer.getNumberInitialResource();
@@ -674,6 +720,9 @@ public class Game {
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
+    /**
+     * Utility method used to notify the view that is the turn of the currentPlayer
+     */
     private void notifyTurn(){
         Map<String, String> state= new HashMap<>();
         String content= "It is your turn! You must do one action of your choice between buy, market, produce";
@@ -714,6 +763,15 @@ public class Game {
         notifyBuy(slot, id, column, row);
     }
 
+    /**
+     * Utility method used to notify the view that the buy action went fine. It sends to the client the new situation of
+     * deposits and strongbox, the id of the new top card for the deck from where he bought the card, and the id of the bought
+     * card
+     * @param slot the index of the slot where the player put the bought card
+     * @param bought the id of the bought card
+     * @param col the col of the deck where the player bought the card
+     * @param row the row of the deck where the player bought the card
+     */
     private void notifyBuy(int slot, int bought, int col, int row){
         Map<String, String> state= new HashMap<>();
         DevelopCard card=developDecks[col][row].getCard();
@@ -777,6 +835,10 @@ public class Game {
         notifySwap();
     }
 
+    /**
+     * Utility method used to notify the view that the swap action went fine. It sends to the client the new situation
+     * of the deposits and strongbox
+     */
     private void notifySwap(){
         Map<String, String> state=new HashMap<>();
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
@@ -861,6 +923,14 @@ public class Game {
         notifyMarket(chosen, value, discarded);
     }
 
+    /**
+     * Utility method used to notify the view that a fromMarket action went fine. It sends to the client the new situation
+     * of the deposits and strongbox, the new situation of the market and (to the other clients) the amount to add to their
+     * position and (only to the client that did the action) his new position
+     * @param chosen row or col of the market chosen by the player
+     * @param value the index of the row or col
+     * @param discarded the amount of resources discarded by the player
+     */
     private void notifyMarket(String chosen, int value, int discarded){
         Map<String, String> state=new HashMap<>();
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();

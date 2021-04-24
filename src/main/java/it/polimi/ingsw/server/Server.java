@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -12,16 +13,19 @@ import java.util.concurrent.Executors;
 public class Server{
     private int port;
     private ServerSocket socket;
-    private ExecutorService executor;
     private List<String> connectedClients;
     private List<GameHandler> games;
     private List<ClientHandler> waitingClients;
 
     public void setPort(int port){
         this.port=port;
+        connectedClients = new ArrayList<>();
+        games = new ArrayList<>();
+        waitingClients = new ArrayList<>();
     }
 
     public void start(){
+        ExecutorService executor= Executors.newCachedThreadPool();
         try{
             socket = new ServerSocket(port);
         }catch (IOException e){
@@ -29,12 +33,10 @@ public class Server{
             System.exit(0);
         }
         System.out.println("Server socket ready on port: " + port);
-
-        executor= Executors.newCachedThreadPool();
         while (true) {
             try {
                 Socket client = socket.accept();
-                executor.submit(new ClientHandler(client));
+                executor.submit(new ClientHandler(client,this));
             } catch(IOException e) {
                 break;
             }
@@ -42,13 +44,58 @@ public class Server{
         executor.shutdown();
     }
 
-    public synchronized void addToGame(ClientHandler client, int prefNumber){
+    public synchronized void manageDisconnection(ClientHandler client) {
+        connectedClients.remove(client.getName());
+        waitingClients.remove(client);
+        if (client.getGame() != null)
+            if (client.getGame().isStarted()) {
+                client.getGame().manageDisconnection(client.getName());
+                for (ClientHandler x : client.getGame().getPlayers()) {
+                    connectedClients.remove(x.getName());
+                }
+                games.remove(client.getGame());
+            } else
+                client.getGame().removePlayer(client);
+    }
 
+    public synchronized  void removeClient(ClientHandler client) {
+        connectedClients.remove(client.getName());
+        games.remove(client.getGame());
+    }
+
+
+    public synchronized void addToGame(ClientHandler client){
+        if (client.getPrefNumber() == 1) {
+            GameHandler game = new GameHandler(1);
+            client.setGame(game);
+            game.setPlayer(client);
+            client.getGame().start();
+        } else {
+            waitingClients.add(client);
+            if (waitingClients.size() == 1) {
+                GameHandler game = new GameHandler(client.getPrefNumber());
+                client.setGame(game);
+                game.setPlayer(client);
+                games.add(game);
+            } else {
+                client.setGame(games.get(games.size() - 1));
+                waitingClients.get(0).getGame().setPlayer(client);
+            }
+            if (waitingClients.size() == games.get(games.size() - 1).getPlayers().size()) {
+                waitingClients.get(0).getGame().start();
+                waitingClients.clear();
+            }
+        }
     }
 
     public synchronized boolean checkName(String name){
-        return false;
+        if (!connectedClients.contains(name)) {
+            this.connectedClients.add(name);
+            return false;
+        }
+        return true;
     }
+
     public static void main(String[] args) {
         System.out.println("Master of Renaissance server | Welcome!");
         Scanner scanner = new Scanner(System.in);

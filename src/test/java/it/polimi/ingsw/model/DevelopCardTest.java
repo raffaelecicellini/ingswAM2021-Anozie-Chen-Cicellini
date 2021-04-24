@@ -35,7 +35,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREEN, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
         assertEquals(1, test.getLevel());
         test.setLevel(2);
         assertEquals(2, test.getLevel());
@@ -67,7 +67,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREEN, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
         assertEquals(1, test.getVictoryPoints());
         test.setVictoryPoints(3);
         assertEquals(3, test.getVictoryPoints());
@@ -98,7 +98,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREEN, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
         assertEquals(1, test.getFaithOutput());
         test.setFaithOutput(3);
         assertEquals(3, test.getFaithOutput());
@@ -129,7 +129,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREEN, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
         assertEquals(Color.BLUE, test.getColor());
         test.setColor(Color.YELLOW);
         assertEquals(Color.YELLOW, test.getColor());
@@ -160,7 +160,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREEN, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
         int i=0;
         ResourceAmount[] cardCost= test.getCost();
         for (ResourceAmount res: cardCost) {
@@ -204,7 +204,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREEN, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
         int i=0;
         ResourceAmount[] cardInput= test.getInput();
         for (ResourceAmount res: cardInput) {
@@ -248,7 +248,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREEN, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
         int i=0;
         ResourceAmount[] cardOutput= test.getOutput();
         for (ResourceAmount res: cardOutput) {
@@ -294,7 +294,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test = new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test = new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[2];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 6);
@@ -354,7 +354,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 5);
@@ -416,7 +416,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 9);
         output[3]= new ResourceAmount(Color.GREY, 9);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 0);
@@ -480,7 +480,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 0);
@@ -545,7 +545,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 0);
@@ -614,7 +614,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 0);
@@ -675,7 +675,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test = new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test = new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[2];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 6);
@@ -732,7 +732,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 3);
@@ -791,7 +791,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 3);
@@ -850,7 +850,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 3);
@@ -912,7 +912,7 @@ class DevelopCardTest {
         output[2]= new ResourceAmount(Color.PURPLE, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
 
-        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        DevelopCard test= new DevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 1);

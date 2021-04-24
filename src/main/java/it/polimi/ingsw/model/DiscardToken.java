@@ -12,6 +12,10 @@ public class DiscardToken implements ActionToken{
      * This attribute defines the amount of cards to be removed from the decks.
      */
     private int qty;
+    /**
+     * This attribute defines the id of the token (it is passed to the client)
+     */
+    private int id;
 
     /**
      * It instantiates a DiscardToken.
@@ -21,6 +25,25 @@ public class DiscardToken implements ActionToken{
     public DiscardToken(Color color, int qty) {
         this.color=color;
         this.qty=qty;
+        this.id=parseColor(color);
+    }
+
+    private int parseColor(Color color){
+        switch (color){
+            case BLUE: return 1;
+            case GREEN: return 2;
+            case PURPLE: return 3;
+            case YELLOW: return 4;
+        }
+        return 0;
+    }
+
+    /**
+     * id getter method
+     * @return the value of the id attribute
+     */
+    public int getId(){
+        return this.id;
     }
 
     /**

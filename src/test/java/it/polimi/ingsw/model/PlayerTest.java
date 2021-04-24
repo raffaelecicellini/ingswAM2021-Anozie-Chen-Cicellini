@@ -12,8 +12,8 @@ public class PlayerTest {
     public void leaderTest(){
         Player test= new Player("test");
         assertEquals("test", test.getName());
-        test.leaders.add(0, new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY));
-        test.leaders.add(1, new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE));
+        test.leaders.add(0, new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY, 0));
+        test.leaders.add(1, new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE, 0));
 
         try {
             test.discardLeader(0);
@@ -52,7 +52,7 @@ public class PlayerTest {
         output[1]= new ResourceAmount(Color.BLUE, 0);
         output[2]= new ResourceAmount(Color.YELLOW, 0);
         output[3]= new ResourceAmount(Color.PURPLE, 0);
-        DevelopCard card1= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output);
+        DevelopCard card1= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
         pb.addCard(0, card1, false);
 
         vp= 6;
@@ -72,7 +72,7 @@ public class PlayerTest {
         output[1]= new ResourceAmount(Color.BLUE, 0);
         output[2]= new ResourceAmount(Color.GREY, 0);
         output[3]= new ResourceAmount(Color.PURPLE, 0);
-        DevelopCard card2= new DevelopCard(2, vp, faith, Color.YELLOW, cost, input, output);
+        DevelopCard card2= new DevelopCard(2, vp, faith, Color.YELLOW, cost, input, output, 0);
         pb.addCard(0, card2, false);
 
         try {
@@ -294,7 +294,7 @@ public class PlayerTest {
         output[1]= new ResourceAmount(Color.BLUE, 0);
         output[2]= new ResourceAmount(Color.YELLOW, 0);
         output[3]= new ResourceAmount(Color.PURPLE, 0);
-        DevelopCard card= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output);
+        DevelopCard card= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
         test.getPersonalBoard().addCard(2, card, false);
         vp= 3;
         faith=0;
@@ -313,7 +313,7 @@ public class PlayerTest {
         output[1]= new ResourceAmount(Color.BLUE, 1);
         output[2]= new ResourceAmount(Color.GREY, 1);
         output[3]= new ResourceAmount(Color.YELLOW, 0);
-        card= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output);
+        card= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
         test.getPersonalBoard().addCard(1, card, false);
         vp= 4;
         faith=1;
@@ -332,7 +332,7 @@ public class PlayerTest {
         output[1]= new ResourceAmount(Color.BLUE, 0);
         output[2]= new ResourceAmount(Color.YELLOW, 0);
         output[3]= new ResourceAmount(Color.GREY, 0);
-        card= new DevelopCard(1, vp, faith, Color.BLUE, cost, input, output);
+        card= new DevelopCard(1, vp, faith, Color.BLUE, cost, input, output, 0);
         test.getPersonalBoard().addCard(0, card, false);
 
         try {
@@ -393,7 +393,7 @@ public class PlayerTest {
         test.getPersonalBoard().setDeposits(deps);
 
         ResourceAmount[] inputcard={new ResourceAmount(Color.BLUE,1), new ResourceAmount(Color.PURPLE, 0), new ResourceAmount(Color.YELLOW, 0), new ResourceAmount(Color.GREY, 0)};
-        test.getPersonalBoard().addCard(0, new LeaderDevelopCard(0, 0, 1, Color.BLUE, null, inputcard, null), true);
+        test.getPersonalBoard().addCard(0, new LeaderDevelopCard(0, 0, 1, Color.BLUE, null, inputcard, null, 0), true);
         try {
             test.produce(info);
             assertEquals(1, test.getPersonalBoard().getDeposits().get(0).getAmount());
@@ -414,10 +414,10 @@ public class PlayerTest {
     @Test
     public void chooseLeaderTest(){
         ArrayList<LeaderCard> leaders = new ArrayList<>();
-        leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE));
-        leaders.add(new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY));
-        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE));
-        leaders.add(new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE));
+        leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE, 0));
+        leaders.add(new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY, 0));
+        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 0));
+        leaders.add(new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE, 0));
 
         Player player = new Player("giacomino");
         player.receiveLeaders(leaders);
@@ -740,8 +740,8 @@ public class PlayerTest {
         cost1[3] = new ResourceAmount(Color.YELLOW,3);
         p.getPersonalBoard().setDeposits(deposits);
         p.getPersonalBoard().setStrongbox(strongbox);
-        DevelopCard t = new DevelopCard(1,2,0,Color.GREEN,cost,null,null);
-        DevelopCard t1 = new DevelopCard(2,1,0,Color.BLUE,cost1,null,null);
+        DevelopCard t = new DevelopCard(1,2,0,Color.GREEN,cost,null,null, 0);
+        DevelopCard t1 = new DevelopCard(2,1,0,Color.BLUE,cost1,null,null, 0);
         Map<String,String> map = new HashMap<>();
         map.put("res1","small");
         map.put("res2","strongbox");
@@ -796,7 +796,7 @@ public class PlayerTest {
         cost[3] = new ResourceAmount(Color.YELLOW,0);
         p.getPersonalBoard().setDeposits(deposits);
         p.getPersonalBoard().setStrongbox(strongbox);
-        DevelopCard t = new DevelopCard(2,2,0,Color.GREEN,cost,null,null);
+        DevelopCard t = new DevelopCard(2,2,0,Color.GREEN,cost,null,null, 0);
         Map<String,String> map = new HashMap<>();
         map.put("res1","small");
         map.put("res2","strongbox");
@@ -823,8 +823,8 @@ public class PlayerTest {
     public void fromMarketTest1(){
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
@@ -958,8 +958,8 @@ public class PlayerTest {
     public void fromMarketTest2(){
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
@@ -1025,8 +1025,8 @@ public class PlayerTest {
     public void fromMarketTest3(){
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
@@ -1069,8 +1069,8 @@ public class PlayerTest {
     public void fromMarketTest4(){
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
@@ -1112,15 +1112,15 @@ public class PlayerTest {
     public void fromMarketTest5(){
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW));
-        leaderCards.add(new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
+        leaderCards.add(new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY, 0));
         p.receiveLeaders(leaderCards);
 
-        DevelopCard developCard1 = new DevelopCard(0, 0, 0, Color.PURPLE, null, null, null);
+        DevelopCard developCard1 = new DevelopCard(0, 0, 0, Color.PURPLE, null, null, null, 0);
         p.getPersonalBoard().addCard(0, developCard1, false);
-        DevelopCard developCard2 = new DevelopCard(0, 0, 0, Color.PURPLE, null, null, null);
+        DevelopCard developCard2 = new DevelopCard(0, 0, 0, Color.PURPLE, null, null, null, 0);
         p.getPersonalBoard().addCard(1, developCard2, false);
-        DevelopCard developCard3 = new DevelopCard(0, 0, 0, Color.GREEN, null, null, null);
+        DevelopCard developCard3 = new DevelopCard(0, 0, 0, Color.GREEN, null, null, null, 0);
         p.getPersonalBoard().addCard(2, developCard3, false);
 
         try {
@@ -1168,21 +1168,21 @@ public class PlayerTest {
     public void fromMarketTest6(){
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
-        DevelopCard developCard1 = new DevelopCard(1, 0, 0, Color.PURPLE, null, null, null);
+        DevelopCard developCard1 = new DevelopCard(1, 0, 0, Color.PURPLE, null, null, null, 0);
         p.getPersonalBoard().addCard(0, developCard1, false);
-        DevelopCard developCard2 = new DevelopCard(2, 0, 0, Color.PURPLE, null, null, null);
+        DevelopCard developCard2 = new DevelopCard(2, 0, 0, Color.PURPLE, null, null, null, 0);
         p.getPersonalBoard().addCard(0, developCard2, false);
-        DevelopCard developCard3 = new DevelopCard(1, 0, 0, Color.GREEN, null, null, null);
+        DevelopCard developCard3 = new DevelopCard(1, 0, 0, Color.GREEN, null, null, null, 0);
         p.getPersonalBoard().addCard(1, developCard3, false);
-        DevelopCard developCard4 = new DevelopCard(2, 0, 0, Color.GREEN, null, null, null);
+        DevelopCard developCard4 = new DevelopCard(2, 0, 0, Color.GREEN, null, null, null, 0);
         p.getPersonalBoard().addCard(1, developCard4, false);
-        DevelopCard developCard5 = new DevelopCard(3, 0, 0, Color.GREEN, null, null, null);
+        DevelopCard developCard5 = new DevelopCard(3, 0, 0, Color.GREEN, null, null, null, 0);
         p.getPersonalBoard().addCard(1, developCard5, false);
-        DevelopCard developCard6 = new DevelopCard(3, 0, 0, Color.GREEN, null, null, null);
+        DevelopCard developCard6 = new DevelopCard(3, 0, 0, Color.GREEN, null, null, null, 0);
         p.getPersonalBoard().addCard(0, developCard6, false);
 
 

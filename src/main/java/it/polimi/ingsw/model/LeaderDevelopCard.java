@@ -19,8 +19,8 @@ public class LeaderDevelopCard extends DevelopCard{
      * @param input         : it specifies the input requested to activate the production of the card.
      * @param output        : it specifies the output produced by the card.
      */
-    public LeaderDevelopCard(int level, int victoryPoints, int faithOutput, Color color, ResourceAmount[] cost, ResourceAmount[] input, ResourceAmount[] output) {
-        super(level, victoryPoints, faithOutput, color, cost, input, output);
+    public LeaderDevelopCard(int level, int victoryPoints, int faithOutput, Color color, ResourceAmount[] cost, ResourceAmount[] input, ResourceAmount[] output, int id) {
+        super(level, victoryPoints, faithOutput, color, cost, input, output, id);
     }
 
 

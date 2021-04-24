@@ -19,8 +19,8 @@ public class ResourceLeader extends LeaderCard{
      * @param requirements is the amount of resources needed.
      * @param typeDeposit is the color of the extra deposit.
      */
-    public ResourceLeader(int victoryPoints, String type, boolean active, boolean discarded, ResourceAmount requirements, Color typeDeposit) {
-        super(victoryPoints, type, active, discarded);
+    public ResourceLeader(int victoryPoints, String type, boolean active, boolean discarded, ResourceAmount requirements, Color typeDeposit, int id) {
+        super(victoryPoints, type, active, discarded, id);
         this.requirements = requirements;
         this.typeDeposit = typeDeposit;
     }

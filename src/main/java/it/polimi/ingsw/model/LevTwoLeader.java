@@ -19,8 +19,8 @@ public class LevTwoLeader extends LeaderCard {
      * @param color is the color of the level 2 development card needed for the requirements.
      * @param production is the color of the resource needed for the extra production.
      */
-    public LevTwoLeader(int victoryPoints, String type, boolean active, boolean discarded, Color color, Color production) {
-        super(victoryPoints, type, active, discarded);
+    public LevTwoLeader(int victoryPoints, String type, boolean active, boolean discarded, Color color, Color production, int id) {
+        super(victoryPoints, type, active, discarded, id);
         this.color = color;
         this.production = production;
     }

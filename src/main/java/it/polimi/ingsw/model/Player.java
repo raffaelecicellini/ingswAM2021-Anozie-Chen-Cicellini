@@ -49,14 +49,26 @@ public class Player {
         this.leaders= new ArrayList<>();
     }
 
+    /**
+     * leaders getter method
+     * @return the ArrayList of leaders
+     */
     public ArrayList<LeaderCard> getLeaders() {
         return leaders;
     }
 
+    /**
+     * numberInitialResource getter method
+     * @return the value of numberInitialResource
+     */
     public int getNumberInitialResource() {
         return numberInitialResource;
     }
 
+    /**
+     * numberDevelopCards getter method
+     * @return the value of numberDevelopCards
+     */
     public int getNumberDevelopCards() {
         return numberDevelopCards;
     }
@@ -123,7 +135,7 @@ public class Player {
                 }
                 else if (current.getType().equals("LevTwo")){
                     ResourceAmount[] input={new ResourceAmount(current.getProduction(), 1), null, null, null};
-                    LeaderDevelopCard card= new LeaderDevelopCard(0, 0, 1, null, null, input, null);
+                    LeaderDevelopCard card= new LeaderDevelopCard(0, 0, 1, null, null, input, null, 0);
                     personalBoard.addCard(0, card, true);
                 }
             }

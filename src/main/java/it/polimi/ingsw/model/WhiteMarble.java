@@ -109,6 +109,6 @@ public class WhiteMarble implements Marble{
      * @return: the String representation of a WhiteMarble
      */
     public String toString() {
-        return "WhiteMarble";
+        return "WHITE";
     }
 }

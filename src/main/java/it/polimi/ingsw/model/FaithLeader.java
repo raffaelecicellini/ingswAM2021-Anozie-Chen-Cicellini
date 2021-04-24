@@ -16,8 +16,8 @@ public class FaithLeader extends LeaderCard{
      * @param discarded is the state of the card.
      * @param position is the faith marker's position required in order to activate this card.
      */
-    public FaithLeader(int victoryPoints, String type, boolean active, boolean discarded, int position) {
-        super(victoryPoints, type, active, discarded);
+    public FaithLeader(int victoryPoints, String type, boolean active, boolean discarded, int position, int id) {
+        super(victoryPoints, type, active, discarded, id);
         this.position = position;
     }
 

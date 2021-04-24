@@ -36,7 +36,7 @@ public class LeaderDevelopCardTest {
         output[2] = new ResourceAmount(Color.PURPLE, 0);
         output[3] = new ResourceAmount(Color.GREY, 0);
 
-        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 3);
@@ -95,7 +95,7 @@ public class LeaderDevelopCardTest {
         output[2] = new ResourceAmount(Color.PURPLE, 0);
         output[3] = new ResourceAmount(Color.GREY, 0);
 
-        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 0);
@@ -163,7 +163,7 @@ public class LeaderDevelopCardTest {
         output[2] = new ResourceAmount(Color.PURPLE, 0);
         output[3] = new ResourceAmount(Color.GREY, 0);
 
-        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 0);
@@ -232,7 +232,7 @@ public class LeaderDevelopCardTest {
         output[2] = new ResourceAmount(Color.PURPLE, 0);
         output[3] = new ResourceAmount(Color.GREY, 0);
 
-        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output);
+        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 0);

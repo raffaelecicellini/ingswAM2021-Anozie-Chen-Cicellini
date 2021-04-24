@@ -37,6 +37,10 @@ public class DevelopCard {
      * This attribute specifies the resources produced by the current card when the production is done correctly.
      */
     private ResourceAmount[] output;
+    /**
+     * This attribute is the id of the card: it is sent to the client as a representation of the card
+     */
+    private int id;
 
     /**
      * It instantiates a single DevelopCard.
@@ -48,7 +52,7 @@ public class DevelopCard {
      * @param input: it specifies the input requested to activate the production of the card.
      * @param output: it specifies the output produced by the card.
      */
-    public DevelopCard(int level, int victoryPoints, int faithOutput, Color color, ResourceAmount[] cost, ResourceAmount[] input, ResourceAmount[] output) {
+    public DevelopCard(int level, int victoryPoints, int faithOutput, Color color, ResourceAmount[] cost, ResourceAmount[] input, ResourceAmount[] output, int id) {
         this.level = level;
         this.victoryPoints = victoryPoints;
         this.faithOutput = faithOutput;
@@ -56,6 +60,15 @@ public class DevelopCard {
         this.cost = cost;
         this.input = input;
         this.output = output;
+        this.id=id;
+    }
+
+    /**
+     * This method returns the id representing the card
+     * @return the id of the card
+     */
+    public int getId(){
+        return this.id;
     }
 
     /**

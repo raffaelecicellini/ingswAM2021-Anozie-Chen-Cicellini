@@ -165,6 +165,7 @@ public class PersonalBoard {
                 } else throw new InvalidActionException("You don't have a leader deposit!");
             } else throw new InvalidActionException("You can't swap two leader deposits!");
         }
+        else throw new InvalidActionException("Invalid indexes!");
     }
 
     /**
@@ -325,5 +326,13 @@ public class PersonalBoard {
      */
     public FaithMarker getFaithMarker() {
         return faithMarker;
+    }
+
+    /**
+     * This method returns the FavorTile array
+     * @return the FavorTile array
+     */
+    public FavorTile[] getTiles() {
+        return favorTile;
     }
 }

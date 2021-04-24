@@ -38,6 +38,14 @@ public class SoloActions {
     }
 
     /**
+     * Utility method that returns the id of the current ActionToken
+     * @return the id of the current ActionToken
+     */
+    public int getCurrentId(){
+        return this.tokens[current].getId();
+    }
+
+    /**
      * This method is called by the Solo game. It calls the doAction() method of the ActionToken indicated
      * by current and, eventually, shuffles the array (if the current token is a MoveandShuffleToken).
      * @param blackCross: this is the position of "Lorenzo il Magnifico" on the FaithTrack.

@@ -8,13 +8,24 @@ public class MoveToken implements ActionToken{
      * This attribute specifies how much the current position of the FaithMarker needs to be increased.
      */
     private int qty;
-
+    /**
+     * This attribute specifies the id of the token (it is sent to the client)
+     */
+    private int id;
     /**
      * It instantiates a MoveToken.
      * @param qty: it specifies how much the current position of the FaithMarker needs to be increased.
      */
     public MoveToken(int qty) {
         this.qty=qty;
+        this.id=5;
+    }
+    /**
+     * id getter method
+     * @return the value of the id attribute
+     */
+    public int getId(){
+        return this.id;
     }
 
     /**

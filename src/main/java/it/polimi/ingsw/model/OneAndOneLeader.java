@@ -21,8 +21,8 @@ public class OneAndOneLeader extends LeaderCard {
      * @param secondColor is the color of the second development card required.
      * @param discount is the color of the discount.
      */
-    public OneAndOneLeader(int victoryPoints, String type, boolean active, boolean discarded, Color firstColor, Color secondColor, Color discount) {
-        super(victoryPoints, type, active, discarded);
+    public OneAndOneLeader(int victoryPoints, String type, boolean active, boolean discarded, Color firstColor, Color secondColor, Color discount, int id) {
+        super(victoryPoints, type, active, discarded, id);
         this.firstColor = firstColor;
         this.secondColor = secondColor;
         this.discount = discount;

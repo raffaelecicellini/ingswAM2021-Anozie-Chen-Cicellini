@@ -27,6 +27,7 @@ public class ClientHandler implements Runnable{
                 error.put("action", "error");
                 error.put("content", "Wrong number of players, it must be between 1 and 4. Pick a new one and connect again.");
                 send(new Gson().toJson(error));
+                close();
                 active = false;
                 return;
             }
@@ -57,7 +58,9 @@ public class ClientHandler implements Runnable{
         String action = message.get("action");
         switch (action.toLowerCase()) {
             case "setup": setup(message);
-            case "disconnect": server.manageDisconnection(this);
+            case "disconnect":
+                if (game!=null) server.manageDisconnection(this);
+                else close();
             case "buy" : makeAction(message);
             case "produce": makeAction(message);
             case "swap": makeAction(message);
@@ -67,23 +70,24 @@ public class ClientHandler implements Runnable{
             case "chooseresources": makeAction(message);
             case "chooseleaders": makeAction(message);
             case "market": makeAction(message);
+            default:
+                Map<String, String> error= new HashMap<>();
+                error.put("action", "error");
+                error.put("content", "Unrecognized command, please try again");
+                Gson gson= new Gson();
+                String back=gson.toJson(error);
+                send(back);
         }
     }
 
     public void makeAction(Map<String,String> message) {
-        if (game.isStarted()) {
-            if (game.getModel().getCurrentPlayer().getName().equals(name))
-                game.makeAction(message,name);
-            else {
-                Map<String, String> error = new HashMap<>();
-                error.put("action", "error");
-                error.put("content", "It is not your turn.");
-                send(new Gson().toJson(error));
-            }
-        } else {
+        if (game!=null){
+            game.makeAction(message,name);
+        }
+        else {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
-            error.put("content", "The game has not started yet.");
+            error.put("content", "You didn't do the setup yet.");
             send(new Gson().toJson(error));
         }
     }
@@ -114,6 +118,7 @@ public class ClientHandler implements Runnable{
             System.out.println("Couldn't initialize the ClientHandler");
             System.out.println(e.getMessage());
         }
+        doneSetup=false;
     }
 
     public int getPrefNumber() {
@@ -137,8 +142,8 @@ public class ClientHandler implements Runnable{
             actionHandler(message);
     }
 
-    public synchronized void close() {
-        active = false;
+    public /*synchronized*/ void close() {
+        //active = false;
         try {
             socket.close();
         } catch (IOException e) {
@@ -146,22 +151,20 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    //for endgame
     public void removeClient() {
         server.removeClient(this);
     }
 
     @Override
     public void run() {
-        while (isActive()) {
-            try {
+        try {
+            while (isActive()) {
                 readMessage();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                if (name != null)
-                    server.manageDisconnection(this);
             }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            if (name != null && game!=null) server.manageDisconnection(this);
         }
-
     }
-
 }

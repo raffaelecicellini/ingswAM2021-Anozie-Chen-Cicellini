@@ -3,13 +3,16 @@ package it.polimi.ingsw.server;
 import com.google.gson.Gson;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SoloGame;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +51,7 @@ public class GameHandler implements PropertyChangeListener {
         else this.model=new Game();
         this.model.setListener(this);
         this.controller=new Controller(this, this.model);
+        //this.controller.setListener(this);
         this.players=new HashMap<>();
         controllerListener.addPropertyChangeListener(this.controller);
     }
@@ -114,9 +118,29 @@ public class GameHandler implements PropertyChangeListener {
      * @param message the message sent by the client: it contains all the info needed to perform the action
      * @param player the name of the player that sent the message
      */
-    public void makeAction(Map<String, String> message, String player){
+    public synchronized void makeAction(Map<String, String> message, String player){
         //controls if the move can be done
-        controllerListener.firePropertyChange(message.get("action"), null, message);
+        if (model.getPhase()!=GamePhase.NOTSTARTED){
+            if (model.getCurrentPlayer().getName().equalsIgnoreCase(player)){
+                controllerListener.firePropertyChange(message.get("action"), null, message);
+            }
+            else {
+                Map<String, String> map= new HashMap<>();
+                map.put("action", "error");
+                map.put("content", "It is not your turn!");
+                Gson gson= new Gson();
+                String error= gson.toJson(map);
+                sendSingle(error, player);
+            }
+        }
+        else {
+            Map<String, String> map= new HashMap<>();
+            map.put("action", "error");
+            map.put("content", "Game has not started yet!");
+            Gson gson= new Gson();
+            String error= gson.toJson(map);
+            sendSingle(error, player);
+        }
     }
 
     /**
@@ -127,6 +151,19 @@ public class GameHandler implements PropertyChangeListener {
     public void setPlayer(String name, ClientHandler client){
         this.players.put(name, client);
         this.model.createPlayer(name);
+
+        Map<String, String> map= new HashMap<>();
+        map.put("action", "otherConnected");
+        map.put("content", "Someone connected! "+(playersNumber-players.size())+" slots left.");
+        Gson gson= new Gson();
+        String message= gson.toJson(map);
+        sendAllExcept(message, name);
+
+        map.clear();
+        map.put("action", "connected");
+        map.put("content", "Connection established");
+        message=gson.toJson(map);
+        sendSingle(message, name);
     }
 
     /**
@@ -136,6 +173,13 @@ public class GameHandler implements PropertyChangeListener {
     public void removePlayer(String name){
         this.players.remove(name);
         model.removePlayer(name);
+
+        Map<String, String> map= new HashMap<>();
+        map.put("action", "otherDisconnected");
+        map.put("content", "Someone disconnected before the start of the game. "+(playersNumber-players.size())+" slots left.");
+        Gson gson= new Gson();
+        String message= gson.toJson(map);
+        sendAllExcept(message, name);
     }
 
     /**
@@ -151,7 +195,9 @@ public class GameHandler implements PropertyChangeListener {
         String message=gson.toJson(map);
         sendAllExcept(message, name);
         //close connections of ClientHandlers
-
+        for (ClientHandler client: players.values()) {
+            if (!client.getName().equalsIgnoreCase(name)) client.close();
+        }
     }
 
     /**
@@ -197,6 +243,30 @@ public class GameHandler implements PropertyChangeListener {
         copy.put("out", original.get("out"));
         copy.put("discarded", original.remove("discarded"));
         return copy;
+    }
+
+    /**
+     * Simple method to get the model of the current game
+     * @return the model (Game class) of the current game
+     */
+    public Game getModel() {
+        return model;
+    }
+
+    /**
+     * Synchronized method used to check if the game has already started
+     * @return true if the game has started, false otherwise
+     */
+    public synchronized boolean isStarted() {
+        return model.getPhase() != GamePhase.NOTSTARTED && model.getPhase() != GamePhase.ENDED;
+    }
+
+    /**
+     * players getter method
+     * @return the list of ClientHandler of the current game
+     */
+    public List<ClientHandler> getPlayers() {
+        return new ArrayList<ClientHandler>(players.values());
     }
 
     /**
@@ -285,6 +355,9 @@ public class GameHandler implements PropertyChangeListener {
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                //CLOSE CONNECTION
+                players.get(addressee).removeClient();
+                players.get(addressee).close();
             case "ERROR":
                 //singlesend
                 addressee=message.get("player");

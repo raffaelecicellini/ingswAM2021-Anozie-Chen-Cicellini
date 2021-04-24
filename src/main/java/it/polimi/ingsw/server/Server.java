@@ -47,18 +47,18 @@ public class Server{
     public synchronized void manageDisconnection(ClientHandler client) {
         connectedClients.remove(client.getName());
         waitingClients.remove(client);
-        if (client.getGame() != null)
-            if (client.getGame().isStarted()) {
-                client.getGame().manageDisconnection(client.getName());
-                for (ClientHandler x : client.getGame().getPlayers()) {
-                    connectedClients.remove(x.getName());
-                }
-                games.remove(client.getGame());
-            } else
-                client.getGame().removePlayer(client);
+
+        if (client.getGame().isStarted()) {
+            client.getGame().manageDisconnection(client.getName());
+            for (ClientHandler x : client.getGame().getPlayers()) {
+                connectedClients.remove(x.getName());
+            }
+            games.remove(client.getGame());
+        } else client.getGame().removePlayer(client.getName());
     }
 
-    public synchronized  void removeClient(ClientHandler client) {
+    //for endgame
+    public synchronized void removeClient(ClientHandler client) {
         connectedClients.remove(client.getName());
         games.remove(client.getGame());
     }
@@ -68,20 +68,22 @@ public class Server{
         if (client.getPrefNumber() == 1) {
             GameHandler game = new GameHandler(1);
             client.setGame(game);
-            game.setPlayer(client);
+            game.setPlayer(client.getName(), client);
             client.getGame().start();
         } else {
             waitingClients.add(client);
             if (waitingClients.size() == 1) {
                 GameHandler game = new GameHandler(client.getPrefNumber());
                 client.setGame(game);
-                game.setPlayer(client);
+                game.setPlayer(client.getName(), client);
                 games.add(game);
-            } else {
+            } else if (waitingClients.size() < games.get(games.size() - 1).getPlayersNumber()){
                 client.setGame(games.get(games.size() - 1));
-                waitingClients.get(0).getGame().setPlayer(client);
+                waitingClients.get(0).getGame().setPlayer(client.getName(), client);
             }
-            if (waitingClients.size() == games.get(games.size() - 1).getPlayers().size()) {
+            else if (waitingClients.size() == games.get(games.size() - 1).getPlayersNumber()) {
+                client.setGame(games.get(games.size() - 1));
+                waitingClients.get(0).getGame().setPlayer(client.getName(), client);
                 waitingClients.get(0).getGame().start();
                 waitingClients.clear();
             }
@@ -89,7 +91,7 @@ public class Server{
     }
 
     public synchronized boolean checkName(String name){
-        if (!connectedClients.contains(name)) {
+        if (name !=null && !connectedClients.contains(name)) {
             this.connectedClients.add(name);
             return false;
         }
@@ -109,7 +111,7 @@ public class Server{
             System.exit(-1);
         }
         if (port < 0 || (port > 0 && port < 1024)) {
-            System.err.println("Error: ports accepted started from 1024! Please insert a new value.");
+            System.err.println("Error: ports accepted start from 1024! Please insert a new value.");
             main(null);
         }
         Server server=new Server();

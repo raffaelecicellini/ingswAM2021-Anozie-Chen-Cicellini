@@ -142,8 +142,8 @@ public class ClientHandler implements Runnable{
             actionHandler(message);
     }
 
-    public /*synchronized*/ void close() {
-        //active = false;
+    public synchronized void close() {
+        active = false;
         try {
             socket.close();
         } catch (IOException e) {

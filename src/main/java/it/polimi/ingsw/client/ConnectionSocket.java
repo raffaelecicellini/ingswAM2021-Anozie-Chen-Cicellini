@@ -1,4 +1,3 @@
-/*
 package it.polimi.ingsw.client;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ public class ConnectionSocket {
     private SocketListener listener;
 
 
-    public ConnectionSocket(String serverAddress, int serverPort) {
+    /*public ConnectionSocket(String serverAddress, int serverPort) {
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
 
@@ -34,7 +33,7 @@ public class ConnectionSocket {
         }
 
         try {
-            //listener = new SocketListener(socket);
+            listener = new SocketListener(socket);
         } catch (IOException e) {
             System.out.println("Couldn't initialize the SocketListener");
             System.exit(1);
@@ -42,7 +41,7 @@ public class ConnectionSocket {
 
         Thread socketlistener =new Thread(listener);
         socketlistener.start();
-    }
+    }*/
 
     public void send (String message ) {
         try {
@@ -53,9 +52,4 @@ public class ConnectionSocket {
             System.out.println(e.getMessage());
         }
     }
-
-    public static void main(String []args) {
-
-    }
 }
-*/

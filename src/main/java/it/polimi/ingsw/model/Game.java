@@ -489,6 +489,7 @@ public class Game {
         state.put("action", "endturn");
         state.put("player", player);
         state.put("endedTurnPlayer", ended);
+        state.put("currentPlayer", currentPlayer.getName());
 
         for (int i=0; i<tiles.length; i++){
             tile="tile"+i;

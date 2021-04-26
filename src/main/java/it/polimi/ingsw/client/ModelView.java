@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.model.GamePhase;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,10 @@ public class ModelView {
      * This attribute represents if it is the turn of the client
      */
     private boolean activeTurn;
+    /**
+     * This attribute represents in which GamePhase the match is in
+     */
+    private GamePhase phase;
     /**
      * It is the name chosen by the user for the game
      */

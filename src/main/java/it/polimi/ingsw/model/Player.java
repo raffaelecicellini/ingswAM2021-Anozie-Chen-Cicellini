@@ -115,7 +115,7 @@ public class Player {
      * selected leader
      */
     public void activateLeader(int pos) throws InvalidActionException{
-        if (pos<0 || pos>1) throw new InvalidActionException("The index is invalid! Try again (index=0 || index=1");
+        if (pos<0 || pos>1) throw new InvalidActionException("The index is invalid! Try again (index=0 || index=1)");
         LeaderCard current= leaders.get(pos);
         if (current.isDiscarded()) throw new InvalidActionException("The leader is already discarded, you can't activate it");
         if (!current.isActive() && !current.isDiscarded()) {
@@ -400,6 +400,13 @@ public class Player {
         map.remove("column");
         map.remove("ind");
         if(ind<0 || ind>2) throw new InvalidActionException("Wrong card index");
+        //CHECK FOR LEADERS
+        if (leaders.get(0).getType().equalsIgnoreCase("oneandone") && leaders.get(0).isActive()){
+            map.put("disc0", leaders.get(0).getDiscount().toString());
+        }
+        if (leaders.get(1).getType().equalsIgnoreCase("oneandone") && leaders.get(1).isActive()){
+            map.put("disc1", leaders.get(1).getDiscount().toString());
+        }
         if (personalBoard.getTopCard(ind) == null)
             if (card.getLevel()==1)
                 card.buyDevelopCard(map,strongbox,deposit);

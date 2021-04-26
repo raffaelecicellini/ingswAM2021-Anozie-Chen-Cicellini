@@ -317,16 +317,27 @@ public class DevelopCard {
         boolean exit;
 
         // re-writing cost in another vector (newCost)
-        ResourceAmount[] newCost = new ResourceAmount[8];
+        ArrayList<ResourceAmount> newCost = new ArrayList<>();
         int cont, j = 0;
+        boolean disc0=false, disc1=false;
         for (ResourceAmount resourceAmount : cost) {
             cont = 0;
             while (cont != resourceAmount.getAmount()) {
-                newCost[j] = new ResourceAmount(resourceAmount.getColor(), 1);
-                j++;
+                if (map.get("disc0")!=null && map.get("disc0").equalsIgnoreCase(resourceAmount.getColor().toString()) && !disc0){
+                    disc0=true;
+                }
+                else if(map.get("disc1")!=null && map.get("disc1").equalsIgnoreCase(resourceAmount.getColor().toString()) && !disc1){
+                    disc1=true;
+                }
+                else {
+                    newCost.add(new ResourceAmount(resourceAmount.getColor(), 1));
+                    j++;
+                }
                 cont++;
             }
         }
+        map.remove("disc0");
+        map.remove("disc1");
         if (map.size() != j) throw new InvalidActionException("Invalid action! Check the number of resources!");
 
         for (Map.Entry<String, String> m : map.entrySet()) {
@@ -341,32 +352,32 @@ public class DevelopCard {
             if (m.getValue().toLowerCase().equals("strongbox")) {
                 i = 0;
                 while (i < strongbox.length && !exit) {
-                    if (newCost[k].getColor() == strongbox[i].getColor()) {
+                    if (newCost.get(k).getColor() == strongbox[i].getColor()) {
                         if (strongbox[i].getAmount() > 0) {
                             strongbox[i].setAmount(strongbox[i].getAmount() - 1);
                             exit = true;
                         } else
-                            throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resources in the Strongbox! [" + newCost[k].getAmount() + "]");
+                            throw new InvalidActionException("There's not enough " + newCost.get(k).getColor() + " resources in the Strongbox! [" + newCost.get(k).getAmount() + "]");
                     }
                     i++;
                 }
             } else
             if (i >= 0 && i <= 2) {
                 if (deposits.get(i) != null) {
-                    if (newCost[k].getColor() == deposits.get(i).getColor()) {
+                    if (newCost.get(k).getColor() == deposits.get(i).getColor()) {
                         if (deposits.get(i).getAmount() > 0) {
                             deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
-                        } else throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resource in that Deposit!");
-                    } else throw new InvalidActionException("There's no " + newCost[k].getColor() + " resource in that Deposit! Try choosing another one!");
+                        } else throw new InvalidActionException("There's not enough " + newCost.get(k).getColor() + " resource in that Deposit!");
+                    } else throw new InvalidActionException("There's no " + newCost.get(k).getColor() + " resource in that Deposit! Try choosing another one!");
                 } else throw new InvalidActionException("The chosen Deposit is empty!");
             } else
             if (i >= 3 && i <= 4) {
                 if (deposits.get(parseChoice(m.getValue())) != null) {
-                    if (newCost[k].getColor() == deposits.get(i).getColor()) {
+                    if (newCost.get(k).getColor() == deposits.get(i).getColor()) {
                         if (deposits.get(i).getAmount() > 0) {
                             deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
-                        } else throw new InvalidActionException("There's not enough " + newCost[k].getColor() + " resource in that Deposits!");
-                    } else throw new InvalidActionException("There's no " + newCost[k].getColor() + " resource in that Deposits! Try choosing another one!");
+                        } else throw new InvalidActionException("There's not enough " + newCost.get(k).getColor() + " resource in that Deposits!");
+                    } else throw new InvalidActionException("There's no " + newCost.get(k).getColor() + " resource in that Deposits! Try choosing another one!");
                 } else throw new InvalidActionException("That Deposit does not exist, yet!");
             } else
                 throw new InvalidActionException("Invalid action! Be sure you typed correctly!");

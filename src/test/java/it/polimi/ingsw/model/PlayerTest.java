@@ -755,6 +755,10 @@ public class PlayerTest {
         map1.put("res5","strongbox");
         map1.put("res6","strongbox");
         map1.put("ind","1");
+        ArrayList<LeaderCard>leaders= new ArrayList<>();
+        leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE, 3));
+        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 11));
+        p.receiveLeaders(leaders);
         try {
             p.buy(map,t);
             assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
@@ -802,6 +806,10 @@ public class PlayerTest {
         map.put("res2","strongbox");
         map.put("res3","mid");
         map.put("ind","1");
+        ArrayList<LeaderCard>leaders= new ArrayList<>();
+        leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE, 3));
+        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 11));
+        p.receiveLeaders(leaders);
         try {
             p.buy(map,t);
         }catch (InvalidActionException e) {
@@ -815,6 +823,48 @@ public class PlayerTest {
         }
     }
 
+    @Test
+    public void buyTest3(){
+        Player p = new Player("test");
+        ResourceAmount[] strongbox = new ResourceAmount[4];
+        strongbox[0]= new ResourceAmount(Color.BLUE, 10);
+        strongbox[1]= new ResourceAmount(Color.PURPLE, 10);
+        strongbox[2]= new ResourceAmount(Color.GREY, 10);
+        strongbox[3]= new ResourceAmount(Color.YELLOW, 10);
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(Color.BLUE,1));
+        deposits.add(new ResourceAmount(Color.GREY,2));
+        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        ResourceAmount[] cost = new ResourceAmount[4];
+        cost[0] = new ResourceAmount(Color.BLUE,1);
+        cost[1] = new ResourceAmount(Color.PURPLE,1);
+        cost[2] = new ResourceAmount(Color.GREY,1);
+        cost[3] = new ResourceAmount(Color.YELLOW,0);
+        p.getPersonalBoard().setDeposits(deposits);
+        p.getPersonalBoard().setStrongbox(strongbox);
+        DevelopCard t = new DevelopCard(1,2,0,Color.GREEN,cost,null,null, 0);
+        Map<String,String> map = new HashMap<>();
+        map.put("res1","small");
+        map.put("res2","mid");
+        map.put("ind","1");
+        ArrayList<LeaderCard>leaders= new ArrayList<>();
+        leaders.add(new OneAndOneLeader(2,"OneAndOne",true,false,Color.YELLOW,Color.GREEN,Color.PURPLE, 3));
+        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 11));
+        p.receiveLeaders(leaders);
+        try {
+            p.buy(map,t);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(),0);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(),Color.GREY);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(),1);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(),Color.YELLOW);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(),3);
+            assertEquals(p.getPersonalBoard().getStrongbox()[1].getAmount(),10);
+            assertEquals(p.getPersonalBoard().getStrongbox()[1].getColor(),Color.PURPLE);
+        }catch (InvalidActionException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Testing fromMarket, all successful inserts

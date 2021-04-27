@@ -17,13 +17,11 @@ public class AnswerHandler implements PropertyChangeListener {
     // riceve già serializzato, lo casto a mappa
 
     ModelView modelView;
-    View view;
     PropertyChangeSupport viewListener = new PropertyChangeSupport(this);
 
-    public AnswerHandler(ModelView modelView, View view, PropertyChangeSupport viewListener) {
+    public AnswerHandler(ModelView modelView, PropertyChangeListener view) {
         this.modelView = modelView;
-        this.view = view;
-        this.viewListener = viewListener;
+        this.viewListener.addPropertyChangeListener(view);
     }
 
     public void initialGamePhase(String answer) {

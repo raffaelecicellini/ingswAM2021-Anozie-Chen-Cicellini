@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client.cli;
 
+import com.google.gson.Gson;
+import it.polimi.ingsw.client.ActionParser;
+import it.polimi.ingsw.client.AnswerHandler;
 import it.polimi.ingsw.client.ConnectionSocket;
 import it.polimi.ingsw.client.ModelView;
 import it.polimi.ingsw.controller.Controller;
@@ -10,10 +13,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CLI implements Runnable, PropertyChangeListener {
     //used in online
@@ -29,21 +29,21 @@ public class CLI implements Runnable, PropertyChangeListener {
     private ModelView modelView;
     private final PrintStream output;
     private final Scanner input;
-    //private final AnswerHandler answerHandler;
+    private final AnswerHandler answerHandler;
     private boolean activeGame;
 
     public CLI(boolean isSolo){
         input = new Scanner(System.in);
         output = new PrintStream(System.out);
         modelView = new ModelView();
-        //answerHandler = new AnswerHandler(this, modelView);
+        answerHandler = new AnswerHandler(modelView, this);
         activeGame = true;
         this.isSolo=isSolo;
 
         if (isSolo){
             model= new SoloGame();
-            //model.setListener(answerHandler);
-            //controller= new Controller(answerHandler, model);
+            model.setListener(answerHandler);
+            controller= new Controller(model, answerHandler);
             listener.addPropertyChangeListener(controller);
         }
     }
@@ -51,6 +51,7 @@ public class CLI implements Runnable, PropertyChangeListener {
     public void setup() {
         String name = null;
         boolean confirmed = false;
+        int number=0;
         while (!confirmed) {
             do {
                 System.out.println(">Insert your nickname: ");
@@ -72,13 +73,37 @@ public class CLI implements Runnable, PropertyChangeListener {
             listener.firePropertyChange("start", null, null);
         }
         else{
+            confirmed=false;
+            while (!confirmed) {
+                try {
+                    System.out.println(">Insert the number of players (if 1, a single player game will start; otherwise, you will be added to the current multiplayer game): ");
+                    System.out.print(">");
+                    number = input.nextInt();
+                    input.reset();
+                    System.out.println(">You chose: " + name);
+                    System.out.println(">Is it ok? [yes/no] ");
+                    System.out.print(">");
+                    if (input.nextLine().equalsIgnoreCase("yes")) {
+                        confirmed = true;
+                    } else {
+                        confirmed=false;
+                    }
+                } catch (InputMismatchException e){
+                    System.out.println(">A number must be provided! Please try again");
+                }
+            }
             connectionSocket = new ConnectionSocket(address, port);
-
-            /*if(!connectionSocket.setup(name, modelView, answerHandler)) {
+            Map<String, String> map= new HashMap<>();
+            map.put("action", "setup");
+            map.put("number", String.valueOf(number));
+            map.put("username", name);
+            Gson gson= new Gson();
+            String message=gson.toJson(map);
+            if(!connectionSocket.setup(message, answerHandler)) {
                 CLI.main(null);
-            }*/
+            }
             System.out.println("Connection established!");
-            //listener.addPropertyChangeListener(new ActionParser(connectionSocket, modelView));
+            listener.addPropertyChangeListener(new ActionParser(connectionSocket, modelView));
         }
     }
 

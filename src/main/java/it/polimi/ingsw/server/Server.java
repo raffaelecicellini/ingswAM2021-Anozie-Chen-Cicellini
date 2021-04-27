@@ -10,13 +10,39 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * This class represents the server used for the game.
+ */
 public class Server{
+    /**
+     * Server Port.
+     */
     private int port;
+
+    /**
+     * Server socket.
+     */
     private ServerSocket socket;
+
+    /**
+     * List of connected that successfully connected to the server.
+     */
     private List<String> connectedClients;
+
+    /**
+     * List of active multiplayer games.
+     */
     private List<GameHandler> games;
+
+    /**
+     * List of clients that are waiting for a multiplayer game to start.
+     */
     private List<ClientHandler> waitingClients;
 
+    /**
+     * This method sets the server port.
+     * @param port is the new server port.
+     */
     public void setPort(int port){
         this.port=port;
         connectedClients = new ArrayList<>();
@@ -24,6 +50,9 @@ public class Server{
         waitingClients = new ArrayList<>();
     }
 
+    /**
+     * This method starts the server.
+     */
     public void start(){
         ExecutorService executor= Executors.newCachedThreadPool();
         try{
@@ -44,6 +73,10 @@ public class Server{
         executor.shutdown();
     }
 
+    /**
+     * This method is used when a client disconnects from the server.
+     * @param client is the disconnected client.
+     */
     public synchronized void manageDisconnection(ClientHandler client) {
         connectedClients.remove(client.getName());
         waitingClients.remove(client);
@@ -58,12 +91,20 @@ public class Server{
     }
 
     //for endgame
+
+    /**
+     * This method removes a client from the server. It is mainly used when a game ends.
+     * @param client is the client to remove.
+     */
     public synchronized void removeClient(ClientHandler client) {
         connectedClients.remove(client.getName());
         games.remove(client.getGame());
     }
 
-
+    /**
+     * This method is used to add a waiting client to a game.
+     * @param client is the client that will be added to a game.
+     */
     public synchronized void addToGame(ClientHandler client){
         if (client.getPrefNumber() == 1) {
             GameHandler game = new GameHandler(1);
@@ -90,6 +131,11 @@ public class Server{
         }
     }
 
+    /**
+     * This method is used to check if an username is already stored in the server.
+     * @param name is the name that will be checked.
+     * @return if the name is stored in the server.
+     */
     public synchronized boolean checkName(String name){
         if (name !=null && !connectedClients.contains(name)) {
             this.connectedClients.add(name);
@@ -98,6 +144,10 @@ public class Server{
         return true;
     }
 
+    /**
+     * Main method. used if you want to start the application as a server.
+     * @param args array of Strings passed as parameters when you run the application through command line.
+     */
     public static void main(String[] args) {
         System.out.println("Master of Renaissance server | Welcome!");
         Scanner scanner = new Scanner(System.in);

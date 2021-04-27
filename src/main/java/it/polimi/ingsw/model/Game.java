@@ -274,7 +274,6 @@ public class Game {
             if (players.get(i).getName().equals(name)) players.remove(i);
         }
     }
-
     /**
      * This method is called by the controller when a client decided to activate productions. It checks if the player who wants
      * to do the action is the current one (if it is his turn), then calls the player's produce method.
@@ -352,7 +351,7 @@ public class Game {
             currentPlayer.activateLeader(pos);
             doneLeader++;
         }
-        else if (currentPlayer.getName().equals(player) && doneLeader==2) throw new InvalidActionException("You can not activate another leader");
+        else if (currentPlayer.getName().equals(player) && doneLeader==2) throw new InvalidActionException("You can't activate another leader");
         else throw new InvalidActionException("It is not your turn!");
         //notify changes to player
         notifyLeaderAction("activate", pos);
@@ -392,7 +391,7 @@ public class Game {
             currentPlayer.discardLeader(pos);
             doneLeader++;
         }
-        else if (currentPlayer.getName().equals(player) && doneLeader==2) throw new InvalidActionException("You can not discard another leader");
+        else if (currentPlayer.getName().equals(player) && doneLeader==2) throw new InvalidActionException("You can't discard another leader");
         else throw new InvalidActionException("It is not your turn!");
         //notify changes to player
         notifyLeaderAction("discard", pos);
@@ -490,6 +489,7 @@ public class Game {
         state.put("action", "endturn");
         state.put("player", player);
         state.put("endedTurnPlayer", ended);
+        state.put("currentPlayer", currentPlayer.getName());
 
         for (int i=0; i<tiles.length; i++){
             tile="tile"+i;
@@ -625,7 +625,7 @@ public class Game {
      * @param map is where the information is stored.
      * @throws InvalidActionException is the move is not valid.
      */
-    public void chooseInitialResource(String player, Map<String, String> map) throws InvalidActionException {
+    public void chooseInitialResource(String player,Map<String, String> map) throws InvalidActionException {
         if (currentPlayer.getName().equals(player)) {
             if (currentPlayer.getNumberInitialResource() != 0)
                 currentPlayer.chooseInitialResource(map);
@@ -744,7 +744,7 @@ public class Game {
     public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
         if (!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory operation in this turn.");
-        if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("You did not select the card.");
+        if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("You didn't select the card.");
         int row = Integer.parseInt(map.get("row"));
         int column = Integer.parseInt(map.get("column"));
         if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("Wrong indexes selected ");
@@ -901,7 +901,7 @@ public class Game {
                         if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
                     }
                     doneMandatory = true;
-                } else throw new InvalidActionException("Invalid action! You did not insert a correct index for row!");
+                } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             } else
             if (mapCopy.containsKey("col")) {
                 int col = Integer.parseInt(mapCopy.get("col"));
@@ -915,9 +915,9 @@ public class Game {
                         if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
                     }
                     doneMandatory = true;
-                } else throw new InvalidActionException("Invalid action! You did not insert a correct index for col!");
+                } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
 
-            } else throw new InvalidActionException("Invalid action! You did not insert \"row\" or \"col\" correctly!");
+            } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
         }
         else throw new InvalidActionException("It is not your turn!");
         //notify changes
@@ -986,11 +986,11 @@ public class Game {
         listener.firePropertyChange(state.get("action"), null, state);
     }
 
-
     /**
      * Just for testing
+     * @param gamePhase the phase
      */
-    public void setPhase(GamePhase phase) {
-        this.phase = phase;
+    public void setPhase(GamePhase gamePhase) {
+        this.phase = gamePhase;
     }
 }

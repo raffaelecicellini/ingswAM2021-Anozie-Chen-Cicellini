@@ -352,7 +352,7 @@ public class GameTest {
     }
 
     /**
-     * Testing fromMarket, all the cases
+     * lowercasing a map
      */
     @Test
     public void fromMarket1() {
@@ -425,7 +425,7 @@ public class GameTest {
         // FIRST
 
         map = new HashMap<>();
-        map.put("row", "1");
+        map.put("row", "2");
         map.put("pos1", "small");
         map.put("pos2", "mid");
         map.put("pos3", "big");
@@ -448,9 +448,7 @@ public class GameTest {
         assertTrue(game.doneMandatory);
 
         /* first player tries to do the mandatory action again
-
         game.fromMarket(first.getName(), map);
-
         assertEquals(Color.BLUE, first.getPersonalBoard().getDeposits().get(0).getColor());
         assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
         assertNull(first.getPersonalBoard().getDeposits().get(1).getColor());
@@ -469,7 +467,7 @@ public class GameTest {
         //SECOND
 
         map.clear();
-        map.put("row", "2");
+        map.put("row", "3");
         map.put("pos1", "mid");
         map.put("pos2", "mid");
         map.put("pos3", "mid");
@@ -528,7 +526,7 @@ public class GameTest {
         assertFalse(game.doneMandatory);
 
         map.clear();
-        map.put("col", "3");
+        map.put("col", "4");
         map.put("pos1", "mid");
         map.put("pos2", "big");
         map.put("pos3", "big");
@@ -567,7 +565,7 @@ public class GameTest {
         }
 
         map.clear();
-        map.put("row", "1");
+        map.put("row", "2");
         map.put("pos1", "big");
         map.put("res1", "BLUE");
         map.put("pos2", "big");

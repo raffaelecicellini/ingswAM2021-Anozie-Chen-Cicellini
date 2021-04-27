@@ -51,7 +51,7 @@ public class GameHandler implements PropertyChangeListener {
         if (playersNumber==1) this.model=new SoloGame();
         else this.model=new Game();
         this.model.setListener(this);
-        this.controller=new Controller(this, this.model);
+        this.controller=new Controller(this.model, this);
         //this.controller.setListener(this);
         this.players=new HashMap<>();
         controllerListener.addPropertyChangeListener(this.controller);

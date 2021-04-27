@@ -13,19 +13,50 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class represents a ConnectionSocket, a way to connect to the server.
+ */
 public class ConnectionSocket {
+
+    /**
+     * Server's ip address.
+     */
     private final String serverAddress;
+
+    /**
+     * Server's port.
+     */
     private final int serverPort;
+
+    /**
+     * Output stream.
+     */
     private OutputStreamWriter output;
+
+    /**
+     * Socket used for the communication.
+     */
     private Socket socket;
+
+    /**
+     * Thread instantiated only for receiving messages from the server.
+     */
     private SocketListener socketListener;
 
-
+    /**
+     * Constructor ConnectionSocket create a new ConnectionSocket instance.
+     * @param serverAddress is the server's ip address.
+     * @param serverPort is the server's port.
+     */
     public ConnectionSocket(String serverAddress, int serverPort) {
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
     }
 
+    /**
+     * This method sends a message to the server.
+     * @param message is the message that will be sent to the server.
+     */
     public void send(String message) {
         try {
             output.write(message);
@@ -36,6 +67,9 @@ public class ConnectionSocket {
         }
     }
 
+    /**
+     * This method closes the socket and terminates the SocketListener thread.
+     */
     public void close() {
         socketListener.setActive(false);
         try {
@@ -46,6 +80,12 @@ public class ConnectionSocket {
         }
     }
 
+    /**
+     * This method is called when a client wants connect to the server.
+     * @param message is the message containing the client's setup message.
+     * @param answerHandler is the answerHandler that will be given to the SocketListener.
+     * @return if the client successfully connected to the server
+     */
     public boolean setup(String message, PropertyChangeListener answerHandler) {
         BufferedReader input;
         Gson gson = new Gson();
@@ -89,7 +129,7 @@ public class ConnectionSocket {
                 socket.close();
             } catch (IOException e) {
                 System.out.println("Couldn't close the socket");
-            }finally {
+            } finally {
                 return false;
             }
         }

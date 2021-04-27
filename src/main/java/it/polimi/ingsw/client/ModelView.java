@@ -78,6 +78,10 @@ public class ModelView {
      * This attribute indicates if the current game is a solo game
      */
     private boolean soloGame;
+    /**
+     * This attribute indicate the black cross in the solo game
+     */
+    private int blackCross;
 
     /**
      * Constructor of the class. It instantiates the faithtrack and the tiles
@@ -342,5 +346,13 @@ public class ModelView {
      */
     public void setSoloGame(boolean soloGame) {
         this.soloGame = soloGame;
+    }
+
+    public int getBlackCross() {
+        return blackCross;
+    }
+
+    public void setBlackCross(int pos) {
+        this.blackCross=pos;
     }
 }

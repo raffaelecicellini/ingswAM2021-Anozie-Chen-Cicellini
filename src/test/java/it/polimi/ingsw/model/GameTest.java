@@ -448,9 +448,7 @@ public class GameTest {
         assertTrue(game.doneMandatory);
 
         /* first player tries to do the mandatory action again
-
         game.fromMarket(first.getName(), map);
-
         assertEquals(Color.BLUE, first.getPersonalBoard().getDeposits().get(0).getColor());
         assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
         assertNull(first.getPersonalBoard().getDeposits().get(1).getColor());

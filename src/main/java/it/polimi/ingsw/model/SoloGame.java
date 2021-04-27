@@ -391,7 +391,7 @@ public class SoloGame extends Game{
         String res, qty, boxres, boxqty;
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
         ResourceAmount[] box=currentPlayer.getPersonalBoard().getStrongbox();
-        String [] colors= new String[deps.size()];
+        String[] colors= new String[deps.size()];
 
         state.put("action", "buy");
         state.put("player", currentPlayer.getName());

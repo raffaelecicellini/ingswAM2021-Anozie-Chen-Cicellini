@@ -162,10 +162,12 @@ public class Player {
         output[1]= new ResourceAmount(Color.PURPLE, 0);
         output[2]= new ResourceAmount(Color.GREY, 0);
         output[3]= new ResourceAmount(Color.YELLOW, 0);
+        boolean exit = false;
         for (int i=0; i<6; i++){
             Map<String, String> production= new HashMap<>();
             curr="prod"+i;
             if (info.containsKey(curr) && info.get(curr).toLowerCase().equals("yes")){
+                exit = true;
                 if (i==0){
                     production.put("in1", info.get("in01"));
                     production.put("pos1", info.get("pos01"));
@@ -197,11 +199,13 @@ public class Player {
                 }
             }
         }
-        personalBoard.setDeposits(deposits);
-        personalBoard.setStrongbox(strongbox);
-        personalBoard.addToStrongbox(output);
-        FaithMarker fm=personalBoard.getFaithMarker();
-        fm.setPosition(fm.getPosition()+faith);
+        if (exit) {
+            personalBoard.setDeposits(deposits);
+            personalBoard.setStrongbox(strongbox);
+            personalBoard.addToStrongbox(output);
+            FaithMarker fm = personalBoard.getFaithMarker();
+            fm.setPosition(fm.getPosition() + faith);
+        } else throw new InvalidActionException("Invalid action! You need to activate at least 1 production!");
     }
 
     /**
@@ -256,7 +260,7 @@ public class Player {
      * Simple utility method used in baseProduction() to retrieve the index of a deposit (or the strongbox) correspondent
      * to the selected place.
      * @param chosen the place (deposit/strongbox) from where to take the resources
-     * @return the index correspondent to the selected place
+     * @return the index correspondent to the selected place [0-5] (if incorrect input, -1)
      */
     private int parseChoice(String chosen){
         switch (chosen.toLowerCase()){
@@ -337,7 +341,7 @@ public class Player {
                     } else throw new InvalidActionException("you can't place your resources in this way.");
                 else if (pos1 == pos2)
                     deposits.get(pos1).setAmount(deposits.get(pos1).getAmount() + 1);
-                else throw new InvalidActionException("you cant place your resources in this way.");
+                else throw new InvalidActionException("you can't place your resources in this way.");
         }
         this.personalBoard.setDeposits(deposits);
     }
@@ -352,15 +356,15 @@ public class Player {
 
     /**
      * This method is used to let the Player choose which Leader Cards he wants to keep.
-     * @param leader1 is the index of the first Leader Card
-     * @param leader2 is the index of the second Leader Card
-     * @throws InvalidActionException when a wrong index is given [1-4]
+     * @param leader1 is the index [0-1] of the first Leader Card
+     * @param leader2 is the index [0-1] of the second Leader Card
+     * @throws InvalidActionException when a wrong index is given (only [0-1] accepted)
      */
     public void chooseLeader(int leader1, int leader2) throws InvalidActionException {
         if (leader1 != leader2 && leader1 >= 1 && leader1 <= leaders.size() && leader2 >= 1 && leader2 <= leaders.size()) {
             ArrayList<LeaderCard> temp = new ArrayList<>();
-            temp.add(leaders.get(leader1 - 1));
-            temp.add(leaders.get(leader2 - 1));
+            temp.add(leaders.get(leader1-1));
+            temp.add(leaders.get(leader2-1));
             leaders = temp;
         } else throw new InvalidActionException("Invalid action! Try typing two different indexes [1-4]!");
     }
@@ -372,12 +376,12 @@ public class Player {
      * @throws InvalidActionException if the move is not valid.
      */
     public void swapDeposit(Map<String,String> map) throws InvalidActionException {
-        if (map.size()!= 2) throw new InvalidActionException("select the source and the destination");
+        if (map.size()!= 2) throw new InvalidActionException("Invalid action! Make sure to select the source and the destination!");
         String source = map.get("source");
         String dest = map.get("dest");
-        if (source == null || dest == null) throw new InvalidActionException("you didn't select the source and the destination");
-        if(parseChoice(source)==5 || parseChoice(dest)==5) throw new InvalidActionException("you can't select the strongbox");
-        if(parseChoice(source)==-1 || parseChoice(dest)==-1) throw new InvalidActionException("select the source and the destination");
+        if (source == null || dest == null) throw new InvalidActionException("Invalid action! You didn't select the source and/or the destination!");
+        if(parseChoice(source)==5 || parseChoice(dest)==5) throw new InvalidActionException("Invalid action! You can't select the strongbox!");
+        if(parseChoice(source)==-1 || parseChoice(dest)==-1) throw new InvalidActionException("Invalid action! Make sure you typed the source and the destination correctly!");
         personalBoard.swapDeposits(source,dest);
     }
 

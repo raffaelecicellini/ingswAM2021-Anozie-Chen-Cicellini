@@ -927,21 +927,21 @@ public class Game {
                     doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             } else
-                if (mapCopy.containsKey("col")) {
-                    int col = Integer.parseInt(mapCopy.get("col"));
-                    value=col-1;
-                    chosen="col";
-                    if (col >= 1 && col <= 4) {
-                        mapCopy.remove("col");
-                        discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
-                        market.pushColumn(col-1);
-                        for (Player p : players) {
-                            if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
-                        }
-                        doneMandatory = true;
-                    } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
+            if (mapCopy.containsKey("col")) {
+                int col = Integer.parseInt(mapCopy.get("col"));
+                value=col-1;
+                chosen="col";
+                if (col >= 1 && col <= 4) {
+                    mapCopy.remove("col");
+                    discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                    market.pushColumn(col-1);
+                    for (Player p : players) {
+                        if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
+                    }
+                    doneMandatory = true;
+                } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
 
-                } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
+            } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
         }
         else throw new InvalidActionException("It is not your turn!");
         //notify changes
@@ -1008,5 +1008,13 @@ public class Game {
         }
 
         listener.firePropertyChange(state.get("action"), null, state);
+    }
+
+    /**
+     * Just for testing
+     * @param gamePhase the phase
+     */
+    public void setPhase(GamePhase gamePhase) {
+        this.phase = gamePhase;
     }
 }

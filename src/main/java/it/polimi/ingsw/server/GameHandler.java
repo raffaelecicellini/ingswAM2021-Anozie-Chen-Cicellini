@@ -20,6 +20,7 @@ import java.util.Map;
  * receiving the change events of the model and the controller
  */
 public class GameHandler implements PropertyChangeListener {
+
     /**
      * It is the Controller of the current game
      */
@@ -50,7 +51,7 @@ public class GameHandler implements PropertyChangeListener {
         if (playersNumber==1) this.model=new SoloGame();
         else this.model=new Game();
         this.model.setListener(this);
-        this.controller=new Controller(this, this.model);
+        this.controller=new Controller(this.model, this);
         //this.controller.setListener(this);
         this.players=new HashMap<>();
         controllerListener.addPropertyChangeListener(this.controller);
@@ -71,7 +72,7 @@ public class GameHandler implements PropertyChangeListener {
         //notify clients that the game is starting
         Map<String, String> message=new HashMap<>();
         message.put("action", "start");
-        String content="The game is starting! Have fun";
+        String content="The game is starting! Have fun!";
         message.put("content", content);
         Gson gson= new Gson();
         String jsonMessage= gson.toJson(message);
@@ -274,9 +275,9 @@ public class GameHandler implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //switch for different kind of maps sent by model
+        //switch for different kind of maps sent by model and controller
         String type=evt.getPropertyName();
-        Map<String, String> message= (Map<String, String>)evt.getNewValue();
+        Map<String, String> message= (Map<String, String>) evt.getNewValue();
         Gson gson=new Gson();
         String jsonMessage;
         String addressee;
@@ -362,6 +363,7 @@ public class GameHandler implements PropertyChangeListener {
                 //singlesend
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
+                System.out.println(jsonMessage);
                 sendSingle(jsonMessage, addressee);
         }
     }

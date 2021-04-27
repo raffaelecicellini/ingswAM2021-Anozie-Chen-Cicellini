@@ -8,17 +8,63 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class represents a ClientHandler. It is a thread instantiated by the server when a clients connects to it.
+ * It will be in charge of exchanging messages with the client.
+ */
 public class ClientHandler implements Runnable{
+
+    /**
+     * The socket.
+     */
     private final Socket socket;
+
+    /**
+     * The server.
+     */
     private final Server server;
+
+    /**
+     * The client's game.
+     */
     private GameHandler game;
+
+    /**
+     * The client's name.
+     */
     private String name;
+
+    /**
+     * The client's preferred number of players.
+     */
     private int prefNumber;
+
+    /**
+     * Input stream.
+     */
     private BufferedReader input;
+
+    /**
+     * Output stream.
+     */
     private OutputStreamWriter output;
+
+    /**
+     * The state of the ClientHandler
+     */
     private boolean active;
+
+    /**
+     * Registers if the client has already done a setup action.
+     */
     private boolean doneSetup;
 
+    /**
+     * This method is called when a client sends a setup message. It will check if the client username is available and
+     * preferred number of players. If the infos sent by the client are "ok" it will add the username to the list and
+     * assigns the client a game.
+     * @param message is a map which represents the client's message.
+     */
     public synchronized void setup(Map <String, String> message) {
         if (!doneSetup) {
             this.prefNumber = Integer.parseInt(message.get("number"));
@@ -50,10 +96,18 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    /**
+     * This method returns if the ClientHandler is active.
+     * @return if the ClientHandler is active.
+     */
     public synchronized boolean isActive() {
         return active;
     }
 
+    /**
+     * This method is used when the ClientHandler receives a message from the client, in order to call the right method.
+     * @param message
+     */
     public void actionHandler(Map<String,String> message) {
         String action = message.get("action");
         switch (action.toLowerCase()) {
@@ -80,6 +134,11 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    /**
+     * This method is used when a client sends a move message to the server. The message will be then sent to the
+     * GameHandler.
+     * @param message
+     */
     public void makeAction(Map<String,String> message) {
         if (game!=null){
             game.makeAction(message,name);
@@ -92,11 +151,19 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    /**
+     * This method assigns a game to the client.
+     * @param game is the game assigned to the client.
+     */
     public void setGame(GameHandler game) {
         this.game = game;
     }
 
 
+    /**
+     * This method sends a message to the client.
+     * @param message is the message that will be sent to the client.
+     */
     public void send(String message) {
         try {
             output.write(message);
@@ -107,6 +174,11 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    /**
+     * Constructor ClientHandler creates a new ClientHandler instance.
+     * @param socket is the socket used for exchanging messages.
+     * @param server is the ClientHandler's server.
+     */
     public ClientHandler(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
@@ -121,18 +193,34 @@ public class ClientHandler implements Runnable{
         doneSetup=false;
     }
 
+    /**
+     * This method returns the client's preferred number of players.
+     * @return the client's preferred number of players.
+     */
     public int getPrefNumber() {
         return prefNumber;
     }
 
+    /**
+     * This method returns the client's name.
+     * @return the client's name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * This method returns the client's game.
+     * @return the client's game.
+     */
     public GameHandler getGame() {
         return game;
     }
 
+    /**
+     * This method reads a message from socket.
+     * @throws IOException if the connection was interrupted.
+     */
     public void readMessage() throws IOException{
         Gson gson = new Gson();
         String line = input.readLine();
@@ -142,6 +230,9 @@ public class ClientHandler implements Runnable{
             actionHandler(message);
     }
 
+    /**
+     * This method closes the socket.
+     */
     public synchronized void close() {
         active = false;
         try {
@@ -152,10 +243,17 @@ public class ClientHandler implements Runnable{
     }
 
     //for endgame
+
+    /**
+     * This method removes the client from the server's list.
+     */
     public void removeClient() {
         server.removeClient(this);
     }
 
+    /**
+     * Thread run method that will run as long as the thread is active.
+     */
     @Override
     public void run() {
         try {

@@ -162,10 +162,12 @@ public class Player {
         output[1]= new ResourceAmount(Color.PURPLE, 0);
         output[2]= new ResourceAmount(Color.GREY, 0);
         output[3]= new ResourceAmount(Color.YELLOW, 0);
+        boolean exit = false;
         for (int i=0; i<6; i++){
             Map<String, String> production= new HashMap<>();
             curr="prod"+i;
             if (info.containsKey(curr) && info.get(curr).toLowerCase().equals("yes")){
+                exit = true;
                 if (i==0){
                     production.put("in1", info.get("in01"));
                     production.put("pos1", info.get("pos01"));
@@ -197,11 +199,13 @@ public class Player {
                 }
             }
         }
-        personalBoard.setDeposits(deposits);
-        personalBoard.setStrongbox(strongbox);
-        personalBoard.addToStrongbox(output);
-        FaithMarker fm=personalBoard.getFaithMarker();
-        fm.setPosition(fm.getPosition()+faith);
+        if (exit) {
+            personalBoard.setDeposits(deposits);
+            personalBoard.setStrongbox(strongbox);
+            personalBoard.addToStrongbox(output);
+            FaithMarker fm = personalBoard.getFaithMarker();
+            fm.setPosition(fm.getPosition() + faith);
+        } else throw new InvalidActionException("Invalid action! You need to activate at least 1 production!");
     }
 
     /**
@@ -337,7 +341,7 @@ public class Player {
                     } else throw new InvalidActionException("you can't place your resources in this way.");
                 else if (pos1 == pos2)
                     deposits.get(pos1).setAmount(deposits.get(pos1).getAmount() + 1);
-                else throw new InvalidActionException("you cant place your resources in this way.");
+                else throw new InvalidActionException("you can't place your resources in this way.");
         }
         this.personalBoard.setDeposits(deposits);
     }

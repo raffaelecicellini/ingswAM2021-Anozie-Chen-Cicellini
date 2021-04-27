@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.model.FaithMarker;
+
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +74,10 @@ public class ModelView {
      * This attribute indicates if the current game is a solo game
      */
     private boolean soloGame;
+    /**
+     * This attribute indicate the black cross in the solo game
+     */
+    private FaithMarker blackCross;
 
     /**
      * Constructor of the class. It instantiates the faithtrack and the tiles
@@ -336,5 +342,13 @@ public class ModelView {
      */
     public void setSoloGame(boolean soloGame) {
         this.soloGame = soloGame;
+    }
+
+    public FaithMarker getBlackCross() {
+        return blackCross;
+    }
+
+    public void setBlackCross(int pos) {
+        this.blackCross.setPosition(pos);
     }
 }

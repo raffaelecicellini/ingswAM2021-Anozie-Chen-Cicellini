@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientHandler implements Runnable{
+
     private final Socket socket;
     private final Server server;
     private GameHandler game;
@@ -95,7 +96,6 @@ public class ClientHandler implements Runnable{
     public void setGame(GameHandler game) {
         this.game = game;
     }
-
 
     public void send(String message) {
         try {

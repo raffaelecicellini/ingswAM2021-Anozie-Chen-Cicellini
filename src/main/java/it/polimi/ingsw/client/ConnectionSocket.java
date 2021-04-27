@@ -1,4 +1,4 @@
-/*
+
 package it.polimi.ingsw.client;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class ConnectionSocket {
         this.serverPort = serverPort;
 
         try {
-            socket = new Socket(serverAddress,serverPort);
+            socket = new Socket(serverAddress, serverPort);
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + serverAddress);
             System.exit(1);
@@ -33,18 +33,18 @@ public class ConnectionSocket {
             System.out.println("Couldn't initialize the Client");
         }
 
-        try {
+       /* try {
             //listener = new SocketListener(socket);
         } catch (IOException e) {
             System.out.println("Couldn't initialize the SocketListener");
             System.exit(1);
-        }
+        }*/
 
-        Thread socketlistener =new Thread(listener);
+        Thread socketlistener = new Thread(listener);
         socketlistener.start();
     }
 
-    public void send (String message ) {
+    public void send(String message) {
         try {
             output.write(message);
             output.flush();
@@ -54,8 +54,7 @@ public class ConnectionSocket {
         }
     }
 
-    public static void main(String []args) {
+    public static void main(String[] args) {
 
     }
 }
-*/

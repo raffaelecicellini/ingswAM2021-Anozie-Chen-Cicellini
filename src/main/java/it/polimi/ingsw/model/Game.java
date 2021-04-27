@@ -366,10 +366,34 @@ public class Game {
      */
     private void notifyLeaderAction(String action, int pos){
         Map<String, String> state= new HashMap<>();
+        List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
+        String[] colors= new String[deps.size()];
 
         state.put("action", action);
         state.put("player", currentPlayer.getName());
         state.put("index", String.valueOf(pos));
+
+        if (currentPlayer.getLeaders().get(pos).getType().equalsIgnoreCase("resource")){
+            state.put("isDep", "yes");
+            for (int i=0; i<deps.size(); i++){
+                if (deps.get(i).getColor()!=null) colors[i]=deps.get(i).getColor().toString();
+                else colors[i]="empty";
+            }
+            state.put("smallres", colors[0]);
+            state.put("smallqty", String.valueOf(deps.get(0).getAmount()));
+            state.put("midres", colors[1]);
+            state.put("midqty", String.valueOf(deps.get(1).getAmount()));
+            state.put("bigres", colors[2]);
+            state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
+            if (deps.size()>3){
+                state.put("sp1res", colors[3]);
+                state.put("sp1qty", String.valueOf(deps.get(3).getAmount()));
+            }
+            if (deps.size()==5){
+                state.put("sp2res", colors[4]);
+                state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
+            }
+        }
 
         if (action.equalsIgnoreCase("discard")){
             int newPos= currentPlayer.getPersonalBoard().getPosition();

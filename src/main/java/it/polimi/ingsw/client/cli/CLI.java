@@ -10,7 +10,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class CLI implements Runnable, PropertyChangeListener {
@@ -69,20 +71,15 @@ public class CLI implements Runnable, PropertyChangeListener {
             model.createPlayer(name);
             listener.firePropertyChange("start", null, null);
         }
-        /*else{
-            connectionSocket = new ConnectionSocket(port, address);
-            try {
-                if(!connectionSocket.setup(nickname, modelView, actionHandler)) {
-                    System.err.println("The entered IP/port doesn't match any active server or the server is not " +
-                            "running. Please try again!");
-                    CLI.main(null);
-                }
-                System.out.println("Connection established!");
-            } catch (DuplicateNicknameException e) {
-                setup();
-            }
-            listener.addPropertyChangeListener(new ActionParser(connectionSocket, modelView));
-        }*/
+        else{
+            connectionSocket = new ConnectionSocket(address, port);
+
+            /*if(!connectionSocket.setup(name, modelView, answerHandler)) {
+                CLI.main(null);
+            }*/
+            System.out.println("Connection established!");
+            //listener.addPropertyChangeListener(new ActionParser(connectionSocket, modelView));
+        }
     }
 
     /**

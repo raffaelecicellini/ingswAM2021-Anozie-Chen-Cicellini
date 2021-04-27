@@ -82,6 +82,7 @@ public class ConnectionSocket {
             answer = gson.fromJson(line, new TypeToken<Map<String, String>>() {}.getType());
         } catch (IOException e) {
             System.out.println("Couldn't read the message from socket.");
+            return false;
         }
 
         if (answer.get("action").equals("error")) {
@@ -90,6 +91,7 @@ public class ConnectionSocket {
             } catch (IOException e) {
                 System.out.println("Couldn't close the socket");
             }finally {
+                System.err.println(answer.get("content"));
                 return false;
             }
         }

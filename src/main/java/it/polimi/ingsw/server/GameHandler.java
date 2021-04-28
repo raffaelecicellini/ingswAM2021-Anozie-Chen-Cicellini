@@ -287,26 +287,32 @@ public class GameHandler implements PropertyChangeListener {
                 //sendall
                 jsonMessage=gson.toJson(message);
                 sendAll(jsonMessage);
+                break;
             case "YOURTURN":
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "CHOOSELEADERS":
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "OKLEADERS":
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "CHOOSERESOURCES":
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "OKRESOURCES":
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "BUY":
                 //different sendall
                 jsonMessage=gson.toJson(message);
@@ -317,11 +323,13 @@ public class GameHandler implements PropertyChangeListener {
                     String jsonBuyOthers=gson.toJson(buyToOthers);
                     sendAllExcept(jsonBuyOthers, addressee);
                 }
+                break;
             case "PRODUCE":
                 //singlesend
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "MARKET":
                 //different sendall
                 jsonMessage=gson.toJson(message);
@@ -332,26 +340,31 @@ public class GameHandler implements PropertyChangeListener {
                     String jsonMarketToOthers=gson.toJson(buyToOthers);
                     sendAllExcept(jsonMarketToOthers, addressee);
                 }
+                break;
             case "SWAP":
                 //singlesend
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "ACTIVATE":
                 //singlesend
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "DISCARD":
                 //singlesend
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "ENDTURN":
                 //singlesend (model fires different messages for each client/player)
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                break;
             case "ENDGAME":
                 //singlesend
                 addressee=message.get("player");
@@ -360,12 +373,14 @@ public class GameHandler implements PropertyChangeListener {
                 //CLOSE CONNECTION
                 players.get(addressee).removeClient();
                 players.get(addressee).close();
+                break;
             case "ERROR":
                 //singlesend
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 System.out.println(jsonMessage);
                 sendSingle(jsonMessage, addressee);
+                break;
         }
     }
 }

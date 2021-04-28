@@ -160,7 +160,7 @@ public class Server{
             System.err.println("Numeric format requested, application will now close...");
             System.exit(-1);
         }
-        if (port < 0 || (port > 0 && port < 1024)) {
+        if (port < 1024) {
             System.err.println("Error: ports accepted start from 1024! Please insert a new value.");
             main(null);
         }

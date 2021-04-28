@@ -348,10 +348,18 @@ public class ModelView {
         this.soloGame = soloGame;
     }
 
+    /**
+     * Black Cross' position getter
+     * @return the position of the Black Cross
+     */
     public int getBlackCross() {
         return blackCross;
     }
 
+    /**
+     * Black Cross' position setter
+     * @param pos the new position
+     */
     public void setBlackCross(int pos) {
         this.blackCross=pos;
     }

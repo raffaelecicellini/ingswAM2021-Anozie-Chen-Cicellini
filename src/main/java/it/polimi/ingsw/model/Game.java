@@ -244,7 +244,7 @@ public class Game {
         state.put("player", currentPlayer.getName());
         leaders=currentPlayer.getLeaders();
         for (int i=0; i<leaders.size(); i++){
-            cardId="card"+i;
+            cardId="leader"+i;
             id=leaders.get(i).getId();
             state.put(cardId, String.valueOf(id));
         }
@@ -362,7 +362,7 @@ public class Game {
      * the view the index of the activated/discarded leader, the action performed and the new position of the player (if
      * the leader has been discarded)
      * @param action the action performed
-     * @param pos the new position of the player
+     * @param pos it represents the leader that the player has activated/discarded
      */
     private void notifyLeaderAction(String action, int pos){
         Map<String, String> state= new HashMap<>();
@@ -373,6 +373,7 @@ public class Game {
         state.put("player", currentPlayer.getName());
         state.put("index", String.valueOf(pos));
 
+        // IF ACTION IS ACTIVATE
         if (currentPlayer.getLeaders().get(pos).getType().equalsIgnoreCase("resource")){
             state.put("isDep", "yes");
             for (int i=0; i<deps.size(); i++){

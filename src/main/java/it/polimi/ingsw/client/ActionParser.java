@@ -24,11 +24,9 @@ public class ActionParser implements PropertyChangeListener {
     /**
      * Action Parser's constructor.
      * @param connection is the the Connection Socket.
-     * @param modelView is the ModelView.
      */
-    public ActionParser(ConnectionSocket connection, ModelView modelView) {
+    public ActionParser(ConnectionSocket connection) {
         this.connection = connection;
-        this.modelView = modelView;
     }
 
     /**

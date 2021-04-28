@@ -59,7 +59,7 @@ public class ConnectionSocket {
      */
     public void send(String message) {
         try {
-            output.write(message);
+            output.write(message+"\n");
             output.flush();
         } catch (IOException e) {
             System.out.println("Failed to send the message.");
@@ -109,7 +109,7 @@ public class ConnectionSocket {
         }
 
         try {
-            output.write(message);
+            output.write(message+"\n");
             output.flush();
         } catch (IOException e) {
             System.out.println("Failed to send the message.");
@@ -135,7 +135,6 @@ public class ConnectionSocket {
                 return false;
             }
         }
-
         socketListener = new SocketListener(socket, input, answerHandler);
         Thread socketListenerThread = new Thread(socketListener);
         socketListenerThread.start();

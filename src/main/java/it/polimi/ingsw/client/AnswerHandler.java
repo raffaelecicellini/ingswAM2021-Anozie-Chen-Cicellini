@@ -42,16 +42,6 @@ public class AnswerHandler implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
-        /*String newValue = (String) evt.getNewValue();
-        Gson gson = new Gson();
-
-        Map<String, String> map = new HashMap<>();
-        map = gson.fromJson(newValue, new TypeToken<Map<String, String>>(){}.getType());
-
-        viewListener.firePropertyChange("update", null, map);*/
-
-
         Map<String, String> newValues = (Map<String, String>) evt.getNewValue();
 
         String event = evt.getPropertyName();
@@ -143,7 +133,7 @@ public class AnswerHandler implements PropertyChangeListener {
 
                 break;
 
-            case "FROMMARKET":
+            case "MARKET":
 
                 if (modelView.getName().equals(newValues.get("player"))) {
                     //the player who did fromMarket

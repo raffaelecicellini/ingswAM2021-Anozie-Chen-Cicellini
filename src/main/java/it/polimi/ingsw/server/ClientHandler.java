@@ -166,7 +166,7 @@ public class ClientHandler implements Runnable{
      */
     public void send(String message) {
         try {
-            output.write(message);
+            output.write(message+"\n");
             output.flush();
         } catch (IOException e) {
             System.out.println("Failed to send the message.");

@@ -77,7 +77,7 @@ public class Cards {
     public static String getDevelopById(int id){
         switch (id){
             case 1:
-                return "Color: Purple; "+"Level: 1; "+"Cost: [2 PURPLE]; "+"Input: [1 GREY]; "+"Output: [1 Faith]; "+"Points: 1;";
+                return "Col:Purple; "+"Lev:1; "+"Cost:[2P]; "+"In:[1G]; "+"Out:[1F]; "+"VP:1;";
             case 2:
                 return "Color: Purple; "+"Level: 1; "+"Cost: [2 PURPLE, 2 GREY]; "+"Input: [1 YELLOW, 1 BLUE]; "+"Output: [2 GREY, 1 Faith]; "+"Points: 4;";
             case 3:
@@ -89,13 +89,13 @@ public class Cards {
             case 6:
                 return "Color: Blue; "+"Level: 1; "+"Cost: [2 YELLOW 2 PURPLE]; "+"Input: [1 BLUE, 1 GREY]; "+"Output: [2 PURPLE, 1 Faith]; "+"Points: 4;";
             case 7:
-                return "Color: Blue; "+"Level: 1; "+"Cost: [2 YELLOW]; "+"Input: [1 BLUE]; "+"Output: [1 Faith]; "+"Points: 1;";
+                return "Col:Blue; "+"Lev:1; "+"Cost:[2Y]; "+"In:[1B]; "+"Out:[1F]; "+"VP:1;";
             case 8:
-                return "Color: Blue; "+"Level: 1; "+"Cost: [3 YELLOW]; "+"Input: [2 GREY]; "+"Output: [1 YELLOW, 1 PURPLE, 1 BLUE]; "+"Points: 3;";
+                return "Col:Blue; "+"Lev:1; "+"Cost:[3Y]; "+"In:[2G]; "+"Out:[1Y, 1P, 1B]; "+"VP:3;";
             case 9:
                 return "Color: Green; "+"Level: 1; "+"Cost: [1 BLUE, 1 PURPLE, 1 GREY]; "+"Input: [1 GREY]; "+"Output: [1 PURPLE]; "+"Points: 2;";
             case 10:
-                return "Color: Green; "+"Level: 1; "+"Cost: [3 BLUE]; "+"Input: [2 PURPLE]; "+"Output: [1 YELLOW, 1 BLUE, 1 GREY]; "+"Points: 3;";
+                return "Col:Green; "+"Lev:1; "+"Cost:[3B]; "+"In:[2P]; "+"Out:[1Y, 1B, 1G]; "+"VP:3;";
             case 11:
                 return "Color: Green; "+"Level: 1; "+"Cost: [2 BLUE]; "+"Input: [1 YELLOW]; "+"Output: [1 Faith]; "+"Points: 1;";
             case 12:
@@ -176,12 +176,12 @@ public class Cards {
         return null;
     }
     //For each resource requested as cost, it gives a String representation of it
-    public static String[] getCostById(int id, ArrayList<String> colors){
+    public static ArrayList<String> getCostById(int id, ArrayList<String> colors){
 
         return null;
     }
     //For each resource requested as input, it gives a String representation of it
-    public static String[] getInputById(int id){
+    public static ArrayList<String> getInputById(int id){
 
         return null;
     }

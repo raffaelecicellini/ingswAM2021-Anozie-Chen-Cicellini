@@ -111,19 +111,40 @@ public class ClientHandler implements Runnable{
     public void actionHandler(Map<String,String> message) {
         String action = message.get("action");
         switch (action.toLowerCase()) {
-            case "setup": setup(message);
+            case "setup":
+                setup(message);
+                break;
             case "disconnect":
                 if (game!=null) server.manageDisconnection(this);
                 else close();
-            case "buy" : makeAction(message);
-            case "produce": makeAction(message);
-            case "swap": makeAction(message);
-            case "endturn": makeAction(message);
-            case "activate": makeAction(message);
-            case "discard": makeAction(message);
-            case "chooseresources": makeAction(message);
-            case "chooseleaders": makeAction(message);
-            case "market": makeAction(message);
+                break;
+            case "buy" :
+                makeAction(message);
+                break;
+            case "produce":
+                makeAction(message);
+                break;
+            case "swap":
+                makeAction(message);
+                break;
+            case "endturn":
+                makeAction(message);
+                break;
+            case "activate":
+                makeAction(message);
+                break;
+            case "discard":
+                makeAction(message);
+                break;
+            case "chooseresources":
+                makeAction(message);
+                break;
+            case "chooseleaders":
+                makeAction(message);
+                break;
+            case "market":
+                makeAction(message);
+                break;
             default:
                 Map<String, String> error= new HashMap<>();
                 error.put("action", "error");
@@ -169,6 +190,10 @@ public class ClientHandler implements Runnable{
             output.write(message+"\n");
             output.flush();
         } catch (IOException e) {
+            if (game!=null){
+                System.out.println("Error in send");
+                server.manageDisconnection(this);
+            }
             System.out.println("Failed to send the message.");
             System.out.println(e.getMessage());
         }
@@ -262,6 +287,7 @@ public class ClientHandler implements Runnable{
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            System.out.println("Error");
             if (name != null && game!=null) server.manageDisconnection(this);
         }
     }

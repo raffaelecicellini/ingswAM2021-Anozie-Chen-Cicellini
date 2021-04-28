@@ -164,6 +164,7 @@ public class GameHandler implements PropertyChangeListener {
         map.put("action", "connected");
         map.put("content", "Connection established");
         message=gson.toJson(map);
+        System.out.println("Printing something in GameHandler");
         sendSingle(message, name);
     }
 

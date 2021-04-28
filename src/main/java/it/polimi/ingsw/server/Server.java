@@ -82,7 +82,7 @@ public class Server{
     public synchronized void manageDisconnection(ClientHandler client) {
         connectedClients.remove(client.getName());
         waitingClients.remove(client);
-
+        System.out.println("I'm here");
         if (client.getGame().isStarted()) {
             client.getGame().manageDisconnection(client.getName());
             for (ClientHandler x : client.getGame().getPlayers()) {

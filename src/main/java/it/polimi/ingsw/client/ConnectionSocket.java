@@ -135,6 +135,7 @@ public class ConnectionSocket {
                 return false;
             }
         }
+        System.out.println(answer.get("content"));
         socketListener = new SocketListener(socket, input, answerHandler);
         Thread socketListenerThread = new Thread(socketListener);
         socketListenerThread.start();

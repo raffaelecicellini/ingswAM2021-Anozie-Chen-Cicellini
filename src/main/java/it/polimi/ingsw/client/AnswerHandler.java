@@ -200,7 +200,7 @@ public class AnswerHandler implements PropertyChangeListener {
 
                 break;
 
-            case "FROMMARKET":
+            case "MARKET":
 
                 market = modelView.getMarket();
 

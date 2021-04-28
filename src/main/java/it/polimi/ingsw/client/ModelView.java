@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.GamePhase;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -106,6 +107,10 @@ public class ModelView {
             else if (i>=18 && i<=20) faithTrack[i]= 12;
             else if (i>=21 && i<=23) faithTrack[i]= 16;
         }
+        this.slots= new ArrayList<>();
+        this.slots.add(new int[3]);
+        this.slots.add(new int[3]);
+        this.slots.add(new int[3]);
     }
 
     /**
@@ -349,18 +354,34 @@ public class ModelView {
     }
 
     /**
-     * Black Cross' position getter
-     * @return the position of the Black Cross
+     * Used to get the BlackCross position in a soloGame
+     * @return the BlackCross position
      */
     public int getBlackCross() {
         return blackCross;
     }
 
     /**
-     * Black Cross' position setter
-     * @param pos the new position
+     * Used to set the BlackCross position in a soloGame
+     * @param pos the new value for the BlackCross position
      */
     public void setBlackCross(int pos) {
         this.blackCross=pos;
+    }
+
+    /**
+     * phase getter method
+     * @return the current value of phase
+     */
+    public GamePhase getPhase() {
+        return phase;
+    }
+
+    /**
+     * phase setter method
+     * @param phase the new value of phase
+     */
+    public void setPhase(GamePhase phase) {
+        this.phase = phase;
     }
 }

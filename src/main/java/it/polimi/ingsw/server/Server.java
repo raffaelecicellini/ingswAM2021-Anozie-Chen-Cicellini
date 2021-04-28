@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server;
 
+import com.google.gson.stream.JsonToken;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -80,7 +82,7 @@ public class Server{
     public synchronized void manageDisconnection(ClientHandler client) {
         connectedClients.remove(client.getName());
         waitingClients.remove(client);
-
+        System.out.println("I'm here");
         if (client.getGame().isStarted()) {
             client.getGame().manageDisconnection(client.getName());
             for (ClientHandler x : client.getGame().getPlayers()) {
@@ -110,6 +112,7 @@ public class Server{
             GameHandler game = new GameHandler(1);
             client.setGame(game);
             game.setPlayer(client.getName(), client);
+            System.out.println("Starting singleplayer game for "+client.getName());
             client.getGame().start();
         } else {
             waitingClients.add(client);
@@ -118,13 +121,16 @@ public class Server{
                 client.setGame(game);
                 game.setPlayer(client.getName(), client);
                 games.add(game);
+                System.out.println("created new multiplayer game for "+client.getName());
             } else if (waitingClients.size() < games.get(games.size() - 1).getPlayersNumber()){
                 client.setGame(games.get(games.size() - 1));
                 waitingClients.get(0).getGame().setPlayer(client.getName(), client);
+                System.out.println("Added player "+client.getName()+" to the current game");
             }
             else if (waitingClients.size() == games.get(games.size() - 1).getPlayersNumber()) {
                 client.setGame(games.get(games.size() - 1));
                 waitingClients.get(0).getGame().setPlayer(client.getName(), client);
+                System.out.println("Last player connected, starting...");
                 waitingClients.get(0).getGame().start();
                 waitingClients.clear();
             }

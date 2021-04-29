@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.model.GamePhase;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -10,20 +12,25 @@ import java.util.Map;
 public class AnswerHandler implements PropertyChangeListener {
 
     /**
-     * This attribute represents the ModelView on which the AnswerHandler makes changes
+     * This attribute represents the ModelView on which the AnswerHandler makes changes.
      */
     ModelView modelView;
     /**
-     *
+     * It represents the View (CLI/GUI) what is listening on the Answer Handler.
      */
     PropertyChangeSupport viewListener = new PropertyChangeSupport(this);
 
+    /**
+     * AnswerHandler constructor
+     * @param modelView is the modelView on which the AnswerHandler makes changes.
+     * @param view is the View (CLI/GUI) what is listening on the Answer Handler.
+     */
     public AnswerHandler(ModelView modelView, PropertyChangeListener view) {
         this.modelView = modelView;
         this.viewListener.addPropertyChangeListener(view);
     }
 
-    public void initialGamePhase(String answer) {
+    /*public void initialGamePhase(String answer) {
 
     }
 
@@ -37,7 +44,7 @@ public class AnswerHandler implements PropertyChangeListener {
 
     public void action(String message) {
 
-    }
+    }*/
 
     /**
      * @see PropertyChangeListener#propertyChange(PropertyChangeEvent)
@@ -45,6 +52,7 @@ public class AnswerHandler implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+        // newValues is the map with all the information
         Map<String, String> newValues = (Map<String, String>) evt.getNewValue();
 
         // Map used just to notify other players who hasn't done the action with a message containing the name of the
@@ -76,27 +84,107 @@ public class AnswerHandler implements PropertyChangeListener {
 
                 modelView.setOutMarble(newValues.get("outMarble"));
 
-                // VANNO SETTATE ANCHE LE TILES
-                //modelView.setTiles();
+                modelView.setPhase(GamePhase.LEADER);
 
-                // VA FATTO ANCHE SETPHASE?
-                //modelview.setPhase(Phase.InitialPhase);
+                viewListener.firePropertyChange(map.get("action"), null, null);
+
+                break;
+
+            case "CHOOSELEADERS":
+
+                modelView.setPhase(GamePhase.LEADER);
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
+
+                    // it puts the four leaders on the modelview
+                    Map<String, String> leaders = new HashMap<>();
+                    for (int i = 0; i < newValues.size() - 2; i++) {
+                        leaders.put("leader" + i, newValues.get("leader" + i));
+                    }
+                    modelView.setLeaders(newValues);
+
+                    viewListener.firePropertyChange(newValues.get("action"), null, null);
+                }
 
                 viewListener.firePropertyChange(map.get("action"), null, map);
 
                 break;
 
-            case "YOURTURN":
+            case "OKLEADERS":
 
-                if (modelView.getName().equals(newValues.get("player"))) {
-                    modelView.setDoneMandatory(false);
-                    modelView.setActiveTurn(true);
+                modelView.setPhase(GamePhase.RESOURCE);
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
+
+                    // it puts the two selected leaders on the modelview
+                    Map<String, String> leaders = new HashMap<>();
+                    for (int i = 0; i < newValues.size() - 2; i++) {
+                        leaders.put("leader" + i, newValues.get("leader" + i));
+                        leaders.put("state" + i, "available");
+                    }
+                    modelView.setLeaders(leaders);
+
+                    viewListener.firePropertyChange(newValues.get("action"), null, null);
+                } else {
+                    // other players
+                    map.put("other", map.get("player"));
+                    map.remove("player");
                     viewListener.firePropertyChange(map.get("action"), null, map);
                 }
 
                 break;
 
+            case "CHOOSERESOURCES":
+
+                modelView.setPhase(GamePhase.RESOURCE);
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
+                    // the payer who has to choose initial resources
+
+                    if (newValues.containsKey("addpos")) {
+                        modelView.setPosition( Integer.parseInt(newValues.get("addpos")) );
+                    }
+
+                    // in newValues there are: player, action and qty
+                    viewListener.firePropertyChange(newValues.get("action"), null, newValues);
+                }
+
+                break;
+
+            case "OKRESOURCES":
+
+                modelView.setPhase(GamePhase.FULLGAME);
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
+                    // the player who has chosen the correct resources
+                    newValues.remove("action");
+                    newValues.remove("player");
+                    modelView.setDeposits(newValues);
+
+                    viewListener.firePropertyChange(map.get("action"), null, null);
+                } else {
+                    // other players
+                    map.put("other", map.get("player"));
+                    map.remove("player");
+                    viewListener.firePropertyChange(map.get("action"), null, map);
+                }
+
+                break;
+
+            case "YOURTURN":
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
+                    modelView.setPhase(GamePhase.FULLGAME);
+                    modelView.setDoneMandatory(false);
+                    modelView.setActiveTurn(true);
+                    viewListener.firePropertyChange(map.get("action"), null, null);
+                }
+
+                break;
+
             case "BUY":
+
+                modelView.setPhase(GamePhase.FULLGAME);
 
                 developDecks = modelView.getDevelopDecks();
                 int col = Integer.parseInt(newValues.get("col"));
@@ -108,7 +196,7 @@ public class AnswerHandler implements PropertyChangeListener {
                 }
                 modelView.setDevelopDecks(developDecks);
 
-                if (modelView.getName().equals(newValues.get("player"))) {
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
                     Map<String, String> deposits = new HashMap<>();
                     deposits.put("smallres", newValues.get("smallres"));
                     deposits.put("smallqty", newValues.get("smallqty"));
@@ -126,6 +214,7 @@ public class AnswerHandler implements PropertyChangeListener {
                     }
                     modelView.setDeposits(deposits);
 
+
                     Map<String, String> strongbox = new HashMap<>();
                     for (int i = 0; i < 4; i++) {
                         strongbox.put("strres" + i, newValues.get("strres" + i));
@@ -133,7 +222,7 @@ public class AnswerHandler implements PropertyChangeListener {
                     }
                     modelView.setStrongbox(strongbox);
 
-                    // NON SONO SICURO DEL CODICE
+
                     int slot = Integer.parseInt(newValues.get("slot"));
                     List<int[]> slots = modelView.getSlots();
                     int i = 0;
@@ -146,7 +235,7 @@ public class AnswerHandler implements PropertyChangeListener {
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    viewListener.firePropertyChange(map.get("action"), null, map);
+                    viewListener.firePropertyChange(newValues.get("action"), null, null);
                 } else {
                     // other players
                     map.put("other", map.get("player"));
@@ -158,7 +247,9 @@ public class AnswerHandler implements PropertyChangeListener {
 
             case "PRODUCE":
 
-                if (modelView.getName().equals(newValues.get("player"))) {
+                modelView.setPhase(GamePhase.FULLGAME);
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
 
                     Map<String, String> deposits = new HashMap<>();
                     deposits.put("smallres", newValues.get("smallres"));
@@ -177,6 +268,7 @@ public class AnswerHandler implements PropertyChangeListener {
                     }
                     modelView.setDeposits(deposits);
 
+
                     Map<String, String> strongbox = new HashMap<>();
                     for (int i = 0; i < 4; i++) {
                         strongbox.put("strres" + i, newValues.get("strres" + i));
@@ -184,12 +276,13 @@ public class AnswerHandler implements PropertyChangeListener {
                     }
                     modelView.setStrongbox(strongbox);
 
+
                     modelView.setPosition(Integer.parseInt(newValues.get("newPos")));
 
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    viewListener.firePropertyChange(map.get("action"), null, map);
+                    viewListener.firePropertyChange(newValues.get("action"), null, null);
 
                 } else {
                     // other players
@@ -201,6 +294,8 @@ public class AnswerHandler implements PropertyChangeListener {
                 break;
 
             case "MARKET":
+
+                modelView.setPhase(GamePhase.FULLGAME);
 
                 market = modelView.getMarket();
 
@@ -224,7 +319,7 @@ public class AnswerHandler implements PropertyChangeListener {
                     modelView.setBlackCross(Integer.parseInt(newValues.get("blackPos")));
                 }
 
-                if (modelView.getName().equals(newValues.get("player"))) {
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
                     //the player who did fromMarket
 
                     Map<String, String> deposits = new HashMap<>();
@@ -249,7 +344,7 @@ public class AnswerHandler implements PropertyChangeListener {
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    viewListener.firePropertyChange(map.get("action"), null, map);
+                    viewListener.firePropertyChange(newValues.get("action"), null, null);
 
                 } else {
                     // other players
@@ -265,7 +360,9 @@ public class AnswerHandler implements PropertyChangeListener {
 
             case "SWAP":
 
-                if (modelView.getName().equals(newValues.get("player"))) {
+                modelView.setPhase(GamePhase.FULLGAME);
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
                     // the player who called the swap method
                     newValues.remove("player");
                     newValues.remove("action");
@@ -273,77 +370,7 @@ public class AnswerHandler implements PropertyChangeListener {
 
                     modelView.setActiveTurn(true);
 
-                    viewListener.firePropertyChange(map.get("action"), null, map);
-                } else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.firePropertyChange(map.get("action"), null, map);
-                }
-
-                break;
-
-            case "OKRESOURCES":
-
-                if (modelView.getName().equals(newValues.get("player"))) {
-                    // the player who has chosen the correct resources
-                    newValues.remove("action");
-                    newValues.remove("player");
-                    modelView.setDeposits(newValues);
-
-                    //modelView.setPhase();
-
-                    viewListener.firePropertyChange(map.get("action"), null, map);
-                } else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.firePropertyChange(map.get("action"), null, map);
-                }
-
-                break;
-
-            case "CHOOSERESOURCES":
-
-                if (modelView.getName().equals(newValues.get("player"))) {
-                    // the payer who has to choose initial resources
-
-                    //modelView.setPhase();
-
-                    if (newValues.containsKey("addpos")) {
-                        modelView.setPosition( Integer.parseInt(newValues.get("addpos")) );
-                    }
-
-                    map.put("qty", newValues.get("qty"));
-                    viewListener.firePropertyChange(newValues.get("action"), null, newValues);
-                }
-
-                break;
-
-            case "CHOOSELEADERS":
-
-                if (modelView.getName().equals(newValues.get("player"))) {
-                    newValues.remove("action");
-                    newValues.remove("player");
-                    modelView.setLeaders(newValues);
-
-                    //modelView.setPhase();
-                }
-
-                viewListener.firePropertyChange(map.get("action"), null, map);
-
-                break;
-
-            case "OKLEADERS":
-
-                if (modelView.getName().equals(newValues.get("player"))) {
-                    newValues.remove("action");
-                    newValues.remove("player");
-                    newValues.put("state0", "available");
-                    newValues.put("state1", "available");
-                    modelView.setLeaders(newValues);
-
-                    viewListener.firePropertyChange(map.get("action"), null, map);
+                    viewListener.firePropertyChange(map.get("action"), null, null);
                 } else {
                     // other players
                     map.put("other", map.get("player"));
@@ -355,7 +382,9 @@ public class AnswerHandler implements PropertyChangeListener {
 
             case "ACTIVATE":
 
-                if (modelView.getName().equals(newValues.get("player"))) {
+                modelView.setPhase(GamePhase.FULLGAME);
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
                     // the player who activated a leader
 
                     // If the activated leader is a "resource" leader, it notifies the player by adding him the new deposit
@@ -384,7 +413,7 @@ public class AnswerHandler implements PropertyChangeListener {
 
                     modelView.setActiveTurn(true);
 
-                    viewListener.firePropertyChange(map.get("action"), null, map);
+                    viewListener.firePropertyChange(newValues.get("action"), null, null);
                 } else {
                     // other players
                     map.put("other", map.get("player"));
@@ -396,7 +425,9 @@ public class AnswerHandler implements PropertyChangeListener {
 
             case "DISCARD":
 
-                if (modelView.getName().equals(newValues.get("player"))) {
+                modelView.setPhase(GamePhase.FULLGAME);
+
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
 
                     modelView.setPosition(Integer.parseInt(newValues.get("newPos")));
 
@@ -406,7 +437,7 @@ public class AnswerHandler implements PropertyChangeListener {
 
                     modelView.setActiveTurn(true);
 
-                    viewListener.firePropertyChange(map.get("action"), null, map);
+                    viewListener.firePropertyChange(newValues.get("action"), null, null);
 
                 } else {
                     // other players
@@ -419,6 +450,8 @@ public class AnswerHandler implements PropertyChangeListener {
 
             case "ENDTURN":
 
+                modelView.setPhase(GamePhase.FULLGAME);
+
                 Tile[] tiles = modelView.getTiles();
                 for (int i = 0; i < 3; i++) {
                     if (newValues.get("tile" + i).equals("active")) {
@@ -429,7 +462,7 @@ public class AnswerHandler implements PropertyChangeListener {
                 }
                 modelView.setTiles(tiles);
 
-                if (modelView.getName().equals(newValues.get("player"))) {
+                if (modelView.getName().equalsIgnoreCase(newValues.get("player"))) {
                     // the player who ended his turn
 
                     // DUBBIO SE METTERE QUESTO FUORI DAL PRIMO IF
@@ -440,7 +473,7 @@ public class AnswerHandler implements PropertyChangeListener {
                         modelView.setActiveTurn(false);
                     }
 
-                    viewListener.firePropertyChange(map.get("action"), null, map);
+                    viewListener.firePropertyChange(newValues.get("action"), null, null);
 
                 } else {
                     // other players
@@ -453,6 +486,8 @@ public class AnswerHandler implements PropertyChangeListener {
                 break;
 
             case "ENDGAME":
+
+                modelView.setPhase(GamePhase.ENDED);
 
                 viewListener.firePropertyChange(newValues.get("action"), null, newValues);
 

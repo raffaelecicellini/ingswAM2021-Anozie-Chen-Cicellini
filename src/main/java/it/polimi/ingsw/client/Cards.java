@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import java.util.ArrayList;
 
+
 public class Cards {
     //formatted representation of a LeaderCard
     public static String getLeaderById(int id){
@@ -175,15 +176,717 @@ public class Cards {
         }
         return null;
     }
+
     //For each resource requested as cost, it gives a String representation of it
     public static ArrayList<String> getCostById(int id, ArrayList<String> colors){
-
-        return null;
+        ArrayList<String> cost =  new ArrayList<>();
+        switch(id) {
+            case 1:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 2:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 3:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 4:
+                cost.add("BLUE");
+                cost.add("PURPLE");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 5:
+                cost.add("YELLOW");
+                cost.add("PURPLE");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 6:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 7:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 8:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 9:
+                cost.add("BLUE");
+                cost.add("PURPLE");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 10:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 11:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 12:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 13:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 14:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 15:
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 16:
+                cost.add("BLUE");
+                cost.add("GREY");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 17:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 18:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 19:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 20:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 21:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 22:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 23:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 24:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 25:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 26:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 27:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 28:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 29:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 30:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 31:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 32:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 33:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 34:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 35:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 36:
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 37:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 38:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 39:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 40:
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 41:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 42:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 43:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                cost.add("YELLOW");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 44:
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                cost.add("BLUE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 45:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 46:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 47:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            case 48:
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("GREY");
+                cost.add("PURPLE");
+                cost.add("PURPLE");
+                if(colors.get(0) != null)
+                    cost.remove(colors.get(0));
+                if(colors.get(1) != null)
+                    cost.remove(colors.get(1));
+                return cost;
+            default: return null;
+        }
     }
     //For each resource requested as input, it gives a String representation of it
     public static ArrayList<String> getInputById(int id){
-
-        return null;
+        ArrayList<String> input = new ArrayList<>();
+        switch (id) {
+            case 1:
+                input.add("GREY");
+                return input;
+            case 2:
+                input.add("YELLOW");
+                input.add("BLUE");
+                return input;
+            case 3:
+                input.add("YELLOW");
+                input.add("YELLOW");
+                return input;
+            case 4:
+                input.add("YELLOW");
+                return input;
+            case 5:
+                input.add("PURPLE");
+                return input;
+            case 6:
+                input.add("BLUE");
+                input.add("GREY");
+                return input;
+            case 7:
+                input.add("BLUE");
+                return input;
+            case 8:
+                input.add("GREY");
+                input.add("GREY");
+                return input;
+            case 9:
+                input.add("GREY");
+                return input;
+            case 10:
+                input.add("PURPLE");
+                input.add("PURPLE");
+                return input;
+            case 11:
+                input.add("YELLOW");
+                return input;
+            case 12:
+                input.add("GREY");
+                input.add("PURPLE");
+                return input;
+            case 13:
+                input.add("BLUE");
+                input.add("BLUE");
+                return input;
+            case 14:
+                input.add("YELLOW");
+                input.add("PURPLE");
+                return input;
+            case 15:
+                input.add("PURPLE");
+                return input;
+            case 16:
+                input.add("BLUE");
+                return input;
+            case 17:
+                input.add("YELLOW");
+                return input;
+            case 18:
+                input.add("GREY");
+                input.add("GREY");
+                return input;
+            case 19:
+                input.add("GREY");
+                input.add("GREY");
+                return input;
+            case 20:
+                input.add("YELLOW");
+                input.add("PURPLE");
+                return input;
+            case 21:
+                input.add("YELLOW");
+                input.add("GREY");
+                return input;
+            case 22:
+                input.add("PURPLE");
+                input.add("PURPLE");
+                return input;
+            case 23:
+                input.add("PURPLE");
+                return input;
+            case 24:
+                input.add("PURPLE");
+                return input;
+            case 25:
+                input.add("BLUE");
+                input.add("PURPLE");
+                return input;
+            case 26:
+                input.add("GREY");
+                return input;
+            case 27:
+                input.add("YELLOW");
+                return input;
+            case 28:
+                input.add("YELLOW");
+                input.add("YELLOW");
+                return input;
+            case 29:
+                input.add("GREY");
+                input.add("BLUE");
+                return input;
+            case 30:
+                input.add("BLUE");
+                return input;
+            case 31:
+                input.add("BLUE");
+                input.add("BLUE");
+                return input;
+            case 32:
+                input.add("BLUE");
+                return input;
+            case 33:
+                input.add("YELLOW");
+                return input;
+            case 34:
+                input.add("GREY");
+                input.add("BLUE");
+                return input;
+            case 35:
+                input.add("YELLOW");
+                return input;
+            case 36:
+                input.add("GREY");
+                input.add("GREY");
+                return input;
+            case 37:
+                input.add("PURPLE");
+                return input;
+            case 38:
+                input.add("PURPLE");
+                input.add("PURPLE");
+                return input;
+            case 39:
+                input.add("GREY");
+                return input;
+            case 40:
+                input.add("YELLOW");
+                input.add("BLUE");
+                return input;
+            case 41:
+                input.add("YELLOW");
+                input.add("PURPLE");
+                return input;
+            case 42:
+                input.add("PURPLE");
+                input.add("PURPLE");
+                return input;
+            case 43:
+                input.add("GREY");
+                return input;
+            case 44:
+                input.add("PURPLE");
+                return input;
+            case 45:
+                input.add("BLUE");
+                input.add("BLUE");
+                return input;
+            case 46:
+                input.add("BLUE");
+                return input;
+            case 47:
+                input.add("BLUE");
+                return input;
+            case 48:
+                input.add("GREY");
+                input.add("PURPLE");
+                return input;
+            default: return null;
+        }
     }
 
 }

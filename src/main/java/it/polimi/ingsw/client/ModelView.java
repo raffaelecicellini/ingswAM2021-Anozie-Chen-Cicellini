@@ -111,6 +111,20 @@ public class ModelView {
         this.slots.add(new int[3]);
         this.slots.add(new int[3]);
         this.slots.add(new int[3]);
+        deposits.put("smallres", "empty");
+        deposits.put("smallqty", String.valueOf(0));
+        deposits.put("midres", "empty");
+        deposits.put("midqty", String.valueOf(0));
+        deposits.put("bigres", "empty");
+        deposits.put("bigqty", String.valueOf(0));
+        String[] res={"BLUE", "PURPLE", "GREY", "YELLOW"};
+        String box, qty;
+        for (int i=0; i<res.length; i++){
+            box="strres"+i;
+            qty="strqty"+i;
+            strongbox.put(box, res[i]);
+            strongbox.put(qty, String.valueOf(0));
+        }
     }
 
     /**

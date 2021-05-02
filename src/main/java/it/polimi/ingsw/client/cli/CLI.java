@@ -110,10 +110,6 @@ public class CLI implements Runnable, PropertyChangeListener {
      * @param args of type String[] - the standard java main parameters.
      */
     public static void main(String[] args) {
-        //System.out.println(Cards.getDevelopById(1)+" "+ Cards.getDevelopById(8)+" "+ Cards.getDevelopById(7)+" "+ Cards.getDevelopById(10));
-        //System.out.println("Col:Purple; "+"Lev:1; "+"Cost:[2P]; "+"Col:Blue; "+"Lev:1; "+"Cost:[2Y]; "+"Col:Blue; "+"Lev:1; "+"Cost:[3Y]; "+"Col:Green; "+"Lev:1; "+"Cost:[3B]; ");
-        //System.out.println("In:[1G]; "+"Out:[1F]; "+"VP:1; "+"In:[1B]; "+"Out:[1F]; "+"VP:1; "+"In:[2G]; "+"Out:[1Y, 1P, 1B]; "+"VP:3; "+"In:[2P]; "+"Out:[1Y, 1B, 1G]; "+"VP:3;");
-
         System.out.println("Welcome!\nWhat do you want to launch?");
         System.out.println("0. LOCAL GAME (single player)\n1. ONLINE GAME (single/multi player up to 4 players)");
         System.out.println("\n>Type the number of the desired option!");
@@ -175,7 +171,6 @@ public class CLI implements Runnable, PropertyChangeListener {
                 parseCommand(command);
             }
         }
-        //System.out.println("Hello!");
     }
 
     private void parseCommand(String cmd){
@@ -220,22 +215,200 @@ public class CLI implements Runnable, PropertyChangeListener {
         //chiede pos di input e res di output. Alla fine stampa mossa e chiede conferma
     }
 
-    private void market(){
+    /**
+     * Method used when the player decides to take resources from market. It asks the user for a row/col and for an index,
+     * then for each resource from the market asks the user where he wants to put it. At the end it prints the action done
+     * by the user and asks confirmation. If so, it notifies the listener of the action of the user, otherwise does nothing.
+     */
+    private void market(){/*
         //chiede row o col (PARTONO DA 1): chiamo getResMarket, per ogni risorsa chiedo dove salvarla. SE RED non chiedo
         //ma metto segnalino in mappa, se WHITE controllo se ho leader attivi (se 1, stampo colore trasformato e chiedo dove
         //salvare; se 2, chiedo anche colore a scelta; se 0 metto segnalino come red). Stampa mossa e chiedi conferma
+        if (modelView.isDoneMandatory()){
+            System.err.println("You already did a mandatory action! You cannot take resources from market in this turn!");
+            printActions();
+            return;
+        }
+        Map<String, String> map= new HashMap<>();
+        map.put("action", "market");
+        map.put("player", modelView.getName());
+
+        System.out.println(">Insert row/col and the index where you want to take resources from (es \"row 1\", the index must be between 1 and 3 (for row) or 4 (for col))");
+        System.out.print(">");
+        String[] where= input.nextLine().split(" ");
+        if (!where[0].equalsIgnoreCase("row") || !where[0].equalsIgnoreCase("col")){
+            System.err.println("Invalid input! You must insert \"row\" or \"col\"! Try again!");
+            printActions();
+        }
+        else {
+            int idx=-1;
+            try{
+                idx=Integer.parseInt(where[1]);
+            }catch(NumberFormatException e){
+                System.err.println("Invalid input! After row/col, a number must be provided!");
+                printActions();
+                return;
+            }
+
+            if (where[0].equalsIgnoreCase("row") && (idx<1 || idx>3)){
+                System.err.println("Invalid input! For a row, you must insert a number between 1 and 3. Try again!");
+                printActions();
+            }
+            else if (where[0].equalsIgnoreCase("col") && (idx<1 || idx>4)){
+                System.err.println("Invalid input! For a col, you must insert a number between 1 and 4. Try again!");
+                printActions();
+            }
+            else{
+                map.put(where[0].toLowerCase(), where[1]);
+                ArrayList<String> res= modelView.getResMarket(where[0], idx);
+                int i=1;
+                String curr;
+                for (String x: res) {
+                    curr="pos"+i;
+                    if (x.equalsIgnoreCase("red")) map.put(curr, "x");
+                    else if (x.equalsIgnoreCase("white")){
+                        //controlli white
+                        Map<String, String> leaders= modelView.getLeaders();
+                        List<String> colors= new ArrayList<>();
+                        for (int j=0; j<2; j++){
+                            String state= "state"+j;
+                            String white= Cards.getWhiteById(Integer.parseInt(leaders.get("leader"+j)));
+
+                            if (leaders.get(state).equalsIgnoreCase("active") && white!=null){
+                                colors.add(white);
+                            }
+                        }
+                        if (colors.isEmpty()) map.put(curr, "x");
+                        else if(colors.size()==1){
+                            System.out.println(">Current resource: "+colors.get(0)+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+                            System.out.print(">");
+                            String pos=input.nextLine();
+                            map.put(curr, pos);
+                        }
+                        else if (colors.size()==2){
+                            System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
+                            System.out.print(">");
+                            String col=input.nextLine();
+                            map.put("res"+i, col);
+                            System.out.println(">Current resource: "+col+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+                            System.out.print(">");
+                            String pos=input.nextLine();
+                            map.put(curr, pos);
+                        }
+                    }
+                    else{
+                        System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+                        System.out.print(">");
+                        String pos=input.nextLine();
+                        map.put(curr, pos);
+                    }
+                }
+                //STAMPA MOSSA E CHIEDI CONFERMA A UTENTE, POI INVIA
+                System.out.println(">Here is the action you chose to do:");
+                i=1;
+                curr="pos"+i;
+                while (map.containsKey(curr)){
+                    System.out.println("Position for resource "+i+": "+map.get(curr));
+                    i++;
+                    curr="pos"+i;
+                }
+                String confirmed;
+                do{
+                    System.out.println(">Do you confirm your action? [yes/no]");
+                    System.out.print(">");
+                    confirmed=input.nextLine();
+                } while(!confirmed.equalsIgnoreCase("yes") && !confirmed.equalsIgnoreCase("no"));
+
+                if (confirmed.equalsIgnoreCase("yes")){
+                    modelView.setActiveTurn(false);
+                    listener.firePropertyChange(map.get("action"), null, map);
+                }
+            }
+        }*/
     }
 
     private void swap(){
         //chiede i due dep, conferma
     }
 
+    /**
+     * Method used when the player decides to activate a leader. It asks the user the index (0/1) of the leader he wants
+     * to activate, then asks for confirmation. If so, it notifies the listener of the action of the user, otherwise does nothing.
+     */
     private void activate(){
         //chiede indice leader e conferma
+        Map<String, String> map= new HashMap<>();
+        map.put("action", "activate");
+        map.put("player", modelView.getName());
+
+        boolean exit= false;
+        int idx=-1;
+        while(!exit){
+            System.out.println(">Type the index of the leader you want to activate (0/1)");
+            System.out.print(">");
+            try{
+                idx=input.nextInt();
+            }catch (InputMismatchException e){
+                System.err.println("A number must be provided! Please try again!");
+                exit=false;
+            }
+            if (idx<0 || idx>1){
+                System.err.println("A number between 0 and 1 must be provided! Please try again!");
+                exit=false;
+            }
+            else{
+                exit=true;
+                map.put("pos", String.valueOf(idx));
+            }
+        }
+
+        input.nextLine();
+        System.out.println(">You chose to activate the leader in position "+idx+". Is it ok? [yes/no]");
+        System.out.print(">");
+        if (input.nextLine().equalsIgnoreCase("yes")){
+            modelView.setActiveTurn(false);
+            listener.firePropertyChange(map.get("action"), null, map);
+        }
     }
 
+    /**
+     * Method used when the player decides to discard a leader. It asks the user the index (0/1) of the leader he wants
+     * to discard, then asks for confirmation. If so, it notifies the listener of the action of the user, otherwise does nothing.
+     */
     private void discard(){
         //chiede indice leader e conferma
+        Map<String, String> map= new HashMap<>();
+        map.put("action", "discard");
+        map.put("player", modelView.getName());
+
+        boolean exit= false;
+        int idx=-1;
+        while(!exit){
+            System.out.println(">Type the index of the leader you want to discard (0/1)");
+            System.out.print(">");
+            try{
+                idx=input.nextInt();
+            }catch (InputMismatchException e){
+                System.err.println("A number must be provided! Please try again!");
+                exit=false;
+            }
+            if (idx<0 || idx>1){
+                System.err.println("A number between 0 and 1 must be provided! Please try again!");
+                exit=false;
+            }
+            else{
+                exit=true;
+                map.put("pos", String.valueOf(idx));
+            }
+        }
+
+        input.nextLine();
+        System.out.println(">You chose to discard the leader in position "+idx+". Is it ok? [yes/no]");
+        System.out.print(">");
+        if (input.nextLine().equalsIgnoreCase("yes")){
+            modelView.setActiveTurn(false);
+            listener.firePropertyChange(map.get("action"), null, map);
+        }
     }
 
     private void endTurn(){
@@ -247,35 +420,100 @@ public class CLI implements Runnable, PropertyChangeListener {
     }
 
     private void clearScreen(){
-        //comandi per pulire console
+        //comandi per pulire console X
     }
 
     private void chooseLeaders(){
-        //Stampa i 4 leader tra cui scegliere (andando a capo). Chiede il primo, poi il secondo, poi la conferma
+        //Stampa i 4 leader tra cui scegliere (andando a capo). Chiede il primo, poi il secondo, poi la conferma X
     }
 
     private void chooseResources(){
-        //Stampa mex dicendo quante risorse può scegliere: per ogni res, chiede tipo e pos, poi conferma
+        //Stampa mex dicendo quante risorse può scegliere: per ogni res, chiede tipo e pos, poi conferma X
     }
 
+    /**
+     * Method used to print the new state of the game. It is simply a container method, used to invoke other specialized
+     * methods to print all the state in order
+     */
     private void printBoard(){
         //ClearScreen, stampa lo stato del gioco (usando printDeps, Decks, Market), poi stampa slots, faithtrack, favortile, leaders
+        clearScreen();
+        printDecks();
+        printMarket();
+        printTrack();
+        printDeps();
+        printSlots();
+        printLeaders();
     }
 
+    /**
+     * Method used to print a message to the user telling him which actions he can do, based on the value of the doneMandatory
+     * attribute of the ModelView
+     */
     private void printActions(){
-        //controlla doneMandatory: a seconda del valore, stampa mex mettendo tutte mosse possibili tra cui scegliere
+        //controlla doneMandatory: a seconda del valore, stampa mex mettendo tutte mosse possibili tra cui scegliere X
+        if (modelView.isDoneMandatory()){
+            System.out.println(">Choose your action typing one of the following words: ACTIVATE, DISCARD, SWAP, ENDTURN, QUIT");
+            System.out.print(">");
+        }
+        else{
+            System.out.println(">Choose your action typing one of the following words: BUY, PRODUCE, MARKET, ACTIVATE, DISCARD, SWAP, QUIT");
+            System.out.print(">");
+        }
     }
 
     private void printDeps(){
-        //Stampa in modo formattato i depositi e lo strongbox (res=..., amount=..., slots remaining=...)
+        //Stampa in modo formattato i depositi e lo strongbox (res=..., amount=..., slots remaining=...) X
     }
 
+    /**
+     * Method used to print in a formatted way the state of the developDecks, where the user can buy a DevelopCard
+     */
     private void printDecks(){
         //Stampa in modo formattato la matrice di decks
+        int[][] decks= modelView.getDevelopDecks();
+        StringBuilder layer= new StringBuilder();
+        for (int row=2; row>=0; row--){
+            for (int i=0; i<4; i++){
+                layer.setLength(0);
+                for (int col=0; col<4; col++){
+                    if (i==1 && col==0){
+                        layer.append("Row:").append(row).append(" ");
+                    }
+                    else if (col==0){
+                        layer.append("      ");
+                    }
+                    else layer.append(" ");
+                    layer.append(Cards.getDevelopById(decks[col][row])[i]);
+                }
+                System.out.println(layer);
+            }
+        }
+        layer.setLength(0);
+        for (int col=0; col<4; col++){
+            if (col==0){
+                layer.append("                          ").append("Col:").append(col).append("                  ");
+            }
+            else layer.append("                   ").append("Col:").append(col).append("                  ");
+
+        }
+        System.out.println(layer);
     }
 
     private void printMarket(){
-        //Stampa in modo formattato il market e la outmarble
+        //Stampa in modo formattato il market e la outmarble X
+    }
+
+    private void printSlots(){
+
+    }
+
+    private void printTrack(){
+        //print track e favortile
+    }
+
+    private void printLeaders(){
+
     }
 
     //AnswerHandler notifies it of changes, cli reads the ModelView and prints the new state

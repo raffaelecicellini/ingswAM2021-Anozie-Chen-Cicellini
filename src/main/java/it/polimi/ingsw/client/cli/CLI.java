@@ -205,6 +205,115 @@ public class CLI implements Runnable, PropertyChangeListener {
     private void buy(){
         //chiede col e row, vede se ci sono leader sconto attivi e costruisce array di sconti. Chiama getCostById e per ogni
         //risorsa chiede da dove prenderla. Alla fine stampa mossa e chiede conferma: se si invia, altrimenti chiama printActions e ritorna
+        System.out.println("Insert the row, number between 0 and 2");
+        System.out.print(">");
+
+        int row = -1;
+        try {
+            row = input.nextInt();
+        } catch (InputMismatchException e) {
+            System.err.println("You didn't insert a number.");
+            return;
+        }
+
+        if (row < 0 || row > 2) {
+            System.err.println("Wrong number selected");
+            return;
+        }
+
+        System.out.println("Insert the column, number between 0 and 3");
+        System.out.print(">");
+        int column = -1;
+        try {
+            column = input.nextInt();
+        } catch (InputMismatchException e) {
+            System.err.println("You didn't insert a number.");
+            return;
+        }
+
+        if (column < 0 || column > 3) {
+            System.err.println("Wrong number selected");
+            return;
+        }
+
+        System.out.println("Insert your personal board slot index in which you cant to place the card, number between 0 and 2");
+        System.out.print(">");
+        int ind = -1;
+        try {
+            ind = input.nextInt();
+        } catch (InputMismatchException e) {
+            System.err.println("You didn't insert a number.");
+            return;
+        }
+        if (ind < 0 || ind > 2) {
+            System.err.println("Wrong number selected");
+            return;
+        }
+
+        ArrayList<String> discounts = new ArrayList<>();
+        discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
+        discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+        ArrayList<String> cost = Cards.getCostById(modelView.getDevelopDecks()[column][row],discounts);
+
+        Map<String,String> action = new HashMap<>();
+        action.put("action","buy");
+        action.put("row", Integer.toString(row));
+        action.put("column", Integer.toString(column));
+        action.put("ind", Integer.toString(ind));
+        action.put("player",modelView.getName().toLowerCase());
+
+        //list of accepted strings from input
+        ArrayList<String> possibleInput = new ArrayList<>();
+        possibleInput.add("big");
+        possibleInput.add("small");
+        possibleInput.add("mid");
+        possibleInput.add("sp1");
+        possibleInput.add("sp2");
+        possibleInput.add("strongbox");
+
+        //loop where i ask for the source of the resources
+        int i = 1;
+        for (String x : cost) {
+            if (x != null) {
+                System.out.println("Resource " + x + " tell me where you want to take it from. Possible choices: small, mid, big, sp1, sp2, strongbox");
+                System.out.print(">");
+                String choice = input.nextLine();
+                if (!possibleInput.contains(choice.toLowerCase())) {
+                    System.err.println("Wrong word inserted");
+                    return;
+                } else {
+                    action.put("res"+i,choice.toLowerCase());
+                    i++;
+                }
+            }
+        }
+
+        ArrayList<String> possibleInput1 = new ArrayList<>();
+        possibleInput1.add("yes");
+        possibleInput1.add("no");
+        System.out.println("This is your move. Do you want to confirm it? [yes/no]");
+        int j = 1;
+        for (String x : cost) {
+            if (x != null) {
+                System.out.println("Resource " + x + ": " + action.get("res" + j));
+                j++;
+            }
+        }
+
+        String confirmation;
+        System.out.print(">");
+        confirmation = input.nextLine();
+        while (!possibleInput1.contains(confirmation.toLowerCase())) {
+            System.out.println("Select yes or no");
+            System.out.print(">");
+            confirmation = input.nextLine();
+        }
+
+        if (confirmation.equalsIgnoreCase("no")) {
+            printActions();
+            return;
+        }
+        listener.firePropertyChange("buy",null,action);
     }
 
     private void produce(){
@@ -329,6 +438,65 @@ public class CLI implements Runnable, PropertyChangeListener {
 
     private void swap(){
         //chiede i due dep, conferma
+        ArrayList<String> possibleInput = new ArrayList<>();
+        possibleInput.add("big");
+        possibleInput.add("small");
+        possibleInput.add("mid");
+        possibleInput.add("sp1");
+        possibleInput.add("sp2");
+
+        String source;
+        String dest;
+
+        System.out.println("Select the first deposit, Possible choices: small, mid, big, sp1, sp2");
+        System.out.println(">");
+        source = input.nextLine();
+        if (!possibleInput.contains(source.toLowerCase())) {
+            System.err.println("Wrong word inserted.");
+            printActions();
+            return;
+        }
+
+        System.out.println("Select the second deposit, Possible choices: small, mid, big, sp1, sp2");
+        System.out.println(">");
+        dest = input.nextLine();
+        if (!possibleInput.contains(dest.toLowerCase())) {
+            System.err.println("Wrong word inserted.");
+            printActions();
+            return;
+        }
+
+        Map<String,String> action = new HashMap<>();
+        action.put("player", modelView.getName());
+        action.put("source",source.toLowerCase());
+        action.put("dest",dest.toLowerCase());
+        action.put("action","swap");
+
+        ArrayList<String> possibleInput1 = new ArrayList<>();
+        possibleInput1.add("yes");
+        possibleInput1.add("no");
+        String confirmation;
+
+        System.out.println("This is your move. Do you want to confirm it? [yes/no]");
+        System.out.println("Action: swap");
+        System.out.println("First deposit: "+source);
+        System.out.println("Second deposit: "+dest);
+
+
+        System.out.print(">");
+        confirmation = input.nextLine();
+        while (!possibleInput1.contains(confirmation.toLowerCase())) {
+            System.out.println("Select yes or no");
+            System.out.print(">");
+            confirmation = input.nextLine();
+        }
+
+        if (confirmation.equalsIgnoreCase("no")) {
+            printActions();
+            return;
+        }
+
+        listener.firePropertyChange("swap",null,action);
     }
 
     /**
@@ -417,6 +585,30 @@ public class CLI implements Runnable, PropertyChangeListener {
 
     private void quit(){
         //chiede conferma
+        ArrayList<String> possibleInput1 = new ArrayList<>();
+        possibleInput1.add("yes");
+        possibleInput1.add("no");
+        String confirmation;
+
+        System.out.println("Are you sure you want to quit? [yes/no]");
+        System.out.print(">");
+        confirmation = input.nextLine();
+        while (!possibleInput1.contains(confirmation.toLowerCase())) {
+            System.out.println("Select yes or no");
+            System.out.print(">");
+            confirmation = input.nextLine();
+        }
+
+        if (confirmation.equalsIgnoreCase("no")) {
+            printActions();
+            return;
+        }
+
+        Map<String,String> action = new HashMap<>();
+        action.put("action","disconnect");
+        action.put("player",modelView.getName());
+
+        listener.firePropertyChange("disconnect",null,action);
     }
 
     private void clearScreen(){

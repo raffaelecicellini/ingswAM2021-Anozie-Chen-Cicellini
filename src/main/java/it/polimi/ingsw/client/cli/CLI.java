@@ -11,6 +11,8 @@ import java.beans.PropertyChangeSupport;
 import java.io.PrintStream;
 import java.util.*;
 
+import static it.polimi.ingsw.client.Cards.getInputById;
+
 public class CLI implements Runnable, PropertyChangeListener {
     //used in online
     private int port;
@@ -392,7 +394,7 @@ public class CLI implements Runnable, PropertyChangeListener {
                     map.put("prod" + (num_slots + 1), answer.toLowerCase());
                     // ask input
                     if (devCardIndex < modelView.getSlots().get(num_slots).length) {
-                        List<String> inputRes = getInputById(modelView.getSlots().get(num_slots)[devCardIndex]);
+                        ArrayList<String> inputRes = getInputById(modelView.getSlots().get(num_slots)[devCardIndex]);
                         for (int res = 0; res < inputRes.size(); res++) {
                             System.out.println("From where would you like to take the " + inputRes.get(res) + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
                             System.out.print(">");

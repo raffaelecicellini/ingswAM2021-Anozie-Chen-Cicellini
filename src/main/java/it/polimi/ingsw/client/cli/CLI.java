@@ -204,6 +204,9 @@ public class CLI implements Runnable, PropertyChangeListener {
         }
     }
 
+    /**
+     * This method is called when a player decides to make a buy move during his turn.
+     */
     private void buy(){
         //chiede col e row, vede se ci sono leader sconto attivi e costruisce array di sconti. Chiama getCostById e per ogni
         //risorsa chiede da dove prenderla. Alla fine stampa mossa e chiede conferma: se si invia, altrimenti chiama printActions e ritorna
@@ -438,6 +441,9 @@ public class CLI implements Runnable, PropertyChangeListener {
         }*/
     }
 
+    /**
+     * This method is called when a player decides to make a swapDeposits move during his turn.
+     */
     private void swap(){
         //chiede i due dep, conferma
         ArrayList<String> possibleInput = new ArrayList<>();
@@ -451,7 +457,7 @@ public class CLI implements Runnable, PropertyChangeListener {
         String dest;
 
         System.out.println("Select the first deposit, Possible choices: small, mid, big, sp1, sp2");
-        System.out.println(">");
+        System.out.print(">");
         source = input.nextLine();
         if (!possibleInput.contains(source.toLowerCase())) {
             System.err.println("Wrong word inserted.");
@@ -460,7 +466,7 @@ public class CLI implements Runnable, PropertyChangeListener {
         }
 
         System.out.println("Select the second deposit, Possible choices: small, mid, big, sp1, sp2");
-        System.out.println(">");
+        System.out.print(">");
         dest = input.nextLine();
         if (!possibleInput.contains(dest.toLowerCase())) {
             System.err.println("Wrong word inserted.");
@@ -585,6 +591,9 @@ public class CLI implements Runnable, PropertyChangeListener {
         //controlla doneMandatory: se true chiede conferma e invia, altrimenti stampa err
     }
 
+    /**
+     * This method is called when a player decides to quit the game.
+     */
     private void quit(){
         //chiede conferma
         ArrayList<String> possibleInput1 = new ArrayList<>();
@@ -614,15 +623,147 @@ public class CLI implements Runnable, PropertyChangeListener {
     }
 
     private void clearScreen(){
-        //comandi per pulire console X
+        //comandi per pulire console
     }
 
+    /**
+     * This method is called during the player's turn at the start of the game in order to make him select his leaders.
+     */
     private void chooseLeaders(){
-        //Stampa i 4 leader tra cui scegliere (andando a capo). Chiede il primo, poi il secondo, poi la conferma X
+        //Stampa i 4 leader tra cui scegliere (andando a capo). Chiede il primo, poi il secondo, poi la conferma
+        System.out.println("You have to choose between these 4 leaders.");
+        System.out.println("ID: "+modelView.getLeaders().get("leader0")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
+        System.out.println("ID: "+modelView.getLeaders().get("leader1")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+        System.out.println("ID: "+modelView.getLeaders().get("leader2")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader2"))));
+        System.out.println("ID: "+modelView.getLeaders().get("leader3")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader3"))));
+
+        ArrayList<String> possibleInput = new ArrayList<>();
+        possibleInput.add(modelView.getLeaders().get("leader0"));
+        possibleInput.add(modelView.getLeaders().get("leader1"));
+        possibleInput.add(modelView.getLeaders().get("leader2"));
+        possibleInput.add(modelView.getLeaders().get("leader3"));
+        String choice;
+        Map<String,String> action = new HashMap<>();
+        action.put("action","chooseleaders");
+        action.put("player",modelView.getName());
+
+        System.out.println("Insert the first leader id.");
+        System.out.print(">");
+        choice = input.nextLine();
+        while (!possibleInput.contains(choice)){
+            System.out.println("Insert the correct id");
+            System.out.print(">");
+            choice = input.nextLine();
+        }
+
+        action.put("leader0",choice);
+        possibleInput.remove(choice);
+
+        System.out.println("Insert the second leader id.");
+        System.out.print(">");
+        choice = input.nextLine();
+        while (!possibleInput.contains(choice)){
+            System.out.println("Insert the correct id");
+            System.out.print(">");
+            choice = input.nextLine();
+        }
+        action.put("leader1",choice);
+
+        System.out.println("You selected these leaders:");
+        System.out.println("ID :"+action.get("leader0"));
+        System.out.println(Cards.getLeaderById(Integer.parseInt(action.get("leader0"))));
+        System.out.println("ID :"+action.get("leader1"));
+        System.out.println(Cards.getLeaderById(Integer.parseInt(action.get("leader1"))));
+        System.out.println("Do you want to confirm? [yes/no]");
+        possibleInput.clear();
+        possibleInput.add("yes");
+        possibleInput.add("no");
+        System.out.print(">");
+        choice = input.nextLine();
+        while (!possibleInput.contains(choice.toLowerCase())) {
+            System.out.println("Select yes or no");
+            System.out.print(">");
+            choice = input.nextLine();
+        }
+
+        if (choice.equalsIgnoreCase("no")) {
+            chooseLeaders();
+            return;
+        }
+
+        listener.firePropertyChange("chooseleaders",null,action);
+
+
     }
 
-    private void chooseResources(){
-        //Stampa mex dicendo quante risorse può scegliere: per ogni res, chiede tipo e pos, poi conferma X
+    /**
+     * This method is called during the player's turn at the start of the game in order to make him select his initial resources.
+     * @param quantity is the number of initial resources the player can have.
+     */
+    private void chooseResources(int quantity){
+        ArrayList<String> possibleInput = new ArrayList<>();
+
+        possibleInput.add("GREY");
+        possibleInput.add("YELLOW");
+        possibleInput.add("PURPLE");
+        possibleInput.add("BLUE");
+
+        ArrayList<String> possibleInput1 = new ArrayList<>();
+        possibleInput1.add("small");
+        possibleInput1.add("mid");
+        possibleInput1.add("big");
+
+        Map<String,String> action = new HashMap<>();
+        action.put("action","chooseresources");
+        action.put("player", modelView.getName());
+
+        String choice;
+        System.out.println("You have "+quantity+" resources.");
+        for (int i = 1; i <= quantity; i++) {
+            System.out.println("Insert what resource you want: [blue/grey/purple/yellow]");
+            System.out.print(">");
+            choice = input.nextLine();
+            while (!possibleInput.contains(choice.toUpperCase())) {
+                System.out.println("Wrong input, select [blue/grey/purple/yellow]");
+                System.out.print(">");
+                choice = input.nextLine();
+            }
+            action.put("res"+i,choice.toLowerCase());
+
+            System.out.println("Insert where you want to place it: [small/mid/big]");
+            System.out.print(">");
+            choice = input.nextLine();
+            while (!possibleInput.contains(choice.toLowerCase())) {
+                System.out.println("Wrong input, select [small/mid/big]");
+                System.out.print(">");
+                choice = input.nextLine();
+            }
+            action.put("pos"+i,choice.toLowerCase());
+        }
+
+        System.out.println("This is your move, are you sure? [yes/no]");
+        System.out.println("Resource1: "+action.get("res1"));
+        System.out.println("Position: "+action.get("pos1"));
+        System.out.println("Resource2: "+action.get("res2"));
+        System.out.println("Position: "+action.get("pos2"));
+
+        possibleInput.clear();
+        possibleInput.add("yes");
+        possibleInput.add("no");
+        System.out.print(">");
+        choice = input.nextLine();
+        while (!possibleInput.contains(choice.toLowerCase())) {
+            System.out.println("Select yes or no");
+            System.out.print(">");
+            choice = input.nextLine();
+        }
+
+        if (choice.equalsIgnoreCase("no")) {
+            chooseResources(quantity);
+            return;
+        }
+
+        listener.firePropertyChange("chooseresources",null,action);
     }
 
     /**
@@ -656,8 +797,111 @@ public class CLI implements Runnable, PropertyChangeListener {
         }
     }
 
+    /**
+     * This method prints the player's leader cards.
+     */
+    private void printLeaders(){
+        System.out.println("Leader 1");
+        System.out.println("ID: "+ modelView.getLeaders().get("leader0"));
+        System.out.println("State: "+modelView.getLeaders().get("state0").toUpperCase());
+        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
+
+        System.out.println("Leader 2");
+        System.out.println("ID: "+ modelView.getLeaders().get("leader1"));
+        System.out.println("State: "+modelView.getLeaders().get("state1").toUpperCase());
+        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+    }
+
+    /**
+     * This method prints the player's deposits and strongbox.
+     */
     private void printDeps(){
-        //Stampa in modo formattato i depositi e lo strongbox (res=..., amount=..., slots remaining=...) X
+        //Stampa in modo formattato i depositi e lo strongbox (res=..., amount=..., slots remaining=...)
+        int small[] = new int[1];
+        small[0] = modelView.getDeposits().get("smallqty")!= null? Integer.parseInt(modelView.getDeposits().get("smallqty")): 0;
+        int mid[] = new int[1];
+        mid[0] = modelView.getDeposits().get("midqty")!= null? Integer.parseInt(modelView.getDeposits().get("midqty")): 0;
+        int big[] = new int[1];
+        big[0] = modelView.getDeposits().get("bigqty")!= null? Integer.parseInt(modelView.getDeposits().get("bigqty")): 0;
+        int sp1[] = new int[1];
+        sp1[0] = modelView.getDeposits().get("sp1qty")!= null? Integer.parseInt(modelView.getDeposits().get("sp1qty")): 0;
+        int sp2[] = new int[1];
+        sp2[0] = modelView.getDeposits().get("sp2qty")!= null? Integer.parseInt(modelView.getDeposits().get("sp2qty")): 0;
+        System.out.println("+------+");
+        System.out.println("|"+ printDepCell(small,"small")+"|");
+        System.out.println("+------+------+");
+        System.out.println("|"+ printDepCell(mid,"mid")+"|"+ printDepCell(mid,"mid")+"|");
+        System.out.println("+------+------+------+   +------+------+   +------+------+ ");
+        System.out.println("|"+ printDepCell(big,"big")+"|"+ printDepCell(big,"big")+"|"+ printDepCell(big,"big")+"|   |"+ printDepCell(sp1,"sp1")+"|"+ printDepCell(sp1,"sp1")+"|   |"+ printDepCell(sp2,"sp2")+"|"+ printDepCell(sp2,"sp2")+"|");
+        System.out.println("+------+------+------+   +------+------+   +------+------+");
+        System.out.println("\t\tnormal             sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
+        System.out.println("\n");
+        System.out.println("|STRONGBOX|");
+        System.out.println(modelView.getStrongbox().get("strres1").toUpperCase()+": " + modelView.getStrongbox().get("strres1qty"));
+        System.out.println(modelView.getStrongbox().get("strres2").toUpperCase()+": " + modelView.getStrongbox().get("strres2qty"));
+        System.out.println(modelView.getStrongbox().get("strres3").toUpperCase()+": " + modelView.getStrongbox().get("strres3qty"));
+        System.out.println(modelView.getStrongbox().get("strres4").toUpperCase()+": " + modelView.getStrongbox().get("strres4qty"));
+
+    }
+
+    /**
+     * Utility method used for printing a cell of the player's deposit.
+     * @param i is the number of resources the player has in each deposit (small, big, medium,sp1,sp2).
+     * @param dep is the player's deposit (small, big, medium,sp1,sp2).
+     * @return the resource at a certain cell.
+     */
+    //prints each cell of the deposits
+    private String printDepCell(int i[], String dep) {
+        String resource = modelView.getDeposits().get(dep);
+        if (resource == null)
+            return "      ";
+        else {
+            switch (resource.toUpperCase()) {
+                case "BLUE":
+                    if (i[0] > 0) {
+                        i[0]--;
+                        return " BLUE ";
+                    } else return "      ";
+                case "YELLOW":
+                    if (i[0] > 0) {
+                        i[0]--;
+                        return "YELLOW";
+                    } else return "      ";
+                case "PURPLE":
+                    if (i[0] > 0) {
+                        i[0]--;
+                        return "PURPLE";
+                    } else return "      ";
+                case "GREY":
+                    if (i[0] > 0) {
+                        i[0]--;
+                        return " GREY ";
+                    } else return "      ";
+                default:
+                    return "      ";
+            }
+        }
+    }
+
+    /**
+     * Utility method used for printing the last line of the deposit.
+     * @param a is the index representing the special deposit (1 = sp1, 2 = sp2).
+     * @return the resource of the special deposit.
+     */
+    private String printLastLineDep(int a) {
+        if (a == 1) {
+            if (modelView.getDeposits().get("sp1")!=null)
+                if (modelView.getDeposits().get("sp1").toUpperCase() == "BLUE" || modelView.getDeposits().get("sp1").toUpperCase() == "GREY")
+                    return " "+modelView.getDeposits().get("sp1").toUpperCase()+" ";
+                else return modelView.getDeposits().get("sp1").toUpperCase();
+            else return "      ";
+        } else {
+            if (modelView.getDeposits().get("sp2")!=null)
+                if (modelView.getDeposits().get("sp2").toUpperCase() == "BLUE" || modelView.getDeposits().get("sp2").toUpperCase() == "GREY")
+                    return " "+modelView.getDeposits().get("sp2").toUpperCase()+" ";
+                else return modelView.getDeposits().get("sp2").toUpperCase();
+            else return "      ";
+        }
     }
 
     /**
@@ -706,9 +950,6 @@ public class CLI implements Runnable, PropertyChangeListener {
         //print track e favortile
     }
 
-    private void printLeaders(){
-
-    }
 
     //AnswerHandler notifies it of changes, cli reads the ModelView and prints the new state
     @Override

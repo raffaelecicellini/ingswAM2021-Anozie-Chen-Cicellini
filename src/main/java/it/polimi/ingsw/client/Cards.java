@@ -397,7 +397,12 @@ public class Cards {
         return new String[]{"","","",""};
     }
 
-    //For each resource requested as cost, it gives a String representation of it
+    /**
+     * This method returns the discounted cost of a certain develop card.
+     * @param id is the ID of the develop card.
+     * @param colors is a list of discounts.
+     * @return
+     */
     public static ArrayList<String> getCostById(int id, ArrayList<String> colors){
         ArrayList<String> cost =  new ArrayList<>();
         switch(id) {
@@ -932,7 +937,12 @@ public class Cards {
             default: return null;
         }
     }
-    //For each resource requested as input, it gives a String representation of it
+
+    /**
+     * This method returns the input production of a certain develop card.
+     * @param id is the ID of the develop card.
+     * @return the input production of a certain develop card.
+     */
     public static ArrayList<String> getInputById(int id){
         ArrayList<String> input = new ArrayList<>();
         switch (id) {

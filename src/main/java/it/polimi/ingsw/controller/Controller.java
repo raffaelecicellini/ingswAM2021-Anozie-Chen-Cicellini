@@ -41,19 +41,11 @@ public class Controller implements PropertyChangeListener {
 
     /**
      * Start method: the controller checks the inputs and calls start on the Game.
-     * @param map is the map with all the information.
      */
-    private void start(Map<String, String> map){
+    private void start(){
 
         if (model.getPhase() == GamePhase.NOTSTARTED) {
             model.start();
-        } else {
-            Map<String, String> error = new HashMap<>();
-            error.put("action", "error");
-            error.put("player", map.get("player"));
-            error.put("content", "Attention! You can not do this action in this phase!");
-            error.put("method", "start");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
         }
 
     }
@@ -593,7 +585,7 @@ public class Controller implements PropertyChangeListener {
 
         switch (actionName){
             case "START":
-                start(message);
+                start();
                 break;
             case "BUY":
                 message.remove("action");

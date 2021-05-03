@@ -65,7 +65,7 @@ public class Cards {
         }
     }
     public static String getProductionById(int id){
-        switch (id){
+        switch (id) {
             case 15: return "BLUE";
             case 16: return "PURPLE";
             case 17: return "GREY";

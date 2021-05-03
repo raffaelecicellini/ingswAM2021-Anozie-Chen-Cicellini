@@ -388,7 +388,7 @@ public class SoloGame extends Game{
     private void notifyBuy(int slot, int bought, int col, int row){
         Map<String, String> state= new HashMap<>();
         int idNew=developDecks[col][row].getCard().getId();
-        String res, qty, boxres, boxqty;
+        String boxres, boxqty;
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
         ResourceAmount[] box=currentPlayer.getPersonalBoard().getStrongbox();
         String[] colors= new String[deps.size()];

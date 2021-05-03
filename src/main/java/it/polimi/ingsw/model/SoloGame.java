@@ -51,6 +51,22 @@ public class SoloGame extends Game{
     }
 
     /**
+     * This method returns the active players in the current game.
+     * @return the list of ActivePlayer
+     */
+    public ArrayList<Player> getActivePlayers() {
+        return activePlayers;
+    }
+
+    /**
+     * Simple method that returns the current GamePhase.
+     * @return the current GamePhase
+     */
+    public GamePhase getPhase(){
+        return this.phase;
+    }
+
+    /**
      * Constructor of the SoloGame class. It instantiates the Market, the LeaderDeck and the DevelopDecks for the current game.
      */
     public SoloGame() {

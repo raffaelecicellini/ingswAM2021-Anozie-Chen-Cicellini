@@ -1109,4 +1109,21 @@ public class Cards {
         }
     }
 
+    /**
+     * Method used to get a String representation of the action done by Lorenzo (SoloGame) based on the id of the activated
+     * token.
+     * @param id the id of the activated token
+     * @return a String representation of the action done by Lorenzo
+     */
+    public static String getTokenById(int id){
+        switch (id){
+            case 1: return "Lorenzo discarded 2 Blue DevelopCard!";
+            case 2: return "Lorenzo discarded 2 Green DevelopCard!";
+            case 3: return "Lorenzo discarded 2 Purple DevelopCard!";
+            case 4: return "Lorenzo discarded 2 Yellow DevelopCard!";
+            case 5: return "Lorenzo did 2 steps on the FaithTrack!";
+            case 6: return "Lorenzo did 1 step on the FaithTrack and shuffled the tokens!";
+            default: return "";
+        }
+    }
 }

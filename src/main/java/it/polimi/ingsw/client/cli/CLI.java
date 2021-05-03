@@ -55,9 +55,9 @@ public class CLI implements Runnable, PropertyChangeListener {
                 System.out.println(">Insert your nickname: ");
                 System.out.print(">");
                 name = input.nextLine();
-            } while (name == null);
+            } while (name == null || name.equalsIgnoreCase(""));
             System.out.println(">You chose: " + name);
-            System.out.println(">Is it ok? [yes/no] ");
+            System.out.println(">Is it ok? [yes/no]");
             System.out.print(">");
             if (input.nextLine().equalsIgnoreCase("yes")) {
                 confirmed = true;
@@ -78,7 +78,7 @@ public class CLI implements Runnable, PropertyChangeListener {
                     System.out.print(">");
                     number = input.nextInt();
                     System.out.println(">You chose: " + number);
-                    System.out.println(">Is it ok? [yes/no] ");
+                    System.out.println(">Is it ok? [yes/no]");
                     System.out.print(">");
                     input.nextLine();
                     if (input.nextLine().equalsIgnoreCase("yes")) {

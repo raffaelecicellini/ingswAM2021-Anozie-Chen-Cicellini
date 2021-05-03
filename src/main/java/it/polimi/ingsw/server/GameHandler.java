@@ -76,6 +76,7 @@ public class GameHandler implements PropertyChangeListener {
         message.put("content", content);
         Gson gson= new Gson();
         String jsonMessage= gson.toJson(message);
+        System.out.println(content);
         sendAll(jsonMessage);
 
         //start the game
@@ -120,6 +121,7 @@ public class GameHandler implements PropertyChangeListener {
      * @param player the name of the player that sent the message
      */
     public synchronized void makeAction(Map<String, String> message, String player){
+        System.out.println("I am in gameHandler.makeAction");
         //controls if the move can be done
         if (model.getPhase()!=GamePhase.NOTSTARTED){
             if (model.getCurrentPlayer().getName().equalsIgnoreCase(player)){
@@ -164,7 +166,7 @@ public class GameHandler implements PropertyChangeListener {
         map.put("action", "connected");
         map.put("content", "Connection established");
         message=gson.toJson(map);
-        System.out.println("Printing something in GameHandler");
+        System.out.println("Added a player to the current game, gameHandler.setPlayer");
         sendSingle(message, name);
     }
 
@@ -181,6 +183,7 @@ public class GameHandler implements PropertyChangeListener {
         map.put("content", "Someone disconnected before the start of the game. "+(playersNumber-players.size())+" slots left.");
         Gson gson= new Gson();
         String message= gson.toJson(map);
+        System.out.println("Removing player "+name+" from the current game, gameHandler.removePlayer");
         sendAllExcept(message, name);
     }
 
@@ -195,6 +198,7 @@ public class GameHandler implements PropertyChangeListener {
         map.put("content", content);
         Gson gson=new Gson();
         String message=gson.toJson(map);
+        System.out.println(content);
         sendAllExcept(message, name);
         //close connections of ClientHandlers
         for (ClientHandler client: players.values()) {
@@ -282,10 +286,12 @@ public class GameHandler implements PropertyChangeListener {
         Gson gson=new Gson();
         String jsonMessage;
         String addressee;
+        System.out.println("I am in GameHandler, ready to send a message");
         switch (type.toUpperCase()){
             case "STARTED":
                 //sendall
                 jsonMessage=gson.toJson(message);
+                System.out.println("I am sending a started message, GameHandler");
                 sendAll(jsonMessage);
                 break;
             case "YOURTURN":
@@ -297,6 +303,7 @@ public class GameHandler implements PropertyChangeListener {
                 addressee=message.get("player");
                 jsonMessage=gson.toJson(message);
                 sendSingle(jsonMessage, addressee);
+                System.out.println("I am sending a choose leaders message");
                 break;
             case "OKLEADERS":
                 addressee=message.get("player");

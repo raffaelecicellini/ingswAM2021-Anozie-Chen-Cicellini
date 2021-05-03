@@ -39,6 +39,7 @@ public class CLI implements Runnable, PropertyChangeListener {
         this.isSolo=isSolo;
 
         if (isSolo){
+            modelView.setSoloGame(true);
             model= new SoloGame();
             model.setListener(answerHandler);
             controller= new Controller(model, answerHandler);
@@ -90,6 +91,7 @@ public class CLI implements Runnable, PropertyChangeListener {
                     System.out.println(">A number must be provided! Please try again");
                 }
             }
+            modelView.setSoloGame(number == 1);
             connectionSocket = new ConnectionSocket(address, port);
             Map<String, String> map= new HashMap<>();
             map.put("action", "setup");

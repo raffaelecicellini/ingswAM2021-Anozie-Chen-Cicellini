@@ -69,7 +69,7 @@ public class AnswerHandler implements PropertyChangeListener {
                 int[][] developDecks = new int[4][3];
                 for (int col = 0; col < 4; col++) {
                     for (int row = 0; row < 3; row++) {
-                        developDecks[col][row] = Integer.parseInt(newValues.get("card" + (col+row)));
+                        developDecks[col][row] = Integer.parseInt(newValues.get("card"+col+row));
                     }
                 }
                 modelView.setDevelopDecks(developDecks);
@@ -77,7 +77,7 @@ public class AnswerHandler implements PropertyChangeListener {
                 String[][] market = new String[4][3];
                 for (int col = 0; col < 4; col++) {
                     for (int row = 0; row < 3; row++) {
-                        market[col][row] = newValues.get("marble" + (col+row));
+                        market[col][row] = newValues.get("marble"+col+row);
                     }
                 }
                 modelView.setMarket(market);

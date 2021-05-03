@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.model.GamePhase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,6 +112,22 @@ public class ModelView {
         this.slots.add(new int[3]);
         this.slots.add(new int[3]);
         this.slots.add(new int[3]);
+        this.deposits=new HashMap<>();
+        deposits.put("smallres", "empty");
+        deposits.put("smallqty", String.valueOf(0));
+        deposits.put("midres", "empty");
+        deposits.put("midqty", String.valueOf(0));
+        deposits.put("bigres", "empty");
+        deposits.put("bigqty", String.valueOf(0));
+        this.strongbox= new HashMap<>();
+        String[] res={"BLUE", "PURPLE", "GREY", "YELLOW"};
+        String box, qty;
+        for (int i=0; i<res.length; i++){
+            box="strres"+i;
+            qty="strqty"+i;
+            strongbox.put(box, res[i]);
+            strongbox.put(qty, String.valueOf(0));
+        }
     }
 
     /**

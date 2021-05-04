@@ -79,9 +79,12 @@ public class AnswerHandler implements SourceListener {
                     modelView.setLeaders(leaders);
 
                     viewListener.fireUpdates(value.get("action"), null);
+                } else {
+                    // other players
+                    map.put("other", map.get("player"));
+                    map.remove("player");
+                    viewListener.fireUpdates(map.get("action"), map);
                 }
-
-                viewListener.fireUpdates(map.get("action"), map);
 
                 break;
 
@@ -440,7 +443,7 @@ public class AnswerHandler implements SourceListener {
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
                     // the player who ended his turn
 
-                    // DUBBIO SE METTERE QUESTO FUORI DAL PRIMO IF
+                    // FORSE QUESTO FUORI DAL PRIMO IF
                     if (modelView.isSoloGame()) {
                         modelView.setToken(Integer.parseInt(value.get("tokenActivated")));
                         modelView.setBlackCross(Integer.parseInt(value.get("blackPos")));

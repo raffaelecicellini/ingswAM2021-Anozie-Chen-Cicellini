@@ -401,4 +401,21 @@ public class ModelView {
     public void setPhase(GamePhase phase) {
         this.phase = phase;
     }
+
+    public ArrayList<String> getResMarket(String chosen, int ind) {
+        ArrayList<String> res = new ArrayList<>();
+
+        if (chosen.equalsIgnoreCase("row")) {
+            for (int col = 0; col < 4; col++) {
+                res.add(getMarket()[col][ind]);
+            }
+        } else
+        if (chosen.equalsIgnoreCase("col")) {
+            for (int row = 0; row < 3; row++) {
+                res.add(getMarket()[ind][row]);
+            }
+        }
+
+        return res;
+    }
 }

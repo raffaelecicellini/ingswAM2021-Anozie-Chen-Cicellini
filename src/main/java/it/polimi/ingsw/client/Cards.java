@@ -87,7 +87,7 @@ public class Cards {
      * @return a String representing the resource requested as input for the production of the LeaderCard
      */
     public static String getProductionById(int id){
-        switch (id){
+        switch (id) {
             case 15: return "BLUE";
             case 16: return "PURPLE";
             case 17: return "GREY";

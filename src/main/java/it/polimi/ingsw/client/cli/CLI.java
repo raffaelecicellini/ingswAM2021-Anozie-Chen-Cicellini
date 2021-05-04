@@ -6,14 +6,12 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.SoloGame;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import it.polimi.ingsw.notifications.Source;
+import it.polimi.ingsw.notifications.SourceListener;
 import java.io.PrintStream;
 import java.util.*;
 
-public class CLI implements Runnable, PropertyChangeListener {
+public class CLI implements Runnable, SourceListener {
     //used in online
     private int port;
     private String address;
@@ -23,7 +21,7 @@ public class CLI implements Runnable, PropertyChangeListener {
     private Game model;
     private boolean isSolo;
     //used in both cases
-    private final PropertyChangeSupport listener= new PropertyChangeSupport(this);
+    private final Source listener= new Source();
     private ModelView modelView;
     private final PrintStream output;
     private final Scanner input;
@@ -43,7 +41,7 @@ public class CLI implements Runnable, PropertyChangeListener {
             model= new SoloGame();
             model.setListener(answerHandler);
             controller= new Controller(model, answerHandler);
-            listener.addPropertyChangeListener(controller);
+            listener.addListener(controller);
         }
     }
 
@@ -69,7 +67,7 @@ public class CLI implements Runnable, PropertyChangeListener {
         modelView.setName(name);
         if (this.isSolo){
             model.createPlayer(name);
-            listener.firePropertyChange("start", null, null);
+            listener.fireUpdates("start", null);
         }
         else{
             confirmed=false;
@@ -103,7 +101,7 @@ public class CLI implements Runnable, PropertyChangeListener {
                 CLI.main(null);
             }
             System.out.println("Connection established!");
-            listener.addPropertyChangeListener(new ActionParser(connectionSocket));
+            listener.addListener(new ActionParser(connectionSocket));
         }
     }
 
@@ -210,6 +208,11 @@ public class CLI implements Runnable, PropertyChangeListener {
     private void buy(){
         //chiede col e row, vede se ci sono leader sconto attivi e costruisce array di sconti. Chiama getCostById e per ogni
         //risorsa chiede da dove prenderla. Alla fine stampa mossa e chiede conferma: se si invia, altrimenti chiama printActions e ritorna
+        if (modelView.isDoneMandatory()){
+            System.err.println("You already did a mandatory action! You cannot take resources from market in this turn!");
+            printActions();
+            return;
+        }
         System.out.println("Insert the row, number between 0 and 2");
         System.out.print(">");
 
@@ -318,7 +321,7 @@ public class CLI implements Runnable, PropertyChangeListener {
             printActions();
             return;
         }
-        listener.firePropertyChange("buy",null,action);
+        listener.fireUpdates("buy", action);
     }
 
     private void produce(){
@@ -504,7 +507,7 @@ public class CLI implements Runnable, PropertyChangeListener {
             return;
         }
 
-        listener.firePropertyChange("swap",null,action);
+        listener.fireUpdates("swap", action);
     }
 
     /**
@@ -543,7 +546,7 @@ public class CLI implements Runnable, PropertyChangeListener {
         System.out.print(">");
         if (input.nextLine().equalsIgnoreCase("yes")){
             modelView.setActiveTurn(false);
-            listener.firePropertyChange(map.get("action"), null, map);
+            listener.fireUpdates(map.get("action"), map);
         }
     }
 
@@ -583,7 +586,7 @@ public class CLI implements Runnable, PropertyChangeListener {
         System.out.print(">");
         if (input.nextLine().equalsIgnoreCase("yes")){
             modelView.setActiveTurn(false);
-            listener.firePropertyChange(map.get("action"), null, map);
+            listener.fireUpdates(map.get("action"), map);
         }
     }
 
@@ -619,7 +622,7 @@ public class CLI implements Runnable, PropertyChangeListener {
         action.put("action","disconnect");
         action.put("player",modelView.getName());
 
-        listener.firePropertyChange("disconnect",null,action);
+        listener.fireUpdates("disconnect", action);
     }
 
     private void clearScreen(){
@@ -691,7 +694,7 @@ public class CLI implements Runnable, PropertyChangeListener {
             return;
         }
 
-        listener.firePropertyChange("chooseleaders",null,action);
+        listener.fireUpdates("chooseleaders", action);
 
 
     }
@@ -763,7 +766,7 @@ public class CLI implements Runnable, PropertyChangeListener {
             return;
         }
 
-        listener.firePropertyChange("chooseresources",null,action);
+        listener.fireUpdates("chooseresources", action);
     }
 
     /**
@@ -817,15 +820,15 @@ public class CLI implements Runnable, PropertyChangeListener {
      */
     private void printDeps(){
         //Stampa in modo formattato i depositi e lo strongbox (res=..., amount=..., slots remaining=...)
-        int small[] = new int[1];
+        int[] small = new int[1];
         small[0] = modelView.getDeposits().get("smallqty")!= null? Integer.parseInt(modelView.getDeposits().get("smallqty")): 0;
-        int mid[] = new int[1];
+        int[] mid = new int[1];
         mid[0] = modelView.getDeposits().get("midqty")!= null? Integer.parseInt(modelView.getDeposits().get("midqty")): 0;
-        int big[] = new int[1];
+        int[] big = new int[1];
         big[0] = modelView.getDeposits().get("bigqty")!= null? Integer.parseInt(modelView.getDeposits().get("bigqty")): 0;
-        int sp1[] = new int[1];
+        int[] sp1 = new int[1];
         sp1[0] = modelView.getDeposits().get("sp1qty")!= null? Integer.parseInt(modelView.getDeposits().get("sp1qty")): 0;
-        int sp2[] = new int[1];
+        int[] sp2 = new int[1];
         sp2[0] = modelView.getDeposits().get("sp2qty")!= null? Integer.parseInt(modelView.getDeposits().get("sp2qty")): 0;
         System.out.println("+------+");
         System.out.println("|"+ printDepCell(small,"small")+"|");
@@ -891,13 +894,13 @@ public class CLI implements Runnable, PropertyChangeListener {
     private String printLastLineDep(int a) {
         if (a == 1) {
             if (modelView.getDeposits().get("sp1")!=null)
-                if (modelView.getDeposits().get("sp1").toUpperCase() == "BLUE" || modelView.getDeposits().get("sp1").toUpperCase() == "GREY")
+                if (modelView.getDeposits().get("sp1").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp1").toUpperCase().equals("GREY"))
                     return " "+modelView.getDeposits().get("sp1").toUpperCase()+" ";
                 else return modelView.getDeposits().get("sp1").toUpperCase();
             else return "      ";
         } else {
             if (modelView.getDeposits().get("sp2")!=null)
-                if (modelView.getDeposits().get("sp2").toUpperCase() == "BLUE" || modelView.getDeposits().get("sp2").toUpperCase() == "GREY")
+                if (modelView.getDeposits().get("sp2").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp2").toUpperCase().equals("GREY"))
                     return " "+modelView.getDeposits().get("sp2").toUpperCase()+" ";
                 else return modelView.getDeposits().get("sp2").toUpperCase();
             else return "      ";
@@ -953,7 +956,7 @@ public class CLI implements Runnable, PropertyChangeListener {
 
     //AnswerHandler notifies it of changes, cli reads the ModelView and prints the new state
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        //a seconda del propertyName passato da answerhandler, chiama un metodo diverso (magari stampando un mex prima)
+    public void update(String propertyName, Map<String, String> value) {
+
     }
 }

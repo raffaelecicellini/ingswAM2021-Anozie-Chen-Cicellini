@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.notifications.SourceListener;
 
 import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
@@ -86,7 +87,7 @@ public class ConnectionSocket {
      * @param answerHandler is the answerHandler that will be given to the SocketListener.
      * @return if the client successfully connected to the server
      */
-    public boolean setup(String message, PropertyChangeListener answerHandler) {
+    public boolean setup(String message, SourceListener answerHandler) {
         BufferedReader input;
         Gson gson = new Gson();
         Map<String, String> answer;

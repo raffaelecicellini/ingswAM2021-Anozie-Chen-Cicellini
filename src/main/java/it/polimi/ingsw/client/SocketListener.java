@@ -2,9 +2,8 @@ package it.polimi.ingsw.client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import it.polimi.ingsw.notifications.Source;
+import it.polimi.ingsw.notifications.SourceListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
@@ -33,7 +32,7 @@ public class SocketListener implements Runnable{
     /**
      * Is the thread's listener.
      */
-    private final PropertyChangeSupport listener = new PropertyChangeSupport(this);
+    private final Source listener = new Source();
 
     /**
      * Constructor SocketListener creates a new SocketListener instance.
@@ -41,10 +40,10 @@ public class SocketListener implements Runnable{
      * @param input is the input stream.
      * @param answerHandler is the AnswerHandler.
      */
-    public SocketListener(Socket socket, BufferedReader input, PropertyChangeListener answerHandler) {
+    public SocketListener(Socket socket, BufferedReader input, SourceListener answerHandler) {
         this.socket = socket;
         this.input = input;
-        listener.addPropertyChangeListener(answerHandler);
+        listener.addListener(answerHandler);
         active = true;
     }
 
@@ -75,7 +74,7 @@ public class SocketListener implements Runnable{
      */
     public void actionHandler(Map<String,String> message) {
         String action = message.get("action");
-        listener.firePropertyChange(message.get("action"),null,message);
+        listener.fireUpdates(message.get("action"), message);
         if (action.toLowerCase().equals("end") || action.toLowerCase().equals("endgame"))
             close();
     }

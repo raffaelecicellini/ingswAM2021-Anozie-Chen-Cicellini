@@ -6,9 +6,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SoloGame;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import it.polimi.ingsw.notifications.Source;
+import it.polimi.ingsw.notifications.SourceListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +18,7 @@ import java.util.Map;
  * GameHandler manages a single match, notifying the controller about the actions that the clients want to do and
  * receiving the change events of the model and the controller
  */
-public class GameHandler implements PropertyChangeListener {
+public class GameHandler implements SourceListener {
 
     /**
      * It is the Controller of the current game
@@ -32,7 +31,7 @@ public class GameHandler implements PropertyChangeListener {
     /**
      * @see PropertyChangeSupport
      */
-    private final PropertyChangeSupport controllerListener=new PropertyChangeSupport(this);
+    private final Source controllerListener=new Source();
     /**
      * This attribute is used to save the ClientHandler of each player for the current game based on their names
      */
@@ -54,7 +53,7 @@ public class GameHandler implements PropertyChangeListener {
         this.controller=new Controller(this.model, this);
         //this.controller.setListener(this);
         this.players=new HashMap<>();
-        controllerListener.addPropertyChangeListener(this.controller);
+        controllerListener.addListener(this.controller);
     }
 
     /**
@@ -80,7 +79,7 @@ public class GameHandler implements PropertyChangeListener {
         sendAll(jsonMessage);
 
         //start the game
-        controllerListener.firePropertyChange("start", null, null);
+        controllerListener.fireUpdates("start", null);
     }
 
     /**
@@ -125,7 +124,7 @@ public class GameHandler implements PropertyChangeListener {
         //controls if the move can be done
         if (model.getPhase()!=GamePhase.NOTSTARTED){
             if (model.getCurrentPlayer().getName().equalsIgnoreCase(player)){
-                controllerListener.firePropertyChange(message.get("action"), null, message);
+                controllerListener.fireUpdates(message.get("action"), message);
             }
             else {
                 Map<String, String> map= new HashMap<>();
@@ -275,107 +274,102 @@ public class GameHandler implements PropertyChangeListener {
         return new ArrayList<ClientHandler>(players.values());
     }
 
-    /**
-     * @see PropertyChangeListener#propertyChange(PropertyChangeEvent)
-     */
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void update(String propertyName, Map<String, String> value) {
         //switch for different kind of maps sent by model and controller
-        String type=evt.getPropertyName();
-        Map<String, String> message= (Map<String, String>) evt.getNewValue();
         Gson gson=new Gson();
         String jsonMessage;
         String addressee;
         System.out.println("I am in GameHandler, ready to send a message");
-        switch (type.toUpperCase()){
+        switch (propertyName.toUpperCase()){
             case "STARTED":
                 //sendall
-                jsonMessage=gson.toJson(message);
+                jsonMessage=gson.toJson(value);
                 System.out.println("I am sending a started message, GameHandler");
                 sendAll(jsonMessage);
                 break;
             case "YOURTURN":
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "CHOOSELEADERS":
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 System.out.println("I am sending a choose leaders message");
                 break;
             case "OKLEADERS":
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "CHOOSERESOURCES":
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "OKRESOURCES":
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "BUY":
                 //different sendall
-                jsonMessage=gson.toJson(message);
-                addressee=message.get("player");
+                jsonMessage=gson.toJson(value);
+                addressee=value.get("player");
                 sendSingle(jsonMessage, addressee);
                 if (playersNumber>1){
-                    Map<String, String> buyToOthers=createBuyMessage(message);
+                    Map<String, String> buyToOthers=createBuyMessage(value);
                     String jsonBuyOthers=gson.toJson(buyToOthers);
                     sendAllExcept(jsonBuyOthers, addressee);
                 }
                 break;
             case "PRODUCE":
                 //singlesend
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "MARKET":
                 //different sendall
-                jsonMessage=gson.toJson(message);
-                addressee=message.get("player");
+                jsonMessage=gson.toJson(value);
+                addressee=value.get("player");
                 sendSingle(jsonMessage, addressee);
                 if (playersNumber>1){
-                    Map<String, String> buyToOthers=createMarketMessage(message);
+                    Map<String, String> buyToOthers=createMarketMessage(value);
                     String jsonMarketToOthers=gson.toJson(buyToOthers);
                     sendAllExcept(jsonMarketToOthers, addressee);
                 }
                 break;
             case "SWAP":
                 //singlesend
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "ACTIVATE":
                 //singlesend
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "DISCARD":
                 //singlesend
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "ENDTURN":
                 //singlesend (model fires different messages for each client/player)
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
             case "ENDGAME":
                 //singlesend
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 //CLOSE CONNECTION
                 players.get(addressee).removeClient();
@@ -383,8 +377,8 @@ public class GameHandler implements PropertyChangeListener {
                 break;
             case "ERROR":
                 //singlesend
-                addressee=message.get("player");
-                jsonMessage=gson.toJson(message);
+                addressee=value.get("player");
+                jsonMessage=gson.toJson(value);
                 System.out.println(jsonMessage);
                 sendSingle(jsonMessage, addressee);
                 break;

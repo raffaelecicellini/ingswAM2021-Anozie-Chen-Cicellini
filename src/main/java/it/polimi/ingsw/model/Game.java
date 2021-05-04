@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import it.polimi.ingsw.notifications.Source;
+import it.polimi.ingsw.notifications.SourceListener;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,9 +67,9 @@ public class Game {
      */
     private GamePhase phase;
     /**
-     * @see PropertyChangeSupport
+     * @see Source
      */
-    private final PropertyChangeSupport listener=new PropertyChangeSupport(this);
+    private final Source listener=new Source();
 
     /**
      * Constructor of the Game class. It instantiates the Market, the LeaderDeck and the DevelopDecks for the current game.
@@ -95,8 +94,8 @@ public class Game {
      * Simple method used to set the view as listener of the model
      * @param view the view object that implements PropertyChangeListener
      */
-    public void setListener(PropertyChangeListener view){
-        this.listener.addPropertyChangeListener(view);
+    public void setListener(SourceListener view){
+        this.listener.addListener(view);
     }
 
     /**
@@ -224,7 +223,7 @@ public class Game {
             }
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -249,7 +248,7 @@ public class Game {
             state.put(cardId, String.valueOf(id));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -335,7 +334,7 @@ public class Game {
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -401,7 +400,7 @@ public class Game {
             state.put("newPos", String.valueOf(newPos));
         }
 
-        this.listener.firePropertyChange(state.get("action"), null, state);
+        this.listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -527,7 +526,7 @@ public class Game {
             else state.put(tile, "nothing");
         }
 
-        this.listener.firePropertyChange(state.get("action"), null, state);
+        this.listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -544,7 +543,7 @@ public class Game {
         state.put("winner", winner);
         state.put("points", String.valueOf(points));
 
-        this.listener.firePropertyChange(state.get("action"), null, state);
+        this.listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -743,7 +742,7 @@ public class Game {
             state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -756,7 +755,7 @@ public class Game {
         state.put("content", content);
         state.put("player", currentPlayer.getName());
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -845,7 +844,7 @@ public class Game {
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -892,7 +891,7 @@ public class Game {
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -1008,7 +1007,7 @@ public class Game {
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**

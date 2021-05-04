@@ -197,6 +197,10 @@ public class CLI implements Runnable, SourceListener {
             case "QUIT":
                 quit();
                 break;
+            default:
+                System.err.println("Unrecognized command! Try again!");
+                printActions();
+                break;
         }
     }
 
@@ -207,11 +211,11 @@ public class CLI implements Runnable, SourceListener {
         //chiede col e row, vede se ci sono leader sconto attivi e costruisce array di sconti. Chiama getCostById e per ogni
         //risorsa chiede da dove prenderla. Alla fine stampa mossa e chiede conferma: se si invia, altrimenti chiama printActions e ritorna
         if (modelView.isDoneMandatory()){
-            System.err.println("You already did a mandatory action! You cannot take resources from market in this turn!");
+            System.err.println("You already did a mandatory action! You cannot buy a card in this turn!");
             printActions();
             return;
         }
-        System.out.println("Insert the row, number between 0 and 2");
+        System.out.println(">Insert the row, number between 0 and 2");
         System.out.print(">");
 
         int row = -1;
@@ -227,7 +231,7 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
 
-        System.out.println("Insert the column, number between 0 and 3");
+        System.out.println(">Insert the column, number between 0 and 3");
         System.out.print(">");
         int column = -1;
         try {
@@ -242,7 +246,7 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
 
-        System.out.println("Insert your personal board slot index in which you cant to place the card, number between 0 and 2");
+        System.out.println(">Insert your personal board slot index in which you want to place the card, number between 0 and 2");
         System.out.print(">");
         int ind = -1;
         try {
@@ -256,9 +260,15 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
 
+        //HANSON
         ArrayList<String> discounts = new ArrayList<>();
-        discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
-        discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+        if (modelView.getLeaders().get("state0").equalsIgnoreCase("active")) {
+            discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
+        }
+        if (modelView.getLeaders().get("state1").equalsIgnoreCase("active")) {
+            discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+        }
+
         ArrayList<String> cost = Cards.getCostById(modelView.getDevelopDecks()[column][row],discounts);
 
         Map<String,String> action = new HashMap<>();
@@ -281,7 +291,7 @@ public class CLI implements Runnable, SourceListener {
         int i = 1;
         for (String x : cost) {
             if (x != null) {
-                System.out.println("Resource " + x + " tell me where you want to take it from. Possible choices: small, mid, big, sp1, sp2, strongbox");
+                System.out.println(">Resource " + x + ": tell me where you want to take it from. Possible choices: small, mid, big, sp1, sp2, strongbox");
                 System.out.print(">");
                 String choice = input.nextLine();
                 if (!possibleInput.contains(choice.toLowerCase())) {
@@ -330,7 +340,7 @@ public class CLI implements Runnable, SourceListener {
         //chiede pos di input e res di output. Alla fine stampa mossa e chiede conferma
 
         if (modelView.isDoneMandatory()){
-            System.err.println("You already did a mandatory action! You cannot take resources from market in this turn!");
+            System.err.println("You already did a mandatory action! You cannot activate production in this turn!");
             printActions();
             return;
         }
@@ -338,12 +348,12 @@ public class CLI implements Runnable, SourceListener {
         String answer;
         Map<String, String> map = new HashMap<>();
 
-        System.out.println("Do you want to activate the base production? [yes/no] ");
+        System.out.println(">Do you want to activate the base production? [yes/no] ");
         System.out.print(">");
         answer = input.nextLine();
 
         while (!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no")) {
-            System.out.println("I can't understand! Only type yes or no! ");
+            System.out.println(">I can't understand! Only type yes or no! ");
             System.out.print(">");
             answer = input.nextLine();
         }
@@ -352,16 +362,16 @@ public class CLI implements Runnable, SourceListener {
             map.put("prod0", answer.toLowerCase());
 
             for (int i = 1; i < 3; i++) {
-                System.out.println("Which resource would you like to trade in? [" + i + "/2] ");
+                System.out.println(">Which resource would you like to trade in? [" + i + "/2] ");
                 System.out.print(">");
                 answer = input.nextLine();
                 map.put("in0" + i, answer);
-                System.out.println("Where would you like to take it from? [small, mid, big, sp1, sp2, strongbox] ");
+                System.out.println(">Where would you like to take it from? [small, mid, big, sp1, sp2, strongbox] ");
                 System.out.print(">");
                 answer = input.nextLine();
                 map.put("pos0" + i, answer);
             }
-            System.out.println("Which resource would you like to produce? ");
+            System.out.println(">Which resource would you like to produce? ");
             System.out.print(">");
             answer = input.nextLine();
             map.put("out0", answer);
@@ -380,12 +390,12 @@ public class CLI implements Runnable, SourceListener {
             // if a develop card is present
             if (devCardIndex >= 1 && devCardIndex <= 3) {
 
-                System.out.println("Would you like to activate the production in the slot " + (num_slots + 1) + "? [yes/no] ");
+                System.out.println(">Would you like to activate the production in the slot " + (num_slots + 1) + "? [yes/no] ");
                 System.out.print(">");
                 answer = input.nextLine();
 
                 while (!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no")) {
-                    System.out.println("I can't understand! Only type yes or no! ");
+                    System.out.println(">I can't understand! Only type yes or no! ");
                     System.out.print(">");
                     answer = input.nextLine();
                 }
@@ -395,7 +405,7 @@ public class CLI implements Runnable, SourceListener {
                     map.put("prod" + (num_slots + 1), answer.toLowerCase());
                     // ask input
                     if (devCardIndex < modelView.getSlots().get(num_slots).length) {
-                        ArrayList<String> inputRes = getInputById(modelView.getSlots().get(num_slots)[devCardIndex]);
+                        ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots().get(num_slots)[devCardIndex]);
                         for (int res = 0; res < inputRes.size(); res++) {
                             System.out.println("From where would you like to take the " + inputRes.get(res) + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
                             System.out.print(">");
@@ -418,12 +428,12 @@ public class CLI implements Runnable, SourceListener {
             // if leader card is a LevTwo leader && is active
             if (color != null && modelView.getLeaders().get("state" + leadercardpos).equals("active")) {
 
-                System.out.println("Would you like to activate the leader production (" + color + " resource in input)? [yes/no] ");
+                System.out.println(">Would you like to activate the leader production (" + color + " resource in input)? [yes/no] ");
                 System.out.print(">");
                 answer = input.nextLine();
 
                 while (!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no")) {
-                    System.out.println("I can't understand! Only type yes or no! ");
+                    System.out.println(">I can't understand! Only type yes or no! ");
                     System.out.print(">");
                     answer = input.nextLine();
                 }
@@ -431,13 +441,13 @@ public class CLI implements Runnable, SourceListener {
                 if (answer.equalsIgnoreCase("yes")) {
                     map.put("prod" + (num_slots+1), answer.toLowerCase());
 
-                    System.out.println("From where would you like to take the " + color + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
+                    System.out.println(">From where would you like to take the " + color + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
                     System.out.print(">");
                     answer = input.nextLine();
                     // "pos41"
-                    map.put("pos" + (num_slots+1) + (leadercardpos+1), answer);
+                    map.put("pos" + (num_slots+1) + "1", answer);
 
-                    System.out.println("Which resource would you like to produce? ");
+                    System.out.println(">Which resource would you like to produce? ");
                     System.out.print(">");
                     answer = input.nextLine();
                     // "out4"
@@ -447,10 +457,11 @@ public class CLI implements Runnable, SourceListener {
                     map.put("prod" + (num_slots+1), answer.toLowerCase());
                 }
             }
+            num_slots++;
         }
 
         // send back the situation and wait for confirmation
-        System.out.println("Are you sure do you want activate the production with these resources? [yes/no] ");
+        System.out.println(">Are you sure do you want to activate the production with these resources? [yes/no] ");
         for (int i = 0; i < map.size(); i++) {
             if (map.containsKey("prod" + i) && map.get("prod" + i).equals("yes")) {
                 System.out.print(map.get("prod" + i + ": IN = (")) ;
@@ -479,7 +490,7 @@ public class CLI implements Runnable, SourceListener {
 
         answer = input.nextLine();
         while (!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no")) {
-            System.out.println("I can't understand! Only type yes or no! ");
+            System.out.println(">I can't understand! Only type yes or no! ");
             System.out.print(">");
             answer = input.nextLine();
         }
@@ -490,13 +501,13 @@ public class CLI implements Runnable, SourceListener {
             listener.fireUpdates(map.get("action"), map);
         } else
             if (answer.equalsIgnoreCase("no")) {
-                System.out.println("Alright, you can type the action again!");
+                System.out.println(">Alright, you can type the action again!");
                 printActions();
-                System.out.print(">");
             }
 
     }
 
+    //WHAT?
     private int getTopIndex(int[] slot) {
         int devCardIndex = 0;
 
@@ -529,7 +540,8 @@ public class CLI implements Runnable, SourceListener {
         System.out.println(">Insert row/col and the index where you want to take resources from (es \"row 1\", the index must be between 1 and 3 (for row) or 4 (for col))");
         System.out.print(">");
         String[] where= input.nextLine().split(" ");
-        if (!where[0].equalsIgnoreCase("row") || !where[0].equalsIgnoreCase("col")){
+        System.out.println(where[0] + " "+ where[1]);
+        if (!where[0].equalsIgnoreCase("row") && !where[0].equalsIgnoreCase("col")){
             System.err.println("Invalid input! You must insert \"row\" or \"col\"! Try again!");
             printActions();
         }
@@ -553,12 +565,12 @@ public class CLI implements Runnable, SourceListener {
             }
             else{
                 map.put(where[0].toLowerCase(), where[1]);
-                ArrayList<String> res= modelView.getResMarket(where[0], idx);
+                ArrayList<String> res= modelView.getResMarket(where[0], idx-1);
                 int i=1;
                 String curr;
                 for (String x: res) {
                     curr="pos"+i;
-                    if (x.equalsIgnoreCase("red")) map.put(curr, "x");
+                    if (x.equalsIgnoreCase("red")) map.put(curr, "small");
                     else if (x.equalsIgnoreCase("white")){
                         //controlli white
                         Map<String, String> leaders= modelView.getLeaders();
@@ -571,7 +583,7 @@ public class CLI implements Runnable, SourceListener {
                                 colors.add(white);
                             }
                         }
-                        if (colors.isEmpty()) map.put(curr, "x");
+                        if (colors.isEmpty()) map.put(curr, "small");
                         else if(colors.size()==1){
                             System.out.println(">Current resource: "+colors.get(0)+". Where do you want to put it? (small, mid, big, sp1, sp2)");
                             System.out.print(">");
@@ -595,6 +607,7 @@ public class CLI implements Runnable, SourceListener {
                         String pos=input.nextLine();
                         map.put(curr, pos);
                     }
+                    i++;
                 }
                 //STAMPA MOSSA E CHIEDI CONFERMA A UTENTE, POI INVIA
                 System.out.println(">Here is the action you chose to do:");
@@ -616,6 +629,7 @@ public class CLI implements Runnable, SourceListener {
                     modelView.setActiveTurn(false);
                     listener.fireUpdates(map.get("action"), map);
                 }
+                else printActions();
             }
         }
     }
@@ -845,42 +859,46 @@ public class CLI implements Runnable, SourceListener {
         System.out.println("ID: "+modelView.getLeaders().get("leader3")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader3"))));
 
         ArrayList<String> possibleInput = new ArrayList<>();
-        possibleInput.add(modelView.getLeaders().get("leader0"));
+        possibleInput.add("1");
+        possibleInput.add("2");
+        possibleInput.add("3");
+        possibleInput.add("4");
+        /*possibleInput.add(modelView.getLeaders().get("leader0"));
         possibleInput.add(modelView.getLeaders().get("leader1"));
         possibleInput.add(modelView.getLeaders().get("leader2"));
-        possibleInput.add(modelView.getLeaders().get("leader3"));
+        possibleInput.add(modelView.getLeaders().get("leader3"));*/
         String choice;
         Map<String,String> action = new HashMap<>();
         action.put("action","chooseleaders");
         action.put("player",modelView.getName());
 
-        System.out.println("Insert the first leader id.");
+        System.out.println("Insert the index of the first leader.");
         System.out.print(">");
         choice = input.nextLine();
         while (!possibleInput.contains(choice)){
-            System.out.println("Insert the correct id");
+            System.out.println("Insert the correct index");
             System.out.print(">");
             choice = input.nextLine();
         }
 
-        action.put("leader0",choice);
+        action.put("ind1",choice);
         possibleInput.remove(choice);
 
-        System.out.println("Insert the second leader id.");
+        System.out.println("Insert the index of the second leader.");
         System.out.print(">");
         choice = input.nextLine();
         while (!possibleInput.contains(choice)){
-            System.out.println("Insert the correct id");
+            System.out.println("Insert the correct index");
             System.out.print(">");
             choice = input.nextLine();
         }
-        action.put("leader1",choice);
+        action.put("ind2",choice);
 
         System.out.println("You selected these leaders:");
-        System.out.println("ID :"+action.get("leader0"));
-        System.out.println(Cards.getLeaderById(Integer.parseInt(action.get("leader0"))));
-        System.out.println("ID :"+action.get("leader1"));
-        System.out.println(Cards.getLeaderById(Integer.parseInt(action.get("leader1"))));
+        //System.out.println("ID :"+action.get("ind1"));
+        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader"+(Integer.parseInt(action.get("ind1"))-1)))));
+        //System.out.println("ID :"+action.get("leader1"));
+        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader"+(Integer.parseInt(action.get("ind2"))-1)))));
         System.out.println("Do you want to confirm? [yes/no]");
         possibleInput.clear();
         possibleInput.add("yes");
@@ -1035,19 +1053,19 @@ public class CLI implements Runnable, SourceListener {
         int[] sp2 = new int[1];
         sp2[0] = modelView.getDeposits().get("sp2qty")!= null? Integer.parseInt(modelView.getDeposits().get("sp2qty")): 0;
         System.out.println("+------+");
-        System.out.println("|"+ printDepCell(small,"small")+"|");
+        System.out.println("|"+ printDepCell(small,"smallres")+"|");
         System.out.println("+------+------+");
-        System.out.println("|"+ printDepCell(mid,"mid")+"|"+ printDepCell(mid,"mid")+"|");
+        System.out.println("|"+ printDepCell(mid,"midres")+"|"+ printDepCell(mid,"midres")+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+ ");
-        System.out.println("|"+ printDepCell(big,"big")+"|"+ printDepCell(big,"big")+"|"+ printDepCell(big,"big")+"|   |"+ printDepCell(sp1,"sp1")+"|"+ printDepCell(sp1,"sp1")+"|   |"+ printDepCell(sp2,"sp2")+"|"+ printDepCell(sp2,"sp2")+"|");
+        System.out.println("|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|   |"+ printDepCell(sp1,"sp1")+"|"+ printDepCell(sp1,"sp1")+"|   |"+ printDepCell(sp2,"sp2")+"|"+ printDepCell(sp2,"sp2")+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+");
         System.out.println("\t\tnormal             sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
         System.out.println("\n");
         System.out.println("|STRONGBOX|");
-        System.out.println(modelView.getStrongbox().get("strres1").toUpperCase()+": " + modelView.getStrongbox().get("strres1qty"));
-        System.out.println(modelView.getStrongbox().get("strres2").toUpperCase()+": " + modelView.getStrongbox().get("strres2qty"));
-        System.out.println(modelView.getStrongbox().get("strres3").toUpperCase()+": " + modelView.getStrongbox().get("strres3qty"));
-        System.out.println(modelView.getStrongbox().get("strres4").toUpperCase()+": " + modelView.getStrongbox().get("strres4qty"));
+        System.out.println(modelView.getStrongbox().get("strres0").toUpperCase()+": " + modelView.getStrongbox().get("strqty0"));
+        System.out.println(modelView.getStrongbox().get("strres1").toUpperCase()+": " + modelView.getStrongbox().get("strqty1"));
+        System.out.println(modelView.getStrongbox().get("strres2").toUpperCase()+": " + modelView.getStrongbox().get("strqty2"));
+        System.out.println(modelView.getStrongbox().get("strres3").toUpperCase()+": " + modelView.getStrongbox().get("strqty3"));
 
     }
 
@@ -1058,7 +1076,7 @@ public class CLI implements Runnable, SourceListener {
      * @return the resource at a certain cell.
      */
     //prints each cell of the deposits
-    private String printDepCell(int i[], String dep) {
+    private String printDepCell(int[] i, String dep) {
         String resource = modelView.getDeposits().get(dep);
         if (resource == null)
             return "      ";
@@ -1177,13 +1195,14 @@ public class CLI implements Runnable, SourceListener {
     private void printTrack() {
 
         StringBuilder position = new StringBuilder(103);
-
+        System.out.println("MyPos: "+modelView.getPosition());
+        System.out.println("BlackPos: "+modelView.getBlackCross());
         if (modelView.isSoloGame()) {
             position.append("|");
             if (modelView.getPosition() == modelView.getBlackCross()) {
                 while (position.length() != modelView.getPosition()*4+1) position.append("   |");
                 position.append("$ X|");
-                while (position.length() != 101) position.append("   |");
+                while (position.length() <= 100) position.append("   |");
             } else {
 
                 while ((position.length() != modelView.getPosition()*4+1) &&
@@ -1203,13 +1222,13 @@ public class CLI implements Runnable, SourceListener {
                     position.append(" X ");
                 }
 
-                while (position.length() != 103) position.append("|  ");
+                while (position.length() <= 103) position.append("|   ");
             }
         } else {
             position.append("| ");
             while (position.length() != modelView.getPosition()*4+2) position.append("  | ");
             position.append("X ");
-            while (position.length() != 103) position.append("|  ");
+            while (position.length() <= 103) position.append("|   ");
         }
 
         StringBuilder tiles = new StringBuilder();
@@ -1247,7 +1266,6 @@ public class CLI implements Runnable, SourceListener {
         }
 
         tiles.append("+");
-
         System.out.println("                                             FAITH TRACK                                             ");
         System.out.println("+------------VP1---------VP2---------VP4---------VP6---------VP9---------VP12--------VP16-------VP20+");
         System.out.println(position);
@@ -1276,8 +1294,8 @@ public class CLI implements Runnable, SourceListener {
         switch (propertyName.toUpperCase()) {
 
             case "STARTED":
-
-                printBoard();
+                System.out.println("Game started!");
+                //printBoard();
 
                 break;
 
@@ -1285,6 +1303,7 @@ public class CLI implements Runnable, SourceListener {
 
                 if (value == null) {
                     // print leaders
+                    chooseLeaders();
                 } else {
                     System.out.println(value.get("other") + " is choosing his leaders!" );
                 }
@@ -1295,6 +1314,7 @@ public class CLI implements Runnable, SourceListener {
 
                 if (value == null) {
                     // print leaders
+                    printBoard();
                 } else {
                     System.out.println(value.get("other") + " has chosen his leaders!" );
                 }
@@ -1303,12 +1323,12 @@ public class CLI implements Runnable, SourceListener {
 
             case "CHOOSERESOURCES":
 
-                if (modelView.getName().equalsIgnoreCase(map.get("player"))) {
+                if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
 
                     if (value.containsKey("addpos")) {
                         // System.out.println("Your position on the Faith Track has also been increased!");
                     }
-
+                    chooseResources(Integer.parseInt(value.get("qty")));
                 } else {
                     System.out.println(value.get("other") + " is choosing his initial resources!" );
                 }
@@ -1318,8 +1338,9 @@ public class CLI implements Runnable, SourceListener {
             case "OKRESOURCES":
 
                 if (value == null) {
-                    printDeps();
-                    printTrack();
+                    printBoard();
+                    //printDeps();
+                    //printTrack();
                 } else {
                     System.out.println(value.get("other") + " has chosen his initial resources!" );
                 }
@@ -1330,9 +1351,11 @@ public class CLI implements Runnable, SourceListener {
 
                 if (value.get("player").equalsIgnoreCase(modelView.getName())) {
                     System.out.println(value.get("content"));
+                    printActions();
                 } else {
                     System.out.println("It's " + value.get("player") + "'s turn now!");
                 }
+                break;
 
             case "PRODUCE":
 
@@ -1365,6 +1388,7 @@ public class CLI implements Runnable, SourceListener {
                     // the player that has bought a dev card
                     System.out.println("Here is your new situation!");
                     printBoard();
+                    printActions();
 
                 } else {
                     System.out.println(value.get("other") + " has taken resources from the Market!" );
@@ -1381,6 +1405,7 @@ public class CLI implements Runnable, SourceListener {
                 if (value == null) {
                     //printDeps();
                     printBoard();
+                    printActions();
                 } else {
                     System.out.println(value.get("other") + " has swapped his deposits!" );
                 }
@@ -1392,6 +1417,7 @@ public class CLI implements Runnable, SourceListener {
                 if (value == null) {
                     // print leaders
                     // print extra deposit
+                    printBoard();
                 } else {
                     System.out.println(value.get("other") + " has activated his leader!" );
                 }
@@ -1412,9 +1438,10 @@ public class CLI implements Runnable, SourceListener {
 
             case "ENDTURN":
 
-                if (modelView.getName().equalsIgnoreCase(map.get("player"))) {
-                    System.out.println("The Token that has been activated is: " + map.get("tokenActivated"));
-                    // come attivo il token?
+                if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
+                    if (modelView.isSoloGame()){
+                        System.out.println("The Token that has been activated is: " + Cards.getTokenById(Integer.parseInt(value.get("tokenActivated"))));
+                    }// come attivo il token?
                     printBoard();
                 } else {
                     System.out.println(value.get("other") + " has ended his turn!" );
@@ -1439,12 +1466,16 @@ public class CLI implements Runnable, SourceListener {
                 if (value.get("player").equalsIgnoreCase(modelView.getName())) {
                     System.out.println(value.get("content"));
                 }
-
+                if (value.get("method").equalsIgnoreCase("chooseleaders")){
+                    chooseLeaders();
+                }
+                else if (value.get("method").equalsIgnoreCase("chooseresources")){
+                    chooseResources(modelView.getInitialRes());
+                }
+                else printActions();
                 break;
 
         }
-
-        //a seconda del propertyName passato da answerhandler, chiama un metodo diverso (magari stampando un mex prima)
     }
 
 }

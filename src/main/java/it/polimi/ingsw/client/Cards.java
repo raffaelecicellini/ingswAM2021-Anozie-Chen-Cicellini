@@ -934,7 +934,7 @@ public class Cards {
                 if(colors.get(1) != null)
                     cost.remove(colors.get(1));
                 return cost;
-            default: return null;
+            default: return cost;
         }
     }
 
@@ -1115,7 +1115,7 @@ public class Cards {
                 input.add("GREY");
                 input.add("PURPLE");
                 return input;
-            default: return null;
+            default: return input;
         }
     }
 

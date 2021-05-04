@@ -73,7 +73,7 @@ public class AnswerHandler implements SourceListener {
 
                     // it puts the four leaders on the modelview
                     Map<String, String> leaders = new HashMap<>();
-                    for (int i = 0; i < value.size() - 2; i++) {
+                    for (int i = 0; i < 4; i++) {
                         leaders.put("leader" + i, value.get("leader" + i));
                     }
                     modelView.setLeaders(leaders);
@@ -122,7 +122,7 @@ public class AnswerHandler implements SourceListener {
                     if (value.containsKey("addpos")) {
                         modelView.setPosition( Integer.parseInt(value.get("addpos")) );
                     }
-
+                    modelView.setInitialRes(Integer.parseInt(value.get("qty")));
                     // in newValues there are: player, action and qty
                     viewListener.fireUpdates(value.get("action"), value);
                 }
@@ -155,9 +155,9 @@ public class AnswerHandler implements SourceListener {
                     modelView.setPhase(GamePhase.FULLGAME);
                     modelView.setDoneMandatory(false);
                     modelView.setActiveTurn(true);
-                    viewListener.fireUpdates(map.get("action"), null);
-                }
 
+                }
+                viewListener.fireUpdates(value.get("action"), value);
                 break;
 
             case "BUY":
@@ -447,11 +447,12 @@ public class AnswerHandler implements SourceListener {
                     if (modelView.isSoloGame()) {
                         modelView.setToken(Integer.parseInt(value.get("tokenActivated")));
                         modelView.setBlackCross(Integer.parseInt(value.get("blackPos")));
+                        modelView.setActiveTurn(true);
                     } else {
                         modelView.setActiveTurn(false);
                     }
 
-                    viewListener.fireUpdates(value.get("action"), null);
+                    viewListener.fireUpdates(value.get("action"), value);
 
                 } else {
                     // other players
@@ -474,7 +475,7 @@ public class AnswerHandler implements SourceListener {
             case "ERROR":
 
                 if (modelView.getName().equals(value.get("player"))) {
-                    viewListener.fireUpdates(map.get("action"), map);
+                    viewListener.fireUpdates(value.get("action"), value);
                 }
 
                 break;

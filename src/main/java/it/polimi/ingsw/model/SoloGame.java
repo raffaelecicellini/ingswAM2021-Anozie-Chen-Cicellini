@@ -370,7 +370,7 @@ public class SoloGame extends Game{
         state.put("player", currentPlayer.getName());
         leaders=currentPlayer.getLeaders();
         for (int i=0; i<leaders.size(); i++){
-            cardId="card"+i;
+            cardId="leader"+i;
             id=leaders.get(i).getId();
             state.put(cardId, String.valueOf(id));
         }

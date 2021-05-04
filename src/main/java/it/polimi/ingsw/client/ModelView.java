@@ -85,6 +85,8 @@ public class ModelView {
      */
     private int blackCross;
 
+    private int initialRes;
+
     /**
      * Constructor of the class. It instantiates the faithtrack and the tiles
      */
@@ -128,6 +130,14 @@ public class ModelView {
             strongbox.put(box, res[i]);
             strongbox.put(qty, String.valueOf(0));
         }
+    }
+
+    public int getInitialRes(){
+        return this.initialRes;
+    }
+
+    public void setInitialRes(int res){
+        this.initialRes=res;
     }
 
     /**

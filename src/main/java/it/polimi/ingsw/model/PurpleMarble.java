@@ -42,7 +42,7 @@ public class PurpleMarble implements Marble{
         int dep= this.parseChoice(chosen);
         if (dep>=0 && dep<3){
             ResourceAmount current= deposits.get(dep);
-            if ((current.getColor()==Color.PURPLE && current.getAmount()<(dep+1)) || current.getAmount()==0){
+            if (current.getAmount()==0 || (current.getColor()==Color.PURPLE && current.getAmount()<(dep+1))){
                 int duplicate= checkDuplicates(deposits, dep);
                 if (duplicate>=0 && deposits.get(duplicate).getAmount()<(duplicate+1)){
                     throw new InvalidActionException("You can't put the " + PurpleMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one!");
@@ -59,6 +59,7 @@ public class PurpleMarble implements Marble{
                 }
                 ResourceAmount newval= new ResourceAmount(Color.PURPLE, current.getAmount()+1);
                 deposits.set(dep, newval);
+                return 0;
             }
             else if (current.getColor()==Color.PURPLE && current.getAmount()==(dep+1)){
                 if (checkSwap(deposits, dep)){
@@ -70,7 +71,7 @@ public class PurpleMarble implements Marble{
                 }
                 return 1;
             }
-            else if (current.getColor()!=Color.PURPLE){
+            else if (current.getColor()!=Color.PURPLE && current.getAmount()>0){
                 boolean space=checkSpace(deposits);
                 if (space){
                     throw new InvalidActionException("You can't put the " + PurpleMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one! (maybe with a swap)");
@@ -91,6 +92,7 @@ public class PurpleMarble implements Marble{
                 if (current.getColor()==Color.PURPLE && current.getAmount()<2){
                     ResourceAmount newval= new ResourceAmount(Color.PURPLE, current.getAmount()+1);
                     deposits.set(dep, newval);
+                    return 0;
                 }
                 else if (current.getColor()==Color.PURPLE && current.getAmount()==2){
                     boolean space=checkSpace(deposits);

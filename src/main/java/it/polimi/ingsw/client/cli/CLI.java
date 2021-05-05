@@ -260,15 +260,11 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
 
-        //HANSON
         ArrayList<String> discounts = new ArrayList<>();
-        if (modelView.getLeaders().get("state0").equalsIgnoreCase("active")) {
+        if (modelView.getLeaders().get("state0").equalsIgnoreCase("active"))
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
-        }
-        if (modelView.getLeaders().get("state1").equalsIgnoreCase("active")) {
+        if (modelView.getLeaders().get("state1").equalsIgnoreCase("active"))
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
-        }
-
         ArrayList<String> cost = Cards.getCostById(modelView.getDevelopDecks()[column][row],discounts);
 
         Map<String,String> action = new HashMap<>();
@@ -332,6 +328,12 @@ public class CLI implements Runnable, SourceListener {
         listener.fireUpdates("buy", action);
     }
 
+    /**
+     * Method used when the player decides to activate productions with Develop Cards. It checks if he has already done a mandatory
+     * action. If no, for each Develop Card, it asks the Player if he wants to activate it, and for each activated Develop Card it asks
+     * from where he wants to take the resources from. At the end it prints the action done by the user and asks confirmation.
+     * If so, it notifies the listener of the action of the user, otherwise does nothing.
+     */
     private void produce(){
         //prod0 la chiede: se no salva no, altrimenti salva yes e chiede res/pos della prima e della seconda, res di output.
         //Controlla gli slot (prendendo la carta in cima-AGGIUNGERE METODO IN MODELVIEW-): per ogni slot chiede se vuole attivarlo
@@ -347,6 +349,27 @@ public class CLI implements Runnable, SourceListener {
 
         String answer;
         Map<String, String> map = new HashMap<>();
+        List<String> validInputs = new ArrayList<>();
+        validInputs.add("small");
+        validInputs.add("mid");
+        validInputs.add("big");
+        validInputs.add("strongbox");
+        if (Integer.parseInt(modelView.getLeaders().get("leader0")) >= 7 &&
+                Integer.parseInt(modelView.getLeaders().get("leader0")) <= 10 &&
+                modelView.getLeaders().get("state0").equalsIgnoreCase("active") )
+            validInputs.add("sp1");
+        if (Integer.parseInt(modelView.getLeaders().get("leader1")) >= 7 &&
+                Integer.parseInt(modelView.getLeaders().get("leader1")) <= 10 &&
+                modelView.getLeaders().get("state1").equalsIgnoreCase("active") )
+            validInputs.add("sp2");
+
+        List<String> validColors = new ArrayList<>();
+        for (int i = 0; i < Color.values().length; i++) {
+            validColors.add(Color.values()[i].toString());
+        }
+        validColors.remove("GREEN");
+
+        int yes_count = 0;
 
         System.out.println(">Do you want to activate the base production? [yes/no] ");
         System.out.print(">");
@@ -359,65 +382,90 @@ public class CLI implements Runnable, SourceListener {
         }
 
         if (answer.equalsIgnoreCase("yes")) {
+            yes_count++;
             map.put("prod0", answer.toLowerCase());
 
             for (int i = 1; i < 3; i++) {
                 System.out.println(">Which resource would you like to trade in? [" + i + "/2] ");
                 System.out.print(">");
                 answer = input.nextLine();
-                map.put("in0" + i, answer);
-                System.out.println(">Where would you like to take it from? [small, mid, big, sp1, sp2, strongbox] ");
+                while (!validColors.contains(answer.toUpperCase())) {
+                    System.out.println("Wrong color selected: make sure to type correctly!");
+                    System.out.print(">");
+                    answer = input.nextLine();
+                }
+                map.put("in0" + i, answer.toUpperCase());
+                System.out.println("Where would you like to take it from? [small, mid, big, sp1, sp2, strongbox] ");
                 System.out.print(">");
                 answer = input.nextLine();
-                map.put("pos0" + i, answer);
+                while (!validInputs.contains(answer.toLowerCase())) {
+                    System.out.println("Wrong place selected: make sure to type correctly or if you have the special deposit!");
+                    System.out.print(">");
+                    answer = input.nextLine();
+                }
+                map.put("pos0" + i, answer.toLowerCase());
             }
             System.out.println(">Which resource would you like to produce? ");
             System.out.print(">");
             answer = input.nextLine();
-            map.put("out0", answer);
+            while (!validColors.contains(answer.toUpperCase())) {
+                System.out.println("Wrong color selected: make sure to type correctly!");
+                System.out.print(">");
+                answer = input.nextLine();
+            }
+            map.put("out0", answer.toUpperCase());
         } else
-            if (answer.equalsIgnoreCase("no")){
-                map.put("prod0", answer.toLowerCase());
+        if (answer.equalsIgnoreCase("no")){
+            map.put("prod0", answer.toLowerCase());
         }
 
         // for every slot
-        int num_slots;
-        for (num_slots = 0; num_slots < modelView.getSlots().size(); num_slots++) {
+        int num_slot;
+        for (num_slot = 0; num_slot < modelView.getSlots().size(); num_slot++) {
 
             // check the top index
-            int devCardIndex = getTopIndex(modelView.getSlots().get(num_slots));
+            int devCardIndex = modelView.getTopIndex(modelView.getSlots().get(num_slot));
 
             // if a develop card is present
-            if (devCardIndex >= 1 && devCardIndex <= 3) {
+            if (devCardIndex >= 0 && devCardIndex <= 2) {
 
                 System.out.println(">Would you like to activate the production in the slot " + (num_slots + 1) + "? [yes/no] ");
                 System.out.print(">");
                 answer = input.nextLine();
 
                 while (!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no")) {
-                    System.out.println(">I can't understand! Only type yes or no! ");
+                    System.out.println("I can't understand! Only type yes or no! ");
                     System.out.print(">");
                     answer = input.nextLine();
                 }
 
                 // if the player wants to activate the devCard
                 if (answer.equalsIgnoreCase("yes")) {
-                    map.put("prod" + (num_slots + 1), answer.toLowerCase());
+                    yes_count++;
+                    map.put("prod" + (num_slot + 1), answer.toLowerCase());
                     // ask input
-                    if (devCardIndex < modelView.getSlots().get(num_slots).length) {
-                        ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots().get(num_slots)[devCardIndex]);
-                        for (int res = 0; res < inputRes.size(); res++) {
-                            System.out.println("From where would you like to take the " + inputRes.get(res) + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
+
+                    ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots().get(num_slot)[devCardIndex]);
+                    for (int res = 0; res < inputRes.size(); res++) {
+                        System.out.println("From where would you like to take the " + inputRes.get(res) + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
+                        System.out.print(">");
+                        answer = input.nextLine();
+                        while (!validInputs.contains(answer.toLowerCase())) {
+                            System.out.println("Wrong place selected: make sure to type correctly or if you have the special deposit!");
                             System.out.print(">");
                             answer = input.nextLine();
-                            // "pos11"
-                            map.put("pos" + (num_slots + 1) + (res + 1), answer);
                         }
+                        // "pos11"
+                        map.put("pos" + (num_slot + 1) + (res + 1), answer.toLowerCase());
                     }
+
                 } else
-                    if (answer.equalsIgnoreCase("no")) {
-                    map.put("prod" + (num_slots + 1), answer.toLowerCase());
+                if (answer.equalsIgnoreCase("no")) {
+                    map.put("prod" + (num_slot + 1), answer.toLowerCase());
                 }
+            } else
+            if (devCardIndex == -1){
+                map.put("prod" + (num_slot + 1), "no");
             }
         }
 
@@ -439,52 +487,89 @@ public class CLI implements Runnable, SourceListener {
                 }
 
                 if (answer.equalsIgnoreCase("yes")) {
-                    map.put("prod" + (num_slots+1), answer.toLowerCase());
+                    yes_count++;
+                    // prod4, yes
+                    map.put("prod" + (num_slot+1), answer.toLowerCase());
 
                     System.out.println(">From where would you like to take the " + color + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
                     System.out.print(">");
                     answer = input.nextLine();
-                    // "pos41"
-                    map.put("pos" + (num_slots+1) + "1", answer);
+                    while (!validInputs.contains(answer.toLowerCase())) {
+                        System.out.println("Wrong place selected: make sure to type correctly or if you have the special deposit!");
+                        System.out.print(">");
+                        answer = input.nextLine();
+                    }
+                    // "pos41" o "pos51"
+                    map.put("pos" + (num_slot+1) + "1", answer.toLowerCase());
 
                     System.out.println(">Which resource would you like to produce? ");
                     System.out.print(">");
                     answer = input.nextLine();
+                    while (!validColors.contains(answer.toUpperCase())) {
+                        System.out.println("Wrong color selected: make sure to type correctly!");
+                        System.out.print(">");
+                        answer = input.nextLine();
+                    }
                     // "out4"
-                    map.put("out" + (num_slots+1), answer);
+                    map.put("out" + (num_slot+1), answer.toUpperCase());
                 } else
-                    if (answer.equalsIgnoreCase("no")){
-                    map.put("prod" + (num_slots+1), answer.toLowerCase());
+                if (answer.equalsIgnoreCase("no")){
+                    map.put("prod" + (num_slot+1), answer.toLowerCase());
                 }
+
+
+                num_slot++;
             }
-            num_slots++;
         }
 
         // send back the situation and wait for confirmation
-        System.out.println(">Are you sure do you want to activate the production with these resources? [yes/no] ");
-        for (int i = 0; i < map.size(); i++) {
-            if (map.containsKey("prod" + i) && map.get("prod" + i).equals("yes")) {
-                System.out.print(map.get("prod" + i + ": IN = (")) ;
+        System.out.println("Are you sure do you want activate the production with these resources? [yes/no] ");
+        StringBuilder str = new StringBuilder();
+        //for (int devCard = 0; devCard < yes_count; devCard++) {
 
-                if (i == 0) {
-                    System.out.print(map.get("in01") + ", " + map.get("pos01") + "), (" + map.get("in02") + ", " + map.get("pos02") + "); OUT = "  + map.get("out0"));
-                } else
-                    if (i >= 1 && i <=3) {
-                        int n_pos = 1;
-                        while (map.containsKey("pos" + i + n_pos)) {
-                            if (n_pos == 2) System.out.print(", (");
-                            System.out.print(          ", " + map.get("pos" + i + n_pos) + ")");
-                            if (n_pos == 2) System.out.print(";");
-                            n_pos++;
-                        }
-                    } else
-                        if (i >= 4 && i <= 5) {
-                            System.out.print(       ", " + map.get("pos" + i + "1") + "); OUT = " + map.get("out" + i));
-                            if (i == 5) System.out.println(";");
-                        }
+        int devCard = 0;
+        for (int i = 0; i < yes_count; i++) {
+            //System.out.println(map);
+            while (map.containsKey("prod" + devCard) && !map.get("prod" + devCard).equalsIgnoreCase("yes")) {
+                //System.out.println(devCard);
+                devCard++;
             }
 
+            str.setLength(0);
+            str.append("prod").append(devCard).append(": IN = (");
+            //System.out.print(map.get("prod" + devCard + ": IN = (")) ;
+
+            if (devCard == 0) {
+                str.append(map.get("in01").toUpperCase()).append(", ").append(map.get("pos01").toLowerCase()).append("), (").append(map.get("in02").toUpperCase())
+                        .append(", ").append(map.get("pos02").toLowerCase()).append("); OUT = ").append(map.get("out0").toUpperCase());
+                System.out.println(str);
+                //System.out.print(map.get("in01") + ", " + map.get("pos01") + "), (" + map.get("in02") + ", " + map.get("pos02") + "); OUT = "  + map.get("out0"));
+            } else if (devCard >= 1 && devCard <= 3) {
+                int n_pos = 1;
+                //System.out.println(devCard);
+                ArrayList<String> inputRes = getInputById(modelView.getSlots().get(devCard - 1)[modelView.getTopIndex(modelView.getSlots().get(devCard - 1))]);
+                // pos11 o pos12
+                while (map.containsKey("pos" + devCard + n_pos)) {
+                    // BLUE, SMALL), (GREY, MID);
+                    if (n_pos == 1) {
+                        str.append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(map.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                    }
+                    if (n_pos == 2) {
+                        str.append(", (").append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(map.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                    }
+                    n_pos++;
+                }
+                System.out.println(str);
+            } else if (devCard >= 4 && devCard <= 5) {
+                //BLUE, SMALL); OUT = GREY
+                str.append(Cards.getProductionById(Integer.parseInt(modelView.getLeaders().get("leader" + (devCard - 4))))).append(", ")
+                        .append(map.get("pos" + devCard + "1").toLowerCase()).append("); OUT = ").append(map.get("out" + devCard).toUpperCase());
+                System.out.println(str);
+            }
+
+            devCard++;
         }
+        //}
 
         System.out.print(">");
 
@@ -498,24 +583,13 @@ public class CLI implements Runnable, SourceListener {
         if (answer.equalsIgnoreCase("yes")) {
             map.put("action", "produce");
             map.put("player", modelView.getName());
+            modelView.setActiveTurn(false);
             listener.fireUpdates(map.get("action"), map);
         } else
-            if (answer.equalsIgnoreCase("no")) {
-                System.out.println(">Alright, you can type the action again!");
-                printActions();
-            }
-
-    }
-
-    //WHAT?
-    private int getTopIndex(int[] slot) {
-        int devCardIndex = 0;
-
-        while (slot[devCardIndex] != 0 && devCardIndex < slot.length) {
-            devCardIndex++;
+        if (answer.equalsIgnoreCase("no")) {
+            System.out.println("Alright, you can type the action again!");
+            printActions();
         }
-
-        return devCardIndex;
     }
 
     /**
@@ -780,6 +854,10 @@ public class CLI implements Runnable, SourceListener {
         }
     }
 
+    /**
+     * Method used when the player wants to end his turn. It checks if he has done a mandatory action. If yes, then it asks
+     * confirmation and if he confirms, it notifies the listener, otherwise does nothing.
+     */
     private void endTurn(){
         //controlla doneMandatory: se true chiede conferma e invia, altrimenti stampa err
 
@@ -798,6 +876,7 @@ public class CLI implements Runnable, SourceListener {
                 Map<String, String> map = new HashMap<>();
                 map.put("action", "endturn");
                 map.put("player", modelView.getName());
+                modelView.setActiveTurn(false);
                 listener.fireUpdates(map.get("action"), map);
             } else
                 if (answer.equalsIgnoreCase("no")) {
@@ -841,6 +920,9 @@ public class CLI implements Runnable, SourceListener {
         listener.fireUpdates("disconnect", action);
     }
 
+    /**
+     * Method used to clear the screen.
+     */
     private void clearScreen(){
         //comandi per pulire console
         System.out.print("\033[H\033[2J");
@@ -1163,6 +1245,9 @@ public class CLI implements Runnable, SourceListener {
         System.out.println(layer);
     }
 
+    /**
+     * Method used to print the Market.
+     */
     private void printMarket(){
         //Stampa in modo formattato il market e la outmarble
 
@@ -1191,12 +1276,13 @@ public class CLI implements Runnable, SourceListener {
         System.out.println("       |       |       |       |     ");
     }
 
-
+    /**
+     * Method used to print the Faith Track.
+     */
     private void printTrack() {
 
         StringBuilder position = new StringBuilder(103);
-        System.out.println("MyPos: "+modelView.getPosition());
-        System.out.println("BlackPos: "+modelView.getBlackCross());
+
         if (modelView.isSoloGame()) {
             position.append("|");
             if (modelView.getPosition() == modelView.getBlackCross()) {
@@ -1276,11 +1362,14 @@ public class CLI implements Runnable, SourceListener {
 
     }
 
+    /**
+     * Method used to print the Develop Card Slots.
+     */
     private void printSlots() {
 
-        String slot1 = String.valueOf(getTopIndex( modelView.getSlots().get(0)));
-        String slot2 = String.valueOf(getTopIndex( modelView.getSlots().get(1)));
-        String slot3 = String.valueOf(getTopIndex( modelView.getSlots().get(2)));
+        String slot1 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(0)));
+        String slot2 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(1)));
+        String slot3 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(2)));
 
         System.out.println("      +----------------------");
         System.out.println("\nslot1 -> ");
@@ -1339,8 +1428,6 @@ public class CLI implements Runnable, SourceListener {
 
                 if (value == null) {
                     printBoard();
-                    //printDeps();
-                    //printTrack();
                 } else {
                     System.out.println(value.get("other") + " has chosen his initial resources!" );
                 }
@@ -1361,6 +1448,7 @@ public class CLI implements Runnable, SourceListener {
 
                 if (value == null) {
                     printBoard();
+                    printActions();
                 } else {
                     System.out.println(value.get("other") + " has made some productions!" );
                 }
@@ -1371,22 +1459,21 @@ public class CLI implements Runnable, SourceListener {
 
                 if (value == null) {
                     // the player that has bought a dev card
-                    System.out.println("Here is your new situation!");
+                    //System.out.println("Here is your new situation!");
                     printBoard();
+                    printActions();
 
                 } else {
                     System.out.println(value.get("other") + " has bought a Develop Card!" );
+                    printBoard();
                 }
-
-                printDecks();
-
                 break;
 
             case "MARKET":
 
                 if (value == null) {
                     // the player that has bought a dev card
-                    System.out.println("Here is your new situation!");
+                    //System.out.println("Here is your new situation!");
                     printBoard();
                     printActions();
 

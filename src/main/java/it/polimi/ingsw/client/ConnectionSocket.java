@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.notifications.SourceListener;
+import it.polimi.ingsw.server.ClientPing;
 
 import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +61,7 @@ public class ConnectionSocket {
      * This method sends a message to the server.
      * @param message is the message that will be sent to the server.
      */
-    public void send(String message) {
+    public synchronized void send(String message) {
         try {
             output.write(message+"\n");
             output.flush();
@@ -110,6 +113,13 @@ public class ConnectionSocket {
         }
 
         try {
+            //10000 is the timeout
+            socket.setSoTimeout(10000);
+        }catch (SocketException e) {
+            System.err.println(e.getMessage());
+        }
+
+        try {
             output.write(message+"\n");
             output.flush();
         } catch (IOException e) {
@@ -118,15 +128,24 @@ public class ConnectionSocket {
             return false;
         }
 
-        try {
-            String line = input.readLine();
-            answer = gson.fromJson(line, new TypeToken<Map<String, String>>() {}.getType());
-        } catch (IOException e) {
-            System.out.println("Couldn't read the message from socket.");
-            return false;
+        boolean exit = false;
+        while (!exit) {
+            try {
+                String line = input.readLine();
+                answer = gson.fromJson(line, new TypeToken<Map<String, String>>() {
+                }.getType());
+                if (!answer.get("action").equalsIgnoreCase("ping"))
+                    exit = true;
+            } catch (SocketTimeoutException e) {
+                System.out.println("Connection timeout");
+                return false;
+            } catch (IOException e) {
+                System.out.println("Couldn't read the message from socket.");
+                return false;
+            }
         }
 
-        if (answer.get("action").equals("error")) {
+        if (answer.get("action").equalsIgnoreCase("error")) {
             try {
                 socket.close();
             } catch (IOException e) {
@@ -140,6 +159,24 @@ public class ConnectionSocket {
         socketListener = new SocketListener(socket, input, answerHandler);
         Thread socketListenerThread = new Thread(socketListener);
         socketListenerThread.start();
+        serverPingInitiate();
         return true;
+    }
+
+    /**
+     * This method initiates a serverPing.
+     */
+    private void serverPingInitiate() {
+        ServerPing ping = new ServerPing(this);
+        Thread serverPing = new Thread(ping);
+        serverPing.start();
+    }
+
+    /**
+     * This method checks if the connection is active.
+     */
+
+    public boolean isActive() {
+        return socketListener.isActive();
     }
 }

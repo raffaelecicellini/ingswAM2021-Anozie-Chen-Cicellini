@@ -311,8 +311,8 @@ public class AnswerHandler implements SourceListener {
                         deposits.put("sp1res", value.get("sp1res"));
                         deposits.put("sp1qty", value.get("sp1qty"));
                         if (modelView.getDeposits().size() > 8) {
-                            deposits.put("sp2res", value.get("sp2res"));
-                            deposits.put("sp2qty", value.get("sp2qty"));
+                            deposits.put("sp2res", newValues.get("sp2res"));
+                            deposits.put("sp2qty", newValues.get("sp2qty"));
                         }
                     }
                     modelView.setDeposits(deposits);
@@ -445,9 +445,18 @@ public class AnswerHandler implements SourceListener {
 
                     // FORSE QUESTO FUORI DAL PRIMO IF
                     if (modelView.isSoloGame()) {
-                        modelView.setToken(Integer.parseInt(value.get("tokenActivated")));
-                        modelView.setBlackCross(Integer.parseInt(value.get("blackPos")));
+                        modelView.setToken(Integer.parseInt(newValues.get("tokenActivated")));
+                        modelView.setBlackCross(Integer.parseInt(newValues.get("blackPos")));
+
+                        developDecks = new int[4][3];
+                        for (col=0; col<4; col++) {
+                            for (row = 0; row < 3; row++) {
+                                developDecks[col][row] = Integer.parseInt(newValues.get("card" + col + row));
+                            }
+                        }
+                        modelView.setDevelopDecks(developDecks);
                         modelView.setActiveTurn(true);
+
                     } else {
                         modelView.setActiveTurn(false);
                     }

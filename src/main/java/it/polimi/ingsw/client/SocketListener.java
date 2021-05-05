@@ -7,6 +7,7 @@ import it.polimi.ingsw.notifications.SourceListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.Map;
 
 /**
@@ -65,7 +66,8 @@ public class SocketListener implements Runnable{
         Map<String,String > message;
         message = gson.fromJson(line, new TypeToken<Map<String,String>>(){}.getType());
         if (message != null)
-            actionHandler(message);
+            if (!message.get("action").equalsIgnoreCase("ping"))
+                actionHandler(message);
     }
 
     /**
@@ -109,6 +111,8 @@ public class SocketListener implements Runnable{
             while (isActive()) {
                 readMessage();
             }
+        } catch (SocketTimeoutException e) {
+            System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

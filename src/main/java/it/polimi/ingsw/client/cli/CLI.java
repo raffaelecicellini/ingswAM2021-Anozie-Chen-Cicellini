@@ -259,8 +259,10 @@ public class CLI implements Runnable, PropertyChangeListener {
         }
 
         ArrayList<String> discounts = new ArrayList<>();
-        discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
-        discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+        if (modelView.getLeaders().get("state0").equalsIgnoreCase("active"))
+            discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
+        if (modelView.getLeaders().get("state1").equalsIgnoreCase("active"))
+            discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
         ArrayList<String> cost = Cards.getCostById(modelView.getDevelopDecks()[column][row],discounts);
 
         Map<String,String> action = new HashMap<>();

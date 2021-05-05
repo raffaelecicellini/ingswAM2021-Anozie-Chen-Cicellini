@@ -8,6 +8,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.Map;
 
 /**
@@ -66,7 +67,8 @@ public class SocketListener implements Runnable{
         Map<String,String > message;
         message = gson.fromJson(line, new TypeToken<Map<String,String>>(){}.getType());
         if (message != null)
-            actionHandler(message);
+            if (!message.get("action").equalsIgnoreCase("ping"))
+                actionHandler(message);
     }
 
     /**
@@ -76,7 +78,7 @@ public class SocketListener implements Runnable{
     public void actionHandler(Map<String,String> message) {
         String action = message.get("action");
         listener.firePropertyChange(message.get("action"),null,message);
-        if (action.toLowerCase().equals("end") || action.toLowerCase().equals("endgame"))
+        if (action.equalsIgnoreCase("end") || action.equalsIgnoreCase("endgame"))
             close();
     }
 
@@ -110,6 +112,8 @@ public class SocketListener implements Runnable{
             while (isActive()) {
                 readMessage();
             }
+        } catch (SocketTimeoutException e) {
+            System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

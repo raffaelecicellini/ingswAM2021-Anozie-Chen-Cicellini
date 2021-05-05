@@ -1354,14 +1354,38 @@ public class CLI implements Runnable, PropertyChangeListener {
      */
     private void printSlots() {
 
-        String slot1 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(0)));
-        String slot2 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(1)));
-        String slot3 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(2)));
+        String[] card1 = Cards.getDevelopById(modelView.getSlots().get(0)[modelView.getTopIndex(modelView.getSlots().get(0))]);
+        String[] card2 = Cards.getDevelopById(modelView.getSlots().get(1)[modelView.getTopIndex(modelView.getSlots().get(1))]);
+        String[] card3 = Cards.getDevelopById(modelView.getSlots().get(2)[modelView.getTopIndex(modelView.getSlots().get(2))]);
 
-        System.out.println("      +----------------------");
-        System.out.println("\nslot1 -> ");
-        System.out.println("\n\n\nslot2 -> \n");
-        System.out.println("\nslot3 -> ");
+        String one[] = new String[4];
+        String two[] = new String[4];
+        String three[] = new String[4];
+
+
+        for (int i = 0; i < 4; i++) {
+            if (i == 1) {
+                one[i] = "slot1 -> " + card1[i];
+                two[i] = "slot2 -> " + card2[i];
+                three[i] = "slot3 -> " + card3[i];
+            } else {
+                one[i] = "         " + card1[i];
+                two[i] = "         " + card2[i];
+                three[i] = "         " + card3[i];
+            }
+        }
+
+
+        for (int i = 0; i < 4; i++) {
+            System.out.println(one[i]);
+        }
+        for (int i = 0; i < 4; i++) {
+            System.out.println(two[i]);
+        }
+        for (int i = 0; i < 4; i++) {
+            System.out.println(three[i]);
+        }
+
     }
 
     /**

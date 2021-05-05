@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 
 public class Cards {
-    //formatted representation of a LeaderCard
+    /**
+     * Method used to retrieve a String representation of a LeaderCard based on its id
+     * @param id the id of the card to get
+     * @return the String representation of the card corresponding to the id
+     */
     public static String getLeaderById(int id){
         switch (id){
             case 1:
@@ -46,7 +50,12 @@ public class Cards {
         }
         return null;
     }
-    //representation of the color of the effect
+
+    /**
+     * Method used to get the discounted resource given by a LeaderCard based on its id
+     * @param id the id of the Leadercard
+     * @return a String representing the resource discounted by the LeaderCard
+     */
     public static String getDiscountById(int id){
         switch (id){
             case 3: return "PURPLE";
@@ -56,6 +65,12 @@ public class Cards {
             default: return null;
         }
     }
+
+    /**
+     * Method used to get the resource in which a white marble is transformed by a LeaderCard based on its id
+     * @param id the id of the Leadercard
+     * @return a String representing the resource in which the white marble is transformed by the LeaderCard
+     */
     public static String getWhiteById(int id){
         switch (id){
             case 11: return "PURPLE";
@@ -65,8 +80,14 @@ public class Cards {
             default: return null;
         }
     }
+
+    /**
+     * Method used to get the input of the production given by a LeaderCard based on its id
+     * @param id the id of the Leadercard
+     * @return a String representing the resource requested as input for the production of the LeaderCard
+     */
     public static String getProductionById(int id){
-        switch (id){
+        switch (id) {
             case 15: return "BLUE";
             case 16: return "PURPLE";
             case 17: return "GREY";
@@ -74,107 +95,306 @@ public class Cards {
             default: return null;
         }
     }
-    //formatted representation of a DevelopCard
-    public static String getDevelopById(int id){
+
+    /**
+     * Method used to retrieve a formatted representation of a DevelopCard based on its id
+     * @param id the id of a DevelopCard
+     * @return a String representation of a DevelopCard
+     */
+    public static String[] getDevelopById(int id){
+        String[] card;
+        card= new String[4];
         switch (id){
             case 1:
-                return "Col:Purple; "+"Lev:1; "+"Cost:[2P]; "+"In:[1G]; "+"Out:[1F]; "+"VP:1;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:1; "+"Cost:[2P];"+"           |";
+                card[2]="|In:[1G]; "+"Out:[1F]; "+"VP:1;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 2:
-                return "Color: Purple; "+"Level: 1; "+"Cost: [2 PURPLE, 2 GREY]; "+"Input: [1 YELLOW, 1 BLUE]; "+"Output: [2 GREY, 1 Faith]; "+"Points: 4;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:1; "+"Cost:[2P, 2G];"+"       |";
+                card[2]="|In: [1Y, 1B]; "+"Out: [2G, 1F]; "+"VP4;"+"       |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 3:
-                return "Color: Purple; "+"Level: 1; "+"Cost: [3 PURPLE]; "+"Input: [2 YELLOW]; "+"Output: [1 PURPLE, 1 BLUE, 1 GREY]; "+"Points: 3;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:1; "+"Cost:[3P];"+"           |";
+                card[2]="|In:[2Y]; "+"Out:[1P, 1B, 1G]; "+"VP:3;"+"        |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 4:
-                return "Color: Purple; "+"Level: 1; "+"Cost: [1 BLUE, 1 PURPLE, 1 YELLOW]; "+"Input: [1 YELLOW]; "+"Output: [1 BLUE]; "+"Points: 2;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:1; "+"Cost:[1B, 1P, 1Y];"+"   |";
+                card[2]="|In:[1Y]; "+"Out:[1B]; "+"VP:2;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 5:
-                return "Color: Blue; "+"Level: 1; "+"Cost: [1 YELLOW, 1 PURPLE, 1 GREY]; "+"Input: [1 PURPLE]; "+"Output: [1 GREY]; "+"Points: 2;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:1; "+"Cost:[1Y, 1P, 1G];"+"     |";
+                card[2]="|In:[1P]; "+"Out:[1G]; "+"VP:2;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 6:
-                return "Color: Blue; "+"Level: 1; "+"Cost: [2 YELLOW 2 PURPLE]; "+"Input: [1 BLUE, 1 GREY]; "+"Output: [2 PURPLE, 1 Faith]; "+"Points: 4;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:1; "+"Cost:[2Y, 2P];"+"         |";
+                card[2]="|In:[1B, 1G]; "+"Out:[2P, 1F]; "+"VP:4;"+"        |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 7:
-                return "Col:Blue; "+"Lev:1; "+"Cost:[2Y]; "+"In:[1B]; "+"Out:[1F]; "+"VP:1;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:1; "+"Cost:[2Y];"+"             |";
+                card[2]="|In:[1B]; "+"Out:[1F]; "+"VP:1;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 8:
-                return "Col:Blue; "+"Lev:1; "+"Cost:[3Y]; "+"In:[2G]; "+"Out:[1Y, 1P, 1B]; "+"VP:3;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:1; "+"Cost:[3Y];"+"             |";
+                card[2]="|In:[2G]; "+"Out:[1Y, 1P, 1B]; "+"VP:3;"+"        |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 9:
-                return "Color: Green; "+"Level: 1; "+"Cost: [1 BLUE, 1 PURPLE, 1 GREY]; "+"Input: [1 GREY]; "+"Output: [1 PURPLE]; "+"Points: 2;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:1; "+"Cost:[1B, 1P, 1G];"+"    |";
+                card[2]="|In:[1G]; "+"Out:[1P]; "+"VP:2;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 10:
-                return "Col:Green; "+"Lev:1; "+"Cost:[3B]; "+"In:[2P]; "+"Out:[1Y, 1B, 1G]; "+"VP:3;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:1; "+"Cost:[3B];"+"            |";
+                card[2]="|In:[2P]; "+"Out:[1Y, 1B, 1G]; "+"VP:3;"+"        |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 11:
-                return "Color: Green; "+"Level: 1; "+"Cost: [2 BLUE]; "+"Input: [1 YELLOW]; "+"Output: [1 Faith]; "+"Points: 1;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:1; "+"Cost:[2B];"+"            |";
+                card[2]="|In:[1Y]; "+"Out:[1F]; "+"VP:1;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 12:
-                return "Color: Green; "+"Level: 1; "+"Cost: [2 BLUE, 2 YELLOW]; "+"Input: [1 GREY, 1 PURPLE]; "+"Output: [2 YELLOW, 1 Faith]; "+"Points: 4;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:1; "+"Cost:[2B, 2Y];"+"        |";
+                card[2]="|In:[1G, 1P]; "+"Out:[2Y, 1F]; "+"VP:4;"+"        |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 13:
-                return "Color: Yellow; "+"Level: 1; "+"Cost: [3 GREY]; "+"Input: [2 BLUE]; "+"Output: [1 YELLOW, 1 PURPLE, 1 GREY]; "+"Points: 3;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:1; "+"Cost:[3G];"+"           |";
+                card[2]="|In:[2B]; "+"Out:[1Y, 1P, 1G]; "+"VP:3;"+"        |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 14:
-                return "Color: Yellow; "+"Level: 1; "+"Cost: [2 GREY, 2 BLUE]; "+"Input: [1 YELLOW, 1 PURPLE]; "+"Output: [2 BLUE, 1 Faith]; "+"Points: 4;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:1; "+"Cost:[2G, 2B];"+"       |";
+                card[2]="|In:[1Y, 1P]; "+"Out:[2B, 1F]; "+"VP:4;"+"        |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 15:
-                return "Color: Yellow; "+"Level: 1; "+"Cost: [2 GREY]; "+"Input: [1 PURPLE]; "+"Output: [1 Faith]; "+"Points: 1;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:1; "+"Cost:[2G];"+"           |";
+                card[2]="|In:[1P]; "+"Out:[1F]; "+"VP:1;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 16:
-                return "Color: Yellow; "+"Level: 1; "+"Cost: [1 BLUE, 1 GREY, 1 YELLOW]; "+"Input: [1 BLUE]; "+"Output: [1 YELLOW]; "+"Points: 2;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:1; "+"Cost:[1B, 1G, 1Y];"+"   |";
+                card[2]="|In:[1B]; "+"Out:[1Y]; "+"VP:2;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 17:
-                return "Color: Purple; "+"Level: 2; "+"Cost: [4 PURPLE]; "+"Input: [1 YELLOW]; "+"Output: [2 Faith]; "+"Points: 5;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:2; "+"Cost:[4P];"+"           |";
+                card[2]="|In:[1Y]; "+"Out:[2F]; "+"VP:5;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 18:
-                return "Color: Purple; "+"Level: 2; "+"Cost: [3 PURPLE, 3 BLUE]; "+"Input: [2 GREY]; "+"Output: [2 PURPLE, 1 Faith]; "+"Points: 8;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:2; "+"Cost:[3P, 3B];"+"       |";
+                card[2]="|In:[2G]; "+"Out:[2P, 1F]; "+"VP:8;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 19:
-                return "Color: Purple; "+"Level: 2; "+"Cost: [5 PURPLE]; "+"Input: [2 GREY]; "+"Output: [2 YELLOW, 2 Faith]; "+"Points: 7;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:2; "+"Cost:[5P];"+"           |";
+                card[2]="|In:[2G]; "+"Out:[2Y, 2F]; "+"VP:7;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 20:
-                return "Color: Purple; "+"Level: 2; "+"Cost: [3 PURPLE, 2 YELLOW]; "+"Input: [1 YELLOW, 1 PURPLE]; "+"Output: [3 BLUE]; "+"Points: 6;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:2; "+"Cost:[3P, 2Y];"+"       |";
+                card[2]="|In:[1Y, 1P]; "+"Out:[3B]; "+"VP:6;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 21:
-                return "Color: Blue; "+"Level: 2; "+"Cost: [3 YELLOW, 2 GREY]; "+"Input: [1 YELLOW, 1 GREY]; "+"Output: [3 PURPLE]; "+"Points: 6;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:2; "+"Cost:[3Y, 2G];"+"         |";
+                card[2]="|In:[1Y, 1G]; "+"Out:[3P]; "+"VP:6;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 22:
-                return "Color: Blue; "+"Level: 2; "+"Cost: [5 YELLOW]; "+"Input: [2 PURPLE]; "+"Output: [2 BLUE, 2 Faith]; "+"Points: 7;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:2; "+"Cost:[5Y];"+"             |";
+                card[2]="|In:[2P]; "+"Out:[2B, 2F]; "+"VP:7;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 23:
-                return "Color: Blue; "+"Level: 2; "+"Cost: [4 YELLOW]; "+"Input: [1 PURPLE]; "+"Output: [2 Faith]; "+"Points: 5;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:2; "+"Cost:[4Y];"+"             |";
+                card[2]="|In:[1P]; "+"Out:[2F]; "+"VP:5;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 24:
-                return "Color: Blue; "+"Level: 2; "+"Cost: [3 YELLOW, 3 GREY]; "+"Input: [1 PURPLE]; "+"Output: [2 GREY, 1 Faith]; "+"Points: 8;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:2; "+"Cost:[3Y, 3G];"+"         |";
+                card[2]="|In:[1P]; "+"Out:[2G, 1F]; "+"VP:8;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 25:
-                return "Color: Green; "+"Level: 2; "+"Cost: [3 BLUE, 2 PURPLE]; "+"Input: [1 BLUE, 1 PURPLE]; "+"Output: [3 GREY]; "+"Points: 6;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:2; "+"Cost:[3B, 2P];"+"        |";
+                card[2]="|In:[1B, 1P]; "+"Out:[3G]; "+"VP:6;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 26:
-                return "Color: Green; "+"Level: 2; "+"Cost: [4 BLUE]; "+"Input: [1 GREY]; "+"Output: [2 Faith]; "+"Points: 5;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:2; "+"Cost:[4B];"+"            |";
+                card[2]="|In:[1G]; "+"Out:[2F]; "+"VP:5;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 27:
-                return "Color: Green; "+"Level: 2; "+"Cost: [3 BLUE, 3 YELLOW]; "+"Input: [1 YELLOW]; "+"Output: [2 BLUE, 1 Faith]; "+"Points: 8;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:2; "+"Cost:[3B, 3Y];"+"        |";
+                card[2]="|In:[1Y]; "+"Out:[2B, 1F]; "+"VP:8;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 28:
-                return "Color: Green; "+"Level: 2; "+"Cost: [5 BLUE]; "+"Input: [2 YELLOW]; "+"Output: [2 GREY, 2 Faith]; "+"Points: 7;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:2; "+"Cost:[5B];"+"            |";
+                card[2]="|In:[2Y]; "+"Out:[2G, 2F]; "+"VP:7;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 29:
-                return "Color: Yellow; "+"Level: 2; "+"Cost: [3 GREY, 2 BLUE]; "+"Input: [1 GREY, 1 BLUE]; "+"Output: [3 YELLOW]; "+"Points: 6;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:2; "+"Cost:[3G, 2B];"+"       |";
+                card[2]="|In:[1G, 1B]; "+"Out:[3Y]; "+"VP:6;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 30:
-                return "Color: Yellow; "+"Level: 2; "+"Cost: [3 GREY, 3 PURPLE]; "+"Input: [1 BLUE]; "+"Output: [2 YELLOW, 1 Faith]; "+"Points: 8;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:2; "+"Cost:[3G, 3P];"+"       |";
+                card[2]="|In:[1B]; "+"Out:[2Y, 1F]; "+"VP:8;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 31:
-                return "Color: Yellow; "+"Level: 2; "+"Cost: [5 GREY]; "+"Input: [2 BLUE]; "+"Output: [2 PURPLE, 2 Faith]; "+"Points: 7;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:2; "+"Cost:[5G];"+"           |";
+                card[2]="|In:[2B]; "+"Out:[2P, 2F]; "+"VP:7;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 32:
-                return "Color: Yellow; "+"Level: 2; "+"Cost: [4 GREY]; "+"Input: [1 BLUE]; "+"Output: [2 Faith]; "+"Points: 5;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:2; "+"Cost:[4G];"+"           |";
+                card[2]="|In:[1B]; "+"Out:[2F]; "+"VP:5;"+"                |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 33:
-                return "Color: Purple; "+"Level: 3; "+"Cost: [4 PURPLE, 4 BLUE]; "+"Input: [1 YELLOW]; "+"Output: [3 GREY, 1 PURPLE]; "+"Points: 12;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:3; "+"Cost:[4P, 4B];"+"       |";
+                card[2]="|In:[1Y]; "+"Out:[3G, 1P]; "+"VP:12;"+"           |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 34:
-                return "Color: Purple; "+"Level: 3; "+"Cost: [5 PURPLE, 2 YELLOW]; "+"Input: [1 GREY, 1 BLUE]; "+"Output: [2 YELLOW, 2 PURPLE, 1 Faith]; "+"Points: 10;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:3; "+"Cost:[5P, 2Y];"+"       |";
+                card[2]="|In:[1G, 1B]; "+"Out:[2Y, 2P, 1F]; "+"VP:10;"+"   |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 35:
-                return "Color: Purple; "+"Level: 3; "+"Cost: [7 PURPLE]; "+"Input: [1 YELLOW]; "+"Output: [1 GREY, 3 Faith]; "+"Points: 11;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:3; "+"Cost:[7P];"+"           |";
+                card[2]="In:[1Y]; "+"Out:[1G, 3F]; "+"VP:11;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 36:
-                return "Color: Purple; "+"Level: 3; "+"Cost: [6 PURPLE]; "+"Input: [2 GREY]; "+"Output: [3 YELLOW, 2 Faith]; "+"Points: 9;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Purple; "+"Lev:3; "+"Cost:[6P];"+"           |";
+                card[2]="|In:[2G]; "+"Out:[3Y, 2F]; "+"VP:9;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 37:
-                return "Color: Blue; "+"Level: 3; "+"Cost: [4 YELLOW, 4 GREY]; "+"Input: [1 PURPLE]; "+"Output: [1 YELLOW, 3 BLUE]; "+"Points: 12;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:3; "+"Cost:[4Y, 4G];"+"         |";
+                card[2]="|In:[1P]; "+"Out:[1Y, 3B]; "+"VP:12;"+"           |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 38:
-                return "Color: Blue; "+"Level: 3; "+"Cost: [6 YELLOW]; "+"Input: [2 PURPLE]; "+"Output: [3 BLUE, 2 Faith]; "+"Points: 9;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:3; "+"Cost:[6Y];"+"             |";
+                card[2]="|In:[2P]; "+"Out:[3B, 2F]; "+"VP:9;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 39:
-                return "Color: Blue; "+"Level: 3; "+"Cost: [7 YELLOW]; "+"Input: [1 GREY]; "+"Output: [1 BLUE, 3 Faith]; "+"Points: 11;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:3; "+"Cost:[7Y];"+"             |";
+                card[2]="|In:[1G]; "+"Out:[1B, 3F]; "+"VP:11;"+"           |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 40:
-                return "Color: Blue; "+"Level: 3; "+"Cost: [5 YELLOW, 2 GREY]; "+"Input: [1 YELLOW, 1 BLUE]; "+"Output: [2 PURPLE, 2 GREY, 1 Faith]; "+"Points: 10;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Blue; "+"Lev:3; "+"Cost:[5Y, 2G];"+"         |";
+                card[2]="|In:[1Y, 1B]; "+"Out:[2P, 2G, 1F]; "+"VP:10;"+"   |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 41:
-                return "Color: Green; "+"Level: 3; "+"Cost: [5 BLUE, 2 PURPLE]; "+"Input: [1 YELLOW, 1 PURPLE]; "+"Output: [2 BLUE, 2 GREY, 1 Faith]; "+"Points: 10;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:3; "+"Cost:[5B, 2P];"+"        |";
+                card[2]="|In:[1Y, 1P]; "+"Out:[2B, 2G, 1F]; "+"VP:10;"+"   |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 42:
-                return "Color: Green; "+"Level: 3; "+"Cost: [6 BLUE]; "+"Input: [2 PURPLE]; "+"Output: [3 GREY, 2 Faith]; "+"Points: 9;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:3; "+"Cost:[6B];"+"            |";
+                card[2]="|In:[2P]; "+"Out:[3G, 2F]; "+"VP:9;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 43:
-                return "Color: Green; "+"Level: 3; "+"Cost: [4 BLUE, 4 YELLOW]; "+"Input: [1 GREY]; "+"Output: [3 YELLOW, 1 BLUE]; "+"Points: 12;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:3; "+"Cost:[4B, 4Y];"+"        |";
+                card[2]="|In:[1G]; "+"Out:[3Y, 1B]; "+"VP:12;"+"           |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 44:
-                return "Color: Green; "+"Level: 3; "+"Cost: [7 BLUE]; "+"Input: [1 PURPLE]; "+"Output: [1 YELLOW, 3 Faith]; "+"Points: 11;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Green; "+"Lev:3; "+"Cost:[7B];"+"            |";
+                card[2]="|In:[1P]; "+"Out:[1Y, 3F]; "+"VP:11;"+"           |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 45:
-                return "Color: Yellow; "+"Level: 3; "+"Cost: [6 GREY]; "+"Input: [2 BLUE]; "+"Output: [3 PURPLE, 2 Faith]; "+"Points: 9;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:3; "+"Cost:[6G];"+"           |";
+                card[2]="|In:[2B]; "+"Out:[3P, 2F]; "+"VP:9;"+"            |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 46:
-                return "Color: Yellow; "+"Level: 3; "+"Cost: [7 GREY]; "+"Input: [1 BLUE]; "+"Output: [1 PURPLE, 3 Faith]; "+"Points: 11;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:3; "+"Cost:[7G];"+"           |";
+                card[2]="|In:[1B]; "+"Out:[1P, 3F]; "+"VP:11;"+"           |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 47:
-                return "Color: Yellow; "+"Level: 3; "+"Cost: [4 GREY, 4 PURPLE]; "+"Input: [1 BLUE]; "+"Output: [1 GREY, 3 PURPLE]; "+"Points: 12;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:3; "+"Cost:[4G, 4P];"+"       |";
+                card[2]="|In:[1B]; "+"Out:[1G, 3P]; "+"VP:12;"+"           |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 48:
-                return "Color: Yellow; "+"Level: 3; "+"Cost: [5 GREY, 2 PURPLE]; "+"Input: [1 GREY, 1 PURPLE]; "+"Output: [2 YELLOW, 2 BLUE, 1 Faith]; "+"Points: 10;";
+                card[0]="+----------------------------------------+";
+                card[1]="|Col:Yellow; "+"Lev:3; "+"Cost: [5G, 2P];"+"      |";
+                card[2]="|In:[1G, 1P]; "+"Out:[2Y, 2B, 1F]; "+"VP:10;"+"   |";
+                card[3]="+----------------------------------------+";
+                return card;
         }
-        return null;
+        return new String[]{"","","",""};
     }
 
     /**
@@ -899,4 +1119,21 @@ public class Cards {
         }
     }
 
+    /**
+     * Method used to get a String representation of the action done by Lorenzo (SoloGame) based on the id of the activated
+     * token.
+     * @param id the id of the activated token
+     * @return a String representation of the action done by Lorenzo
+     */
+    public static String getTokenById(int id){
+        switch (id){
+            case 1: return "Lorenzo discarded 2 Blue DevelopCard!";
+            case 2: return "Lorenzo discarded 2 Green DevelopCard!";
+            case 3: return "Lorenzo discarded 2 Purple DevelopCard!";
+            case 4: return "Lorenzo discarded 2 Yellow DevelopCard!";
+            case 5: return "Lorenzo did 2 steps on the FaithTrack!";
+            case 6: return "Lorenzo did 1 step on the FaithTrack and shuffled the tokens!";
+            default: return "";
+        }
+    }
 }

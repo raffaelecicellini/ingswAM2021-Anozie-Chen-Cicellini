@@ -80,7 +80,7 @@ public class Server{
     public synchronized void manageDisconnection(ClientHandler client) {
         connectedClients.remove(client.getName());
         waitingClients.remove(client);
-        System.out.println("I'm here");
+        System.out.println("I am in server.manageDisconnection");
         if (client.getGame().isStarted()) {
             client.getGame().manageDisconnection(client.getName());
             for (ClientHandler x : client.getGame().getPlayers()) {
@@ -99,6 +99,7 @@ public class Server{
     public synchronized void removeClient(ClientHandler client) {
         connectedClients.remove(client.getName());
         games.remove(client.getGame());
+        System.out.println("I am in server.removeClient");
     }
 
     /**
@@ -110,25 +111,25 @@ public class Server{
             GameHandler game = new GameHandler(1);
             client.setGame(game);
             game.setPlayer(client.getName(), client);
-            System.out.println("Starting singleplayer game for "+client.getName());
+            System.out.println("Starting singleplayer game for "+client.getName().toUpperCase());
             client.getGame().start();
         } else {
             waitingClients.add(client);
-            if (waitingClients.size() == 1) {
+            if (waitingClients.size() == 1 && (games.isEmpty() || games.get(games.size()-1).isStarted())) {
                 GameHandler game = new GameHandler(client.getPrefNumber());
                 client.setGame(game);
                 game.setPlayer(client.getName(), client);
                 games.add(game);
-                System.out.println("created new multiplayer game for "+client.getName());
+                System.out.println("Created new multiplayer game for "+client.getName().toUpperCase()+", server.addToGame");
             } else if (waitingClients.size() < games.get(games.size() - 1).getPlayersNumber()){
                 client.setGame(games.get(games.size() - 1));
                 waitingClients.get(0).getGame().setPlayer(client.getName(), client);
-                System.out.println("Added player "+client.getName()+" to the current game");
+                System.out.println("Added player "+client.getName().toUpperCase()+" to the current game, server.addToGame");
             }
             else if (waitingClients.size() == games.get(games.size() - 1).getPlayersNumber()) {
                 client.setGame(games.get(games.size() - 1));
                 waitingClients.get(0).getGame().setPlayer(client.getName(), client);
-                System.out.println("Last player connected, starting...");
+                System.out.println("Last player connected, starting..., server.addToGame");
                 waitingClients.get(0).getGame().start();
                 waitingClients.clear();
             }
@@ -141,6 +142,7 @@ public class Server{
      * @return if the name is stored in the server.
      */
     public synchronized boolean checkName(String name){
+        System.out.println("I am in server.checkName, searching for duplicates of "+name);
         if (name !=null && !connectedClients.contains(name)) {
             this.connectedClients.add(name);
             return false;
@@ -153,7 +155,7 @@ public class Server{
      * @param args array of Strings passed as parameters when you run the application through command line.
      */
     public static void main(String[] args) {
-        System.out.println("Master of Renaissance server | Welcome!");
+        System.out.println("Master of Renaissance Server | Welcome!");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Insert the port which server will listen on.");
         System.out.print(">");

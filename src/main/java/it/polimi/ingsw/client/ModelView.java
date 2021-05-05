@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.model.GamePhase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,6 +112,22 @@ public class ModelView {
         this.slots.add(new int[3]);
         this.slots.add(new int[3]);
         this.slots.add(new int[3]);
+        this.deposits=new HashMap<>();
+        deposits.put("smallres", "empty");
+        deposits.put("smallqty", String.valueOf(0));
+        deposits.put("midres", "empty");
+        deposits.put("midqty", String.valueOf(0));
+        deposits.put("bigres", "empty");
+        deposits.put("bigqty", String.valueOf(0));
+        this.strongbox= new HashMap<>();
+        String[] res={"BLUE", "PURPLE", "GREY", "YELLOW"};
+        String box, qty;
+        for (int i=0; i<res.length; i++){
+            box="strres"+i;
+            qty="strqty"+i;
+            strongbox.put(box, res[i]);
+            strongbox.put(qty, String.valueOf(0));
+        }
     }
 
     /**
@@ -383,5 +400,44 @@ public class ModelView {
      */
     public void setPhase(GamePhase phase) {
         this.phase = phase;
+    }
+
+    /**
+     * Method used to return a list of marbles, given a row or col of the market.
+     * @param chosen is the chosen line (row/col).
+     * @param ind is the index of the row/col.
+     * @return the list of strings of marbles.
+     */
+    public ArrayList<String> getResMarket(String chosen, int ind) {
+        ArrayList<String> res = new ArrayList<>();
+
+        if (chosen.equalsIgnoreCase("row")) {
+            for (int col = 0; col < 4; col++) {
+                res.add(getMarket()[col][ind]);
+            }
+        } else
+        if (chosen.equalsIgnoreCase("col")) {
+            for (int row = 0; row < 3; row++) {
+                res.add(getMarket()[ind][row]);
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     * Method used to return the Index of the Top Develop Card, given a slot.
+     * @param slot is the array that represents the slot.
+     * @return the Index of the Top Develop Card (-1 if empty slot).
+     */
+    public int getTopIndex(int[] slot) {
+        int devCardIndex = 0;
+
+        while (devCardIndex < slot.length) {
+            if (slot[devCardIndex] == 0) return devCardIndex-1;
+            devCardIndex++;
+        }
+
+        return devCardIndex-1;
     }
 }

@@ -485,7 +485,7 @@ public class Game {
             }
             //notify players win/lose
             for (int i=0; i<activePlayers.size(); i++){
-                notifyEndGame(activePlayers.get(i).getName(), winner.getName(), points[i]);
+                notifyEndGame(activePlayers.get(i).getName(), winner.getName(), points[i], maxpoints);
             }
 
             this.phase=GamePhase.ENDED;
@@ -537,12 +537,13 @@ public class Game {
      * @param winner the name of the winner
      * @param points the points scored by the addressee
      */
-    private void notifyEndGame(String player, String winner, int points){
+    private void notifyEndGame(String player, String winner, int points, int winnerpoints){
         Map<String, String> state= new HashMap<>();
         state.put("action", "endgame");
         state.put("player", player);
         state.put("winner", winner);
         state.put("points", String.valueOf(points));
+        state.put("winnerpoints", String.valueOf(winnerpoints));
 
         this.listener.firePropertyChange(state.get("action"), null, state);
     }

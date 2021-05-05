@@ -450,4 +450,15 @@ public class ModelView {
 
         return devCardIndex-1;
     }
+
+    public int getTopId(int[] slot){
+        int devCardIndex = 0;
+
+        while (devCardIndex < slot.length) {
+            if (slot[devCardIndex] == 0) return 0;
+            devCardIndex++;
+        }
+
+        return slot[devCardIndex-1];
+    }
 }

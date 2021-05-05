@@ -105,6 +105,12 @@ public class Cards {
         String[] card;
         card= new String[4];
         switch (id){
+            case 0:
+                card[0]="+----------------------------------------+";
+                card[1]="|                                        |";
+                card[2]="|                                        |";
+                card[3]="+----------------------------------------+";
+                return card;
             case 1:
                 card[0]="+----------------------------------------+";
                 card[1]="|Col:Purple; "+"Lev:1; "+"Cost:[2P];"+"           |";

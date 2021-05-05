@@ -429,7 +429,7 @@ public class CLI implements Runnable, SourceListener {
             // if a develop card is present
             if (devCardIndex >= 0 && devCardIndex <= 2) {
 
-                System.out.println(">Would you like to activate the production in the slot " + (num_slots + 1) + "? [yes/no] ");
+                System.out.println(">Would you like to activate the production in the slot " + (num_slot + 1) + "? [yes/no] ");
                 System.out.print(">");
                 answer = input.nextLine();
 
@@ -547,7 +547,7 @@ public class CLI implements Runnable, SourceListener {
             } else if (devCard >= 1 && devCard <= 3) {
                 int n_pos = 1;
                 //System.out.println(devCard);
-                ArrayList<String> inputRes = getInputById(modelView.getSlots().get(devCard - 1)[modelView.getTopIndex(modelView.getSlots().get(devCard - 1))]);
+                ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots().get(devCard - 1)[modelView.getTopIndex(modelView.getSlots().get(devCard - 1))]);
                 // pos11 o pos12
                 while (map.containsKey("pos" + devCard + n_pos)) {
                     // BLUE, SMALL), (GREY, MID);
@@ -918,6 +918,8 @@ public class CLI implements Runnable, SourceListener {
         action.put("player",modelView.getName());
 
         listener.fireUpdates("disconnect", action);
+        if (connectionSocket!=null) connectionSocket.close();
+        System.exit(0);
     }
 
     /**
@@ -934,31 +936,27 @@ public class CLI implements Runnable, SourceListener {
      */
     private void chooseLeaders(){
         //Stampa i 4 leader tra cui scegliere (andando a capo). Chiede il primo, poi il secondo, poi la conferma
-        System.out.println("You have to choose between these 4 leaders.");
-        System.out.println("ID: "+modelView.getLeaders().get("leader0")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
-        System.out.println("ID: "+modelView.getLeaders().get("leader1")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
-        System.out.println("ID: "+modelView.getLeaders().get("leader2")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader2"))));
-        System.out.println("ID: "+modelView.getLeaders().get("leader3")+ "\n: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader3"))));
+        System.out.println(">You have to choose between these 4 leaders.");
+        System.out.println(" Index 1: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
+        System.out.println(" Index 2: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+        System.out.println(" Index 3: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader2"))));
+        System.out.println(" Index 4: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader3"))));
 
         ArrayList<String> possibleInput = new ArrayList<>();
         possibleInput.add("1");
         possibleInput.add("2");
         possibleInput.add("3");
         possibleInput.add("4");
-        /*possibleInput.add(modelView.getLeaders().get("leader0"));
-        possibleInput.add(modelView.getLeaders().get("leader1"));
-        possibleInput.add(modelView.getLeaders().get("leader2"));
-        possibleInput.add(modelView.getLeaders().get("leader3"));*/
         String choice;
         Map<String,String> action = new HashMap<>();
         action.put("action","chooseleaders");
         action.put("player",modelView.getName());
 
-        System.out.println("Insert the index of the first leader.");
+        System.out.println(">Insert the index of the first leader.");
         System.out.print(">");
         choice = input.nextLine();
         while (!possibleInput.contains(choice)){
-            System.out.println("Insert the correct index");
+            System.out.println(">Insert the correct index");
             System.out.print(">");
             choice = input.nextLine();
         }
@@ -966,29 +964,27 @@ public class CLI implements Runnable, SourceListener {
         action.put("ind1",choice);
         possibleInput.remove(choice);
 
-        System.out.println("Insert the index of the second leader.");
+        System.out.println(">Insert the index of the second leader.");
         System.out.print(">");
         choice = input.nextLine();
         while (!possibleInput.contains(choice)){
-            System.out.println("Insert the correct index");
+            System.out.println(">Insert the correct index");
             System.out.print(">");
             choice = input.nextLine();
         }
         action.put("ind2",choice);
 
-        System.out.println("You selected these leaders:");
-        //System.out.println("ID :"+action.get("ind1"));
+        System.out.println(">You selected these leaders:");
         System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader"+(Integer.parseInt(action.get("ind1"))-1)))));
-        //System.out.println("ID :"+action.get("leader1"));
         System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader"+(Integer.parseInt(action.get("ind2"))-1)))));
-        System.out.println("Do you want to confirm? [yes/no]");
+        System.out.println(">Do you want to confirm? [yes/no]");
         possibleInput.clear();
         possibleInput.add("yes");
         possibleInput.add("no");
         System.out.print(">");
         choice = input.nextLine();
         while (!possibleInput.contains(choice.toLowerCase())) {
-            System.out.println("Select yes or no");
+            System.out.println(">Select yes or no");
             System.out.print(">");
             choice = input.nextLine();
         }
@@ -997,10 +993,7 @@ public class CLI implements Runnable, SourceListener {
             chooseLeaders();
             return;
         }
-
         listener.fireUpdates("chooseleaders", action);
-
-
     }
 
     /**
@@ -1025,34 +1018,34 @@ public class CLI implements Runnable, SourceListener {
         action.put("player", modelView.getName());
 
         String choice;
-        System.out.println("You have "+quantity+" resources.");
+        System.out.println(">You have "+quantity+" resources.");
         for (int i = 1; i <= quantity; i++) {
-            System.out.println("Insert what resource you want: [blue/grey/purple/yellow]");
+            System.out.println(">Insert what resource you want: [blue/grey/purple/yellow]");
             System.out.print(">");
             choice = input.nextLine();
             while (!possibleInput.contains(choice.toUpperCase())) {
-                System.out.println("Wrong input, select [blue/grey/purple/yellow]");
+                System.out.println(">Wrong input, select [blue/grey/purple/yellow]");
                 System.out.print(">");
                 choice = input.nextLine();
             }
             action.put("res"+i,choice.toLowerCase());
 
-            System.out.println("Insert where you want to place it: [small/mid/big]");
+            System.out.println(">Insert where you want to place it: [small/mid/big]");
             System.out.print(">");
             choice = input.nextLine();
-            while (!possibleInput.contains(choice.toLowerCase())) {
-                System.out.println("Wrong input, select [small/mid/big]");
+            while (!possibleInput1.contains(choice.toLowerCase())) {
+                System.out.println(">Wrong input, select [small/mid/big]");
                 System.out.print(">");
                 choice = input.nextLine();
             }
             action.put("pos"+i,choice.toLowerCase());
         }
 
-        System.out.println("This is your move, are you sure? [yes/no]");
-        System.out.println("Resource1: "+action.get("res1"));
-        System.out.println("Position: "+action.get("pos1"));
-        System.out.println("Resource2: "+action.get("res2"));
-        System.out.println("Position: "+action.get("pos2"));
+        System.out.println(">This is your move, are you sure? [yes/no]");
+        System.out.println(" Resource1: "+action.get("res1"));
+        System.out.println(" Position: "+action.get("pos1"));
+        System.out.println(" Resource2: "+action.get("res2"));
+        System.out.println(" Position: "+action.get("pos2"));
 
         possibleInput.clear();
         possibleInput.add("yes");
@@ -1060,7 +1053,7 @@ public class CLI implements Runnable, SourceListener {
         System.out.print(">");
         choice = input.nextLine();
         while (!possibleInput.contains(choice.toLowerCase())) {
-            System.out.println("Select yes or no");
+            System.out.println(">Select yes or no");
             System.out.print(">");
             choice = input.nextLine();
         }
@@ -1108,15 +1101,13 @@ public class CLI implements Runnable, SourceListener {
      * This method prints the player's leader cards.
      */
     private void printLeaders(){
-        System.out.println("Leader 1");
-        System.out.println("ID: "+ modelView.getLeaders().get("leader0"));
-        System.out.println("State: "+modelView.getLeaders().get("state0").toUpperCase());
-        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
+        System.out.println("Leader 0");
+        System.out.println(" State: "+modelView.getLeaders().get("state0").toUpperCase());
+        System.out.println(" "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
 
-        System.out.println("Leader 2");
-        System.out.println("ID: "+ modelView.getLeaders().get("leader1"));
-        System.out.println("State: "+modelView.getLeaders().get("state1").toUpperCase());
-        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+        System.out.println("Leader 1");
+        System.out.println(" State: "+modelView.getLeaders().get("state1").toUpperCase());
+        System.out.println(" "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
     }
 
     /**
@@ -1256,15 +1247,15 @@ public class CLI implements Runnable, SourceListener {
         System.out.println("                MARKET                ");
         System.out.println("+------1-------2-------3-------4-----+");
         System.out.println("|                                  " + modelView.getOutMarble());
-        for (int row = 2; row >= 0; row--) {
+        for (int row = 0; row <= 2; row++) {
             str.setLength(0);
             str.append(row+1).append("    ");
             for (int col = 0; col < 4; col++) {
                 str.append(modelView.getMarket()[col][row]);
                 if (col != 3) {
-                    while (str.length() != (col+1)*8+5) str.append(" ");
+                    while (str.length() <= (col+1)*8+5) str.append(" ");
                 } else {
-                    while (str.length() != 37) str.append(" ");
+                    while (str.length() <= 37) str.append(" ");
                     str.append("<--");
                 }
             }
@@ -1355,9 +1346,7 @@ public class CLI implements Runnable, SourceListener {
         System.out.println("                                             FAITH TRACK                                             ");
         System.out.println("+------------VP1---------VP2---------VP4---------VP6---------VP9---------VP12--------VP16-------VP20+");
         System.out.println(position);
-        //System.out.println("| X |   |   |   |   |   |   |   | + |   |   |   |   |   |   |   | + |   |   |   |   |   |   |   | + |");
         System.out.println(tiles);
-        //System.out.println("+-------------------+   VP:2, OFF   +-----------+     VP:3, OFF     +-------+       VP:4, OFF       +");
         System.out.println("                    +---------------+           +-------------------+       +-----------------------+");
 
     }
@@ -1366,15 +1355,35 @@ public class CLI implements Runnable, SourceListener {
      * Method used to print the Develop Card Slots.
      */
     private void printSlots() {
+        String[] card1 = Cards.getDevelopById(modelView.getSlots().get(0)[modelView.getTopIndex(modelView.getSlots().get(0))]);
+        String[] card2 = Cards.getDevelopById(modelView.getSlots().get(1)[modelView.getTopIndex(modelView.getSlots().get(1))]);
+        String[] card3 = Cards.getDevelopById(modelView.getSlots().get(2)[modelView.getTopIndex(modelView.getSlots().get(2))]);
 
-        String slot1 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(0)));
-        String slot2 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(1)));
-        String slot3 = String.valueOf(modelView.getTopIndex( modelView.getSlots().get(2)));
+        String[] one = new String[4];
+        String[] two = new String[4];
+        String[] three = new String[4];
 
-        System.out.println("      +----------------------");
-        System.out.println("\nslot1 -> ");
-        System.out.println("\n\n\nslot2 -> \n");
-        System.out.println("\nslot3 -> ");
+        for (int i = 0; i < 4; i++) {
+            if (i == 1) {
+                one[i] = "slot1 -> " + card1[i];
+                two[i] = "slot2 -> " + card2[i];
+                three[i] = "slot3 -> " + card3[i];
+            } else {
+                one[i] = "         " + card1[i];
+                two[i] = "         " + card2[i];
+                three[i] = "         " + card3[i];
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            System.out.println(one[i]);
+        }
+        for (int i = 0; i < 4; i++) {
+            System.out.println(two[i]);
+        }
+        for (int i = 0; i < 4; i++) {
+            System.out.println(three[i]);
+        }
     }
 
     //AnswerHandler notifies it of changes, cli reads the ModelView and prints the new state
@@ -1391,7 +1400,6 @@ public class CLI implements Runnable, SourceListener {
             case "CHOOSELEADERS":
 
                 if (value == null) {
-                    // print leaders
                     chooseLeaders();
                 } else {
                     System.out.println(value.get("other") + " is choosing his leaders!" );
@@ -1413,10 +1421,6 @@ public class CLI implements Runnable, SourceListener {
             case "CHOOSERESOURCES":
 
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
-
-                    if (value.containsKey("addpos")) {
-                        // System.out.println("Your position on the Faith Track has also been increased!");
-                    }
                     chooseResources(Integer.parseInt(value.get("qty")));
                 } else {
                     System.out.println(value.get("other") + " is choosing his initial resources!" );
@@ -1481,8 +1485,8 @@ public class CLI implements Runnable, SourceListener {
                     System.out.println(value.get("other") + " has taken resources from the Market!" );
                     if (Integer.parseInt(value.get("discarded")) != 0) {
                         System.out.println("Your position has been increased!");
-                        printBoard();
                     }
+                    printBoard();
                 }
 
                 break;
@@ -1505,6 +1509,7 @@ public class CLI implements Runnable, SourceListener {
                     // print leaders
                     // print extra deposit
                     printBoard();
+                    printActions();
                 } else {
                     System.out.println(value.get("other") + " has activated his leader!" );
                 }
@@ -1517,6 +1522,7 @@ public class CLI implements Runnable, SourceListener {
                     // print leaders
                     // print position
                     printBoard();
+                    printActions();
                 } else {
                     System.out.println(value.get("other") + " has discaded his leader!" );
                 }
@@ -1525,16 +1531,17 @@ public class CLI implements Runnable, SourceListener {
 
             case "ENDTURN":
 
-                if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
+                if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     if (modelView.isSoloGame()){
                         System.out.println("The Token that has been activated is: " + Cards.getTokenById(Integer.parseInt(value.get("tokenActivated"))));
-                    }// come attivo il token?
-                    printBoard();
+                    }
                 } else {
                     System.out.println(value.get("other") + " has ended his turn!" );
-                    //printBoard();
+                    if (!modelView.getName().equalsIgnoreCase(value.get("currentPlayer"))) {
+                        System.out.println("It is " + value.get("currentPlayer") + " turn now!");
+                    }
                 }
-
+                printBoard();
                 break;
 
             case "ENDGAME":
@@ -1545,6 +1552,10 @@ public class CLI implements Runnable, SourceListener {
                     System.out.println("You lost! You made " + value.get("points") + " points! ");
                     System.out.println(value.get("winner") + " won with " + value.get("winnerpoints") + " points! ");
                 }
+
+                setActiveGame(false);
+                if (connectionSocket!=null) connectionSocket.close();
+                System.exit(0);
 
                 break;
 

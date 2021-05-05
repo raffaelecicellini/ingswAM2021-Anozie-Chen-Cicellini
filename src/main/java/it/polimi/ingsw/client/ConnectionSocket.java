@@ -93,7 +93,7 @@ public class ConnectionSocket {
     public boolean setup(String message, SourceListener answerHandler) {
         BufferedReader input;
         Gson gson = new Gson();
-        Map<String, String> answer;
+        Map<String, String> answer = new HashMap<>();
 
         try {
             socket = new Socket(serverAddress, serverPort);

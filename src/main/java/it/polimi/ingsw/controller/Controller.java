@@ -614,7 +614,9 @@ public class Controller implements SourceListener {
                 //message.remove("action");
                 endTurn(value);
                 break;
-
+            case "DISCONNECT":
+                model.setPhase(GamePhase.ENDED);
+                break;
             default:
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");

@@ -311,8 +311,8 @@ public class AnswerHandler implements SourceListener {
                         deposits.put("sp1res", value.get("sp1res"));
                         deposits.put("sp1qty", value.get("sp1qty"));
                         if (modelView.getDeposits().size() > 8) {
-                            deposits.put("sp2res", newValues.get("sp2res"));
-                            deposits.put("sp2qty", newValues.get("sp2qty"));
+                            deposits.put("sp2res", value.get("sp2res"));
+                            deposits.put("sp2qty", value.get("sp2qty"));
                         }
                     }
                     modelView.setDeposits(deposits);
@@ -374,13 +374,13 @@ public class AnswerHandler implements SourceListener {
                         deposits.put("midqty", value.get("midqty"));
                         deposits.put("bigres", value.get("bigres"));
                         deposits.put("bigqty", value.get("bigqty"));
-                        if (modelView.getDeposits().size() > 6) {
+                        if (modelView.getDeposits().size() == 6) {
                             deposits.put("sp1res", value.get("sp1res"));
                             deposits.put("sp1qty", value.get("sp1qty"));
-                            if (modelView.getDeposits().size() > 8) {
-                                deposits.put("sp2res", value.get("sp2res"));
-                                deposits.put("sp2qty", value.get("sp2qty"));
-                            }
+                        }
+                        else if (modelView.getDeposits().size() == 8) {
+                            deposits.put("sp2res", value.get("sp2res"));
+                            deposits.put("sp2qty", value.get("sp2qty"));
                         }
                         modelView.setDeposits(deposits);
                     }
@@ -440,22 +440,22 @@ public class AnswerHandler implements SourceListener {
                 }
                 modelView.setTiles(tiles);
 
-                if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
+                if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     // the player who ended his turn
 
                     // FORSE QUESTO FUORI DAL PRIMO IF
                     if (modelView.isSoloGame()) {
-                        modelView.setToken(Integer.parseInt(newValues.get("tokenActivated")));
-                        modelView.setBlackCross(Integer.parseInt(newValues.get("blackPos")));
+                        modelView.setToken(Integer.parseInt(value.get("tokenActivated")));
+                        modelView.setBlackCross(Integer.parseInt(value.get("blackPos")));
 
                         developDecks = new int[4][3];
                         for (col=0; col<4; col++) {
                             for (row = 0; row < 3; row++) {
-                                developDecks[col][row] = Integer.parseInt(newValues.get("card" + col + row));
+                                developDecks[col][row] = Integer.parseInt(value.get("card" + col + row));
                             }
                         }
                         modelView.setDevelopDecks(developDecks);
-                        modelView.setActiveTurn(true);
+                        modelView.setActiveTurn(false);
 
                     } else {
                         modelView.setActiveTurn(false);
@@ -465,7 +465,7 @@ public class AnswerHandler implements SourceListener {
 
                 } else {
                     // other players
-                    map.put("other", map.get("player"));
+                    map.put("other", map.get("endedTurnPlayer"));
                     map.remove("player");
                     map.put("currentPlayer", value.get("currentPlayer"));
                     viewListener.fireUpdates(map.get("action"), map);

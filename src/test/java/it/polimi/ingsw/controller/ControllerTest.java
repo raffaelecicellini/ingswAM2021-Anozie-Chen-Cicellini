@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
+import it.polimi.ingsw.notifications.SourceListener;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,9 +23,9 @@ public class ControllerTest {
     @Test
     public void ControllerTest1(){
 
-        PropertyChangeListener gameHandlerListener = evt -> {
+        SourceListener gameHandlerListener = (name, evt) -> {
             Gson gson = new Gson();
-            String message = gson.toJson(evt.getNewValue());
+            String message = gson.toJson(evt);
             System.out.println(message);
         };
 
@@ -39,7 +40,7 @@ public class ControllerTest {
         map.put("action", "start");
         map.put("player", "one");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         /*for (int i = 0; i < game.getActivePlayers().size(); i++){
             System.out.println("Player " + i + ": " + game.getActivePlayers().get(i).getName());
@@ -51,7 +52,7 @@ public class ControllerTest {
         map.put("ind1", "1");
         map.put("ind2", "3");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         map.clear();
         map.put("action", "chooseleaders");
@@ -59,7 +60,7 @@ public class ControllerTest {
         map.put("ind1", "2");
         map.put("ind2", "4");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         map.clear();
         map.put("action", "chooseleaders");
@@ -67,7 +68,7 @@ public class ControllerTest {
         map.put("ind1", "1");
         map.put("ind2", "4");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         map.clear();
         map.put("action", "chooseResources");
@@ -75,7 +76,7 @@ public class ControllerTest {
         map.put("res1", "blue");
         map.put("pos1", "small");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         map.clear();
         map.put("action", "chooseResources");
@@ -83,7 +84,7 @@ public class ControllerTest {
         map.put("res1", "blue");
         map.put("pos1", "small");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
     }
 
@@ -93,9 +94,9 @@ public class ControllerTest {
     @Test
     public void ControllerTest2(){
 
-        PropertyChangeListener gameHandlerListener = evt -> {
+        SourceListener gameHandlerListener = (name, evt) -> {
             Gson gson = new Gson();
-            String message = gson.toJson(evt.getNewValue());
+            String message = gson.toJson(evt);
             System.out.println(message);
         };
 
@@ -110,7 +111,7 @@ public class ControllerTest {
         map.put("action", "start");
         map.put("player", "one");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         for (int i = 0; i < game.getActivePlayers().size(); i++){
             System.out.println("Player " + i + ": " + game.getActivePlayers().get(i).getName());
@@ -126,7 +127,7 @@ public class ControllerTest {
         map.put("ind", "1");
         map.put("res1", "strongbox");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         map.clear();
         map.put("action", "produce");
@@ -138,7 +139,7 @@ public class ControllerTest {
         map.put("prod4", "no");
         map.put("prod5", "no");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         map.clear();
         map.put("action", "market");
@@ -148,7 +149,7 @@ public class ControllerTest {
         map.put("res2", "mid");
         map.put("res3", "small");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         map.clear();
         map.put("action", "swap");
@@ -156,13 +157,13 @@ public class ControllerTest {
         map.put("source", "small");
         map.put("dest", "big");
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
         map.clear();
         map.put("action", "endturn");
         map.put("player", game.getCurrentPlayer().getName());
 
-        controller.propertyChange(new PropertyChangeEvent(gameHandlerListener, map.get("action"), null, map));
+        controller.update(map.get("action"), map);
 
     }
 

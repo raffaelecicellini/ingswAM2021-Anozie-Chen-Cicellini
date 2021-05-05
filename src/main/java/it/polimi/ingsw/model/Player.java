@@ -455,7 +455,7 @@ public class Player {
                             } else {
                                 discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, null);
                             }
-                        } else throw new InvalidActionException("Invalid action! You typed a wrong deposit!");
+                        } else throw new InvalidActionException("Invalid action! You typed a wrong deposit! dep:"+dep);
                     } else {
                         // 2 possible colors to choose
                         Color color = Color.valueOf(map.get("res" + (ind_pos+1)).toUpperCase());

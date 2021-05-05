@@ -1,15 +1,14 @@
 package it.polimi.ingsw.client;
 
 import com.google.gson.Gson;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import it.polimi.ingsw.notifications.SourceListener;
+import java.util.Map;
 
 /**
  * This class represents the Action Parser. It takes the input from the View receiving the PropertyChangeEvent,
  * it serializes it and it sends it with the Connection Socket to the Server.
  */
-public class ActionParser implements PropertyChangeListener {
+public class ActionParser implements SourceListener {
 
     /**
      * This attribute represents the Connection Socket.
@@ -29,16 +28,11 @@ public class ActionParser implements PropertyChangeListener {
         this.connection = connection;
     }
 
-    /**
-     * @see PropertyChangeListener#propertyChange(PropertyChangeEvent)
-     */
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
+    public void update(String propertyName, Map<String, String> value) {
         Gson gson = new Gson();
-        String message = gson.toJson(evt.getNewValue());
+        String message = gson.toJson(value);
         // sending serialized message
         connection.send(message);
-
     }
 }

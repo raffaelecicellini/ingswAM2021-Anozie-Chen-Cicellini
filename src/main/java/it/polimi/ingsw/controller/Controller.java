@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import it.polimi.ingsw.notifications.Source;
+import it.polimi.ingsw.notifications.SourceListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * This class is represents the Contoller of the game.
  */
-public class Controller implements PropertyChangeListener {
+public class Controller implements SourceListener {
 
     /**
      * This attribute refers to the model that the Controller makes actions on.
@@ -26,7 +24,7 @@ public class Controller implements PropertyChangeListener {
     /**
      * This attribute represents the GameHandler that is listening to the Controller.
      */
-    private PropertyChangeSupport gameHandlerListener = new PropertyChangeSupport(this);
+    private Source gameHandlerListener = new Source();
 
 
     /**
@@ -34,9 +32,9 @@ public class Controller implements PropertyChangeListener {
      * @param model is the model that the Controller makes actions on.
      * @param gameHandler is the gameHandler that listens to the Controller.
      */
-    public Controller(Game model, PropertyChangeListener gameHandler) {
+    public Controller(Game model, SourceListener gameHandler) {
         this.model = model;
-        gameHandlerListener.addPropertyChangeListener(gameHandler);
+        gameHandlerListener.addListener(gameHandler);
     }
 
     /**
@@ -81,7 +79,7 @@ public class Controller implements PropertyChangeListener {
                         error.put("player", map.get("player"));
                         error.put("content", "There is an error in Buy: " + e.getMessage());
                         error.put("method", "buy");
-                        gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                        gameHandlerListener.fireUpdates(error.get("action"), error);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -89,7 +87,7 @@ public class Controller implements PropertyChangeListener {
                     error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "buy");
-                    gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                    gameHandlerListener.fireUpdates(error.get("action"), error);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -97,7 +95,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "buy");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -105,7 +103,7 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "buy");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
 
     }
@@ -138,7 +136,7 @@ public class Controller implements PropertyChangeListener {
                         error.put("player", map.get("player"));
                         error.put("content", "There is an error in Produce: " + e.getMessage());
                         error.put("method", "produce");
-                        gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                        gameHandlerListener.fireUpdates(error.get("action"), error);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -147,7 +145,7 @@ public class Controller implements PropertyChangeListener {
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "produce");
                     Gson gson = new Gson();
-                    gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                    gameHandlerListener.fireUpdates(error.get("action"), error);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -155,7 +153,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "produce");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -163,7 +161,7 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "produce");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
 
     }
@@ -194,7 +192,7 @@ public class Controller implements PropertyChangeListener {
                             error.put("player", map.get("player"));
                             error.put("content", "There is an error in fromMarket: " + e.getMessage());
                             error.put("method", "fromMarket");
-                            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                            gameHandlerListener.fireUpdates(error.get("action"), error);
                         }
                     }
                 } else if (mapCopy.containsKey("col")) {
@@ -208,7 +206,7 @@ public class Controller implements PropertyChangeListener {
                             error.put("player", map.get("player"));
                             error.put("content", "There is an error in fromMarket: " + e.getMessage());
                             error.put("method", "fromMarket");
-                            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                            gameHandlerListener.fireUpdates(error.get("action"), error);
                         }
                     }
                 } else {
@@ -217,7 +215,7 @@ public class Controller implements PropertyChangeListener {
                     error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "fromMarket");
-                    gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                    gameHandlerListener.fireUpdates(error.get("action"), error);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -225,7 +223,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "fromMarket");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -233,7 +231,7 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "fromMarket");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
 
     }
@@ -267,7 +265,7 @@ public class Controller implements PropertyChangeListener {
                         error.put("player", map.get("player"));
                         error.put("content", "There is an error in swapDeposits: " + e.getMessage());
                         error.put("method", "swapDeposits");
-                        gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                        gameHandlerListener.fireUpdates(error.get("action"), error);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -275,7 +273,7 @@ public class Controller implements PropertyChangeListener {
                     error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "swapDeposits");
-                    gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                    gameHandlerListener.fireUpdates(error.get("action"), error);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -283,7 +281,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "swapDeposits");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -291,7 +289,7 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "swapDeposits");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
 
     }
@@ -324,7 +322,7 @@ public class Controller implements PropertyChangeListener {
                         error.put("player", map.get("player"));
                         error.put("content", "There is an error in chooseLeaders: " + e.getMessage());
                         error.put("method", "chooseLeaders");
-                        gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                        gameHandlerListener.fireUpdates(error.get("action"), error);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -332,7 +330,7 @@ public class Controller implements PropertyChangeListener {
                     error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "chooseLeaders");
-                    gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                    gameHandlerListener.fireUpdates(error.get("action"), error);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -340,7 +338,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "chooseLeaders");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         }  else {
             Map<String, String> error = new HashMap<>();
@@ -348,7 +346,7 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "chooseLeaders");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
 
     }
@@ -381,7 +379,7 @@ public class Controller implements PropertyChangeListener {
                         error.put("player", map.get("player").toLowerCase());
                         error.put("content", "There is an error in chooseResources: " + e.getMessage());
                         error.put("method", "chooseResources");
-                        gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                        gameHandlerListener.fireUpdates(error.get("action"), error);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -389,7 +387,7 @@ public class Controller implements PropertyChangeListener {
                     error.put("player", map.get("player").toLowerCase());
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "chooseResources");
-                    gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                    gameHandlerListener.fireUpdates(error.get("action"), error);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -397,7 +395,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "chooseResources");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -405,7 +403,7 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "chooseResources");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
     }
 
@@ -438,7 +436,7 @@ public class Controller implements PropertyChangeListener {
                             error.put("player", map.get("player"));
                             error.put("content", "There is an error in activateLeader: " + e.getMessage());
                             error.put("method", "activateLeader");
-                            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                            gameHandlerListener.fireUpdates(error.get("action"), error);
                         }
                     } else {
                         Map<String, String> error = new HashMap<>();
@@ -446,7 +444,7 @@ public class Controller implements PropertyChangeListener {
                         error.put("player", map.get("player"));
                         error.put("content", "Attention! You did not type the index correctly! Try again!");
                         error.put("method", "activateLeader");
-                        gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                        gameHandlerListener.fireUpdates(error.get("action"), error);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -454,7 +452,7 @@ public class Controller implements PropertyChangeListener {
                     error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "activateLeader");
-                    gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                    gameHandlerListener.fireUpdates(error.get("action"), error);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -462,7 +460,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "activateLeader");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -470,7 +468,7 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "activateLeader");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
     }
 
@@ -503,7 +501,7 @@ public class Controller implements PropertyChangeListener {
                             error.put("player", map.get("player"));
                             error.put("content", "There is an error in discardLeader: " + e.getMessage());
                             error.put("method", "discardLeader");
-                            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                            gameHandlerListener.fireUpdates(error.get("action"), error);
                         }
                     } else {
                         Map<String, String> error = new HashMap<>();
@@ -511,7 +509,7 @@ public class Controller implements PropertyChangeListener {
                         error.put("player", map.get("player"));
                         error.put("content", "Attention! You did not type the index correctly! Try again!");
                         error.put("method", "discardLeader");
-                        gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                        gameHandlerListener.fireUpdates(error.get("action"), error);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -519,7 +517,7 @@ public class Controller implements PropertyChangeListener {
                     error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "discardLeader");
-                    gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                    gameHandlerListener.fireUpdates(error.get("action"), error);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -527,7 +525,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "discardLeader");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else  {
             Map<String, String> error = new HashMap<>();
@@ -535,7 +533,7 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "discardLeader");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
 
     }
@@ -561,7 +559,7 @@ public class Controller implements PropertyChangeListener {
                 error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "endturn");
-                gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+                gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -569,68 +567,62 @@ public class Controller implements PropertyChangeListener {
             error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "endturn");
-            gameHandlerListener.firePropertyChange(error.get("action"), null, error);
+            gameHandlerListener.fireUpdates(error.get("action"), error);
         }
 
     }
 
-    /**
-     * @see PropertyChangeListener#propertyChange(PropertyChangeEvent)
-     */
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
-        Map<String, String> message = ( Map<String, String> ) evt.getNewValue();
-        String actionName = evt.getPropertyName().toUpperCase();
-
-        switch (actionName){
+    public void update(String propertyName, Map<String, String> value) {
+        switch (propertyName.toUpperCase()){
             case "START":
                 start();
                 break;
             case "BUY":
-                message.remove("action");
-                buy(message);
+                value.remove("action");
+                buy(value);
                 break;
             case "PRODUCE":
-                message.remove("action");
-                produce(message);
+                value.remove("action");
+                produce(value);
                 break;
             case "MARKET":
-                message.remove("action");
-                fromMarket(message);
+                value.remove("action");
+                fromMarket(value);
                 break;
             case "SWAP":
-                message.remove("action");
-                swapDeposits(message);
+                value.remove("action");
+                swapDeposits(value);
                 break;
             case "CHOOSELEADERS":
-                message.remove("action");
-                chooseLeaders(message);
+                value.remove("action");
+                chooseLeaders(value);
                 break;
             case "CHOOSERESOURCES":
-                message.remove("action");
-                chooseResources(message);
+                value.remove("action");
+                chooseResources(value);
                 break;
             case "ACTIVATE":
-                message.remove("action");
-                activateLeader(message);
+                value.remove("action");
+                activateLeader(value);
                 break;
             case "DISCARD":
-                message.remove("action");
-                discardLeader(message);
+                value.remove("action");
+                discardLeader(value);
                 break;
             case "ENDTURN":
                 //message.remove("action");
-                endTurn(message);
+                endTurn(value);
                 break;
-
+            case "DISCONNECT":
+                model.setPhase(GamePhase.ENDED);
+                break;
             default:
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
-                error.put("player", message.get("player"));
+                error.put("player", value.get("player"));
                 error.put("content", "Illegal action! Try typing again!");
-                gameHandlerListener.firePropertyChange("error", null, error);
+                gameHandlerListener.fireUpdates("error", error);
         }
     }
-
 }

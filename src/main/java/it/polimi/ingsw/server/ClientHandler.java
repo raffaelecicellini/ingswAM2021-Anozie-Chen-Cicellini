@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,6 +99,21 @@ public class ClientHandler implements Runnable{
     }
 
     /**
+     * This method initiates the ClientPing and sets a timeout on the socket.
+     */
+    private void clientPingInitiate() {
+        try {
+            //10000 is the timeout
+            socket.setSoTimeout(10000);
+        }catch (SocketException e) {
+            System.err.println(e.getMessage());
+        }
+        ClientPing ping = new ClientPing(this);
+        Thread clientPing = new Thread(ping);
+        clientPing.start();
+    }
+
+    /**
      * This method returns if the ClientHandler is active.
      * @return if the ClientHandler is active.
      */
@@ -106,7 +123,7 @@ public class ClientHandler implements Runnable{
 
     /**
      * This method is used when the ClientHandler receives a message from the client, in order to call the right method.
-     * @param message
+     * @param message is the message received from the client.
      */
     public void actionHandler(Map<String,String> message) {
         String action = message.get("action");
@@ -116,7 +133,7 @@ public class ClientHandler implements Runnable{
                 break;
             case "disconnect":
                 if (game!=null) server.manageDisconnection(this);
-                else close();
+                close();
                 break;
             case "buy" :
                 makeAction(message);
@@ -145,6 +162,8 @@ public class ClientHandler implements Runnable{
             case "market":
                 makeAction(message);
                 break;
+            case "ping":
+                break;
             default:
                 Map<String, String> error= new HashMap<>();
                 error.put("action", "error");
@@ -158,7 +177,7 @@ public class ClientHandler implements Runnable{
     /**
      * This method is used when a client sends a move message to the server. The message will be then sent to the
      * GameHandler.
-     * @param message
+     * @param message is the message received from the client.
      */
     public void makeAction(Map<String,String> message) {
         if (game!=null){
@@ -185,7 +204,7 @@ public class ClientHandler implements Runnable{
      * This method sends a message to the client.
      * @param message is the message that will be sent to the client.
      */
-    public void send(String message) {
+    public synchronized void send(String message) {
         try {
             output.write(message+"\n");
             output.flush();
@@ -281,14 +300,18 @@ public class ClientHandler implements Runnable{
      */
     @Override
     public void run() {
+        clientPingInitiate();
         try {
             while (isActive()) {
                 readMessage();
             }
+        } catch (SocketTimeoutException e) {
+            System.err.println("Connection Timeout. The client has disconnected.");
+            if (name != null && game != null) server.manageDisconnection(this);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println("Error");
-            if (name != null && game!=null) server.manageDisconnection(this);
+            if (name != null && game != null) server.manageDisconnection(this);
         }
     }
 }

@@ -878,9 +878,9 @@ public class PlayerTest {
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,0));
-        deposits.add(new ResourceAmount(Color.GREY,0));
-        deposits.add(new ResourceAmount(Color.YELLOW,0));
+        deposits.add(new ResourceAmount(null,0));
+        deposits.add(new ResourceAmount(null,0));
+        deposits.add(new ResourceAmount(null,0));
         deposits.add(new ResourceAmount(Color.YELLOW,0));
         deposits.add(new ResourceAmount(Color.GREY,0));
         p.getPersonalBoard().setDeposits(deposits);

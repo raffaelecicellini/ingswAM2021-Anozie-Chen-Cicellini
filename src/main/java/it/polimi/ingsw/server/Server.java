@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server;
 
-import com.google.gson.stream.JsonToken;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

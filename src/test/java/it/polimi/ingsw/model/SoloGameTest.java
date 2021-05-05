@@ -94,6 +94,7 @@ public class SoloGameTest {
         assertEquals(1, soloGame.getCurrentPlayer().getPersonalBoard().getDeposits().get(2).getAmount());
 
         assertEquals(0, soloGame.getCurrentPlayer().getPersonalBoard().getPosition());
+        assertEquals(0, soloGame.getBlackCross().getPosition());
         assertTrue(soloGame.doneMandatory);
 
         try {

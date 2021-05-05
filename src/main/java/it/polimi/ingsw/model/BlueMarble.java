@@ -45,7 +45,7 @@ public class BlueMarble implements Marble{
         if (dep>=0 && dep<3){
             // small, mid or big
             ResourceAmount current= deposits.get(dep); // current situation in the selected deposit
-            if ((current.getColor()==Color.BLUE && current.getAmount()<(dep+1)) || current.getAmount()==0){
+            if (current.getAmount()==0 || (current.getColor()==Color.BLUE && current.getAmount()<(dep+1))){
                 int duplicate= checkDuplicates(deposits, dep);
                 if (duplicate>=0 && deposits.get(duplicate).getAmount()<(duplicate+1)){
                     // another deposit has the BLUE ResourceAmount && it's not full
@@ -64,6 +64,7 @@ public class BlueMarble implements Marble{
                 }
                 ResourceAmount newval= new ResourceAmount(Color.BLUE, current.getAmount()+1);
                 deposits.set(dep, newval);
+                return 0;
             }
             else if (current.getColor()==Color.BLUE && current.getAmount()==(dep+1)){
                 // current is BLUE and it's full
@@ -76,7 +77,7 @@ public class BlueMarble implements Marble{
                 }
                 return 1;
             }
-            else if (current.getColor()!=Color.BLUE){
+            else if (current.getColor()!=Color.BLUE && current.getAmount()>0){
                 boolean space=checkSpace(deposits);
                 if (space){
                     throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one! (maybe with a swap)");
@@ -97,6 +98,7 @@ public class BlueMarble implements Marble{
                 if (current.getColor()==Color.BLUE && current.getAmount()<2){
                     ResourceAmount newval= new ResourceAmount(Color.BLUE, current.getAmount()+1);
                     deposits.set(dep, newval);
+                    return 0;
                 }
                 else if (current.getColor()==Color.BLUE && current.getAmount()==2){
                     boolean space=checkSpace(deposits);

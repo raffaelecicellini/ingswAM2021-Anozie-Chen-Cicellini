@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import it.polimi.ingsw.notifications.Source;
+import it.polimi.ingsw.notifications.SourceListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,16 +27,16 @@ public class SoloGame extends Game{
     private GamePhase phase;
 
     /**
-     * @see PropertyChangeSupport
+     * @see Source
      */
-    private final PropertyChangeSupport listener=new PropertyChangeSupport(this);
+    private final Source listener=new Source();
 
     /**
      * Simple method used to set the view as listener of the model
      * @param view the view object that implements PropertyChangeListener
      */
-    public void setListener(PropertyChangeListener view){
-        this.listener.addPropertyChangeListener(view);
+    public void setListener(SourceListener view){
+        this.listener.addListener(view);
     }
 
     /**
@@ -351,7 +350,7 @@ public class SoloGame extends Game{
             }
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -371,12 +370,12 @@ public class SoloGame extends Game{
         state.put("player", currentPlayer.getName());
         leaders=currentPlayer.getLeaders();
         for (int i=0; i<leaders.size(); i++){
-            cardId="card"+i;
+            cardId="leader"+i;
             id=leaders.get(i).getId();
             state.put(cardId, String.valueOf(id));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -389,7 +388,7 @@ public class SoloGame extends Game{
         state.put("content", content);
         state.put("player", currentPlayer.getName());
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -444,7 +443,7 @@ public class SoloGame extends Game{
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -489,7 +488,7 @@ public class SoloGame extends Game{
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -550,7 +549,7 @@ public class SoloGame extends Game{
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -584,7 +583,7 @@ public class SoloGame extends Game{
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        listener.firePropertyChange(state.get("action"), null, state);
+        listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -606,7 +605,7 @@ public class SoloGame extends Game{
             state.put("newPos", String.valueOf(newPos));
         }
 
-        this.listener.firePropertyChange(state.get("action"), null, state);
+        this.listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -650,7 +649,7 @@ public class SoloGame extends Game{
 
         state.put("tokenActivated", String.valueOf(token));
 
-        this.listener.firePropertyChange(state.get("action"), null, state);
+        this.listener.fireUpdates(state.get("action"), state);
     }
 
     /**
@@ -670,7 +669,7 @@ public class SoloGame extends Game{
         state.put("content", content);
         state.put("points", String.valueOf(points));
 
-        this.listener.firePropertyChange(state.get("action"), null, state);
+        this.listener.fireUpdates(state.get("action"), state);
     }
 
     /**

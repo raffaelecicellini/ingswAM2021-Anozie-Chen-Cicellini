@@ -230,7 +230,7 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-
+        input.nextLine();
         System.out.println(">Insert the column, number between 0 and 3");
         System.out.print(">");
         int column = -1;
@@ -245,7 +245,7 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-
+        input.nextLine();
         System.out.println(">Insert your personal board slot index in which you want to place the card, number between 0 and 2");
         System.out.print(">");
         int ind = -1;
@@ -259,7 +259,7 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-
+        input.nextLine();
         ArrayList<String> discounts = new ArrayList<>();
         if (modelView.getLeaders().get("state0").equalsIgnoreCase("active"))
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
@@ -1260,7 +1260,7 @@ public class CLI implements Runnable, SourceListener {
                 }
             }
             System.out.println(str);
-            if (row != 0)
+            if (row != 2)
                 System.out.println("|                                    |");
         }
         System.out.println("+----- ^ ----- ^ ----- ^ ----- ^ ----+");
@@ -1355,9 +1355,9 @@ public class CLI implements Runnable, SourceListener {
      * Method used to print the Develop Card Slots.
      */
     private void printSlots() {
-        String[] card1 = Cards.getDevelopById(modelView.getSlots().get(0)[modelView.getTopIndex(modelView.getSlots().get(0))]);
-        String[] card2 = Cards.getDevelopById(modelView.getSlots().get(1)[modelView.getTopIndex(modelView.getSlots().get(1))]);
-        String[] card3 = Cards.getDevelopById(modelView.getSlots().get(2)[modelView.getTopIndex(modelView.getSlots().get(2))]);
+        String[] card1 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(0)));
+        String[] card2 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(1)));
+        String[] card3 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(2)));
 
         String[] one = new String[4];
         String[] two = new String[4];
@@ -1365,9 +1365,9 @@ public class CLI implements Runnable, SourceListener {
 
         for (int i = 0; i < 4; i++) {
             if (i == 1) {
-                one[i] = "slot1 -> " + card1[i];
-                two[i] = "slot2 -> " + card2[i];
-                three[i] = "slot3 -> " + card3[i];
+                one[i] = "slot0 -> " + card1[i];
+                two[i] = "slot1 -> " + card2[i];
+                three[i] = "slot2 -> " + card3[i];
             } else {
                 one[i] = "         " + card1[i];
                 two[i] = "         " + card2[i];

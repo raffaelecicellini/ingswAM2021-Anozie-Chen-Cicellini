@@ -415,157 +415,89 @@ public class Cards {
             case 1:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 2:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 3:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 4:
                 cost.add("BLUE");
                 cost.add("PURPLE");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 5:
                 cost.add("YELLOW");
                 cost.add("PURPLE");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 6:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 7:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 8:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 9:
                 cost.add("BLUE");
                 cost.add("PURPLE");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 10:
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 11:
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 12:
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 13:
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 14:
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 15:
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 16:
                 cost.add("BLUE");
                 cost.add("GREY");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 17:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 18:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
@@ -573,65 +505,41 @@ public class Cards {
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 19:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 20:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 21:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 22:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 23:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 24:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
@@ -639,32 +547,20 @@ public class Cards {
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 25:
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 26:
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 27:
                 cost.add("BLUE");
                 cost.add("BLUE");
@@ -672,33 +568,21 @@ public class Cards {
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 28:
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 29:
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 30:
                 cost.add("GREY");
                 cost.add("GREY");
@@ -706,32 +590,20 @@ public class Cards {
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 31:
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 32:
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 33:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
@@ -741,11 +613,7 @@ public class Cards {
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 34:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
@@ -754,11 +622,7 @@ public class Cards {
                 cost.add("PURPLE");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 35:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
@@ -767,11 +631,7 @@ public class Cards {
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 36:
                 cost.add("PURPLE");
                 cost.add("PURPLE");
@@ -779,11 +639,7 @@ public class Cards {
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 37:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
@@ -793,11 +649,7 @@ public class Cards {
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 38:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
@@ -805,11 +657,7 @@ public class Cards {
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 39:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
@@ -818,11 +666,7 @@ public class Cards {
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 40:
                 cost.add("YELLOW");
                 cost.add("YELLOW");
@@ -831,11 +675,7 @@ public class Cards {
                 cost.add("YELLOW");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 41:
                 cost.add("BLUE");
                 cost.add("BLUE");
@@ -844,11 +684,7 @@ public class Cards {
                 cost.add("BLUE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 42:
                 cost.add("BLUE");
                 cost.add("BLUE");
@@ -856,11 +692,7 @@ public class Cards {
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 43:
                 cost.add("BLUE");
                 cost.add("BLUE");
@@ -870,11 +702,7 @@ public class Cards {
                 cost.add("YELLOW");
                 cost.add("YELLOW");
                 cost.add("YELLOW");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 44:
                 cost.add("BLUE");
                 cost.add("BLUE");
@@ -883,11 +711,7 @@ public class Cards {
                 cost.add("BLUE");
                 cost.add("BLUE");
                 cost.add("BLUE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 45:
                 cost.add("GREY");
                 cost.add("GREY");
@@ -895,11 +719,7 @@ public class Cards {
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 46:
                 cost.add("GREY");
                 cost.add("GREY");
@@ -908,11 +728,7 @@ public class Cards {
                 cost.add("GREY");
                 cost.add("GREY");
                 cost.add("GREY");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 47:
                 cost.add("GREY");
                 cost.add("GREY");
@@ -922,11 +738,7 @@ public class Cards {
                 cost.add("PURPLE");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
+                break;
             case 48:
                 cost.add("GREY");
                 cost.add("GREY");
@@ -935,13 +747,15 @@ public class Cards {
                 cost.add("GREY");
                 cost.add("PURPLE");
                 cost.add("PURPLE");
-                if(colors.get(0) != null)
-                    cost.remove(colors.get(0));
-                if(colors.get(1) != null)
-                    cost.remove(colors.get(1));
-                return cost;
-            default: return cost;
+                break;
+            default: break;
         }
+
+        if(colors.size()>=1 && colors.get(0) != null)
+            cost.remove(colors.get(0));
+        if(colors.size()>=2 && colors.get(1) != null)
+            cost.remove(colors.get(1));
+        return cost;
     }
 
     /**

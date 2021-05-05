@@ -402,6 +402,12 @@ public class ModelView {
         this.phase = phase;
     }
 
+    /**
+     * Method used to return a list of marbles, given a row or col of the market.
+     * @param chosen is the chosen line (row/col).
+     * @param ind is the index of the row/col.
+     * @return the list of strings of marbles.
+     */
     public ArrayList<String> getResMarket(String chosen, int ind) {
         ArrayList<String> res = new ArrayList<>();
 
@@ -417,5 +423,21 @@ public class ModelView {
         }
 
         return res;
+    }
+
+    /**
+     * Method used to return the Index of the Top Develop Card, given a slot.
+     * @param slot is the array that represents the slot.
+     * @return the Index of the Top Develop Card (-1 if empty slot).
+     */
+    public int getTopIndex(int[] slot) {
+        int devCardIndex = 0;
+
+        while (devCardIndex < slot.length) {
+            if (slot[devCardIndex] == 0) return devCardIndex-1;
+            devCardIndex++;
+        }
+
+        return devCardIndex-1;
     }
 }

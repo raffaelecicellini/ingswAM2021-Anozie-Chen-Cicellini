@@ -476,6 +476,16 @@ public class AnswerHandler implements PropertyChangeListener {
                     if (modelView.isSoloGame()) {
                         modelView.setToken(Integer.parseInt(newValues.get("tokenActivated")));
                         modelView.setBlackCross(Integer.parseInt(newValues.get("blackPos")));
+
+                        developDecks = new int[4][3];
+                        for (col=0; col<4; col++) {
+                            for (row = 0; row < 3; row++) {
+                                developDecks[col][row] = Integer.parseInt(newValues.get("card" + col + row));
+                            }
+                        }
+                        modelView.setDevelopDecks(developDecks);
+
+
                     } else {
                         modelView.setActiveTurn(false);
                     }

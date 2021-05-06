@@ -73,7 +73,7 @@ public class CLI implements Runnable, SourceListener {
                 try {
                     System.out.println(">Insert the number of players (if 1, a single player game will start; otherwise, you will be added to the current multiplayer game): ");
                     System.out.print(">");
-                    number = input.nextInt();
+                    number = Integer.parseInt(input.nextLine());
                     System.out.println(">You chose: " + number);
                     System.out.println(">Is it ok? [yes/no]");
                     System.out.print(">");
@@ -83,7 +83,7 @@ public class CLI implements Runnable, SourceListener {
                     } else {
                         confirmed=false;
                     }
-                } catch (InputMismatchException e){
+                } catch (NumberFormatException e){
                     System.out.println(">A number must be provided! Please try again");
                 }
             }
@@ -115,7 +115,7 @@ public class CLI implements Runnable, SourceListener {
         Scanner scanner = new Scanner(System.in);
         int input = 0;
         try {
-            input = scanner.nextInt();
+            input = Integer.parseInt(scanner.nextLine());
             if (input==0){
                 System.out.println("You chose local game. Have fun!");
                 CLI cli=new CLI(true);
@@ -128,7 +128,7 @@ public class CLI implements Runnable, SourceListener {
                 String ip = scanner.nextLine();
                 System.out.println(">Insert the server port");
                 System.out.print(">");
-                int port = scanner.nextInt();
+                int port = Integer.parseInt(scanner.nextLine());
                 CLI cli = new CLI(false);
                 cli.setPort(port);
                 cli.setAddress(ip);
@@ -138,7 +138,7 @@ public class CLI implements Runnable, SourceListener {
                 System.err.println("Invalid input!");
                 main(args);
             }
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             System.err.println("Numeric format requested, application will now close...");
             System.exit(-1);
         }
@@ -220,8 +220,8 @@ public class CLI implements Runnable, SourceListener {
 
         int row = -1;
         try {
-            row = input.nextInt();
-        } catch (InputMismatchException e) {
+            row = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
             return;
         }
@@ -230,13 +230,12 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-        input.nextLine();
         System.out.println(">Insert the column, number between 0 and 3");
         System.out.print(">");
         int column = -1;
         try {
-            column = input.nextInt();
-        } catch (InputMismatchException e) {
+            column = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
             return;
         }
@@ -245,13 +244,12 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-        input.nextLine();
         System.out.println(">Insert your personal board slot index in which you want to place the card, number between 0 and 2");
         System.out.print(">");
         int ind = -1;
         try {
-            ind = input.nextInt();
-        } catch (InputMismatchException e) {
+            ind = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
             return;
         }
@@ -259,7 +257,6 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-        input.nextLine();
         ArrayList<String> discounts = new ArrayList<>();
         if (modelView.getLeaders().get("state0").equalsIgnoreCase("active"))
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
@@ -325,6 +322,7 @@ public class CLI implements Runnable, SourceListener {
             printActions();
             return;
         }
+        modelView.setActiveTurn(false);
         listener.fireUpdates("buy", action);
     }
 
@@ -790,8 +788,8 @@ public class CLI implements Runnable, SourceListener {
             System.out.println(">Type the index of the leader you want to activate (0/1)");
             System.out.print(">");
             try{
-                idx=input.nextInt();
-            }catch (InputMismatchException e){
+                idx= Integer.parseInt(input.nextLine());
+            }catch (NumberFormatException e){
                 System.err.println("A number must be provided! Please try again!");
                 exit=false;
             }
@@ -830,8 +828,8 @@ public class CLI implements Runnable, SourceListener {
             System.out.println(">Type the index of the leader you want to discard (0/1)");
             System.out.print(">");
             try{
-                idx=input.nextInt();
-            }catch (InputMismatchException e){
+                idx= Integer.parseInt(input.nextLine());
+            }catch (NumberFormatException e){
                 System.err.println("A number must be provided! Please try again!");
                 exit=false;
             }

@@ -72,6 +72,8 @@ public class Controller implements SourceListener {
                         Integer.parseInt(mapCopy.get("ind")) >= 0 && Integer.parseInt(mapCopy.get("ind")) <= 2 &&
                         mapCopy.containsKey("res1") && mapCopy.get("res1") != null) {
                     try {
+                        mapCopy.remove("player");
+                        mapCopy.remove("action");
                         model.buy(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
                         Map<String, String> error = new HashMap<>();
@@ -128,6 +130,8 @@ public class Controller implements SourceListener {
                         mapCopy.get("prod0") != null && mapCopy.get("prod1") != null && mapCopy.get("prod2") != null &&
                         mapCopy.get("prod3") != null /*&& mapCopy.get("prod4") != null && mapCopy.get("prod5") != null*/ ) {
                     try {
+                        mapCopy.remove("player");
+                        mapCopy.remove("action");
                         model.produce(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
                         //e.printStackTrace();
@@ -184,6 +188,8 @@ public class Controller implements SourceListener {
                 if (mapCopy.containsKey("row")) {
                     if (mapCopy.size() >= 5) {
                         try {
+                            mapCopy.remove("player");
+                            mapCopy.remove("action");
                             model.fromMarket(model.getCurrentPlayer().getName(), mapCopy);
                         } catch (InvalidActionException e) {
                             //e.printStackTrace();
@@ -198,6 +204,8 @@ public class Controller implements SourceListener {
                 } else if (mapCopy.containsKey("col")) {
                     if (mapCopy.size() >= 4) {
                         try {
+                            mapCopy.remove("player");
+                            mapCopy.remove("action");
                             model.fromMarket(model.getCurrentPlayer().getName(), mapCopy);
                         } catch (InvalidActionException e) {
                             //e.printStackTrace();
@@ -257,6 +265,8 @@ public class Controller implements SourceListener {
                         mapCopy.containsKey("source") && mapCopy.containsKey("dest") &&
                         mapCopy.get("source") != null && mapCopy.get("dest") != null) {
                     try {
+                        mapCopy.remove("player");
+                        mapCopy.remove("action");
                         model.swapDeposit(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
                         //e.printStackTrace();
@@ -314,6 +324,8 @@ public class Controller implements SourceListener {
                                 Integer.parseInt(mapCopy.get("ind1")) >= 1 && Integer.parseInt(mapCopy.get("ind1")) <= 4 &&
                                 Integer.parseInt(mapCopy.get("ind2")) >= 1 && Integer.parseInt(mapCopy.get("ind2")) <= 4) {
                     try {
+                        mapCopy.remove("player");
+                        mapCopy.remove("action");
                         model.chooseLeaders(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
                         //e.printStackTrace();
@@ -371,6 +383,7 @@ public class Controller implements SourceListener {
                         mapCopy.get("res1") != null && mapCopy.get("pos1") != null) {
                     try {
                         mapCopy.remove("player");
+                        mapCopy.remove("action");
                         model.chooseInitialResource(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
                         //e.printStackTrace();
@@ -428,6 +441,8 @@ public class Controller implements SourceListener {
 
                     if (pos >= 0 && pos <= 1) {
                         try {
+                            mapCopy.remove("player");
+                            mapCopy.remove("action");
                             model.activateLeader(model.getCurrentPlayer().getName(), pos);
                         } catch (InvalidActionException e) {
                             //e.printStackTrace();
@@ -493,6 +508,8 @@ public class Controller implements SourceListener {
 
                     if (pos >= 0 && pos <= 1) {
                         try {
+                            mapCopy.remove("player");
+                            mapCopy.remove("action");
                             model.discardLeader(model.getCurrentPlayer().getName(), pos);
                         } catch (InvalidActionException e) {
                             //e.printStackTrace();

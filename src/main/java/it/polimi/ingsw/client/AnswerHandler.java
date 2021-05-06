@@ -484,6 +484,7 @@ public class AnswerHandler implements SourceListener {
             case "ERROR":
 
                 if (modelView.getName().equals(value.get("player"))) {
+                    modelView.setActiveTurn(true); //DA CONTROLLARE
                     viewListener.fireUpdates(value.get("action"), value);
                 }
 

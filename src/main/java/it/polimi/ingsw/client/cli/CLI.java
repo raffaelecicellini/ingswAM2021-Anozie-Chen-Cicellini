@@ -612,6 +612,11 @@ public class CLI implements Runnable, SourceListener {
         System.out.println(">Insert row/col and the index where you want to take resources from (es \"row 1\", the index must be between 1 and 3 (for row) or 4 (for col))");
         System.out.print(">");
         String[] where= input.nextLine().split(" ");
+        if (where.length!=2){
+            System.err.println("Invalid input! You must insert \"row\" or \"col\" and then a number! Try again!");
+            printActions();
+            return;
+        }
         System.out.println(where[0] + " "+ where[1]);
         if (!where[0].equalsIgnoreCase("row") && !where[0].equalsIgnoreCase("col")){
             System.err.println("Invalid input! You must insert \"row\" or \"col\"! Try again!");
@@ -1353,6 +1358,7 @@ public class CLI implements Runnable, SourceListener {
      * Method used to print the Develop Card Slots.
      */
     private void printSlots() {
+        System.out.println(modelView.getTopId(modelView.getSlots().get(0))+modelView.getTopId(modelView.getSlots().get(1))+modelView.getTopId(modelView.getSlots().get(2)));
         String[] card1 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(0)));
         String[] card2 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(1)));
         String[] card3 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(2)));

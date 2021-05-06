@@ -455,7 +455,13 @@ public class ModelView {
         int devCardIndex = 0;
 
         while (devCardIndex < slot.length) {
-            if (slot[devCardIndex] == 0) return 0;
+            if (slot[devCardIndex] == 0) {
+                if (devCardIndex == 0) {
+                    return 0;
+                } else {
+                    return slot[devCardIndex-1];
+                }
+            }
             devCardIndex++;
         }
 

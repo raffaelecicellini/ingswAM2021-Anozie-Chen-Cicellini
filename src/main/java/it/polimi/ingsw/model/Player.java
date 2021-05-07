@@ -270,6 +270,7 @@ public class Player {
             case "sp1": return 3;
             case "sp2": return 4;
             case "strongbox": return 5;
+            case "discard": return 6;
         }
         return -1;
     }
@@ -380,7 +381,7 @@ public class Player {
         String source = map.get("source");
         String dest = map.get("dest");
         if (source == null || dest == null) throw new InvalidActionException("Invalid action! You didn't select the source and/or the destination!");
-        if(parseChoice(source)==5 || parseChoice(dest)==5) throw new InvalidActionException("Invalid action! You can't select the strongbox!");
+        if(parseChoice(source)>=5 || parseChoice(dest)>=5) throw new InvalidActionException("Invalid action! You can't select the strongbox!");
         if(parseChoice(source)==-1 || parseChoice(dest)==-1) throw new InvalidActionException("Invalid action! Make sure you typed the source and the destination correctly!");
         personalBoard.swapDeposits(source,dest);
     }

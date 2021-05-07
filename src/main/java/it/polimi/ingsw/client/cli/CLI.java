@@ -73,7 +73,7 @@ public class CLI implements Runnable, SourceListener {
                 try {
                     System.out.println(">Insert the number of players (if 1, a single player game will start; otherwise, you will be added to the current multiplayer game): ");
                     System.out.print(">");
-                    number = input.nextInt();
+                    number = Integer.parseInt(input.nextLine());
                     System.out.println(">You chose: " + number);
                     System.out.println(">Is it ok? [yes/no]");
                     System.out.print(">");
@@ -83,7 +83,7 @@ public class CLI implements Runnable, SourceListener {
                     } else {
                         confirmed=false;
                     }
-                } catch (InputMismatchException e){
+                } catch (NumberFormatException e){
                     System.out.println(">A number must be provided! Please try again");
                 }
             }
@@ -115,7 +115,7 @@ public class CLI implements Runnable, SourceListener {
         Scanner scanner = new Scanner(System.in);
         int input = 0;
         try {
-            input = scanner.nextInt();
+            input = Integer.parseInt(scanner.nextLine());
             if (input==0){
                 System.out.println("You chose local game. Have fun!");
                 CLI cli=new CLI(true);
@@ -128,7 +128,7 @@ public class CLI implements Runnable, SourceListener {
                 String ip = scanner.nextLine();
                 System.out.println(">Insert the server port");
                 System.out.print(">");
-                int port = scanner.nextInt();
+                int port = Integer.parseInt(scanner.nextLine());
                 CLI cli = new CLI(false);
                 cli.setPort(port);
                 cli.setAddress(ip);
@@ -138,7 +138,7 @@ public class CLI implements Runnable, SourceListener {
                 System.err.println("Invalid input!");
                 main(args);
             }
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             System.err.println("Numeric format requested, application will now close...");
             System.exit(-1);
         }
@@ -220,8 +220,8 @@ public class CLI implements Runnable, SourceListener {
 
         int row = -1;
         try {
-            row = input.nextInt();
-        } catch (InputMismatchException e) {
+            row = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
             return;
         }
@@ -230,13 +230,12 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-        input.nextLine();
         System.out.println(">Insert the column, number between 0 and 3");
         System.out.print(">");
         int column = -1;
         try {
-            column = input.nextInt();
-        } catch (InputMismatchException e) {
+            column = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
             return;
         }
@@ -245,13 +244,12 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-        input.nextLine();
         System.out.println(">Insert your personal board slot index in which you want to place the card, number between 0 and 2");
         System.out.print(">");
         int ind = -1;
         try {
-            ind = input.nextInt();
-        } catch (InputMismatchException e) {
+            ind = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
             return;
         }
@@ -259,7 +257,6 @@ public class CLI implements Runnable, SourceListener {
             System.err.println("Wrong number selected");
             return;
         }
-        input.nextLine();
         ArrayList<String> discounts = new ArrayList<>();
         if (modelView.getLeaders().get("state0").equalsIgnoreCase("active"))
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
@@ -608,6 +605,22 @@ public class CLI implements Runnable, SourceListener {
             printActions();
             return;
         }
+
+        List<String> validPositions = new ArrayList<>();
+        validPositions.add("small");
+        validPositions.add("mid");
+        validPositions.add("big");
+        validPositions.add("sp1");
+        validPositions.add("sp2");
+        validPositions.add("discard");
+
+        List<String> validColors = new ArrayList<>();
+        for (int i = 0; i < Color.values().length; i++) {
+            validColors.add(Color.values()[i].toString());
+        }
+        validColors.remove("GREEN");
+
+
         Map<String, String> map= new HashMap<>();
         map.put("action", "market");
         map.put("player", modelView.getName());
@@ -665,26 +678,51 @@ public class CLI implements Runnable, SourceListener {
                         }
                         if (colors.isEmpty()) map.put(curr, "small");
                         else if(colors.size()==1){
-                            System.out.println(">Current resource: "+colors.get(0)+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+                            System.out.println(">Current resource: "+colors.get(0)+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
                             System.out.print(">");
                             String pos=input.nextLine();
+                            while (!validPositions.contains(pos.toLowerCase())) {
+                                System.out.println("I didn't understand, make sure to type correctly!");
+                                System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
+                                System.out.print(">");
+                                pos=input.nextLine();
+                            }
                             map.put(curr, pos);
                         }
                         else if (colors.size()==2){
                             System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
                             System.out.print(">");
                             String col=input.nextLine();
+                            while (!validColors.contains(col.toLowerCase())) {
+                                System.out.println("I didn't understand, make sure to type correctly!");
+                                System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
+                                System.out.print(">");
+                                col=input.nextLine();
+                            }
                             map.put("res"+i, col);
-                            System.out.println(">Current resource: "+col+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+
+                            System.out.println(">Current resource: "+col+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
                             System.out.print(">");
                             String pos=input.nextLine();
+                            while (!validPositions.contains(pos.toLowerCase())) {
+                                System.out.println("I didn't understand, make sure to type correctly!");
+                                System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
+                                System.out.print(">");
+                                pos=input.nextLine();
+                            }
                             map.put(curr, pos);
                         }
                     }
                     else{
-                        System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+                        System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
                         System.out.print(">");
                         String pos=input.nextLine();
+                        while (!validPositions.contains(pos.toLowerCase())) {
+                            System.out.println("I didn't understand, make sure to type correctly!");
+                            System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
+                            System.out.print(">");
+                            pos=input.nextLine();
+                        }
                         map.put(curr, pos);
                     }
                     i++;
@@ -796,8 +834,8 @@ public class CLI implements Runnable, SourceListener {
             System.out.println(">Type the index of the leader you want to activate (0/1)");
             System.out.print(">");
             try{
-                idx=input.nextInt();
-            }catch (InputMismatchException e){
+                idx= Integer.parseInt(input.nextLine());
+            }catch (NumberFormatException e){
                 System.err.println("A number must be provided! Please try again!");
                 exit=false;
             }
@@ -836,8 +874,8 @@ public class CLI implements Runnable, SourceListener {
             System.out.println(">Type the index of the leader you want to discard (0/1)");
             System.out.print(">");
             try{
-                idx=input.nextInt();
-            }catch (InputMismatchException e){
+                idx= Integer.parseInt(input.nextLine());
+            }catch (NumberFormatException e){
                 System.err.println("A number must be provided! Please try again!");
                 exit=false;
             }

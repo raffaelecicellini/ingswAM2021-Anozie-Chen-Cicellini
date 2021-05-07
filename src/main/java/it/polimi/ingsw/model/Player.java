@@ -270,6 +270,7 @@ public class Player {
             case "sp1": return 3;
             case "sp2": return 4;
             case "strongbox": return 5;
+            case "discard": return 6;
         }
         return -1;
     }
@@ -380,7 +381,7 @@ public class Player {
         String source = map.get("source");
         String dest = map.get("dest");
         if (source == null || dest == null) throw new InvalidActionException("Invalid action! You didn't select the source and/or the destination!");
-        if(parseChoice(source)==5 || parseChoice(dest)==5) throw new InvalidActionException("Invalid action! You can't select the strongbox!");
+        if(parseChoice(source)>=5 || parseChoice(dest)>=5) throw new InvalidActionException("Invalid action! You can't select the strongbox!");
         if(parseChoice(source)==-1 || parseChoice(dest)==-1) throw new InvalidActionException("Invalid action! Make sure you typed the source and the destination correctly!");
         personalBoard.swapDeposits(source,dest);
     }
@@ -438,30 +439,34 @@ public class Player {
 
         ArrayList<ResourceAmount> deposits = personalBoard.getDeposits();
         int discarded = 0;
-
-        for (Map.Entry<String, String> m : map.entrySet()){
-            String pos = m.getKey().replaceAll("\\d", "");
-            if (pos.equals("pos")){
-                int ind_pos = Integer.parseInt(m.getKey().replaceAll("[^0-9]", "")) - 1;
-                if (ind_pos >= 0 && ind_pos <= 3){
-                    int dep = parseChoice(m.getValue());
-                    if (!map.containsKey("res" + (ind_pos+1))){
-                        // normal marble
-                        if (dep>=0 && dep<=4){
-                            if (leaders.get(0).getType().equals("TwoAndOne") && leaders.get(0).isActive() && leaders.get(1).getType().equals("TwoAndOne") && !leaders.get(1).isActive()) {
-                                discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(0).getWhiteBall());
-                            } else if (leaders.get(0).getType().equals("TwoAndOne") && !leaders.get(0).isActive() && leaders.get(1).getType().equals("TwoAndOne") && leaders.get(1).isActive()) {
-                                discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(1).getWhiteBall());
-                            } else {
-                                discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, null);
-                            }
-                        } else throw new InvalidActionException("Invalid action! You typed a wrong deposit! dep:"+dep);
+        String curr;
+        for (int i=0; i<marbles.length; i++){
+            curr="pos"+(i+1);
+            int dep=-1;
+            if (map.get(curr)!=null) {
+                dep = parseChoice(map.get(curr));
+            }
+            else throw new InvalidActionException("Invalid action! You typed a wrong deposit!");
+            if (!map.containsKey("res" + (i+1))) {
+                if (dep >= 0 && dep <= 4) {
+                    if (leaders.get(0).getType().equals("TwoAndOne") && leaders.get(0).isActive() && leaders.get(1).getType().equals("TwoAndOne") && !leaders.get(1).isActive()) {
+                        discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(0).getWhiteBall());
+                    } else if (leaders.get(0).getType().equals("TwoAndOne") && !leaders.get(0).isActive() && leaders.get(1).getType().equals("TwoAndOne") && leaders.get(1).isActive()) {
+                        discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(1).getWhiteBall());
                     } else {
-                        // 2 possible colors to choose
-                        Color color = Color.valueOf(map.get("res" + (ind_pos+1)).toUpperCase());
-                        discarded += marbles[ind_pos].action(m.getValue(), deposits, personalBoard.getFaithMarker(), leaders, color);
+                        discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, null);
                     }
-                } else throw new InvalidActionException("Invalid action! You typed a wrong index!");
+                } else if (dep == 6) discarded++;
+                else throw new InvalidActionException("Invalid action! You typed a wrong deposit! dep:" + dep);
+            }
+            else {
+                // 2 possible colors to choose
+                if (dep>=0 && dep<=4){
+                    Color color = Color.valueOf(map.get("res" + (i+1)).toUpperCase());
+                    discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, color);
+                }
+                else if (dep==6) discarded++;
+                else throw new InvalidActionException("Invalid action! You typed a wrong deposit! dep:" + dep);
             }
         }
 

@@ -808,7 +808,6 @@ public class CLI implements Runnable, SourceListener {
             }
         }
 
-        input.nextLine();
         System.out.println(">You chose to activate the leader in position "+idx+". Is it ok? [yes/no]");
         System.out.print(">");
         if (input.nextLine().equalsIgnoreCase("yes")){
@@ -848,7 +847,6 @@ public class CLI implements Runnable, SourceListener {
             }
         }
 
-        input.nextLine();
         System.out.println(">You chose to discard the leader in position "+idx+". Is it ok? [yes/no]");
         System.out.print(">");
         if (input.nextLine().equalsIgnoreCase("yes")){

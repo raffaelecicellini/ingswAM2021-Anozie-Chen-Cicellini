@@ -605,6 +605,22 @@ public class CLI implements Runnable, SourceListener {
             printActions();
             return;
         }
+
+        List<String> validPositions = new ArrayList<>();
+        validPositions.add("small");
+        validPositions.add("mid");
+        validPositions.add("big");
+        validPositions.add("sp1");
+        validPositions.add("sp2");
+        validPositions.add("discard");
+
+        List<String> validColors = new ArrayList<>();
+        for (int i = 0; i < Color.values().length; i++) {
+            validColors.add(Color.values()[i].toString());
+        }
+        validColors.remove("GREEN");
+
+
         Map<String, String> map= new HashMap<>();
         map.put("action", "market");
         map.put("player", modelView.getName());
@@ -662,26 +678,51 @@ public class CLI implements Runnable, SourceListener {
                         }
                         if (colors.isEmpty()) map.put(curr, "small");
                         else if(colors.size()==1){
-                            System.out.println(">Current resource: "+colors.get(0)+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+                            System.out.println(">Current resource: "+colors.get(0)+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
                             System.out.print(">");
                             String pos=input.nextLine();
+                            while (!validPositions.contains(pos.toLowerCase())) {
+                                System.out.println("I didn't understand, make sure to type correctly!");
+                                System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
+                                System.out.print(">");
+                                pos=input.nextLine();
+                            }
                             map.put(curr, pos);
                         }
                         else if (colors.size()==2){
                             System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
                             System.out.print(">");
                             String col=input.nextLine();
+                            while (!validColors.contains(col.toLowerCase())) {
+                                System.out.println("I didn't understand, make sure to type correctly!");
+                                System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
+                                System.out.print(">");
+                                col=input.nextLine();
+                            }
                             map.put("res"+i, col);
-                            System.out.println(">Current resource: "+col+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+
+                            System.out.println(">Current resource: "+col+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
                             System.out.print(">");
                             String pos=input.nextLine();
+                            while (!validPositions.contains(pos.toLowerCase())) {
+                                System.out.println("I didn't understand, make sure to type correctly!");
+                                System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
+                                System.out.print(">");
+                                pos=input.nextLine();
+                            }
                             map.put(curr, pos);
                         }
                     }
                     else{
-                        System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2)");
+                        System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
                         System.out.print(">");
                         String pos=input.nextLine();
+                        while (!validPositions.contains(pos.toLowerCase())) {
+                            System.out.println("I didn't understand, make sure to type correctly!");
+                            System.out.println(">Current resource: "+x+". Where do you want to put it? (small, mid, big, sp1, sp2, discard)");
+                            System.out.print(">");
+                            pos=input.nextLine();
+                        }
                         map.put(curr, pos);
                     }
                     i++;

@@ -44,6 +44,7 @@ public class ServerPing implements Runnable{
                 pingServer();
             } catch (InterruptedException e) {
                 System.err.println(e.getMessage());
+                System.exit(0);
             }
         }while (connectionSocket.isActive());
             Thread.currentThread().interrupt();

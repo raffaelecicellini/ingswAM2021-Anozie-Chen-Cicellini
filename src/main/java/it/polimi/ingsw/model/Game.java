@@ -801,7 +801,7 @@ public class Game {
     private void notifyBuy(int slot, int bought, int col, int row){
         Map<String, String> state= new HashMap<>();
         DevelopCard card=developDecks[col][row].getCard();
-        int idNew=-1;
+        int idNew=0;
         if (card!=null) idNew=card.getId();
 
         String res, qty, boxres, boxqty;
@@ -813,8 +813,7 @@ public class Game {
         state.put("player", currentPlayer.getName());
         state.put("col", String.valueOf(col));
         state.put("row", String.valueOf(row));
-        if (idNew>0) state.put("idNew", String.valueOf(idNew));
-        else state.put("idNew", "empty");
+        state.put("idNew", String.valueOf(idNew));
 
         state.put("slot", String.valueOf(slot));
         state.put("idBought", String.valueOf(bought));

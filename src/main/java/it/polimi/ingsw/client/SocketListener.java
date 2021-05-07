@@ -113,8 +113,10 @@ public class SocketListener implements Runnable{
             }
         } catch (SocketTimeoutException e) {
             System.out.println(e.getMessage());
+            System.exit(0);
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            System.exit(0);
         }
     }
 }

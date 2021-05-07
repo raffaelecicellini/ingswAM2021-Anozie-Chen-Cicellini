@@ -917,6 +917,7 @@ public class PlayerTest {
 
         //------------------------------------------------------------------------------------
 
+        marbles = new Marble[3];
         marbles[0] = GreyMarble.getInstance();
         marbles[1] = YellowMarble.getInstance();
         marbles[2] = YellowMarble.getInstance();

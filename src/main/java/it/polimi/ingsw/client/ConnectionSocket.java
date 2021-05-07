@@ -68,6 +68,7 @@ public class ConnectionSocket {
         } catch (IOException e) {
             System.out.println("Failed to send the message.");
             System.out.println(e.getMessage());
+            System.exit(0);
         }
     }
 

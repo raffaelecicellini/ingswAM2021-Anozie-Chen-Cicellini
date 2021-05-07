@@ -69,6 +69,8 @@ public class AnswerHandler implements SourceListener {
 
                 modelView.setPhase(GamePhase.LEADER);
 
+                modelView.setCurrentPlayer(value.get("player"));
+
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
 
                     // it puts the four leaders on the modelview
@@ -115,6 +117,8 @@ public class AnswerHandler implements SourceListener {
             case "CHOOSERESOURCES":
 
                 modelView.setPhase(GamePhase.RESOURCE);
+
+                modelView.setCurrentPlayer(value.get("player"));
 
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
                     // the payer who has to choose initial resources
@@ -440,6 +444,8 @@ public class AnswerHandler implements SourceListener {
                 }
                 modelView.setTiles(tiles);
 
+                modelView.setCurrentPlayer(value.get("currentPlayer"));
+
                 if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     // the player who ended his turn
 
@@ -484,7 +490,9 @@ public class AnswerHandler implements SourceListener {
             case "ERROR":
 
                 if (modelView.getName().equals(value.get("player"))) {
-                    modelView.setActiveTurn(true); //DA CONTROLLARE
+                    if (modelView.getCurrentPlayer().equalsIgnoreCase(modelView.getName())) {
+                        modelView.setActiveTurn(true); //DA CONTROLLARE
+                    }
                     viewListener.fireUpdates(value.get("action"), value);
                 }
 

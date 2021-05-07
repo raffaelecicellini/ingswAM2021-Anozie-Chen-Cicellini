@@ -294,9 +294,8 @@ public class GameHandler implements SourceListener {
                 sendSingle(jsonMessage, addressee);
                 break;
             case "CHOOSELEADERS":
-                addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 System.out.println("I am sending a choose leaders message");
                 break;
             case "OKLEADERS":
@@ -305,9 +304,8 @@ public class GameHandler implements SourceListener {
                 sendSingle(jsonMessage, addressee);
                 break;
             case "CHOOSERESOURCES":
-                addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 break;
             case "OKRESOURCES":
                 addressee=value.get("player");

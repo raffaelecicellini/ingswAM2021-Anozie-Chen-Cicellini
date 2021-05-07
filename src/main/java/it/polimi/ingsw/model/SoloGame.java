@@ -402,7 +402,9 @@ public class SoloGame extends Game{
      */
     private void notifyBuy(int slot, int bought, int col, int row){
         Map<String, String> state= new HashMap<>();
-        int idNew=developDecks[col][row].getCard().getId();
+        DevelopCard card=developDecks[col][row].getCard();
+        int idNew=0;
+        if (card!=null) idNew=card.getId();
         String boxres, boxqty;
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
         ResourceAmount[] box=currentPlayer.getPersonalBoard().getStrongbox();
@@ -504,7 +506,7 @@ public class SoloGame extends Game{
         Marble[] marbles;
         Marble out;
         String res;
-        String colors[]= new String[deps.size()];
+        String[] colors = new String[deps.size()];
 
         state.put("action", "market");
         state.put("player", currentPlayer.getName());
@@ -559,7 +561,7 @@ public class SoloGame extends Game{
     private void notifySwap(){
         Map<String, String> state=new HashMap<>();
         List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
-        String colors[]= new String[deps.size()];
+        String[] colors = new String[deps.size()];
 
         state.put("action", "swap");
         state.put("player", currentPlayer.getName());
@@ -643,7 +645,7 @@ public class SoloGame extends Game{
                     id=card.getId();
                     state.put(cardId, String.valueOf(id));
                 }
-                else state.put(cardId, "empty");
+                else state.put(cardId, String.valueOf(0));
             }
         }
 

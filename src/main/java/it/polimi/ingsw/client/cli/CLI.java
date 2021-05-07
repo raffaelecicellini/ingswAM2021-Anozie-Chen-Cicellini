@@ -1361,7 +1361,6 @@ public class CLI implements Runnable, SourceListener {
      * Method used to print the Develop Card Slots.
      */
     private void printSlots() {
-        System.out.println(modelView.getTopId(modelView.getSlots().get(0))+modelView.getTopId(modelView.getSlots().get(1))+modelView.getTopId(modelView.getSlots().get(2)));
         String[] card1 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(0)));
         String[] card2 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(1)));
         String[] card3 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(2)));

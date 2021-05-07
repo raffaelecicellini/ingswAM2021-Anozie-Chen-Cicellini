@@ -87,6 +87,8 @@ public class ModelView {
 
     private int initialRes;
 
+    private String currentPlayer;
+
     /**
      * Constructor of the class. It instantiates the faithtrack and the tiles
      */
@@ -138,6 +140,14 @@ public class ModelView {
 
     public void setInitialRes(int res){
         this.initialRes=res;
+    }
+
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(String currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     /**

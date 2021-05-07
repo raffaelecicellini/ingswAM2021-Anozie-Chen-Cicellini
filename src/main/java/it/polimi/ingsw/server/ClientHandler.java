@@ -209,10 +209,10 @@ public class ClientHandler implements Runnable{
             output.write(message+"\n");
             output.flush();
         } catch (IOException e) {
-            if (game!=null){
+            /*if (game!=null){
                 System.out.println("Error in send");
                 server.manageDisconnection(this);
-            }
+            }*/
             System.out.println("Failed to send the message.");
             System.out.println(e.getMessage());
         }

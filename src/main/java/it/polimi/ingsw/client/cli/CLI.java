@@ -77,7 +77,6 @@ public class CLI implements Runnable, SourceListener {
                     System.out.println(">You chose: " + number);
                     System.out.println(">Is it ok? [yes/no]");
                     System.out.print(">");
-                    input.nextLine();
                     if (input.nextLine().equalsIgnoreCase("yes")) {
                         confirmed = true;
                     } else {
@@ -98,7 +97,7 @@ public class CLI implements Runnable, SourceListener {
             if(!connectionSocket.setup(message, answerHandler)) {
                 CLI.main(null);
             }
-            System.out.println("Connection established!");
+            //System.out.println("Connection established!");
             listener.addListener(new ActionParser(connectionSocket));
         }
     }

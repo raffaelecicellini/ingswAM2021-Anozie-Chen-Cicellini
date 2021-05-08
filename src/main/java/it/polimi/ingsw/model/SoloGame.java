@@ -696,6 +696,7 @@ public class SoloGame extends Game{
         }
         state.put("content", content);
         state.put("points", String.valueOf(points));
+        state.put("winnerpoints", String.valueOf(points));
 
         this.listener.fireUpdates(state.get("action"), state);
     }

@@ -177,4 +177,8 @@ public class Server{
         System.out.println("Starting server...");
         server.start();
     }
+
+    public synchronized List<String> getConnectedClients(){
+        return this.connectedClients;
+    }
 }

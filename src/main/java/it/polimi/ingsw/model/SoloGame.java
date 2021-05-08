@@ -276,6 +276,7 @@ public class SoloGame extends Game{
          if (isEndGame) {
              notifyEndGame(false, getPoints(currentPlayer));
              phase=GamePhase.ENDED;
+             return;
          }
 
 
@@ -286,34 +287,30 @@ public class SoloGame extends Game{
                  isEndGame = true;
                  notifyEndGame(false, getPoints(currentPlayer));
                  phase=GamePhase.ENDED;
+                 return;
              }
              for (int j = 1; j >= 0; j--) {
                  FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
                  if (blackCross.getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
-                     if (currentPlayer.getPersonalBoard().getPosition() >= tile.getStart()) {
-                         if (!tile.isDiscarded()) {
-                             tile.setActive(true);
-                         } else tile.setDiscarded(true);
-                     }
-                 }
-             }
-         } else {
-             for (int j = 1; j >= 0; j--) {
-             FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
-             if (currentPlayer.getPersonalBoard().getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
-                 if (currentPlayer.getPersonalBoard().getPosition() >= tile.getStart()) {
-                     if (!tile.isDiscarded()) {
+                     if (currentPlayer.getPersonalBoard().getPosition() >= tile.getStart() && !tile.isDiscarded()) {
                          tile.setActive(true);
                      } else tile.setDiscarded(true);
                  }
              }
-         }
-             if (currentPlayer.getPersonalBoard().getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
-                 isEndGame = true;
-                 notifyEndGame(true, getPoints(currentPlayer));
-                 phase=GamePhase.ENDED;
+         } else {
+             for (int j = 1; j >= 0; j--) {
+                 FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
+                 if (currentPlayer.getPersonalBoard().getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
+                     tile.setActive(true);
+                 }
              }
-
+         }
+         if (currentPlayer.getPersonalBoard().getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
+             isEndGame = true;
+             currentPlayer.getPersonalBoard().getTile(2).setActive(true);
+             notifyEndGame(true, getPoints(currentPlayer));
+             phase=GamePhase.ENDED;
+             return;
          }
          if (!isEndGame){
              notifyEndTurn(id);
@@ -597,10 +594,35 @@ public class SoloGame extends Game{
      */
     private void notifyLeaderAction(String action, int pos){
         Map<String, String> state= new HashMap<>();
+        List<ResourceAmount> deps=currentPlayer.getPersonalBoard().getDeposits();
+        String[] colors= new String[deps.size()];
 
         state.put("action", action);
         state.put("player", currentPlayer.getName());
         state.put("index", String.valueOf(pos));
+
+        // IF ACTION IS ACTIVATE
+        if (currentPlayer.getLeaders().get(pos).getType().equalsIgnoreCase("resource")){
+            state.put("isDep", "yes");
+            for (int i=0; i<deps.size(); i++){
+                if (deps.get(i).getColor()!=null) colors[i]=deps.get(i).getColor().toString();
+                else colors[i]="empty";
+            }
+            state.put("smallres", colors[0]);
+            state.put("smallqty", String.valueOf(deps.get(0).getAmount()));
+            state.put("midres", colors[1]);
+            state.put("midqty", String.valueOf(deps.get(1).getAmount()));
+            state.put("bigres", colors[2]);
+            state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
+            if (deps.size()>3){
+                state.put("sp1res", colors[3]);
+                state.put("sp1qty", String.valueOf(deps.get(3).getAmount()));
+            }
+            if (deps.size()==5){
+                state.put("sp2res", colors[4]);
+                state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
+            }
+        }
 
         if (action.equalsIgnoreCase("discard")){
             int newPos= currentPlayer.getPersonalBoard().getPosition();
@@ -624,6 +646,7 @@ public class SoloGame extends Game{
         state.put("action", "endturn");
         state.put("player", currentPlayer.getName());
         state.put("endedTurnPlayer", currentPlayer.getName());
+        state.put("currentPlayer", currentPlayer.getName());
 
         for (int i=0; i<tiles.length; i++){
             tile="tile"+i;
@@ -666,8 +689,11 @@ public class SoloGame extends Game{
         state.put("player", currentPlayer.getName());
         if (win){
             content="You won!";
+            state.put("winner", currentPlayer.getName());
         }
-        else content="You lost!";
+        else {
+            content="You lost!";
+        }
         state.put("content", content);
         state.put("points", String.valueOf(points));
 

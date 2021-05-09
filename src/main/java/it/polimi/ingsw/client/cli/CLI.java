@@ -1188,7 +1188,8 @@ public class CLI implements Runnable, SourceListener {
         System.out.println("+------+------+------+   +------+------+   +------+------+ ");
         System.out.println("|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|   |"+ printDepCell(sp1,"sp1res")+"|"+ printDepCell(sp1,"sp1res")+"|   |"+ printDepCell(sp2,"sp2res")+"|"+ printDepCell(sp2,"sp2res")+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+");
-        System.out.println("\t\tnormal   sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
+        //System.out.println("\t\tnormal   sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
+        System.out.println("        normal             sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"   ");
         System.out.println("\n");
         System.out.println("|STRONGBOX|");
         System.out.println(modelView.getStrongbox().get("strres0").toUpperCase()+": " + modelView.getStrongbox().get("strqty0"));

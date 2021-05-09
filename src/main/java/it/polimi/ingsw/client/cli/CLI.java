@@ -6,6 +6,8 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
+
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 
@@ -426,7 +428,7 @@ public class CLI implements Runnable, SourceListener {
             // if a develop card is present
             if (devCardIndex >= 0 && devCardIndex <= 2) {
 
-                System.out.println(">Would you like to activate the production in the slot " + (num_slot + 1) + "? [yes/no] ");
+                System.out.println(">Would you like to activate the production in the slot " + num_slot + "? [yes/no] ");
                 System.out.print(">");
                 answer = input.nextLine();
 
@@ -692,7 +694,7 @@ public class CLI implements Runnable, SourceListener {
                             System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
                             System.out.print(">");
                             String col=input.nextLine();
-                            while (!validColors.contains(col.toLowerCase())) {
+                            while (!validColors.contains(col.toUpperCase())) {
                                 System.out.println("I didn't understand, make sure to type correctly!");
                                 System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
                                 System.out.print(">");
@@ -927,6 +929,7 @@ public class CLI implements Runnable, SourceListener {
 
         } else {
             System.out.println("You can't end your turn! You haven't done a mandatory action yet!");
+            printActions();
         }
     }
 
@@ -967,7 +970,17 @@ public class CLI implements Runnable, SourceListener {
      * Method used to clear the screen.
      */
     private void clearScreen(){
-        //comandi per pulire console
+        try{
+            if(System.getProperty("os.name").contains("Windows")){
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            else
+                Runtime.getRuntime().exec("clear");
+        }
+        catch (IOException | InterruptedException e){
+            System.err.println("Error in ClearScreen!");
+            Thread.currentThread().interrupt();
+        }
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -1173,9 +1186,9 @@ public class CLI implements Runnable, SourceListener {
         System.out.println("+------+------+");
         System.out.println("|"+ printDepCell(mid,"midres")+"|"+ printDepCell(mid,"midres")+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+ ");
-        System.out.println("|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|   |"+ printDepCell(sp1,"sp1")+"|"+ printDepCell(sp1,"sp1")+"|   |"+ printDepCell(sp2,"sp2")+"|"+ printDepCell(sp2,"sp2")+"|");
+        System.out.println("|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|   |"+ printDepCell(sp1,"sp1res")+"|"+ printDepCell(sp1,"sp1res")+"|   |"+ printDepCell(sp2,"sp2res")+"|"+ printDepCell(sp2,"sp2res")+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+");
-        System.out.println("\t\tnormal             sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
+        System.out.println("\t\tnormal   sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
         System.out.println("\n");
         System.out.println("|STRONGBOX|");
         System.out.println(modelView.getStrongbox().get("strres0").toUpperCase()+": " + modelView.getStrongbox().get("strqty0"));
@@ -1231,16 +1244,16 @@ public class CLI implements Runnable, SourceListener {
      */
     private String printLastLineDep(int a) {
         if (a == 1) {
-            if (modelView.getDeposits().get("sp1")!=null)
-                if (modelView.getDeposits().get("sp1").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp1").toUpperCase().equals("GREY"))
-                    return " "+modelView.getDeposits().get("sp1").toUpperCase()+" ";
-                else return modelView.getDeposits().get("sp1").toUpperCase();
+            if (modelView.getDeposits().get("sp1res")!=null)
+                if (modelView.getDeposits().get("sp1res").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp1res").toUpperCase().equals("GREY"))
+                    return " "+modelView.getDeposits().get("sp1res").toUpperCase()+" ";
+                else return modelView.getDeposits().get("sp1res").toUpperCase();
             else return "      ";
         } else {
-            if (modelView.getDeposits().get("sp2")!=null)
-                if (modelView.getDeposits().get("sp2").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp2").toUpperCase().equals("GREY"))
-                    return " "+modelView.getDeposits().get("sp2").toUpperCase()+" ";
-                else return modelView.getDeposits().get("sp2").toUpperCase();
+            if (modelView.getDeposits().get("sp2res")!=null)
+                if (modelView.getDeposits().get("sp2res").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp2res").toUpperCase().equals("GREY"))
+                    return " "+modelView.getDeposits().get("sp2res").toUpperCase()+" ";
+                else return modelView.getDeposits().get("sp2res").toUpperCase();
             else return "      ";
         }
     }
@@ -1398,34 +1411,42 @@ public class CLI implements Runnable, SourceListener {
      * Method used to print the Develop Card Slots.
      */
     private void printSlots() {
+
         String[] card1 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(0)));
         String[] card2 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(1)));
         String[] card3 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(2)));
 
-        String[] one = new String[4];
-        String[] two = new String[4];
-        String[] three = new String[4];
+        String[] one = new String[4];  // the top cards
+        StringBuilder list = new StringBuilder();  // the tracker of number of cards
+
+        int lv;
+        for (int slot = 0; slot < 3; slot++) {
+            lv = 0;
+            if (modelView.getTopId(modelView.getSlots().get(slot)) == 0) {
+                list.append("                                            ");
+            } else {
+                while (lv < modelView.getSlots().get(slot).length) {
+                    if (modelView.getSlots().get(slot)[lv] != 0) {
+                        if (lv == 0) list.append("          ");
+                        else list.append(", ");
+
+                        list.append("LV").append(lv + 1).append(": ").append(Cards.getColorById(modelView.getSlots().get(slot)[lv]));
+                        lv++;
+                    } else break;
+                }
+            }
+            while (list.length() <= 44*(slot+1)) list.append(" ");
+        }
+
+        System.out.println("                  SLOT0                                       SLOT1                                       SLOT2               ");
+        System.out.println(list);
 
         for (int i = 0; i < 4; i++) {
-            if (i == 1) {
-                one[i] = "slot0 -> " + card1[i];
-                two[i] = "slot1 -> " + card2[i];
-                three[i] = "slot2 -> " + card3[i];
-            } else {
-                one[i] = "         " + card1[i];
-                two[i] = "         " + card2[i];
-                three[i] = "         " + card3[i];
-            }
+            one[i] = card1[i] + "  " + card2[i] + "  " + card3[i];
         }
 
         for (int i = 0; i < 4; i++) {
             System.out.println(one[i]);
-        }
-        for (int i = 0; i < 4; i++) {
-            System.out.println(two[i]);
-        }
-        for (int i = 0; i < 4; i++) {
-            System.out.println(three[i]);
         }
     }
 
@@ -1433,6 +1454,13 @@ public class CLI implements Runnable, SourceListener {
     @Override
     public void update(String propertyName, Map<String, String> value) {
         switch (propertyName.toUpperCase()) {
+            case "START":
+                System.out.println(value.get("content"));
+                break;
+
+            case "OTHERCONNECTED":
+                System.out.println(value.get("content"));
+                break;
 
             case "STARTED":
                 System.out.println("Game started!");
@@ -1573,7 +1601,7 @@ public class CLI implements Runnable, SourceListener {
                 break;
 
             case "ENDTURN":
-
+                printBoard();
                 if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     if (modelView.isSoloGame()){
                         System.out.println("The Token that has been activated is: " + Cards.getTokenById(Integer.parseInt(value.get("tokenActivated"))));
@@ -1584,16 +1612,18 @@ public class CLI implements Runnable, SourceListener {
                         System.out.println("It is " + value.get("currentPlayer") + " turn now!");
                     }
                 }
-                printBoard();
+
                 break;
 
             case "ENDGAME":
 
-                if (value.get("winner").equalsIgnoreCase(modelView.getName())) {
+                if (value.containsKey("winner") && value.get("winner").equalsIgnoreCase(modelView.getName())) {
                     System.out.println("You won! You made " + value.get("winnerpoints") + " points! ");
                 } else {
                     System.out.println("You lost! You made " + value.get("points") + " points! ");
-                    System.out.println(value.get("winner") + " won with " + value.get("winnerpoints") + " points! ");
+                    if (!modelView.isSoloGame()) {
+                        System.out.println(value.get("winner") + " won with " + value.get("winnerpoints") + " points! ");
+                    }
                 }
 
                 setActiveGame(false);
@@ -1616,6 +1646,18 @@ public class CLI implements Runnable, SourceListener {
                 else printActions();
                 break;
 
+            case "END":
+                System.out.println(value.get("content"));
+                System.exit(0);
+                break;
+
+            case "OTHERDISCONNECTED":
+                System.out.println(value.get("content"));
+                break;
+
+            default:
+                System.out.println("Unrecognized answer!");
+                break;
         }
     }
 

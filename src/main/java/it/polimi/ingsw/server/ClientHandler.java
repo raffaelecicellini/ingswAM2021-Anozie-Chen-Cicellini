@@ -209,12 +209,9 @@ public class ClientHandler implements Runnable{
             output.write(message+"\n");
             output.flush();
         } catch (IOException e) {
-            /*if (game!=null){
-                System.out.println("Error in send");
-                server.manageDisconnection(this);
-            }*/
             System.out.println("Failed to send the message.");
             System.out.println(e.getMessage());
+            close();
         }
     }
 
@@ -311,7 +308,7 @@ public class ClientHandler implements Runnable{
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println("Error");
-            if (name != null && game != null) server.manageDisconnection(this);
+            if (name != null && game != null && server.getConnectedClients().contains(name)) server.manageDisconnection(this);
         }
     }
 }

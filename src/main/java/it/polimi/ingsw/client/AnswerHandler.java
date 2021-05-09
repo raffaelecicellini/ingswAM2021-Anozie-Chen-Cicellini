@@ -332,8 +332,9 @@ public class AnswerHandler implements SourceListener {
                     // other players
                     modelView.setPosition(modelView.getPosition() + Integer.parseInt(value.get("discarded")));
 
-                    map.put("other", map.get("player"));
+                    map.put("other", value.get("player"));
                     map.remove("player");
+                    map.put("discarded", value.get("discarded"));
                     viewListener.fireUpdates(map.get("action"), map);
 
                 }

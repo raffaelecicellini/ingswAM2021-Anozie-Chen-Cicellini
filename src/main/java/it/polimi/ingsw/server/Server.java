@@ -82,11 +82,13 @@ public class Server{
         waitingClients.remove(client);
         System.out.println("I am in server.manageDisconnection");
         if (client.getGame().isStarted()) {
-            client.getGame().manageDisconnection(client.getName());
-            for (ClientHandler x : client.getGame().getPlayers()) {
-                connectedClients.remove(x.getName());
+            if (games.contains(client.getGame())) {
+                client.getGame().manageDisconnection(client.getName());
+                for (ClientHandler x : client.getGame().getPlayers()) {
+                    connectedClients.remove(x.getName());
+                }
+                games.remove(client.getGame());
             }
-            games.remove(client.getGame());
         } else client.getGame().removePlayer(client.getName());
     }
 
@@ -174,5 +176,9 @@ public class Server{
         server.setPort(port);
         System.out.println("Starting server...");
         server.start();
+    }
+
+    public synchronized List<String> getConnectedClients(){
+        return this.connectedClients;
     }
 }

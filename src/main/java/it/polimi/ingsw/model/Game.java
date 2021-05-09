@@ -903,7 +903,7 @@ public class Game {
     public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
         int value;
         String chosen;
-        int discarded;
+        int discarded=0;
         if (currentPlayer.getName().equals(player)){
 
             if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");

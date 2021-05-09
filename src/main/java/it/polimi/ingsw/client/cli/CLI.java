@@ -927,6 +927,7 @@ public class CLI implements Runnable, SourceListener {
 
         } else {
             System.out.println("You can't end your turn! You haven't done a mandatory action yet!");
+            printActions();
         }
     }
 
@@ -1229,16 +1230,16 @@ public class CLI implements Runnable, SourceListener {
      */
     private String printLastLineDep(int a) {
         if (a == 1) {
-            if (modelView.getDeposits().get("sp1")!=null)
-                if (modelView.getDeposits().get("sp1").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp1").toUpperCase().equals("GREY"))
-                    return " "+modelView.getDeposits().get("sp1").toUpperCase()+" ";
-                else return modelView.getDeposits().get("sp1").toUpperCase();
+            if (modelView.getDeposits().get("sp1res")!=null)
+                if (modelView.getDeposits().get("sp1res").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp1res").toUpperCase().equals("GREY"))
+                    return " "+modelView.getDeposits().get("sp1res").toUpperCase()+" ";
+                else return modelView.getDeposits().get("sp1res").toUpperCase();
             else return "      ";
         } else {
-            if (modelView.getDeposits().get("sp2")!=null)
-                if (modelView.getDeposits().get("sp2").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp2").toUpperCase().equals("GREY"))
-                    return " "+modelView.getDeposits().get("sp2").toUpperCase()+" ";
-                else return modelView.getDeposits().get("sp2").toUpperCase();
+            if (modelView.getDeposits().get("sp2res")!=null)
+                if (modelView.getDeposits().get("sp2res").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp2res").toUpperCase().equals("GREY"))
+                    return " "+modelView.getDeposits().get("sp2res").toUpperCase()+" ";
+                else return modelView.getDeposits().get("sp2res").toUpperCase();
             else return "      ";
         }
     }
@@ -1595,11 +1596,13 @@ public class CLI implements Runnable, SourceListener {
 
             case "ENDGAME":
 
-                if (value.get("winner").equalsIgnoreCase(modelView.getName())) {
+                if (value.containsKey("winner") && value.get("winner").equalsIgnoreCase(modelView.getName())) {
                     System.out.println("You won! You made " + value.get("winnerpoints") + " points! ");
                 } else {
                     System.out.println("You lost! You made " + value.get("points") + " points! ");
-                    System.out.println(value.get("winner") + " won with " + value.get("winnerpoints") + " points! ");
+                    if (!modelView.isSoloGame()) {
+                        System.out.println(value.get("winner") + " won with " + value.get("winnerpoints") + " points! ");
+                    }
                 }
 
                 setActiveGame(false);

@@ -134,7 +134,9 @@ public class Player {
                     personalBoard.addSpecialDeposit(current.getDeposit());
                 }
                 else if (current.getType().equals("LevTwo")){
-                    ResourceAmount[] input={new ResourceAmount(current.getProduction(), 1), null, null, null};
+                    ResourceAmount[] input=new ResourceAmount[4]; //{new ResourceAmount(current.getProduction(), 1), null, null, null};
+                    input[0]=new ResourceAmount(current.getProduction(), 1);
+                    for (int i=1; i<input.length; i++) input[i]=new ResourceAmount(current.getProduction(), 0);
                     LeaderDevelopCard card= new LeaderDevelopCard(0, 0, 1, null, null, input, null, 0);
                     personalBoard.addCard(0, card, true);
                 }
@@ -166,7 +168,7 @@ public class Player {
         for (int i=0; i<6; i++){
             Map<String, String> production= new HashMap<>();
             curr="prod"+i;
-            if (info.containsKey(curr) && info.get(curr).toLowerCase().equals("yes")){
+            if (info.containsKey(curr) && info.get(curr).equalsIgnoreCase("yes")){
                 exit = true;
                 if (i==0){
                     production.put("in1", info.get("in01"));

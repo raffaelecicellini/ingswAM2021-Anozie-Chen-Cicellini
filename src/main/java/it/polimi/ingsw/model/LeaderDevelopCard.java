@@ -41,7 +41,7 @@ public class LeaderDevelopCard extends DevelopCard{
             boolean exit = false;
             int i = parseChoice(m.getValue());
 
-                if (m.getValue().toLowerCase(Locale.ROOT).equals("strongbox")) {
+                if (m.getValue().equalsIgnoreCase("strongbox")) {
                     i = 0;
                 while (i < strongbox.length && !exit) {
                     if (getInput()[0].getColor() == strongbox[i].getColor()) {

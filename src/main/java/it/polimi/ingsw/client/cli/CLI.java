@@ -6,6 +6,8 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
+
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 
@@ -968,7 +970,17 @@ public class CLI implements Runnable, SourceListener {
      * Method used to clear the screen.
      */
     private void clearScreen(){
-        //comandi per pulire console
+        try{
+            if(System.getProperty("os.name").contains("Windows")){
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            else
+                Runtime.getRuntime().exec("clear");
+        }
+        catch (IOException | InterruptedException e){
+            System.err.println("Error in ClearScreen!");
+            Thread.currentThread().interrupt();
+        }
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }

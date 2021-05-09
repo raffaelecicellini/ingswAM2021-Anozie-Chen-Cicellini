@@ -604,7 +604,7 @@ public class SoloGame extends Game{
         state.put("player", currentPlayer.getName());
         state.put("index", String.valueOf(pos));
 
-        // IF ACTION IS ACTIVATE
+        // IF ACTION IS ACTIVATE A LEADER THAT GIVES AN EXTRA DEPOSIT
         if (currentPlayer.getLeaders().get(pos).getType().equalsIgnoreCase("resource")){
             state.put("isDep", "yes");
             for (int i=0; i<deps.size(); i++){

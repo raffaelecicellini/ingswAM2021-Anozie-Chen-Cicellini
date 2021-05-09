@@ -1424,7 +1424,7 @@ public class CLI implements Runnable, SourceListener {
             while (list.length() <= 44*(slot+1)) list.append(" ");
         }
 
-        System.out.println("                  SLOT1                                       SLOT2                                       SLOT3               ");
+        System.out.println("                  SLOT0                                       SLOT1                                       SLOT2               ");
         System.out.println(list);
 
         for (int i = 0; i < 4; i++) {

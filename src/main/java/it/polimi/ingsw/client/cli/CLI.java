@@ -1098,8 +1098,10 @@ public class CLI implements Runnable, SourceListener {
         System.out.println(">This is your move, are you sure? [yes/no]");
         System.out.println(" Resource1: "+action.get("res1"));
         System.out.println(" Position: "+action.get("pos1"));
-        System.out.println(" Resource2: "+action.get("res2"));
-        System.out.println(" Position: "+action.get("pos2"));
+        if (quantity == 2) {
+            System.out.println(" Resource2: " + action.get("res2"));
+            System.out.println(" Position: " + action.get("pos2"));
+        }
 
         possibleInput.clear();
         possibleInput.add("yes");

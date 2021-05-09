@@ -428,7 +428,7 @@ public class CLI implements Runnable, SourceListener {
             // if a develop card is present
             if (devCardIndex >= 0 && devCardIndex <= 2) {
 
-                System.out.println(">Would you like to activate the production in the slot " + (num_slot) + "? [yes/no] ");
+                System.out.println(">Would you like to activate the production in the slot " + num_slot + "? [yes/no] ");
                 System.out.print(">");
                 answer = input.nextLine();
 
@@ -1409,34 +1409,42 @@ public class CLI implements Runnable, SourceListener {
      * Method used to print the Develop Card Slots.
      */
     private void printSlots() {
+
         String[] card1 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(0)));
         String[] card2 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(1)));
         String[] card3 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(2)));
 
-        String[] one = new String[4];
-        String[] two = new String[4];
-        String[] three = new String[4];
+        String[] one = new String[4];  // the top cards
+        StringBuilder list = new StringBuilder();  // the tracker of number of cards
+
+        int lv;
+        for (int slot = 0; slot < 3; slot++) {
+            lv = 0;
+            if (modelView.getTopId(modelView.getSlots().get(slot)) == 0) {
+                list.append("                                            ");
+            } else {
+                while (lv < modelView.getSlots().get(slot).length) {
+                    if (modelView.getSlots().get(slot)[lv] != 0) {
+                        if (lv == 0) list.append("          ");
+                        else list.append(", ");
+
+                        list.append("LV").append(lv + 1).append(": ").append(Cards.getColorById(modelView.getSlots().get(slot)[lv]));
+                        lv++;
+                    } else break;
+                }
+            }
+            while (list.length() <= 44*(slot+1)) list.append(" ");
+        }
+
+        System.out.println("                  SLOT1                                       SLOT2                                       SLOT3               ");
+        System.out.println(list);
 
         for (int i = 0; i < 4; i++) {
-            if (i == 1) {
-                one[i] = "slot0 -> " + card1[i];
-                two[i] = "slot1 -> " + card2[i];
-                three[i] = "slot2 -> " + card3[i];
-            } else {
-                one[i] = "         " + card1[i];
-                two[i] = "         " + card2[i];
-                three[i] = "         " + card3[i];
-            }
+            one[i] = card1[i] + "  " + card2[i] + "  " + card3[i];
         }
 
         for (int i = 0; i < 4; i++) {
             System.out.println(one[i]);
-        }
-        for (int i = 0; i < 4; i++) {
-            System.out.println(two[i]);
-        }
-        for (int i = 0; i < 4; i++) {
-            System.out.println(three[i]);
         }
     }
 

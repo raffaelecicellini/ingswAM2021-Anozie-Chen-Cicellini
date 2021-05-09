@@ -211,6 +211,7 @@ public class ModelView {
      * @param position the new value for player's position
      */
     public void setPosition(int position) {
+        if (position > 24) position = 24;
         this.position = position;
     }
 
@@ -461,6 +462,11 @@ public class ModelView {
         return devCardIndex-1;
     }
 
+    /**
+     * Method that return the ID of the top card in the slot.
+     * @param slot the slot to search the card from.
+     * @return the ID of the top card in the slot.
+     */
     public int getTopId(int[] slot){
         int devCardIndex = 0;
 

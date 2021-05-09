@@ -36,7 +36,7 @@ public class LeaderDevelopCardTest {
         output[2] = new ResourceAmount(Color.PURPLE, 0);
         output[3] = new ResourceAmount(Color.GREY, 0);
 
-        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
+        DevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 3);
@@ -58,16 +58,16 @@ public class LeaderDevelopCardTest {
         Map<String, String> map = new HashMap<>();
         map.put("Res1", "Strongbox");
         map.put("Resout", "BLUE");
-
+        int i=0;
         try {
-            test.activateProduction(map, strongbox, deposits, strongboxOutput);
+            i=test.activateProduction(map, strongbox, deposits, strongboxOutput);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
         assertEquals(2, strongbox[3].getAmount());
         assertEquals(1, strongboxOutput[3].getAmount());
-
+        assertEquals(1, i);
     }
 
     /**
@@ -95,7 +95,7 @@ public class LeaderDevelopCardTest {
         output[2] = new ResourceAmount(Color.PURPLE, 0);
         output[3] = new ResourceAmount(Color.GREY, 0);
 
-        LeaderDevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
+        DevelopCard test = new LeaderDevelopCard(level, victoryPoints, faithOutput, color, cost, input, output, 0);
 
         ResourceAmount[] strongbox = new ResourceAmount[4];
         strongbox[0] = new ResourceAmount(Color.YELLOW, 0);

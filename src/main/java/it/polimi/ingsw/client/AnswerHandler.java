@@ -39,6 +39,14 @@ public class AnswerHandler implements SourceListener {
 
         switch (propertyName.toUpperCase()) {
 
+            case "START":
+                viewListener.fireUpdates(value.get("action"), value);
+                break;
+
+            case "OTHERCONNECTED":
+                viewListener.fireUpdates(value.get("action"), value);
+                break;
+
             case "STARTED":
 
                 int[][] developDecks = new int[4][3];
@@ -379,11 +387,11 @@ public class AnswerHandler implements SourceListener {
                         deposits.put("midqty", value.get("midqty"));
                         deposits.put("bigres", value.get("bigres"));
                         deposits.put("bigqty", value.get("bigqty"));
-                        if (modelView.getDeposits().size() == 6) {
+                        if (value.containsKey("sp1res")) {
                             deposits.put("sp1res", value.get("sp1res"));
                             deposits.put("sp1qty", value.get("sp1qty"));
                         }
-                        else if (modelView.getDeposits().size() == 8) {
+                        if (value.containsKey("sp2res")) {
                             deposits.put("sp2res", value.get("sp2res"));
                             deposits.put("sp2qty", value.get("sp2qty"));
                         }
@@ -497,6 +505,14 @@ public class AnswerHandler implements SourceListener {
                     viewListener.fireUpdates(value.get("action"), value);
                 }
 
+                break;
+
+            case "END":
+                viewListener.fireUpdates(value.get("action"), value);
+                break;
+
+            case "OTHERDISCONNECTED":
+                viewListener.fireUpdates(value.get("action"), value);
                 break;
         }
     }

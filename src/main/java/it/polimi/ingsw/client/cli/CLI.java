@@ -6,6 +6,8 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
+
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 
@@ -692,7 +694,7 @@ public class CLI implements Runnable, SourceListener {
                             System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
                             System.out.print(">");
                             String col=input.nextLine();
-                            while (!validColors.contains(col.toLowerCase())) {
+                            while (!validColors.contains(col.toUpperCase())) {
                                 System.out.println("I didn't understand, make sure to type correctly!");
                                 System.out.println(">You have two active leaders that change the white marble! Choose the color you prefer");
                                 System.out.print(">");
@@ -968,7 +970,17 @@ public class CLI implements Runnable, SourceListener {
      * Method used to clear the screen.
      */
     private void clearScreen(){
-        //comandi per pulire console
+        try{
+            if(System.getProperty("os.name").contains("Windows")){
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            else
+                Runtime.getRuntime().exec("clear");
+        }
+        catch (IOException | InterruptedException e){
+            System.err.println("Error in ClearScreen!");
+            Thread.currentThread().interrupt();
+        }
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -1172,9 +1184,9 @@ public class CLI implements Runnable, SourceListener {
         System.out.println("+------+------+");
         System.out.println("|"+ printDepCell(mid,"midres")+"|"+ printDepCell(mid,"midres")+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+ ");
-        System.out.println("|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|   |"+ printDepCell(sp1,"sp1")+"|"+ printDepCell(sp1,"sp1")+"|   |"+ printDepCell(sp2,"sp2")+"|"+ printDepCell(sp2,"sp2")+"|");
+        System.out.println("|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|   |"+ printDepCell(sp1,"sp1res")+"|"+ printDepCell(sp1,"sp1res")+"|   |"+ printDepCell(sp2,"sp2res")+"|"+ printDepCell(sp2,"sp2res")+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+");
-        System.out.println("\t\tnormal             sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
+        System.out.println("\t\tnormal   sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
         System.out.println("\n");
         System.out.println("|STRONGBOX|");
         System.out.println(modelView.getStrongbox().get("strres0").toUpperCase()+": " + modelView.getStrongbox().get("strqty0"));
@@ -1440,6 +1452,13 @@ public class CLI implements Runnable, SourceListener {
     @Override
     public void update(String propertyName, Map<String, String> value) {
         switch (propertyName.toUpperCase()) {
+            case "START":
+                System.out.println(value.get("content"));
+                break;
+
+            case "OTHERCONNECTED":
+                System.out.println(value.get("content"));
+                break;
 
             case "STARTED":
                 System.out.println("Game started!");
@@ -1580,7 +1599,7 @@ public class CLI implements Runnable, SourceListener {
                 break;
 
             case "ENDTURN":
-
+                printBoard();
                 if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     if (modelView.isSoloGame()){
                         System.out.println("The Token that has been activated is: " + Cards.getTokenById(Integer.parseInt(value.get("tokenActivated"))));
@@ -1591,7 +1610,7 @@ public class CLI implements Runnable, SourceListener {
                         System.out.println("It is " + value.get("currentPlayer") + " turn now!");
                     }
                 }
-                printBoard();
+
                 break;
 
             case "ENDGAME":
@@ -1625,6 +1644,18 @@ public class CLI implements Runnable, SourceListener {
                 else printActions();
                 break;
 
+            case "END":
+                System.out.println(value.get("content"));
+                System.exit(0);
+                break;
+
+            case "OTHERDISCONNECTED":
+                System.out.println(value.get("content"));
+                break;
+
+            default:
+                System.out.println("Unrecognized answer!");
+                break;
         }
     }
 

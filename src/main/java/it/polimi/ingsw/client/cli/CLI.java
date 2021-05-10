@@ -224,11 +224,13 @@ public class CLI implements Runnable, SourceListener {
             row = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
+            printActions();
             return;
         }
 
         if (row < 0 || row > 2) {
             System.err.println("Wrong number selected");
+            printActions();
             return;
         }
         System.out.println(">Insert the column, number between 0 and 3");
@@ -238,11 +240,13 @@ public class CLI implements Runnable, SourceListener {
             column = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
+            printActions();
             return;
         }
 
         if (column < 0 || column > 3) {
             System.err.println("Wrong number selected");
+            printActions();
             return;
         }
         System.out.println(">Insert your personal board slot index in which you want to place the card, number between 0 and 2");
@@ -252,10 +256,12 @@ public class CLI implements Runnable, SourceListener {
             ind = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
+            printActions();
             return;
         }
         if (ind < 0 || ind > 2) {
             System.err.println("Wrong number selected");
+            printActions();
             return;
         }
         ArrayList<String> discounts = new ArrayList<>();
@@ -263,7 +269,16 @@ public class CLI implements Runnable, SourceListener {
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
         if (modelView.getLeaders().get("state1").equalsIgnoreCase("active"))
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
-        ArrayList<String> cost = Cards.getCostById(modelView.getDevelopDecks()[column][row],discounts);
+
+        ArrayList<String> cost;
+        if (modelView.getDevelopDecks()[column][row]!=0) {
+            cost = Cards.getCostById(modelView.getDevelopDecks()[column][row], discounts);
+        }
+        else {
+            System.err.println("There are no more cards in this deck! Try another one!");
+            printActions();
+            return;
+        }
 
         Map<String,String> action = new HashMap<>();
         action.put("action","buy");

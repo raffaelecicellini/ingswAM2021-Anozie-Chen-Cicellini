@@ -871,6 +871,7 @@ public class CLI implements Runnable, SourceListener {
             modelView.setActiveTurn(false);
             listener.fireUpdates(map.get("action"), map);
         }
+        printActions();
     }
 
     /**
@@ -910,6 +911,7 @@ public class CLI implements Runnable, SourceListener {
             modelView.setActiveTurn(false);
             listener.fireUpdates(map.get("action"), map);
         }
+        printActions();
     }
 
     /**

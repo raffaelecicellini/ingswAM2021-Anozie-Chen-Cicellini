@@ -404,7 +404,8 @@ public class ModelView {
      * @param pos the new value for the BlackCross position
      */
     public void setBlackCross(int pos) {
-        this.blackCross=pos;
+        if (pos > 24) pos = 24;
+        this.blackCross = pos;
     }
 
     /**

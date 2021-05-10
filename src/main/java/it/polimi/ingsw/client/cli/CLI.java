@@ -269,7 +269,16 @@ public class CLI implements Runnable, SourceListener {
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
         if (modelView.getLeaders().get("state1").equalsIgnoreCase("active"))
             discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
-        ArrayList<String> cost = Cards.getCostById(modelView.getDevelopDecks()[column][row],discounts);
+
+        ArrayList<String> cost;
+        if (modelView.getDevelopDecks()[column][row]!=0) {
+            cost = Cards.getCostById(modelView.getDevelopDecks()[column][row], discounts);
+        }
+        else {
+            System.err.println("There are no more cards in this deck! Try another one!");
+            printActions();
+            return;
+        }
 
         Map<String,String> action = new HashMap<>();
         action.put("action","buy");

@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.SoloGame;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
+
 import java.util.Map;
 
 public class GUI implements SourceListener{

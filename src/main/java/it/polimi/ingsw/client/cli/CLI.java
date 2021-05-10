@@ -224,11 +224,13 @@ public class CLI implements Runnable, SourceListener {
             row = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
+            printActions();
             return;
         }
 
         if (row < 0 || row > 2) {
             System.err.println("Wrong number selected");
+            printActions();
             return;
         }
         System.out.println(">Insert the column, number between 0 and 3");
@@ -238,11 +240,13 @@ public class CLI implements Runnable, SourceListener {
             column = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
+            printActions();
             return;
         }
 
         if (column < 0 || column > 3) {
             System.err.println("Wrong number selected");
+            printActions();
             return;
         }
         System.out.println(">Insert your personal board slot index in which you want to place the card, number between 0 and 2");
@@ -252,10 +256,12 @@ public class CLI implements Runnable, SourceListener {
             ind = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
             System.err.println("You didn't insert a number.");
+            printActions();
             return;
         }
         if (ind < 0 || ind > 2) {
             System.err.println("Wrong number selected");
+            printActions();
             return;
         }
         ArrayList<String> discounts = new ArrayList<>();
@@ -856,6 +862,7 @@ public class CLI implements Runnable, SourceListener {
             modelView.setActiveTurn(false);
             listener.fireUpdates(map.get("action"), map);
         }
+        printActions();
     }
 
     /**
@@ -895,6 +902,7 @@ public class CLI implements Runnable, SourceListener {
             modelView.setActiveTurn(false);
             listener.fireUpdates(map.get("action"), map);
         }
+        printActions();
     }
 
     /**

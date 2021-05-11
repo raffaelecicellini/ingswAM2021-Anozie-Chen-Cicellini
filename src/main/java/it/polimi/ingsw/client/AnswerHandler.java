@@ -404,6 +404,8 @@ public class AnswerHandler implements SourceListener {
 
                     modelView.setActiveTurn(true);
 
+                    modelView.setCountLeader(Integer.parseInt(value.get("countLeader")));
+
                     viewListener.fireUpdates(value.get("action"), null);
                 } else {
                     // other players
@@ -427,6 +429,8 @@ public class AnswerHandler implements SourceListener {
                     modelView.setLeaders(leaders);
 
                     modelView.setActiveTurn(true);
+
+                    modelView.setCountLeader(Integer.parseInt(value.get("countLeader")));
 
                     viewListener.fireUpdates(value.get("action"), null);
 

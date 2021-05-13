@@ -675,6 +675,7 @@ public class CLI implements Runnable, SourceListener {
             else{
                 map.put(where[0].toLowerCase(), where[1]);
                 ArrayList<String> res= modelView.getResMarket(where[0], idx-1);
+                Map<String, String> choices= new HashMap<>();
                 int i=1;
                 String curr;
                 for (String x: res) {
@@ -703,6 +704,7 @@ public class CLI implements Runnable, SourceListener {
                                 System.out.print(">");
                                 pos=input.nextLine();
                             }
+                            choices.put(curr, colors.get(0));
                             map.put(curr, pos);
                         }
                         else if (colors.size()==2){
@@ -726,6 +728,7 @@ public class CLI implements Runnable, SourceListener {
                                 System.out.print(">");
                                 pos=input.nextLine();
                             }
+                            choices.put(curr, col);
                             map.put(curr, pos);
                         }
                     }
@@ -739,6 +742,7 @@ public class CLI implements Runnable, SourceListener {
                             System.out.print(">");
                             pos=input.nextLine();
                         }
+                        choices.put(curr, x);
                         map.put(curr, pos);
                     }
                     i++;
@@ -748,7 +752,9 @@ public class CLI implements Runnable, SourceListener {
                 i=1;
                 curr="pos"+i;
                 while (map.containsKey(curr)){
-                    System.out.println("Position for resource "+i+": "+map.get(curr));
+                    if (choices.containsKey(curr)){
+                        System.out.println("Resource: "+choices.get(curr)+"; Position: "+map.get(curr));
+                    }
                     i++;
                     curr="pos"+i;
                 }
@@ -871,7 +877,7 @@ public class CLI implements Runnable, SourceListener {
             modelView.setActiveTurn(false);
             listener.fireUpdates(map.get("action"), map);
         }
-        printActions();
+        //printActions();
     }
 
     /**
@@ -911,7 +917,7 @@ public class CLI implements Runnable, SourceListener {
             modelView.setActiveTurn(false);
             listener.fireUpdates(map.get("action"), map);
         }
-        printActions();
+        //printActions();
     }
 
     /**
@@ -1159,15 +1165,24 @@ public class CLI implements Runnable, SourceListener {
      * attribute of the ModelView
      */
     private void printActions(){
-        //controlla doneMandatory: a seconda del valore, stampa mex mettendo tutte mosse possibili tra cui scegliere X
-        if (modelView.isDoneMandatory()){
-            System.out.println(">Choose your action typing one of the following words: ACTIVATE, DISCARD, SWAP, ENDTURN, QUIT");
-            System.out.print(">");
+        //controlla doneMandatory e doneLeader: a seconda del valore, stampa mex mettendo tutte mosse possibili tra cui scegliere X
+
+        StringBuilder actions = new StringBuilder();
+
+        actions.append(">Choose your action typing one of the following words: ");
+
+        if (!modelView.isDoneMandatory()){
+            actions.append("BUY, PRODUCE, MARKET, ");
         }
-        else{
-            System.out.println(">Choose your action typing one of the following words: BUY, PRODUCE, MARKET, ACTIVATE, DISCARD, SWAP, QUIT");
-            System.out.print(">");
+
+        if (modelView.getCountLeader() < 2) {
+            actions.append("ACTIVATE, DISCARD, ");
         }
+
+        actions.append("SWAP, ENDTURN, QUIT");
+
+        System.out.println(actions);
+        System.out.print(">");
     }
 
     /**
@@ -1595,8 +1610,6 @@ public class CLI implements Runnable, SourceListener {
             case "ACTIVATE":
 
                 if (value == null) {
-                    // print leaders
-                    // print extra deposit
                     printBoard();
                     printActions();
                 } else {
@@ -1608,12 +1621,10 @@ public class CLI implements Runnable, SourceListener {
             case "DISCARD":
 
                 if (value == null) {
-                    // print leaders
-                    // print position
                     printBoard();
                     printActions();
                 } else {
-                    System.out.println(value.get("other") + " has discaded his leader!" );
+                    System.out.println(value.get("other") + " has discarded his leader!" );
                 }
 
                 break;

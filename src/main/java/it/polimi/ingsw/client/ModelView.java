@@ -84,10 +84,18 @@ public class ModelView {
      * This attribute indicate the black cross in the solo game
      */
     private int blackCross;
-
+    /**
+     * The number of initial resources that a player can have.
+     */
     private int initialRes;
-
+    /**
+     * The name of the current Player.
+     */
     private String currentPlayer;
+    /**
+     *  this attribute counts how many Leader actions a Player has done.
+     */
+    private int countLeader;
 
     /**
      * Constructor of the class. It instantiates the faithtrack and the tiles
@@ -484,4 +492,21 @@ public class ModelView {
 
         return slot[devCardIndex-1];
     }
+
+    /**
+     * Method that return how many leader actions have been done by the Player.
+     * @return the number of leader actions already done.
+     */
+    public int getCountLeader(){
+        return countLeader;
+    }
+
+    /**
+     * Method to set how many leader actions a Player has done.
+     * @param num the number of leader actions.
+     */
+    public void setCountLeader(int num) {
+        countLeader = num;
+    }
+
 }

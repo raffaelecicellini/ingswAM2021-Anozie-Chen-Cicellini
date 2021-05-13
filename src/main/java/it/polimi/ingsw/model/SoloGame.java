@@ -632,6 +632,8 @@ public class SoloGame extends Game{
             state.put("newPos", String.valueOf(newPos));
         }
 
+        state.put("countLeader", String.valueOf(doneLeader));
+
         this.listener.fireUpdates(state.get("action"), state);
     }
 

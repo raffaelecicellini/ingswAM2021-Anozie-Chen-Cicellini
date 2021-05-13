@@ -58,7 +58,7 @@ public class Game {
     protected boolean doneMandatory;
 
     /**
-     * this attribute counts how many Leader actions a Player has done
+     * this attribute counts how many Leader actions a Player has done.
      */
     protected int doneLeader;
 
@@ -399,6 +399,8 @@ public class Game {
             int newPos= currentPlayer.getPersonalBoard().getPosition();
             state.put("newPos", String.valueOf(newPos));
         }
+
+        state.put("countLeader", String.valueOf(doneLeader));
 
         this.listener.fireUpdates(state.get("action"), state);
     }

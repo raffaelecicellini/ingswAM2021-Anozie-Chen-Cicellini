@@ -198,6 +198,9 @@ public class CLI implements Runnable, SourceListener {
             case "QUIT":
                 quit();
                 break;
+            case "SHOWPLAYER":
+                showPlayer();
+                break;
             default:
                 System.err.println("Unrecognized command! Try again!");
                 printActions();
@@ -265,10 +268,10 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
         ArrayList<String> discounts = new ArrayList<>();
-        if (modelView.getLeaders().get("state0").equalsIgnoreCase("active"))
-            discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
-        if (modelView.getLeaders().get("state1").equalsIgnoreCase("active"))
-            discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+        if (modelView.getLeaders(modelView.getName()).get("state0").equalsIgnoreCase("active"))
+            discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader0"))));
+        if (modelView.getLeaders(modelView.getName()).get("state1").equalsIgnoreCase("active"))
+            discounts.add(Cards.getDiscountById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader1"))));
 
         ArrayList<String> cost;
         if (modelView.getDevelopDecks()[column][row]!=0) {
@@ -368,13 +371,13 @@ public class CLI implements Runnable, SourceListener {
         validInputs.add("mid");
         validInputs.add("big");
         validInputs.add("strongbox");
-        if (Integer.parseInt(modelView.getLeaders().get("leader0")) >= 7 &&
-                Integer.parseInt(modelView.getLeaders().get("leader0")) <= 10 &&
-                modelView.getLeaders().get("state0").equalsIgnoreCase("active") )
+        if (Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader0")) >= 7 &&
+                Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader0")) <= 10 &&
+                modelView.getLeaders(modelView.getName()).get("state0").equalsIgnoreCase("active") )
             validInputs.add("sp1");
-        if (Integer.parseInt(modelView.getLeaders().get("leader1")) >= 7 &&
-                Integer.parseInt(modelView.getLeaders().get("leader1")) <= 10 &&
-                modelView.getLeaders().get("state1").equalsIgnoreCase("active") )
+        if (Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader1")) >= 7 &&
+                Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader1")) <= 10 &&
+                modelView.getLeaders(modelView.getName()).get("state1").equalsIgnoreCase("active") )
             validInputs.add("sp2");
 
         List<String> validColors = new ArrayList<>();
@@ -435,10 +438,10 @@ public class CLI implements Runnable, SourceListener {
 
         // for every slot
         int num_slot;
-        for (num_slot = 0; num_slot < modelView.getSlots().size(); num_slot++) {
+        for (num_slot = 0; num_slot < modelView.getSlots(modelView.getName()).size(); num_slot++) {
 
             // check the top index
-            int devCardIndex = modelView.getTopIndex(modelView.getSlots().get(num_slot));
+            int devCardIndex = modelView.getTopIndex(modelView.getSlots(modelView.getName()).get(num_slot));
 
             // if a develop card is present
             if (devCardIndex >= 0 && devCardIndex <= 2) {
@@ -459,7 +462,7 @@ public class CLI implements Runnable, SourceListener {
                     map.put("prod" + (num_slot + 1), answer.toLowerCase());
                     // ask input
 
-                    ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots().get(num_slot)[devCardIndex]);
+                    ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots(modelView.getName()).get(num_slot)[devCardIndex]);
                     for (int res = 0; res < inputRes.size(); res++) {
                         System.out.println("From where would you like to take the " + inputRes.get(res) + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
                         System.out.print(">");
@@ -484,11 +487,11 @@ public class CLI implements Runnable, SourceListener {
         }
 
         // check leaders
-        for (int leadercardpos = 0; leadercardpos < modelView.getLeaders().size()/2; leadercardpos++) {
-            String color = Cards.getProductionById(Integer.parseInt(modelView.getLeaders().get("leader" + leadercardpos)));
+        for (int leadercardpos = 0; leadercardpos < modelView.getLeaders(modelView.getName()).size()/2; leadercardpos++) {
+            String color = Cards.getProductionById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader" + leadercardpos)));
 
             // if leader card is a LevTwo leader && is active
-            if (color != null && modelView.getLeaders().get("state" + leadercardpos).equals("active")) {
+            if (color != null && modelView.getLeaders(modelView.getName()).get("state" + leadercardpos).equals("active")) {
 
                 System.out.println(">Would you like to activate the leader production (" + color + " resource in input)? [yes/no] ");
                 System.out.print(">");
@@ -561,7 +564,7 @@ public class CLI implements Runnable, SourceListener {
             } else if (devCard >= 1 && devCard <= 3) {
                 int n_pos = 1;
                 //System.out.println(devCard);
-                ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots().get(devCard - 1)[modelView.getTopIndex(modelView.getSlots().get(devCard - 1))]);
+                ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots(modelView.getName()).get(devCard - 1)[modelView.getTopIndex(modelView.getSlots(modelView.getName()).get(devCard - 1))]);
                 // pos11 o pos12
                 while (map.containsKey("pos" + devCard + n_pos)) {
                     // BLUE, SMALL), (GREY, MID);
@@ -576,7 +579,7 @@ public class CLI implements Runnable, SourceListener {
                 System.out.println(str);
             } else if (devCard >= 4 && devCard <= 5) {
                 //BLUE, SMALL); OUT = GREY
-                str.append(Cards.getProductionById(Integer.parseInt(modelView.getLeaders().get("leader" + (devCard - 4))))).append(", ")
+                str.append(Cards.getProductionById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader" + (devCard - 4))))).append(", ")
                         .append(map.get("pos" + devCard + "1").toLowerCase()).append("); OUT = ").append(map.get("out" + devCard).toUpperCase());
                 System.out.println(str);
             }
@@ -683,7 +686,7 @@ public class CLI implements Runnable, SourceListener {
                     if (x.equalsIgnoreCase("red")) map.put(curr, "small");
                     else if (x.equalsIgnoreCase("white")){
                         //controlli white
-                        Map<String, String> leaders= modelView.getLeaders();
+                        Map<String, String> leaders= modelView.getLeaders(modelView.getName());
                         List<String> colors= new ArrayList<>();
                         for (int j=0; j<2; j++){
                             String state= "state"+j;
@@ -1014,10 +1017,10 @@ public class CLI implements Runnable, SourceListener {
     private void chooseLeaders(){
         //Stampa i 4 leader tra cui scegliere (andando a capo). Chiede il primo, poi il secondo, poi la conferma
         System.out.println(">You have to choose between these 4 leaders.");
-        System.out.println(" Index 1: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
-        System.out.println(" Index 2: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
-        System.out.println(" Index 3: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader2"))));
-        System.out.println(" Index 4: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader3"))));
+        System.out.println(" Index 1: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader0"))));
+        System.out.println(" Index 2: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader1"))));
+        System.out.println(" Index 3: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader2"))));
+        System.out.println(" Index 4: "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader3"))));
 
         ArrayList<String> possibleInput = new ArrayList<>();
         possibleInput.add("1");
@@ -1052,8 +1055,8 @@ public class CLI implements Runnable, SourceListener {
         action.put("ind2",choice);
 
         System.out.println(">You selected these leaders:");
-        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader"+(Integer.parseInt(action.get("ind1"))-1)))));
-        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader"+(Integer.parseInt(action.get("ind2"))-1)))));
+        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader"+(Integer.parseInt(action.get("ind1"))-1)))));
+        System.out.println(Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader"+(Integer.parseInt(action.get("ind2"))-1)))));
         System.out.println(">Do you want to confirm? [yes/no]");
         possibleInput.clear();
         possibleInput.add("yes");
@@ -1154,10 +1157,10 @@ public class CLI implements Runnable, SourceListener {
         clearScreen();
         printDecks();
         printMarket();
-        printTrack();
-        printDeps();
-        printSlots();
-        printLeaders();
+        printTrack(modelView.getName());
+        printDeps(modelView.getName());
+        printSlots(modelView.getName());
+        printLeaders(modelView.getName());
     }
 
     /**
@@ -1179,7 +1182,7 @@ public class CLI implements Runnable, SourceListener {
             actions.append("ACTIVATE, DISCARD, ");
         }
 
-        actions.append("SWAP, ENDTURN, QUIT");
+        actions.append("SWAP, ENDTURN, QUIT, SHOWPLAYER");
 
         System.out.println(actions);
         System.out.print(">");
@@ -1188,46 +1191,60 @@ public class CLI implements Runnable, SourceListener {
     /**
      * This method prints the player's leader cards.
      */
-    private void printLeaders(){
-        System.out.println("Leader 0");
-        System.out.println(" State: "+modelView.getLeaders().get("state0").toUpperCase());
-        System.out.println(" "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader0"))));
+    private void printLeaders(String name){
+        if (name.equalsIgnoreCase(modelView.getName())) {
+            System.out.println("Leader 0");
+            System.out.println(" State: " + modelView.getLeaders(name).get("state0").toUpperCase());
+            System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader0"))));
 
-        System.out.println("Leader 1");
-        System.out.println(" State: "+modelView.getLeaders().get("state1").toUpperCase());
-        System.out.println(" "+Cards.getLeaderById(Integer.parseInt(modelView.getLeaders().get("leader1"))));
+            System.out.println("Leader 1");
+            System.out.println(" State: " + modelView.getLeaders(name).get("state1").toUpperCase());
+            System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader1"))));
+        } else {
+            if (modelView.getLeaders(name).get("state0").equalsIgnoreCase("active") || modelView.getLeaders(name).get("state0").equalsIgnoreCase("discarded")) {
+                System.out.println("Leader 0");
+                System.out.println(" State: " + modelView.getLeaders(name).get("state0").toUpperCase());
+                System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader0"))));
+            }
+
+            if(modelView.getLeaders(name).get("state1").equalsIgnoreCase("active") || modelView.getLeaders(name).get("state1").equalsIgnoreCase("discarded")) {
+                System.out.println("Leader 1");
+                System.out.println(" State: " + modelView.getLeaders(name).get("state1").toUpperCase());
+                System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader1"))));
+            }
+        }
     }
 
     /**
      * This method prints the player's deposits and strongbox.
      */
-    private void printDeps(){
+    private void printDeps(String name){
         //Stampa in modo formattato i depositi e lo strongbox (res=..., amount=..., slots remaining=...)
         int[] small = new int[1];
-        small[0] = modelView.getDeposits().get("smallqty")!= null? Integer.parseInt(modelView.getDeposits().get("smallqty")): 0;
+        small[0] = modelView.getDeposits(name).get("smallqty")!= null? Integer.parseInt(modelView.getDeposits(name).get("smallqty")): 0;
         int[] mid = new int[1];
-        mid[0] = modelView.getDeposits().get("midqty")!= null? Integer.parseInt(modelView.getDeposits().get("midqty")): 0;
+        mid[0] = modelView.getDeposits(name).get("midqty")!= null? Integer.parseInt(modelView.getDeposits(name).get("midqty")): 0;
         int[] big = new int[1];
-        big[0] = modelView.getDeposits().get("bigqty")!= null? Integer.parseInt(modelView.getDeposits().get("bigqty")): 0;
+        big[0] = modelView.getDeposits(name).get("bigqty")!= null? Integer.parseInt(modelView.getDeposits(name).get("bigqty")): 0;
         int[] sp1 = new int[1];
-        sp1[0] = modelView.getDeposits().get("sp1qty")!= null? Integer.parseInt(modelView.getDeposits().get("sp1qty")): 0;
+        sp1[0] = modelView.getDeposits(name).get("sp1qty")!= null? Integer.parseInt(modelView.getDeposits(name).get("sp1qty")): 0;
         int[] sp2 = new int[1];
-        sp2[0] = modelView.getDeposits().get("sp2qty")!= null? Integer.parseInt(modelView.getDeposits().get("sp2qty")): 0;
+        sp2[0] = modelView.getDeposits(name).get("sp2qty")!= null? Integer.parseInt(modelView.getDeposits(name).get("sp2qty")): 0;
         System.out.println("+------+");
-        System.out.println("|"+ printDepCell(small,"smallres")+"|");
+        System.out.println("|"+ printDepCell(small,"smallres",name)+"|");
         System.out.println("+------+------+");
-        System.out.println("|"+ printDepCell(mid,"midres")+"|"+ printDepCell(mid,"midres")+"|");
+        System.out.println("|"+ printDepCell(mid,"midres",name)+"|"+ printDepCell(mid,"midres",name)+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+ ");
-        System.out.println("|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|"+ printDepCell(big,"bigres")+"|   |"+ printDepCell(sp1,"sp1res")+"|"+ printDepCell(sp1,"sp1res")+"|   |"+ printDepCell(sp2,"sp2res")+"|"+ printDepCell(sp2,"sp2res")+"|");
+        System.out.println("|"+ printDepCell(big,"bigres",name)+"|"+ printDepCell(big,"bigres",name)+"|"+ printDepCell(big,"bigres",name)+"|   |"+ printDepCell(sp1,"sp1res",name)+"|"+ printDepCell(sp1,"sp1res",name)+"|   |"+ printDepCell(sp2,"sp2res",name)+"|"+ printDepCell(sp2,"sp2res",name)+"|");
         System.out.println("+------+------+------+   +------+------+   +------+------+");
         //System.out.println("\t\tnormal   sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
-        System.out.println("        normal             sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"   ");
+        System.out.println("        normal             sp1 "+ printLastLineDep(1,name)+"        sp2 "+ printLastLineDep(2,name)+"   ");
         System.out.println("\n");
         System.out.println("|STRONGBOX|");
-        System.out.println(modelView.getStrongbox().get("strres0").toUpperCase()+": " + modelView.getStrongbox().get("strqty0"));
-        System.out.println(modelView.getStrongbox().get("strres1").toUpperCase()+": " + modelView.getStrongbox().get("strqty1"));
-        System.out.println(modelView.getStrongbox().get("strres2").toUpperCase()+": " + modelView.getStrongbox().get("strqty2"));
-        System.out.println(modelView.getStrongbox().get("strres3").toUpperCase()+": " + modelView.getStrongbox().get("strqty3"));
+        System.out.println(modelView.getStrongbox(name).get("strres0").toUpperCase()+": " + modelView.getStrongbox(name).get("strqty0"));
+        System.out.println(modelView.getStrongbox(name).get("strres1").toUpperCase()+": " + modelView.getStrongbox(name).get("strqty1"));
+        System.out.println(modelView.getStrongbox(name).get("strres2").toUpperCase()+": " + modelView.getStrongbox(name).get("strqty2"));
+        System.out.println(modelView.getStrongbox(name).get("strres3").toUpperCase()+": " + modelView.getStrongbox(name).get("strqty3"));
 
     }
 
@@ -1238,8 +1255,8 @@ public class CLI implements Runnable, SourceListener {
      * @return the resource at a certain cell.
      */
     //prints each cell of the deposits
-    private String printDepCell(int[] i, String dep) {
-        String resource = modelView.getDeposits().get(dep);
+    private String printDepCell(int[] i, String dep, String name) {
+        String resource = modelView.getDeposits(name).get(dep);
         if (resource == null)
             return "      ";
         else {
@@ -1275,18 +1292,18 @@ public class CLI implements Runnable, SourceListener {
      * @param a is the index representing the special deposit (1 = sp1, 2 = sp2).
      * @return the resource of the special deposit.
      */
-    private String printLastLineDep(int a) {
+    private String printLastLineDep(int a, String name) {
         if (a == 1) {
-            if (modelView.getDeposits().get("sp1res")!=null)
-                if (modelView.getDeposits().get("sp1res").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp1res").toUpperCase().equals("GREY"))
-                    return " "+modelView.getDeposits().get("sp1res").toUpperCase()+" ";
-                else return modelView.getDeposits().get("sp1res").toUpperCase();
+            if (modelView.getDeposits(name).get("sp1res")!=null)
+                if (modelView.getDeposits(name).get("sp1res").toUpperCase().equals("BLUE") || modelView.getDeposits(name).get("sp1res").toUpperCase().equals("GREY"))
+                    return " "+modelView.getDeposits(name).get("sp1res").toUpperCase()+" ";
+                else return modelView.getDeposits(name).get("sp1res").toUpperCase();
             else return "      ";
         } else {
-            if (modelView.getDeposits().get("sp2res")!=null)
-                if (modelView.getDeposits().get("sp2res").toUpperCase().equals("BLUE") || modelView.getDeposits().get("sp2res").toUpperCase().equals("GREY"))
-                    return " "+modelView.getDeposits().get("sp2res").toUpperCase()+" ";
-                else return modelView.getDeposits().get("sp2res").toUpperCase();
+            if (modelView.getDeposits(name).get("sp2res")!=null)
+                if (modelView.getDeposits(name).get("sp2res").toUpperCase().equals("BLUE") || modelView.getDeposits(name).get("sp2res").toUpperCase().equals("GREY"))
+                    return " "+modelView.getDeposits(name).get("sp2res").toUpperCase()+" ";
+                else return modelView.getDeposits(name).get("sp2res").toUpperCase();
             else return "      ";
         }
     }
@@ -1359,24 +1376,24 @@ public class CLI implements Runnable, SourceListener {
     /**
      * Method used to print the Faith Track.
      */
-    private void printTrack() {
+    private void printTrack(String name) {
 
         StringBuilder position = new StringBuilder(103);
 
         if (modelView.isSoloGame()) {
             position.append("|");
-            if (modelView.getPosition() == modelView.getBlackCross()) {
-                while (position.length() != modelView.getPosition()*4+1) position.append("   |");
+            if (modelView.getPosition(name) == modelView.getBlackCross()) {
+                while (position.length() != modelView.getPosition(name)*4+1) position.append("   |");
                 position.append("$ X|");
                 while (position.length() <= 100) position.append("   |");
             } else {
 
-                while ((position.length() != modelView.getPosition()*4+1) &&
+                while ((position.length() != modelView.getPosition(name)*4+1) &&
                         (position.length() != modelView.getBlackCross()*4+1)) {
                     position.append("   |");
                 }
 
-                if (position.length() == modelView.getPosition()*4+1) {
+                if (position.length() == modelView.getPosition(name)*4+1) {
                     position.append(" X |");
                     while (position.length() != modelView.getBlackCross()*4+1) position.append("   |");
                     position.append(" $ ");
@@ -1384,7 +1401,7 @@ public class CLI implements Runnable, SourceListener {
                 else
                 if (position.length() == modelView.getBlackCross()*4+1) {
                     position.append(" $ |");
-                    while (position.length() != modelView.getPosition()*4+1) position.append("   |");
+                    while (position.length() != modelView.getPosition(name)*4+1) position.append("   |");
                     position.append(" X ");
                 }
 
@@ -1392,42 +1409,42 @@ public class CLI implements Runnable, SourceListener {
             }
         } else {
             position.append("| ");
-            while (position.length() != modelView.getPosition()*4+2) position.append("  | ");
+            while (position.length() != modelView.getPosition(name)*4+2) position.append("  | ");
             position.append("X ");
             while (position.length() <= 103) position.append("|   ");
         }
 
         StringBuilder tiles = new StringBuilder();
         tiles.append("+-------------------+");
-        if (modelView.getTiles()[0].isActive() &&  !modelView.getTiles()[0].isDiscarded()) {
-            tiles.append("   VP:").append(modelView.getTiles()[0].getId()).append(", ON    ");
+        if (modelView.getTiles(name)[0].isActive() &&  !modelView.getTiles(name)[0].isDiscarded()) {
+            tiles.append("   VP:").append(modelView.getTiles(name)[0].getId()).append(", ON    ");
         } else
-        if (!modelView.getTiles()[0].isActive() &&  !modelView.getTiles()[0].isDiscarded()){
-            tiles.append("   VP:").append(modelView.getTiles()[0].getId()).append(", OFF   ");
+        if (!modelView.getTiles(name)[0].isActive() &&  !modelView.getTiles(name)[0].isDiscarded()){
+            tiles.append("   VP:").append(modelView.getTiles(name)[0].getId()).append(", OFF   ");
         } else
-        if (modelView.getTiles()[0].isDiscarded()){
+        if (modelView.getTiles(name)[0].isDiscarded()){
             tiles.append("   DISCARDED   ");
         }
 
         tiles.append("+-----------+");
-        if (modelView.getTiles()[1].isActive() &&  !modelView.getTiles()[1].isDiscarded()) {
-            tiles.append("     VP:").append(modelView.getTiles()[1].getId()).append(", ON      ");
+        if (modelView.getTiles(name)[1].isActive() &&  !modelView.getTiles(name)[1].isDiscarded()) {
+            tiles.append("     VP:").append(modelView.getTiles(name)[1].getId()).append(", ON      ");
         } else
-        if (!modelView.getTiles()[1].isActive() &&  !modelView.getTiles()[1].isDiscarded()){
-            tiles.append("     VP:").append(modelView.getTiles()[1].getId()).append(", OFF     ");
+        if (!modelView.getTiles(name)[1].isActive() &&  !modelView.getTiles(name)[1].isDiscarded()){
+            tiles.append("     VP:").append(modelView.getTiles(name)[1].getId()).append(", OFF     ");
         } else
-        if (modelView.getTiles()[1].isDiscarded()){
+        if (modelView.getTiles(name)[1].isDiscarded()){
             tiles.append("     DISCARDED     ");
         }
 
         tiles.append("+-------+");
-        if (modelView.getTiles()[2].isActive() &&  !modelView.getTiles()[2].isDiscarded()) {
-            tiles.append("       VP:").append(modelView.getTiles()[2].getId()).append(", ON        ");
+        if (modelView.getTiles(name)[2].isActive() &&  !modelView.getTiles(name)[2].isDiscarded()) {
+            tiles.append("       VP:").append(modelView.getTiles(name)[2].getId()).append(", ON        ");
         } else
-        if (!modelView.getTiles()[2].isActive() &&  !modelView.getTiles()[2].isDiscarded()){
-            tiles.append("       VP:").append(modelView.getTiles()[2].getId()).append(", OFF       ");
+        if (!modelView.getTiles(name)[2].isActive() &&  !modelView.getTiles(name)[2].isDiscarded()){
+            tiles.append("       VP:").append(modelView.getTiles(name)[2].getId()).append(", OFF       ");
         } else
-        if (modelView.getTiles()[2].isDiscarded()){
+        if (modelView.getTiles(name)[2].isDiscarded()){
             tiles.append("       DISCARDED       ");
         }
 
@@ -1441,13 +1458,38 @@ public class CLI implements Runnable, SourceListener {
     }
 
     /**
+     * This method is called when a player decides to see another player's situation.
+     */
+    private void showPlayer() {
+        String chosen;
+        List<String> names = modelView.getPlayers();
+        names.remove(modelView.getName());
+        System.out.println(">These are the players: ");
+        for (String name : names) {
+            System.out.println(" "+name);
+        }
+        System.out.println("\n>Which player do you want to see?");
+        chosen = input.nextLine();
+        while (!names.contains(chosen)) {
+            System.out.println("Select one of those players.");
+            chosen = input.nextLine();
+        }
+
+        printTrack(chosen);
+        printDeps(chosen);
+        printSlots(chosen);
+        printLeaders(chosen);
+        printActions();
+    }
+
+    /**
      * Method used to print the Develop Card Slots.
      */
-    private void printSlots() {
+    private void printSlots(String name) {
 
-        String[] card1 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(0)));
-        String[] card2 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(1)));
-        String[] card3 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots().get(2)));
+        String[] card1 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots(name).get(0)));
+        String[] card2 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots(name).get(1)));
+        String[] card3 = Cards.getDevelopById(modelView.getTopId(modelView.getSlots(name).get(2)));
 
         String[] one = new String[4];  // the top cards
         StringBuilder list = new StringBuilder();  // the tracker of number of cards
@@ -1455,15 +1497,15 @@ public class CLI implements Runnable, SourceListener {
         int lv;
         for (int slot = 0; slot < 3; slot++) {
             lv = 0;
-            if (modelView.getTopId(modelView.getSlots().get(slot)) == 0) {
+            if (modelView.getTopId(modelView.getSlots(name).get(slot)) == 0) {
                 list.append("                                            ");
             } else {
-                while (lv < modelView.getSlots().get(slot).length) {
-                    if (modelView.getSlots().get(slot)[lv] != 0) {
+                while (lv < modelView.getSlots(name).get(slot).length) {
+                    if (modelView.getSlots(name).get(slot)[lv] != 0) {
                         if (lv == 0) list.append("          ");
                         else list.append(", ");
 
-                        list.append("LV").append(lv + 1).append(": ").append(Cards.getColorById(modelView.getSlots().get(slot)[lv]));
+                        list.append("LV").append(lv + 1).append(": ").append(Cards.getColorById(modelView.getSlots(name).get(slot)[lv]));
                         lv++;
                     } else break;
                 }

@@ -301,74 +301,84 @@ public class GameHandler implements SourceListener {
             case "OKLEADERS":
                 addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                //sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 break;
             case "CHOOSERESOURCES":
                 jsonMessage=gson.toJson(value);
                 sendAll(jsonMessage);
                 break;
             case "OKRESOURCES":
-                addressee=value.get("player");
+                //addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                //sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 break;
             case "BUY":
                 //different sendall
                 jsonMessage=gson.toJson(value);
-                addressee=value.get("player");
-                sendSingle(jsonMessage, addressee);
-                if (playersNumber>1){
-                    Map<String, String> buyToOthers=createBuyMessage(value);
-                    String jsonBuyOthers=gson.toJson(buyToOthers);
-                    sendAllExcept(jsonBuyOthers, addressee);
-                }
+                //addressee=value.get("player");
+                //sendSingle(jsonMessage, addressee)
+                //if (playersNumber>1){
+                //    Map<String, String> buyToOthers=createBuyMessage(value);
+                //    String jsonBuyOthers=gson.toJson(buyToOthers);
+                //    sendAllExcept(jsonBuyOthers, addressee);
+                //}
+                sendAll(jsonMessage);
                 break;
             case "PRODUCE":
                 //singlesend
-                addressee=value.get("player");
+                //addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                //sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 break;
             case "MARKET":
                 //different sendall
                 jsonMessage=gson.toJson(value);
-                addressee=value.get("player");
-                sendSingle(jsonMessage, addressee);
-                if (playersNumber>1){
-                    Map<String, String> buyToOthers=createMarketMessage(value);
-                    String jsonMarketToOthers=gson.toJson(buyToOthers);
-                    sendAllExcept(jsonMarketToOthers, addressee);
-                }
+                //addressee=value.get("player");
+                //sendSingle(jsonMessage, addressee);
+                //if (playersNumber>1){
+                //    Map<String, String> buyToOthers=createMarketMessage(value);
+                //    String jsonMarketToOthers=gson.toJson(buyToOthers);
+                //    sendAllExcept(jsonMarketToOthers, addressee);
+                //}
+                sendAll(jsonMessage);
                 break;
             case "SWAP":
                 //singlesend
-                addressee=value.get("player");
+                //addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                //sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 break;
             case "ACTIVATE":
                 //singlesend
-                addressee=value.get("player");
+                //addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                //sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 break;
             case "DISCARD":
                 //singlesend
-                addressee=value.get("player");
+                //addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                //sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 break;
             case "ENDTURN":
                 //singlesend (model fires different messages for each client/player)
-                addressee=value.get("player");
+                //addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
-                sendSingle(jsonMessage, addressee);
+                //sendSingle(jsonMessage, addressee);
+                sendAll(jsonMessage);
                 break;
             case "ENDGAME":
                 //singlesend
                 addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
+
                 //CLOSE CONNECTION
                 players.get(addressee).removeClient();
                 players.get(addressee).close();

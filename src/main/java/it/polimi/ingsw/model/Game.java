@@ -514,7 +514,6 @@ public class Game {
      * of the player's FavorTile. This method is called once for each player connected to the game
      * @param player the addresse player of the message
      * @param ended the player that ended the turn
-     * @param tiles the tiles of the addressee player
      */
     private void notifyEndTurn(String player, String ended){
         Map<String, String> state= new HashMap<>();

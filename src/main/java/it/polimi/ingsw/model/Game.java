@@ -503,7 +503,7 @@ public class Game {
             FavorTile[] tiles;
             for (int i=0; i<activePlayers.size(); i++){
                 tiles=activePlayers.get(i).getPersonalBoard().getTiles();
-                notifyEndTurn(activePlayers.get(i).getName(), ended.getName(), tiles);
+                notifyEndTurn(activePlayers.get(i).getName(), ended.getName());
             }
             notifyTurn();
         }

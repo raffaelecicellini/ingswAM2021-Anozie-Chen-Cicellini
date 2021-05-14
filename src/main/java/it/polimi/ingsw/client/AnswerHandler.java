@@ -35,6 +35,10 @@ public class AnswerHandler implements SourceListener {
         // Map used just to notify other players who hasn't done the action with a message containing the name of the
         // player who has done the action and the action.
         Map<String, String> map = new HashMap<>();
+        Map<String,String> leaders;
+        Map<String, String> deposits;
+        String player_name;
+        int[][] developDecks;
         map.put("player", value.get("player"));
         map.put("action", value.get("action"));
 

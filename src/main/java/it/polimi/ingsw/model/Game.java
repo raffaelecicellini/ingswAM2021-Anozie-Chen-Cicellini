@@ -223,6 +223,13 @@ public class Game {
             }
         }
 
+        String curr;
+        int i=0;
+        for (Player x: activePlayers){
+            curr="player"+i;
+            state.put(curr, x.getName());
+            i++;
+        }
         listener.fireUpdates(state.get("action"), state);
     }
 
@@ -509,7 +516,7 @@ public class Game {
      * @param ended the player that ended the turn
      * @param tiles the tiles of the addressee player
      */
-    private void notifyEndTurn(String player, String ended, FavorTile[] tiles){
+    private void notifyEndTurn(String player, String ended){
         Map<String, String> state= new HashMap<>();
         String tile;
         state.put("action", "endturn");
@@ -517,15 +524,26 @@ public class Game {
         state.put("endedTurnPlayer", ended);
         state.put("currentPlayer", currentPlayer.getName());
 
-        for (int i=0; i<tiles.length; i++){
-            tile="tile"+i;
-            if (tiles[i].isActive()){
-                state.put(tile, "active");
+        String curr="player";
+        int j=0;
+
+        for (Player x : activePlayers){
+            String name= x.getName();
+            FavorTile[] tiles =x.getPersonalBoard().getTiles();
+
+            state.put(curr+j, name);
+
+            for (int i=0; i<tiles.length; i++){
+                tile="tile"+j+i;
+                if (tiles[i].isActive()){
+                    state.put(tile, "active");
+                }
+                else if (tiles[i].isDiscarded()){
+                    state.put(tile, "discarded");
+                }
+                else state.put(tile, "nothing");
             }
-            else if (tiles[i].isDiscarded()){
-                state.put(tile, "discarded");
-            }
-            else state.put(tile, "nothing");
+            j++;
         }
 
         this.listener.fireUpdates(state.get("action"), state);

@@ -369,6 +369,7 @@ public class GameHandler implements SourceListener {
                 addressee=value.get("player");
                 jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
+
                 //CLOSE CONNECTION
                 players.get(addressee).removeClient();
                 players.get(addressee).close();

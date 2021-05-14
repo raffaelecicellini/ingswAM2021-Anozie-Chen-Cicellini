@@ -1359,7 +1359,7 @@ public class CLI implements Runnable, SourceListener {
     /**
      * Method used to print the Faith Track.
      */
-    private void printTrack() {
+    private void printTrack(String name) {
 
         StringBuilder position = new StringBuilder(103);
 

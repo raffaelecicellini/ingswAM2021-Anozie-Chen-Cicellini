@@ -49,7 +49,7 @@ public class AnswerHandler implements SourceListener {
 
             case "STARTED":
 
-                int[][] developDecks = new int[4][3];
+                developDecks = new int[4][3];
                 for (int col = 0; col < 4; col++) {
                     for (int row = 0; row < 3; row++) {
                         developDecks[col][row] = Integer.parseInt(value.get("card"+col+row));
@@ -309,6 +309,25 @@ public class AnswerHandler implements SourceListener {
                     modelView.setBlackCross(Integer.parseInt(value.get("blackPos")));
                 }
 
+                deposits = new HashMap<>();
+                deposits.put("smallres", value.get("smallres"));
+                deposits.put("smallqty", value.get("smallqty"));
+                deposits.put("midres", value.get("midres"));
+                deposits.put("midqty", value.get("midqty"));
+                deposits.put("bigres", value.get("bigres"));
+                deposits.put("bigqty", value.get("bigqty"));
+                if (modelView.getDeposits(value.get("player")).size() > 6) {
+                    deposits.put("sp1res", value.get("sp1res"));
+                    deposits.put("sp1qty", value.get("sp1qty"));
+                    if (modelView.getDeposits(value.get("player")).size() > 8) {
+                        deposits.put("sp2res", value.get("sp2res"));
+                        deposits.put("sp2qty", value.get("sp2qty"));
+                    }
+                }
+                modelView.setDeposits(deposits, value.get("player"));
+
+                modelView.setPosition(Integer.parseInt(value.get("newPos")), value.get("player"));
+
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
                     //the player who did fromMarket
 
@@ -353,6 +372,11 @@ public class AnswerHandler implements SourceListener {
 
                 modelView.setPhase(GamePhase.FULLGAME);
 
+                player_name = value.get("player");
+                value.remove("player");
+                value.remove("action");
+                modelView.setDeposits(value, player_name);
+
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
                     // the player who called the swap method
                     value.remove("player");
@@ -360,7 +384,6 @@ public class AnswerHandler implements SourceListener {
                     modelView.setDeposits(value);
 
                     modelView.setActiveTurn(true);
-
                     viewListener.fireUpdates(map.get("action"), null);
                 } else {
                     // other players
@@ -374,6 +397,30 @@ public class AnswerHandler implements SourceListener {
             case "ACTIVATE":
 
                 modelView.setPhase(GamePhase.FULLGAME);
+
+                // If the activated leader is a "resource" leader, it notifies the player by adding him the new deposit
+                if (value.containsKey("isDep")){
+                    deposits = new HashMap<>();
+                    deposits.put("smallres", value.get("smallres"));
+                    deposits.put("smallqty", value.get("smallqty"));
+                    deposits.put("midres", value.get("midres"));
+                    deposits.put("midqty", value.get("midqty"));
+                    deposits.put("bigres", value.get("bigres"));
+                    deposits.put("bigqty", value.get("bigqty"));
+                    if (value.containsKey("sp1res")) {
+                        deposits.put("sp1res", value.get("sp1res"));
+                        deposits.put("sp1qty", value.get("sp1qty"));
+                    }
+                    if (value.containsKey("sp2res")) {
+                        deposits.put("sp2res", value.get("sp2res"));
+                        deposits.put("sp2qty", value.get("sp2qty"));
+                    }
+                    modelView.setDeposits(deposits, value.get("player"));
+                }
+
+                leaders = modelView.getLeaders(value.get("player"));
+                leaders.put("state" + Integer.parseInt(value.get("index")), "active");
+                modelView.setLeaders(leaders, value.get("player"));
 
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
                     // the player who activated a leader
@@ -420,6 +467,12 @@ public class AnswerHandler implements SourceListener {
 
                 modelView.setPhase(GamePhase.FULLGAME);
 
+                modelView.setPosition(Integer.parseInt(value.get("newPos")), value.get("player"));
+                leaders = modelView.getLeaders(value.get("player"));
+                leaders.put("state" + Integer.parseInt(value.get("index")), "discarded");
+                modelView.setLeaders(leaders, value.get("player"));
+
+
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
 
                     modelView.setPosition(Integer.parseInt(value.get("newPos")));
@@ -433,7 +486,6 @@ public class AnswerHandler implements SourceListener {
                     modelView.setCountLeader(Integer.parseInt(value.get("countLeader")));
 
                     viewListener.fireUpdates(value.get("action"), null);
-
                 } else {
                     // other players
                     map.put("other", map.get("player"));
@@ -447,15 +499,23 @@ public class AnswerHandler implements SourceListener {
 
                 modelView.setPhase(GamePhase.FULLGAME);
 
-                Tile[] tiles = modelView.getTiles();
-                for (int i = 0; i < 3; i++) {
-                    if (value.get("tile" + i).equals("active")) {
-                        tiles[i].setActive(true);
-                    } else if (value.get("tile" + i).equals("discarded")) {
-                        tiles[i].setDiscarded(true);
+                int pippo=0;
+                String curr="player"+pippo;
+
+                while(value.containsKey(curr)){
+
+                    Tile[] tiles = modelView.getTiles(value.get(curr));
+                    for (int i = 0; i < 3; i++) {
+                        if (value.get("tile" + pippo+i).equals("active")) {
+                            tiles[i].setActive(true);
+                        } else if (value.get("tile" + pippo+i).equals("discarded")) {
+                            tiles[i].setDiscarded(true);
+                        }
                     }
+                    modelView.setTiles(tiles, value.get(curr));
+                    pippo++;
+                    curr="player"+pippo;
                 }
-                modelView.setTiles(tiles);
 
                 modelView.setCurrentPlayer(value.get("currentPlayer"));
 

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Map;
 
-public class ChooseLeadersController {
+public class LeadersController {
 
     ModelView modelView = new ModelView();
 
@@ -58,7 +58,7 @@ public class ChooseLeadersController {
     }
 
     public void confirm(ActionEvent event) throws IOException {
-        modelView.setLeaders(leaders);
+        //modelView.setLeaders(leaders);
 
         root = FXMLLoader.load(getClass().getResource("/board.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

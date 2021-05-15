@@ -6,5 +6,6 @@ import javafx.scene.image.Image;
 
 import javax.swing.text.html.ImageView;
 
-public class Controller {
+public class ControllerProva {
+
 }

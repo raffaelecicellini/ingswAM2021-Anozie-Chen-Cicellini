@@ -1614,8 +1614,8 @@ public class CLI implements Runnable, SourceListener {
                     printActions();
 
                 } else {
-                    System.out.println(value.get("other") + " has bought a Develop Card!" );
                     printBoard();
+                    System.out.println(value.get("other") + " has bought a Develop Card!" );
                 }
                 break;
 
@@ -1628,11 +1628,11 @@ public class CLI implements Runnable, SourceListener {
                     printActions();
 
                 } else {
+                    printBoard();
                     System.out.println(value.get("other") + " has taken resources from the Market!" );
                     if (Integer.parseInt(value.get("discarded")) != 0) {
                         System.out.println("Your position has been increased!");
                     }
-                    printBoard();
                 }
 
                 break;

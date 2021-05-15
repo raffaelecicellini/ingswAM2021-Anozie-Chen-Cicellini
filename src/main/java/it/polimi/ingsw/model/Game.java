@@ -500,11 +500,9 @@ public class Game {
         }
         else {
             //notify endturn
-            FavorTile[] tiles;
-            for (int i=0; i<activePlayers.size(); i++){
-                tiles=activePlayers.get(i).getPersonalBoard().getTiles();
-                notifyEndTurn(activePlayers.get(i).getName(), ended.getName());
-            }
+
+            notifyEndTurn(ended.getName());
+
             notifyTurn();
         }
     }
@@ -512,14 +510,12 @@ public class Game {
     /**
      * Utility method used to notify the corrected execution of the end turn action. It sends to the view the new situation
      * of the player's FavorTile. This method is called once for each player connected to the game
-     * @param player the addresse player of the message
      * @param ended the player that ended the turn
      */
-    private void notifyEndTurn(String player, String ended){
+    private void notifyEndTurn(String ended){
         Map<String, String> state= new HashMap<>();
         String tile;
         state.put("action", "endturn");
-        state.put("player", player);
         state.put("endedTurnPlayer", ended);
         state.put("currentPlayer", currentPlayer.getName());
 

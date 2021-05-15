@@ -60,7 +60,7 @@ public class SocketListener implements Runnable{
      * This method reads a message from the socket.
      * @throws IOException if the connection is interrupted.
      */
-    public void readMessage() throws IOException{
+    public void readMessage() throws SocketTimeoutException, IOException{
         Gson gson = new Gson();
         String line = input.readLine();
         Map<String,String > message;

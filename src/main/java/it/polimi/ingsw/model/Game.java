@@ -223,6 +223,13 @@ public class Game {
             }
         }
 
+        String curr;
+        int i=0;
+        for (Player x: activePlayers){
+            curr="player"+i;
+            state.put(curr, x.getName());
+            i++;
+        }
         listener.fireUpdates(state.get("action"), state);
     }
 
@@ -493,11 +500,9 @@ public class Game {
         }
         else {
             //notify endturn
-            FavorTile[] tiles;
-            for (int i=0; i<activePlayers.size(); i++){
-                tiles=activePlayers.get(i).getPersonalBoard().getTiles();
-                notifyEndTurn(activePlayers.get(i).getName(), ended.getName(), tiles);
-            }
+
+            notifyEndTurn(ended.getName());
+
             notifyTurn();
         }
     }
@@ -505,27 +510,35 @@ public class Game {
     /**
      * Utility method used to notify the corrected execution of the end turn action. It sends to the view the new situation
      * of the player's FavorTile. This method is called once for each player connected to the game
-     * @param player the addresse player of the message
      * @param ended the player that ended the turn
-     * @param tiles the tiles of the addressee player
      */
-    private void notifyEndTurn(String player, String ended, FavorTile[] tiles){
+    private void notifyEndTurn(String ended){
         Map<String, String> state= new HashMap<>();
         String tile;
         state.put("action", "endturn");
-        state.put("player", player);
         state.put("endedTurnPlayer", ended);
         state.put("currentPlayer", currentPlayer.getName());
 
-        for (int i=0; i<tiles.length; i++){
-            tile="tile"+i;
-            if (tiles[i].isActive()){
-                state.put(tile, "active");
+        String curr="player";
+        int j=0;
+
+        for (Player x : activePlayers){
+            String name= x.getName();
+            FavorTile[] tiles =x.getPersonalBoard().getTiles();
+
+            state.put(curr+j, name);
+
+            for (int i=0; i<tiles.length; i++){
+                tile="tile"+j+i;
+                if (tiles[i].isActive()){
+                    state.put(tile, "active");
+                }
+                else if (tiles[i].isDiscarded()){
+                    state.put(tile, "discarded");
+                }
+                else state.put(tile, "nothing");
             }
-            else if (tiles[i].isDiscarded()){
-                state.put(tile, "discarded");
-            }
-            else state.put(tile, "nothing");
+            j++;
         }
 
         this.listener.fireUpdates(state.get("action"), state);

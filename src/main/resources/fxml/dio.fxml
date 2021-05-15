@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('file:C:\Users\chenp\OneDrive - Politecnico di Milano\ROBE UNI\PROGETTO ING SW\ingswAM2021-Anozie-Chen-Cicellini\src\main\resources\PNG\Immagini_a_caso\background.png');" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" />

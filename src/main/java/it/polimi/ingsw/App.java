@@ -2,6 +2,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.cli.CLI;
 import it.polimi.ingsw.client.gui.GUI;
+import it.polimi.ingsw.client.gui.Main;
 import it.polimi.ingsw.server.Server;
 
 import java.util.InputMismatchException;
@@ -18,7 +19,7 @@ public class App
      * @param args of type String[]
      */
     public static void main(String[] args){
-        System.out.println("Hi! Welcome to Master of Renaissance!\nWhat do you want to launch?");
+        /*System.out.println("Hi! Welcome to Master of Renaissance!\nWhat do you want to launch?");
         System.out.println("0. SERVER\n1. CLIENT (CLI INTERFACE)\n2. CLIENT (GUI INTERFACE)");
         System.out.println("\n>Type the number of the desired option!");
         System.out.print(">");
@@ -30,7 +31,8 @@ public class App
             System.err.println("Numeric format requested, application will now close...");
             System.exit(-1);
         }
-        switch (input) {
+        switch (input) {*/
+        switch (2) {
             case 0:
                 Server.main(null);
                 break;
@@ -39,7 +41,8 @@ public class App
                 break;
             case 2:
                 System.out.println("You selected the GUI interface, have fun!\nStarting...");
-                GUI.main(null);
+                //GUI.main(null);
+                Main.main(null);
                 break;
             default:
                 System.err.println("Invalid argument, please run the executable again.");

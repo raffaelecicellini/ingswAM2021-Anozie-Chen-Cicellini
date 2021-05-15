@@ -21,8 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StartController {
-
+public class StartController implements GUIController{
     private Stage stage;
     private Scene scene;
     private Parent root;

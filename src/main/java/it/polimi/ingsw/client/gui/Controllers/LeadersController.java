@@ -10,6 +10,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class LeadersController {
@@ -55,6 +57,10 @@ public class LeadersController {
                 // avverti
             }
         }
+    }
+
+    public void setLeaders(ArrayList<String> location) {
+
     }
 
     public void confirm(ActionEvent event) throws IOException {

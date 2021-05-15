@@ -16,7 +16,7 @@ public class StartController {
     private Parent root;
 
     public void toChooseNameLocal(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/fxml/chooseName.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/fxml/local.fxml"));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         //scene.getStylesheets().add(locator.locateAsURL)
@@ -25,7 +25,7 @@ public class StartController {
     }
 
     public void toChooseNameOnline(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/fxml/server_port.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/fxml/online.fxml"));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

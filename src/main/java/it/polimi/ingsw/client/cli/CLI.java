@@ -1182,7 +1182,9 @@ public class CLI implements Runnable, SourceListener {
             actions.append("ACTIVATE, DISCARD, ");
         }
 
-        actions.append("SWAP, ENDTURN, QUIT, SHOWPLAYER");
+        actions.append("SWAP, ENDTURN, QUIT");
+
+        if(!modelView.isSoloGame()) actions.append(", SHOWPLAYER");
 
         System.out.println(actions);
         System.out.print(">");
@@ -1461,24 +1463,27 @@ public class CLI implements Runnable, SourceListener {
      * This method is called when a player decides to see another player's situation.
      */
     private void showPlayer() {
-        String chosen;
-        List<String> names = modelView.getPlayers();
-        names.remove(modelView.getName());
-        System.out.println(">These are the players: ");
-        for (String name : names) {
-            System.out.println(" "+name);
-        }
-        System.out.println("\n>Which player do you want to see?");
-        chosen = input.nextLine();
-        while (!names.contains(chosen)) {
-            System.out.println("Select one of those players.");
+        if (!modelView.isSoloGame()) {
+            String chosen;
+            List<String> names = modelView.getPlayers();
+            names.remove(modelView.getName());
+            System.out.println(">These are the players: ");
+            for (String name : names) {
+                System.out.println(" " + name);
+            }
+            System.out.println("\n>Which player do you want to see?");
             chosen = input.nextLine();
-        }
+            while (!names.contains(chosen)) {
+                System.out.println("Select one of those players.");
+                chosen = input.nextLine();
+            }
 
-        printTrack(chosen);
-        printDeps(chosen);
-        printSlots(chosen);
-        printLeaders(chosen);
+            printTrack(chosen);
+            printDeps(chosen);
+            printSlots(chosen);
+            printLeaders(chosen);
+        }
+        else System.out.println(">This command is valid only for a multiplayer game!");
         printActions();
     }
 

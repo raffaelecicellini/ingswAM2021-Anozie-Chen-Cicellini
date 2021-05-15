@@ -351,6 +351,14 @@ public class SoloGame extends Game{
             }
         }
 
+        String curr;
+        int i=0;
+        for (Player x: activePlayers){
+            curr="player"+i;
+            state.put(curr, x.getName());
+            i++;
+        }
+
         listener.fireUpdates(state.get("action"), state);
     }
 

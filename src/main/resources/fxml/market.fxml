@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="market" fitHeight="400.0" fitWidth="280.0" layoutX="337.0" pickOnBounds="true">
+         <image>
+            <Image url="@../PNG/punchboard/plancia_portabiglie.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="row_1" layoutX="574.0" layoutY="94.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="43.0" text="row 1">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="row_2" layoutX="574.0" layoutY="128.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="43.0" text="row 2">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="row_3" layoutX="574.0" layoutY="163.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="43.0" text="row 3">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="col_1" layoutX="414.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="32.0" text="col 1">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
+      <Button fx:id="col_2" layoutX="450.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="32.0" text="col 2">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
+      <Button fx:id="col_3" layoutX="486.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="32.0" text="col 3">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
+      <Button fx:id="col_4" layoutX="521.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="32.0" text="col 4">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="deposits" fitHeight="323.0" fitWidth="335.0" pickOnBounds="true">
+         <image>
+            <Image url="@../PNG/board/deposits.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

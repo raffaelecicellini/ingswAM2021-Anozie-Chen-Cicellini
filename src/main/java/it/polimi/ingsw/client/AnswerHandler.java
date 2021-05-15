@@ -154,6 +154,11 @@ public class AnswerHandler implements SourceListener {
                     modelView.setInitialRes(Integer.parseInt(value.get("qty")));
                     // in newValues there are: player, action and qty
                     viewListener.fireUpdates(value.get("action"), value);
+                }else {
+                    // other players
+                    map.put("other", map.get("player"));
+                    map.remove("player");
+                    viewListener.fireUpdates(map.get("action"), map);
                 }
 
                 break;
@@ -167,7 +172,7 @@ public class AnswerHandler implements SourceListener {
                 value.remove("player");
                 modelView.setDeposits(value, player_name);
 
-                if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
+                if (modelView.getName().equalsIgnoreCase(player_name)) {
                     // the player who has chosen the correct
 
                     viewListener.fireUpdates(map.get("action"),null);
@@ -348,6 +353,12 @@ public class AnswerHandler implements SourceListener {
 
                 modelView.setPosition(Integer.parseInt(value.get("newPos")), value.get("player"));
 
+                for (String x: modelView.getPlayers()){
+                    if (!x.equalsIgnoreCase(value.get("player"))) {
+                        modelView.setPosition(modelView.getPosition(x) + Integer.parseInt(value.get("discarded")), x);
+                    }
+                }
+
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
                     //the player who did fromMarket
                     modelView.setDoneMandatory(true);
@@ -357,17 +368,10 @@ public class AnswerHandler implements SourceListener {
 
                 } else {
                     // other players
-                    for (String x: modelView.getPlayers()){
-                        if (!x.equalsIgnoreCase(value.get("player"))) {
-                            modelView.setPosition(modelView.getPosition(x) + Integer.parseInt(value.get("discarded")), x);
-                        }
-                    }
-
                     map.put("other", value.get("player"));
                     map.remove("player");
                     map.put("discarded", value.get("discarded"));
                     viewListener.fireUpdates(map.get("action"), map);
-
                 }
 
                 break;
@@ -381,7 +385,7 @@ public class AnswerHandler implements SourceListener {
                 value.remove("action");
                 modelView.setDeposits(value, player_name);
 
-                if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
+                if (modelView.getName().equalsIgnoreCase(player_name)) {
                     // the player who called the swap method
                     modelView.setActiveTurn(true);
                     viewListener.fireUpdates(map.get("action"), null);
@@ -512,7 +516,7 @@ public class AnswerHandler implements SourceListener {
 
                 } else {
                     // other players
-                    map.put("other", map.get("endedTurnPlayer"));
+                    map.put("other", value.get("endedTurnPlayer"));
                     map.remove("player");
                     map.put("currentPlayer", value.get("currentPlayer"));
                     viewListener.fireUpdates(map.get("action"), map);

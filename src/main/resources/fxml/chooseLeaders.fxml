@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.LeadersController">
+   <children>
+      <ImageView fitHeight="401.0" fitWidth="602.0" layoutX="200.0" layoutY="125.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../PNG/marbles_bg/background.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="146.0" layoutY="58.0" style="-fx-background-color: white;" text="Choos your Leaders">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="173.0" fitWidth="122.0" layoutX="46.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../resources/PNG/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-51-1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="173.0" fitWidth="122.0" layoutX="187.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../resources/PNG/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-64-1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="173.0" fitWidth="122.0" layoutX="327.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../resources/PNG/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-52-1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="173.0" fitWidth="122.0" layoutX="464.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../resources/PNG/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-55-1.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -1,4 +1,10 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
-public class BoardController {
+import it.polimi.ingsw.client.gui.GUI;
+
+public class BoardController implements GUIController{
+    @Override
+    public void setGui(GUI gui) {
+
+    }
 }

@@ -10,14 +10,14 @@
    <children>
       <ImageView fx:id="background" fitHeight="421.0" fitWidth="619.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../PNG/Immagini_a_caso/background.png" />
+            <Image url="@../PNG/marbles_bg/background.png" />
          </image></ImageView>
-      <Button fx:id="localGameButton" layoutX="72.0" layoutY="294.0" mnemonicParsing="false" onAction="#toChooseNameLocal" text="LOCAL GAME" AnchorPane.bottomAnchor="56.8" AnchorPane.leftAnchor="55.5">
+      <Button fx:id="localGameButton" layoutX="72.0" layoutY="294.0" mnemonicParsing="false" onAction="#setLocal" text="LOCAL GAME" AnchorPane.bottomAnchor="56.8" AnchorPane.leftAnchor="55.5">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="onlineGameButton" layoutX="356.0" layoutY="292.0" mnemonicParsing="false" onAction="#toChooseNameOnline" text="ONLINE GAME" AnchorPane.bottomAnchor="56.8" AnchorPane.rightAnchor="55.19999999999999">
+      <Button fx:id="onlineGameButton" layoutX="356.0" layoutY="292.0" mnemonicParsing="false" onAction="#setOnline" text="ONLINE GAME" AnchorPane.bottomAnchor="56.8" AnchorPane.rightAnchor="55.19999999999999">
          <font>
             <Font size="24.0" />
          </font>

@@ -26,7 +26,18 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <ImageView fx:id="leader1" fitHeight="150.0" fitWidth="200.0" layoutX="52.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="52.0" />
-      <ImageView fx:id="leader2" fitHeight="150.0" fitWidth="200.0" layoutX="332.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="52.0" />
+      <ImageView fx:id="leader1" fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.212120056152344" AnchorPane.leftAnchor="21.0">
+         <image>
+            <Image url="@../PNG/marbles_bg/dev_leader_yellow.png" />
+         </image></ImageView>
+      <ImageView fx:id="leader2" fitHeight="150.0" fitWidth="200.0" layoutX="236.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.212120056152344" AnchorPane.rightAnchor="164.0">
+         <image>
+            <Image url="@../PNG/marbles_bg/dev_leader_yellow.png" />
+         </image></ImageView>
+      <Button fx:id="confirm" layoutX="450.0" layoutY="310.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="133.0" text="PRODUCE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

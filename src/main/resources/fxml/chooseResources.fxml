@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="401.0" fitWidth="602.0" layoutX="-1.0" pickOnBounds="true">
          <image>
-            <Image url="@../PNG/Immagini_a_caso/background_rinascimento.png" />
+            <Image url="@../PNG/marbles_bg/background_rinascimento.png" />
          </image>
       </ImageView>
       <Label layoutX="123.0" layoutY="103.0" style="-fx-background-color: white; -fx-border-color: grey;" text="Choose your resource">
@@ -30,22 +30,22 @@
       </Label>
       <ImageView fx:id="blue" fitHeight="91.0" fitWidth="100.0" layoutX="45.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../PNG/Immagini_a_caso/blue_ball.png" />
+            <Image url="@../PNG/marbles_bg/blue_ball.png" />
          </image>
       </ImageView>
       <ImageView fx:id="grey" fitHeight="98.0" fitWidth="107.0" layoutX="180.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../PNG/Immagini_a_caso/grey_ball.png" />
+            <Image url="@../PNG/marbles_bg/grey_ball.png" />
          </image>
       </ImageView>
       <ImageView fx:id="yellow" fitHeight="105.0" fitWidth="113.0" layoutX="315.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../PNG/Immagini_a_caso/yellow_ball.png" />
+            <Image url="@../PNG/marbles_bg/yellow_ball.png" />
          </image>
       </ImageView>
       <ImageView fx:id="purple" fitHeight="101.0" fitWidth="98.0" layoutX="451.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../PNG/Immagini_a_caso/purple_ball.png" />
+            <Image url="@../PNG/marbles_bg/purple_ball.png" />
          </image>
       </ImageView>
    </children>

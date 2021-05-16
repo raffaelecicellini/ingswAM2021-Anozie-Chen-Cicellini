@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.ChooseNameController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="background" fitHeight="400.0" fitWidth="604.0" layoutX="86.0" layoutY="34.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0" layoutX="86.0" layoutY="34.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../PNG/Immagini_a_caso/background.png" />
+            <Image url="@../PNG/marbles_bg/background.png" />
          </image>
       </ImageView>
-      <TextField fx:id="username" layoutX="247.0" layoutY="175.0" prefHeight="55.0" prefWidth="335.0" AnchorPane.bottomAnchor="169.0">
+      <TextField fx:id="nameLocal" layoutX="247.0" layoutY="175.0" prefHeight="55.0" prefWidth="335.0" AnchorPane.bottomAnchor="169.0">
          <font>
             <Font size="24.0" />
          </font>

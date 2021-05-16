@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="603.0" layoutX="191.0" layoutY="82.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../PNG/Immagini_a_caso/background.png" />
+            <Image url="@../PNG/marbles_bg/background.png" />
          </image>
       </ImageView>
       <Label layoutX="139.0" layoutY="50.0" style="-fx-background-color: white;" text="You chose online game">
@@ -26,11 +26,11 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="server" layoutX="124.0" layoutY="202.0" prefHeight="51.0" prefWidth="149.0" text="127.0.0.1">
+      <TextField fx:id="address" layoutX="124.0" layoutY="202.0" prefHeight="51.0" prefWidth="149.0">
          <font>
             <Font size="24.0" />
          </font></TextField>
-      <TextField fx:id="port" layoutX="351.0" layoutY="202.0" prefHeight="16.0" prefWidth="82.0" text="3600">
+      <TextField fx:id="port" layoutX="351.0" layoutY="202.0" prefHeight="16.0" prefWidth="82.0">
          <font>
             <Font size="24.0" />
          </font></TextField>
@@ -54,11 +54,11 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="username" layoutX="325.0" layoutY="126.0" prefHeight="51.0" prefWidth="223.0">
+      <TextField fx:id="nameOnline" layoutX="325.0" layoutY="126.0" prefHeight="51.0" prefWidth="223.0">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="playersNumber" layoutX="281.0" layoutY="286.0" prefHeight="51.0" prefWidth="59.0" />
+      <ChoiceBox fx:id="number" layoutX="281.0" layoutY="286.0" prefHeight="51.0" prefWidth="59.0" />
    </children>
 </AnchorPane>

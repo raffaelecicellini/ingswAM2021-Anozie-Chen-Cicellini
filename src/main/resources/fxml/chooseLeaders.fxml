@@ -13,27 +13,27 @@
             <Image url="@../PNG/marbles_bg/background.png" />
          </image>
       </ImageView>
-      <Label layoutX="146.0" layoutY="58.0" style="-fx-background-color: white;" text="Choos your Leaders">
+      <Label layoutX="146.0" layoutY="58.0" style="-fx-background-color: white;" text="Choose your Leaders">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <ImageView fitHeight="173.0" fitWidth="122.0" layoutX="46.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="leader1" fitHeight="173.0" fitWidth="122.0" layoutX="46.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/PNG/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-51-1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="173.0" fitWidth="122.0" layoutX="187.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="leader2" fitHeight="173.0" fitWidth="122.0" layoutX="187.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/PNG/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-64-1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="173.0" fitWidth="122.0" layoutX="327.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="leader3" fitHeight="173.0" fitWidth="122.0" layoutX="327.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/PNG/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-52-1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="173.0" fitWidth="122.0" layoutX="464.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="leader4" fitHeight="173.0" fitWidth="122.0" layoutX="464.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/PNG/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-55-1.png" />
          </image>

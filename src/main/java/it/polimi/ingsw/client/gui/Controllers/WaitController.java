@@ -2,8 +2,7 @@ package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.gui.GUI;
 import javafx.fxml.FXML;
-
-import java.awt.*;
+import javafx.scene.control.Label;
 
 public class WaitController implements GUIController{
     private GUI gui;

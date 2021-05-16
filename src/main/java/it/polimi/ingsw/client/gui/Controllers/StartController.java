@@ -22,9 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StartController implements GUIController{
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     private GUI gui;
     @FXML
     private TextField nameLocal;
@@ -36,23 +33,6 @@ public class StartController implements GUIController{
     private TextField port;
     @FXML
     private TextField number;
-
-    public void toChooseNameLocal(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/fxml/chooseName.fxml"));
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        //scene.getStylesheets().add(locator.locateAsURL)
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void toChooseNameOnline(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/fxml/server_port.fxml"));
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void handleLocal(ActionEvent actionEvent){
         String name = nameLocal.getText();

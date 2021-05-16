@@ -22,7 +22,7 @@
       </Label>
       <ImageView fx:id="leader1png" fitHeight="173.0" fitWidth="122.0" layoutX="35.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="35.0" />
       <ImageView fx:id="leader2png" fitHeight="173.0" fitWidth="122.0" layoutX="177.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="ledaer3png" fitHeight="173.0" fitWidth="122.0" layoutX="316.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leader3png" fitHeight="173.0" fitWidth="122.0" layoutX="316.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader4png" fitHeight="173.0" fitWidth="122.0" layoutX="464.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="35.0" />
       <CheckBox fx:id="leader1" alignment="CENTER" layoutX="67.0" layoutY="280.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="56.0" style="-fx-background-color: white;" text="1">
          <font>

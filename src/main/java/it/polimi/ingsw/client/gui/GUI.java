@@ -64,21 +64,8 @@ public class GUI extends Application implements SourceListener {
         launch(args);
     }
 
-    private void quit(){
-        boolean answer=ConfirmBox.display("Quit", "Are you sure you want to quit?");
-        if (answer){
-            Map<String,String> action = new HashMap<>();
-            action.put("action","disconnect");
-            action.put("player",modelView.getName());
-
-            listener.fireUpdates("disconnect", action);
-            if (connectionSocket!=null) connectionSocket.close();
-            window.close();
-        }
-    }
-
     public void setup() {
-        List<String> list = new ArrayList<>(Arrays.asList("start.fxml", "online.fxml", "local.fxml", "wait.fxml", "board.fxml", "buy.fxml", "market.fxml", "produce.fxml", "chooseLeaders.fxml", "chooseResources.fxml", "show.fxml"));
+        List<String> list = new ArrayList<>(Arrays.asList("online.fxml", "local.fxml", "start.fxml"/*, "wait.fxml", "board.fxml", "buy.fxml", "market.fxml", "produce.fxml", "chooseLeaders.fxml", "chooseResources.fxml", "show.fxml"*/));
         try {
             for (String path : list) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
@@ -88,6 +75,7 @@ public class GUI extends Application implements SourceListener {
                 mapNameController.put(path, controller);
             }
         } catch (IOException e) {
+            e.printStackTrace();
             System.exit(-1);
         }
         currentScene = mapNameScene.get("start.fxml");
@@ -143,7 +131,8 @@ public class GUI extends Application implements SourceListener {
     }
 
     private void updateBoard(){
-
+        //Chiamato quando riceve aggiornamenti dal model. Modifica situazione della board leggendo ModelView. Forse meglio
+        //tanti metodi separati uno per ogni azione?
     }
 
     private void chooseLeaders() {

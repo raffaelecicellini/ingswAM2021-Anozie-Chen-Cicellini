@@ -7,24 +7,27 @@ import it.polimi.ingsw.client.ModelView;
 import it.polimi.ingsw.client.gui.GUI;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.SoloGame;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class StartController implements GUIController{
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     private GUI gui;
     @FXML
     private TextField nameLocal;
@@ -36,23 +39,6 @@ public class StartController implements GUIController{
     private TextField port;
     @FXML
     private TextField number;
-
-    public void toChooseNameLocal(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/fxml/chooseName.fxml"));
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        //scene.getStylesheets().add(locator.locateAsURL)
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void toChooseNameOnline(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/fxml/server_port.fxml"));
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void handleLocal(ActionEvent actionEvent){
         String name = nameLocal.getText();
@@ -81,6 +67,12 @@ public class StartController implements GUIController{
         int serverPort=0;
         try {
             players = Integer.parseInt(number.getText());
+            if (players<1 || players>4){
+                Alert alert= new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Error! Players must be between 1 and 4!");
+                alert.showAndWait();
+                return;
+            }
             serverPort = Integer.parseInt(port.getText());
         }
         catch (NumberFormatException e){
@@ -99,6 +91,7 @@ public class StartController implements GUIController{
         modelView.setName(name);
         modelView.setSoloGame(players==1);
 
+        System.out.println(players + " "+serverPort+" "+name+" "+addr);
         ConnectionSocket connectionSocket = new ConnectionSocket(addr, serverPort);
         Map<String, String> map= new HashMap<>();
         map.put("action", "setup");

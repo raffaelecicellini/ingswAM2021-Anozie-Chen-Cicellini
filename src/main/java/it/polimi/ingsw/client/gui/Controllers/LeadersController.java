@@ -1,77 +1,52 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.ModelView;
+import it.polimi.ingsw.client.gui.GUI;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
-public class LeadersController {
-
-    ModelView modelView = new ModelView();
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+public class LeadersController implements GUIController{
+    private GUI gui;
+    @FXML private ImageView leader1png, leader2png, leader3png, leader4png;
+    @FXML private CheckBox leader1, leader2, leader3, leader4;
 
     private int leaderCount = 0;
     private Map<String, String> leaders;
 
-    public void chosenLeader(MouseEvent event) {
-
-        // IDCARTA = event.getSource();
-
-        if (leaders.containsValue("IDCARTA")) {
-            // deselezionala
-            if (leaders.get("leader0").equalsIgnoreCase("IDCARTA")) {
-                if (leaders.containsKey("leader1")) {
-                    leaders.put("leader0", leaders.get("leader1"));
-                    leaders.put("state0", leaders.get("state1"));
-                } else {
-                    leaders.remove("leader0");
-                    leaders.remove("state0");
-                }
-                leaderCount--;
-            } else
-                if (leaders.containsKey("leader1") &&
-                    leaders.get("leader1").equalsIgnoreCase("IDCARTA")) {
-                    leaders.remove("leader1");
-                    leaders.remove("state1");
-                    leaderCount--;
-            }
-        } else {
-            if (leaderCount < 2) {
-                leaders.put("leader" + leaderCount, "IDCARTA");
-                leaders.put("state" + leaderCount, "AVAILABLE");
-                leaderCount++;
-            }
-            else {
-                // avverti
-            }
+    public void setLeaders(ArrayList<String> location) {
+        List<ImageView> list= new ArrayList<>(Arrays.asList(leader1png, leader2png, leader3png, leader4png));
+        Image img;
+        for (int i=0; i<location.size(); i++){
+            img= new Image(location.get(i));
+            list.get(i).setImage(img);
         }
     }
 
-    public void setLeaders(ArrayList<String> location) {
+    public void chosen(ActionEvent event){
+        //Controlla leader selezionati: se in numero corretto li mette in mappa, poi Alert.INFORMATION per chiedere conferma
+        //(showandWait). Se utente conferma spedisco il pack e vado su board.fxml, altrimenti pulisco mappa e rimango qua
+        //Se in numero errato Alert.ERROR notificando errore e rimango su questa scena
 
     }
 
-    public void confirm(ActionEvent event) throws IOException {
-        //modelView.setLeaders(leaders);
-
-        root = FXMLLoader.load(getClass().getResource("/board.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    @Override
+    public void setGui(GUI gui) {
+        this.gui=gui;
     }
-
-
 }

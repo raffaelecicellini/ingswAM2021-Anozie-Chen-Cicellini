@@ -59,6 +59,6 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="number" layoutX="281.0" layoutY="286.0" prefHeight="51.0" prefWidth="59.0" />
+      <TextField fx:id="number" layoutX="281.0" layoutY="286.0" prefHeight="51.0" prefWidth="59.0" />
    </children>
 </AnchorPane>

@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class StartController implements GUIController, Initializable {
+public class StartController implements GUIController{
     private GUI gui;
     @FXML
     private TextField nameLocal;
@@ -38,7 +38,7 @@ public class StartController implements GUIController, Initializable {
     @FXML
     private TextField port;
     @FXML
-    private ChoiceBox<Integer> number;
+    private TextField number;
 
     public void handleLocal(ActionEvent actionEvent){
         String name = nameLocal.getText();
@@ -66,7 +66,13 @@ public class StartController implements GUIController, Initializable {
         int players=0;
         int serverPort=0;
         try {
-            players = number.getValue();
+            players = Integer.parseInt(number.getText());
+            if (players<1 || players>4){
+                Alert alert= new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Error! Players must be between 1 and 4!");
+                alert.showAndWait();
+                return;
+            }
             serverPort = Integer.parseInt(port.getText());
         }
         catch (NumberFormatException e){
@@ -85,6 +91,7 @@ public class StartController implements GUIController, Initializable {
         modelView.setName(name);
         modelView.setSoloGame(players==1);
 
+        System.out.println(players + " "+serverPort+" "+name+" "+addr);
         ConnectionSocket connectionSocket = new ConnectionSocket(addr, serverPort);
         Map<String, String> map= new HashMap<>();
         map.put("action", "setup");
@@ -121,10 +128,5 @@ public class StartController implements GUIController, Initializable {
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        number.setItems(FXCollections.observableArrayList(Arrays.asList(1, 2, 3, 4)));
     }
 }

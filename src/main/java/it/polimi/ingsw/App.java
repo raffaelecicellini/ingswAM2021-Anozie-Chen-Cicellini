@@ -40,7 +40,6 @@ public class App
                 break;
             case 2:
                 System.out.println("You selected the GUI interface, have fun!\nStarting...");
-                //GUI.main(null);
                 GUI.main(null);
                 break;
             default:

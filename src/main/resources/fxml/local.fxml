@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.client.gui.Controllers.StartController">
    <children>
       <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0" layoutX="86.0" layoutY="34.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -25,6 +25,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="confirmButton" layoutX="512.0" layoutY="184.0" mnemonicParsing="false" onAction="#toNextStep" prefHeight="41.0" prefWidth="59.0" text="Confirm" />
+      <Button fx:id="confirmButton" layoutX="512.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleLocal" prefHeight="41.0" prefWidth="59.0" text="Confirm" />
    </children>
 </AnchorPane>

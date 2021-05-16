@@ -65,7 +65,7 @@ public class GUI extends Application implements SourceListener {
     }
 
     public void setup() {
-        List<String> list = new ArrayList<>(Arrays.asList("start.fxml", "online.fxml", "local.fxml", "wait.fxml", "board.fxml", "buy.fxml", "market.fxml", "produce.fxml", "chooseLeaders.fxml", "chooseResources.fxml", "show.fxml"));
+        List<String> list = new ArrayList<>(Arrays.asList("start.fxml"/*, "online.fxml", "local.fxml", "wait.fxml", "board.fxml", "buy.fxml", "market.fxml", "produce.fxml", "chooseLeaders.fxml", "chooseResources.fxml", "show.fxml"*/));
         try {
             for (String path : list) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
@@ -75,6 +75,7 @@ public class GUI extends Application implements SourceListener {
                 mapNameController.put(path, controller);
             }
         } catch (IOException e) {
+            System.out.println(e);
             System.exit(-1);
         }
         currentScene = mapNameScene.get("start.fxml");

@@ -7,21 +7,27 @@ import it.polimi.ingsw.client.ModelView;
 import it.polimi.ingsw.client.gui.GUI;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.SoloGame;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public class StartController implements GUIController{
+public class StartController implements GUIController, Initializable {
     private GUI gui;
     @FXML
     private TextField nameLocal;
@@ -32,7 +38,7 @@ public class StartController implements GUIController{
     @FXML
     private TextField port;
     @FXML
-    private TextField number;
+    private ChoiceBox<Integer> number;
 
     public void handleLocal(ActionEvent actionEvent){
         String name = nameLocal.getText();
@@ -60,7 +66,7 @@ public class StartController implements GUIController{
         int players=0;
         int serverPort=0;
         try {
-            players = Integer.parseInt(number.getText());
+            players = number.getValue();
             serverPort = Integer.parseInt(port.getText());
         }
         catch (NumberFormatException e){
@@ -115,5 +121,10 @@ public class StartController implements GUIController{
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        number.setItems(FXCollections.observableArrayList(Arrays.asList(1, 2, 3, 4)));
     }
 }

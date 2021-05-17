@@ -5,8 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.ShowController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
@@ -53,5 +52,9 @@
       <ImageView fx:id="dev0" fitHeight="134.0" fitWidth="80.0" layoutX="312.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="dev1" fitHeight="134.0" fitWidth="80.0" layoutX="404.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="dev2" fitHeight="134.0" fitWidth="80.0" layoutX="499.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leaderRes00" fitHeight="24.0" fitWidth="24.0" layoutX="27.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leaderRes01" fitHeight="24.0" fitWidth="24.0" layoutX="68.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leaderRes10" fitHeight="24.0" fitWidth="24.0" layoutX="27.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leaderRes11" fitHeight="24.0" fitWidth="24.0" layoutX="68.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

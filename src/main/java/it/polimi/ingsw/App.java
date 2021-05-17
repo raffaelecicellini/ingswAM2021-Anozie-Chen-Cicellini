@@ -1,7 +1,9 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.cli.CLI;
+import it.polimi.ingsw.client.gui.Controllers.ControllerProva;
 import it.polimi.ingsw.client.gui.GUI;
+import it.polimi.ingsw.client.gui.Main;
 import it.polimi.ingsw.server.Server;
 
 import java.util.InputMismatchException;
@@ -40,7 +42,9 @@ public class App
                 break;
             case 2:
                 System.out.println("You selected the GUI interface, have fun!\nStarting...");
-                GUI.main(null);
+                //GUI.main(null);
+                //ControllerProva.main(null);
+                Main.main(null);
                 break;
             default:
                 System.err.println("Invalid argument, please run the executable again.");

@@ -29,6 +29,7 @@ public class ClientPing implements Runnable{
     private void pingClient() {
         Map<String,String> ping = new HashMap<>();
         ping.put("action","ping");
+        //System.out.println("Sending a ping");
         clientHandler.send(new Gson().toJson(ping));
     }
 

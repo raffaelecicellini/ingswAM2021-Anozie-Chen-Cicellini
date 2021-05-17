@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<GridPane hgap="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="6.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.client.gui.Controllers.BuyController">
+<GridPane hgap="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="6.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.BuyController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -18,17 +16,17 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ImageView fx:id="dev20" fitHeight="134.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" />
-      <ImageView fx:id="dev21" fitHeight="134.0" fitWidth="150.0" layoutX="310.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-      <ImageView fx:id="dev22" fitHeight="134.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-      <ImageView fx:id="dev23" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-      <ImageView fx:id="dev10" fitHeight="134.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <ImageView fx:id="dev11" fitHeight="134.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <ImageView fx:id="dev12" fitHeight="134.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <ImageView fx:id="dev13" fitHeight="134.0" fitWidth="150.0" layoutX="310.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <ImageView fx:id="dev00" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <ImageView fx:id="dev01" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <ImageView fx:id="dev02" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <ImageView fx:id="dev03" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <ImageView fx:id="dev20" fitHeight="134.0" fitWidth="151.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" />
+      <ImageView fx:id="dev21" fitHeight="134.0" fitWidth="150.0" layoutX="310.0" layoutY="143.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+      <ImageView fx:id="dev22" fitHeight="134.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+      <ImageView fx:id="dev23" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+      <ImageView fx:id="dev10" fitHeight="134.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <ImageView fx:id="dev11" fitHeight="134.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <ImageView fx:id="dev12" fitHeight="134.0" fitWidth="150.0" layoutX="160.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <ImageView fx:id="dev13" fitHeight="134.0" fitWidth="150.0" layoutX="310.0" layoutY="143.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <ImageView fx:id="dev00" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <ImageView fx:id="dev01" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <ImageView fx:id="dev02" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <ImageView fx:id="dev03" fitHeight="134.0" fitWidth="150.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#select" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
    </children>
 </GridPane>

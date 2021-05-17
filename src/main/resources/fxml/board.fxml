@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.client.gui.Controllers.StartController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.client.gui.Controllers.BoardController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="700.0" layoutX="-53.0" layoutY="111.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -19,42 +19,42 @@
             <Image url="@../PNG/board/board.png" />
          </image>
       </ImageView>
-      <Button fx:id="buy" layoutX="600.0" layoutY="2.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="BUY">
+      <Button fx:id="buy" layoutX="600.0" layoutY="2.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="BUY" onAction="#buy">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="produce" layoutX="600.0" layoutY="50.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="PRODUCE">
+      <Button fx:id="produce" layoutX="600.0" layoutY="50.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="PRODUCE" onAction="#produce">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="market" layoutX="600.0" layoutY="98.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="MARKET">
+      <Button fx:id="market" layoutX="600.0" layoutY="98.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="MARKET" onAction="#market">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="activate" layoutX="600.0" layoutY="146.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="ACTIVATE">
+      <Button fx:id="activate" layoutX="600.0" layoutY="146.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="ACTIVATE" onAction="#activate">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="discard" layoutX="600.0" layoutY="194.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="DISCARD">
+      <Button fx:id="discard" layoutX="600.0" layoutY="194.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="DISCARD" onAction="#discard">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="swap" layoutX="600.0" layoutY="242.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="SWAP">
+      <Button fx:id="swap" layoutX="600.0" layoutY="242.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="SWAP" onAction="#swap">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="show" layoutX="600.0" layoutY="290.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="SHOW">
+      <Button fx:id="show" layoutX="600.0" layoutY="290.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="SHOW" onAction="#show">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="endturn" layoutX="600.0" layoutY="346.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="91.0" text="END TURN">
+      <Button fx:id="endturn" layoutX="600.0" layoutY="346.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="91.0" text="END TURN" onAction="#endTurn">
          <font>
             <Font size="14.0" />
          </font>

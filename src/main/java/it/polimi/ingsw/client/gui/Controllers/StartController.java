@@ -54,6 +54,7 @@ public class StartController implements GUIController{
         modelView.setSoloGame(true);
         gui.setModel(new SoloGame());
         gui.getModel().setListener(gui.getAnswerHandler());
+        gui.getModel().createPlayer(name);
         gui.setController(new Controller(gui.getModel(),gui.getAnswerHandler()));
         gui.getListeners().addListener(gui.getController());
         gui.getListeners().fireUpdates("start",null);
@@ -74,6 +75,12 @@ public class StartController implements GUIController{
                 return;
             }
             serverPort = Integer.parseInt(port.getText());
+            if (serverPort<1024){
+                Alert alert= new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Error! Port must be greater than 1024!");
+                alert.showAndWait();
+                return;
+            }
         }
         catch (NumberFormatException e){
             Alert alert= new Alert(Alert.AlertType.ERROR);
@@ -95,10 +102,13 @@ public class StartController implements GUIController{
         ConnectionSocket connectionSocket = new ConnectionSocket(addr, serverPort);
         Map<String, String> map= new HashMap<>();
         map.put("action", "setup");
-        map.put("number", String.valueOf(number));
+        map.put("number", String.valueOf(players));
         map.put("username", name);
         Gson gson= new Gson();
         String message=gson.toJson(map);
+        gui.changeScene("wait.fxml");
+        WaitController controller= (WaitController) gui.getControllerFromName("wait.fxml");
+        controller.setText("Configuring socket connection...");
         if (!connectionSocket.setup(message, gui.getAnswerHandler())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -109,11 +119,9 @@ public class StartController implements GUIController{
             return;
         }
         gui.setConnectionSocket(connectionSocket);
-        WaitController controller= (WaitController) gui.getControllerFromName("wait.fxml");
-        controller.setText("SOCKET CONNECTION \nSETUP COMPLETED!");
-        controller.setText("WAITING FOR PLAYERS");
+        controller.setText("Socket setup completed!");
+        controller.setText("Waiting for players...");
         gui.getListeners().addListener(new ActionParser(connectionSocket));
-        gui.changeScene("wait.fxml");
     }
 
 

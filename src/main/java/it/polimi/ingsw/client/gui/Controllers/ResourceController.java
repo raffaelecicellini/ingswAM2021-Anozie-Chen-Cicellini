@@ -65,7 +65,7 @@ public class ResourceController implements GUIController {
 
     }
 
-    public String position () {
+    private String position () {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);

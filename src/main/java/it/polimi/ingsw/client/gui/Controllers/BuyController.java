@@ -22,6 +22,7 @@ public class BuyController implements GUIController{
     private GUI gui;
     private Map<String, String> action =  new HashMap<>();
     private Stage stage;
+
     public void buy(){
         //Metodo chiamato quando utente da board schiaccia su tasto buy. Mostra un nuovo stage buy.fxml da cui non si può uscire
         //se non dopo aver fatto mossa o aver chiuso la finestra
@@ -29,7 +30,7 @@ public class BuyController implements GUIController{
         showDecks();
     }
 
-    public void select(ActionEvent event){
+    private void select(ActionEvent event){
         //Si recuperano info su carta scelta cosi da recuperare costo (check per sconti). Per ogni risorsa, Alert.CONFIRMATION
         //per chiedere da dove recuperarla. Finito il ciclo, ultimo Alert per chiedere conferma: se ok si manda pack, altrimenti
         //si chiude stage.
@@ -43,7 +44,7 @@ public class BuyController implements GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("You must select the index!");
             alert.showAndWait();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            //((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
         action.put("ind",ind);
@@ -62,7 +63,7 @@ public class BuyController implements GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("There are no more cards in this deck! Try another one!");
             alert.showAndWait();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            //((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
 
@@ -76,7 +77,8 @@ public class BuyController implements GUIController{
                     alert.initModality(Modality.APPLICATION_MODAL);
                     alert.setContentText("You must chose for each resource!");
                     alert.showAndWait();
-                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                    //((Node)(event.getSource())).getScene().getWindow().hide();
+                    return;
                 } else {
                     action.put("res"+i,choice.toLowerCase());
                     i++;
@@ -90,6 +92,7 @@ public class BuyController implements GUIController{
         alert.setContentText("Do you want to confirm?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) {
+            action.clear();
             return;
         }
 
@@ -98,7 +101,8 @@ public class BuyController implements GUIController{
         action.put("player",gui.getModelView().getName());
         gui.getModelView().setActiveTurn(false);
         gui.getListeners().fireUpdates("buy", action);
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        //((Node)(event.getSource())).getScene().getWindow().hide();
+        stage.close();
     }
 
     private void showDecks() {
@@ -163,7 +167,7 @@ public class BuyController implements GUIController{
         }
     }
 
-    public String askResource (String resource) {
+    private String askResource (String resource) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);
@@ -197,7 +201,7 @@ public class BuyController implements GUIController{
         }
     }
 
-    public String askInd () {
+    private String askInd () {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);

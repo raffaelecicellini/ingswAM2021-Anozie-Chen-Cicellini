@@ -46,9 +46,11 @@ public class LeadersController implements GUIController{
         Map<String, String> action = new HashMap<>();
         action.put("action", "chooseleaders");
         action.put("player", gui.getModelView().getName());
-        for (int i = 0; i < choice.size(); i++)
-            if (choice.get(i).isSelected())
-                action.put("ind" + (i + 1), Integer.toString(i + 1));
+        for (int i = 0, j = 1; i < choice.size(); i++)
+            if (choice.get(i).isSelected()) {
+                action.put("ind" + j, Integer.toString(i + 1));
+                j++;
+            }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.setContentText("Do you want to confirm?");

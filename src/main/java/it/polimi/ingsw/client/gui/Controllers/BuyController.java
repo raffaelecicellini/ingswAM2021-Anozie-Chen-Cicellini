@@ -20,29 +20,12 @@ import java.util.Optional;
 
 public class BuyController implements GUIController{
     private GUI gui;
-    private Map<String, String> action =  new HashMap<>() {{put("action","buy");put("player",gui.getModelView().getName());}};
-
-    public void buy(ActionEvent event){
+    private Map<String, String> action =  new HashMap<>();
+    private Stage stage;
+    public void buy(){
         //Metodo chiamato quando utente da board schiaccia su tasto buy. Mostra un nuovo stage buy.fxml da cui non si può uscire
         //se non dopo aver fatto mossa o aver chiuso la finestra
-        if (!gui.getModelView().isActiveTurn()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("It is not your turn!");
-            alert.showAndWait();
-            return;
-        }
-        if (!gui.getModelView().isDoneMandatory()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("You have already done a mandatory move!");
-            alert.showAndWait();
-            return;
-        }
-        action.entrySet().removeIf(x->x.getKey().startsWith("res"));
-        action.remove("row");
-        action.remove("column");
-        action.remove("ind");
+        action.clear();
         showDecks();
     }
 
@@ -111,22 +94,20 @@ public class BuyController implements GUIController{
         }
 
         //NOTIFIES THE LISTENER AND CLOSES THE WINDOW
+        action.put("action","buy");
+        action.put("player",gui.getModelView().getName());
         gui.getModelView().setActiveTurn(false);
         gui.getListeners().fireUpdates("buy", action);
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
 
     private void showDecks() {
-        Parent root;
-        try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("/fxml/buy.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Scene decks = gui.getSceneFromName("buy.fxml");
+        stage = new Stage();
+        stage.setScene(decks);
+        stage.setTitle("Buy");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
     private void putInfo(String card) {

@@ -65,7 +65,7 @@ public class GUI extends Application implements SourceListener {
     }
 
     public void setup() {
-        List<String> list = new ArrayList<>(Arrays.asList("online.fxml", "local.fxml", "start.fxml"/*, "wait.fxml", "board.fxml", "buy.fxml", "market.fxml", "produce.fxml", "chooseLeaders.fxml", "chooseResources.fxml", "show.fxml"*/));
+        List<String> list = new ArrayList<>(Arrays.asList("online.fxml", "local.fxml", "start.fxml", "wait.fxml", "board.fxml", "buy.fxml", "market.fxml", "produce.fxml", "chooseLeaders.fxml", "chooseResources.fxml", "show.fxml"));
         try {
             for (String path : list) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
@@ -130,28 +130,36 @@ public class GUI extends Application implements SourceListener {
         return mapNameController.get(name);
     }
 
+    public Scene getSceneFromName(String name) {
+        return mapNameScene.get(name);
+    }
+
     private void updateBoard(){
         //Chiamato quando riceve aggiornamenti dal model. Modifica situazione della board leggendo ModelView. Forse meglio
         //tanti metodi separati uno per ogni azione?
     }
 
     private void chooseLeaders() {
-        ArrayList<String> location = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            String pos = modelView.getLeaders(modelView.getName()).get("leader"+i);
-            location.add("/PNG/cards/lc_"+pos+".png");
-        }
-        LeadersController controller;
-        controller= (LeadersController) mapNameController.get("chooseLeaders.fxml");
-        controller.setLeaders(location);
-        changeScene("chooseLeaders.fxml");
+        Platform.runLater(() -> {
+            ArrayList<String> location = new ArrayList<>();
+            for (int i = 0; i < 4; i++) {
+                String pos = modelView.getLeaders(modelView.getName()).get("leader"+i);
+                location.add("/PNG/cards/lc_"+pos+".png");
+            }
+            LeadersController controller;
+            controller= (LeadersController) mapNameController.get("chooseLeaders.fxml");
+            controller.setLeaders(location);
+            changeScene("chooseLeaders.fxml");
+        });
     }
 
     private void chooseResources(int initialRes){
-        ResourceController controller;
-        controller = (ResourceController) mapNameController.get("chooseResources.fxml");
-        controller.setResources(initialRes);
-        changeScene("chooseResources.fxml");
+        Platform.runLater(() -> {
+            ResourceController controller;
+            controller = (ResourceController) mapNameController.get("chooseResources.fxml");
+            controller.setResources(initialRes);
+            changeScene("chooseResources.fxml");
+        });
     }
 
     @Override
@@ -176,7 +184,7 @@ public class GUI extends Application implements SourceListener {
             case "STARTED":
                 Platform.runLater(()->{
                     WaitController controller= (WaitController) mapNameController.get("wait.fxml");
-                    controller.setText(value.get("content"));
+                    controller.setText("Game started!");
                 });
                 break;
 

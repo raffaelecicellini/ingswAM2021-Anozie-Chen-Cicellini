@@ -54,6 +54,7 @@ public class StartController implements GUIController{
         modelView.setSoloGame(true);
         gui.setModel(new SoloGame());
         gui.getModel().setListener(gui.getAnswerHandler());
+        gui.getModel().createPlayer(name);
         gui.setController(new Controller(gui.getModel(),gui.getAnswerHandler()));
         gui.getListeners().addListener(gui.getController());
         gui.getListeners().fireUpdates("start",null);

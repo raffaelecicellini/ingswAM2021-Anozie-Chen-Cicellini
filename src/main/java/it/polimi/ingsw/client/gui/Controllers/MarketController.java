@@ -139,13 +139,9 @@ public class MarketController implements GUIController{
         if (ok.isPresent() && ok.get()==ButtonType.OK){
             gui.getModelView().setActiveTurn(false);
             gui.getListeners().fireUpdates(info.get("action"), info);
-            info.clear();
-            stage.close();
         }
-        else {
-            info.clear();
-            stage.close();
-        }
+        info.clear();
+        stage.close();
     }
 
     private ArrayList<String> parseChoice(Button source){

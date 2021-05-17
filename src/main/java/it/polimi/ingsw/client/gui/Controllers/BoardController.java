@@ -117,7 +117,7 @@ public class BoardController implements GUIController{
 
         Alert confirm= new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setHeaderText("Choose leader");
-        confirm.setContentText("You chose to activate leader in position "+pack.get("pos"));
+        confirm.setContentText("You chose to activate leader in position "+pack.get("pos")+". Is it ok?");
         confirm.initModality(Modality.APPLICATION_MODAL);
         result=confirm.showAndWait();
         if (result.isPresent() && result.get()==ButtonType.OK){
@@ -160,7 +160,7 @@ public class BoardController implements GUIController{
 
         Alert confirm= new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setHeaderText("Choose leader");
-        confirm.setContentText("You chose to discard leader in position "+pack.get("pos"));
+        confirm.setContentText("You chose to discard leader in position "+pack.get("pos")+". is it ok?");
         confirm.initModality(Modality.APPLICATION_MODAL);
         result=confirm.showAndWait();
         if (result.isPresent() && result.get()==ButtonType.OK){

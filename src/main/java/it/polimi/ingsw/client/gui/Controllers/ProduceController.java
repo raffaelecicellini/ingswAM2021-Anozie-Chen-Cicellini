@@ -36,7 +36,7 @@ public class ProduceController implements GUIController{
      * This method is called by BoardController, whenever the player clicks on produce.
      * @throws IOException
      */
-    public void produce() throws IOException {
+    public void produce() {
         //Metodo chiamato quando utente da board.fxml schiaccia su pulsante corrispondente. Mostra nuovo stage da cui
         //non si può uscire se non dopo averlo chiuso o aver fatto la mossa
 

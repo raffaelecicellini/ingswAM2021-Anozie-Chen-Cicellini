@@ -44,7 +44,7 @@ public class BuyController implements GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("You must select the index!");
             alert.showAndWait();
-            //((Node)(event.getSource())).getScene().getWindow().hide();
+            ((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
         action.put("ind",ind);
@@ -63,7 +63,7 @@ public class BuyController implements GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("There are no more cards in this deck! Try another one!");
             alert.showAndWait();
-            //((Node)(event.getSource())).getScene().getWindow().hide();
+            ((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
 
@@ -77,7 +77,7 @@ public class BuyController implements GUIController{
                     alert.initModality(Modality.APPLICATION_MODAL);
                     alert.setContentText("You must chose for each resource!");
                     alert.showAndWait();
-                    //((Node)(event.getSource())).getScene().getWindow().hide();
+                    ((Node)(event.getSource())).getScene().getWindow().hide();
                     return;
                 } else {
                     action.put("res"+i,choice.toLowerCase());
@@ -93,6 +93,7 @@ public class BuyController implements GUIController{
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) {
             action.clear();
+            ((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
 
@@ -101,8 +102,8 @@ public class BuyController implements GUIController{
         action.put("player",gui.getModelView().getName());
         gui.getModelView().setActiveTurn(false);
         gui.getListeners().fireUpdates("buy", action);
-        //((Node)(event.getSource())).getScene().getWindow().hide();
-        stage.close();
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+        //stage.close();
     }
 
     private void showDecks() {

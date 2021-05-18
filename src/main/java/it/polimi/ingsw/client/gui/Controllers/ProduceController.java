@@ -53,6 +53,9 @@ public class ProduceController implements GUIController{
         stage.setScene(produce);
         stage.setTitle("Produce");
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setOnCloseRequest((e)->{
+            info.clear();
+        });
         stage.show();
 
         /*Parent root = FXMLLoader.load(getClass().getResource("/fxml/dio.fxml"));
@@ -240,19 +243,56 @@ public class ProduceController implements GUIController{
         }
 
         if (confirm) {
+
+            StringBuilder action = new StringBuilder();
+            int devCard = 0;
+
+            while (devCard < 6) {
+                while (info.containsKey("prod" + devCard) && !info.get("prod" + devCard).equalsIgnoreCase("yes")) {
+                    devCard++;
+                }
+                action.append("\n").append("prod").append(devCard).append(": IN = (");
+
+                if (devCard == 0) {
+                    action.append(info.get("in01").toUpperCase()).append(", ").append(info.get("pos01").toLowerCase()).append("), (").append(info.get("in02").toUpperCase())
+                            .append(", ").append(info.get("pos02").toLowerCase()).append("); OUT = ").append(info.get("out0").toUpperCase());
+                } else if (devCard >= 1 && devCard <= 3) {
+                    int n_pos = 1;
+                    ArrayList<String> inputRes = Cards.getInputById(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1)[gui.getModelView().getTopIndex(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1))]);
+                    // pos11 o pos12
+                    while (info.containsKey("pos" + devCard + n_pos)) {
+                        // BLUE, SMALL), (GREY, MID);
+                        if (n_pos == 1) {
+                            action.append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                        }
+                        if (n_pos == 2) {
+                            action.append(", (").append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                        }
+                        n_pos++;
+                    }
+                } else if (devCard >= 4 && devCard <= 5) {
+                    //BLUE, SMALL); OUT = GREY
+                    action.append(Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + (devCard - 4))))).append(", ")
+                            .append(info.get("pos" + devCard + "1").toLowerCase()).append("); OUT = ").append(info.get("out" + devCard).toUpperCase());
+                }
+
+                devCard++;
+            }
+            
+            
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("Do you want to confirm?");
+            alert.setHeaderText("Confirm production");
+            alert.setContentText("Do you want to confirm?" + action);
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() != ButtonType.OK) {
-                info.clear();
-                return;
-            } else {
+            if (result.isPresent() && result.get() == ButtonType.OK) {
                 info.put("player", gui.getModelView().getName());
                 info.put("action", "produce");
                 gui.getModelView().setActiveTurn(false);
                 gui.getListeners().fireUpdates("produce", info);
             }
+            info.clear();
+            stage.close();
         }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

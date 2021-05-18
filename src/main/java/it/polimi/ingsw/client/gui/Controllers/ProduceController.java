@@ -251,32 +251,35 @@ public class ProduceController implements GUIController{
                 while (info.containsKey("prod" + devCard) && !info.get("prod" + devCard).equalsIgnoreCase("yes")) {
                     devCard++;
                 }
-                action.append("\n").append("prod").append(devCard).append(": IN = (");
 
-                if (devCard == 0) {
-                    action.append(info.get("in01").toUpperCase()).append(", ").append(info.get("pos01").toLowerCase()).append("), (").append(info.get("in02").toUpperCase())
-                            .append(", ").append(info.get("pos02").toLowerCase()).append("); OUT = ").append(info.get("out0").toUpperCase());
-                } else if (devCard >= 1 && devCard <= 3) {
-                    int n_pos = 1;
-                    ArrayList<String> inputRes = Cards.getInputById(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1)[gui.getModelView().getTopIndex(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1))]);
-                    // pos11 o pos12
-                    while (info.containsKey("pos" + devCard + n_pos)) {
-                        // BLUE, SMALL), (GREY, MID);
-                        if (n_pos == 1) {
-                            action.append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                if (devCard < 6) {
+
+                    action.append("\n").append("prod").append(devCard).append(": IN = (");
+
+                    if (devCard == 0) {
+                        action.append(info.get("in01").toUpperCase()).append(", ").append(info.get("pos01").toLowerCase()).append("), (").append(info.get("in02").toUpperCase())
+                                .append(", ").append(info.get("pos02").toLowerCase()).append("); OUT = ").append(info.get("out0").toUpperCase());
+                    } else if (devCard >= 1 && devCard <= 3) {
+                        int n_pos = 1;
+                        ArrayList<String> inputRes = Cards.getInputById(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1)[gui.getModelView().getTopIndex(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1))]);
+                        // pos11 o pos12
+                        while (info.containsKey("pos" + devCard + n_pos)) {
+                            // BLUE, SMALL), (GREY, MID);
+                            if (n_pos == 1) {
+                                action.append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                            }
+                            if (n_pos == 2) {
+                                action.append(", (").append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                            }
+                            n_pos++;
                         }
-                        if (n_pos == 2) {
-                            action.append(", (").append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
-                        }
-                        n_pos++;
+                    } else if (devCard >= 4 && devCard <= 5) {
+                        //BLUE, SMALL); OUT = GREY
+                        action.append(Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + (devCard - 4))))).append(", ")
+                                .append(info.get("pos" + devCard + "1").toLowerCase()).append("); OUT = ").append(info.get("out" + devCard).toUpperCase());
                     }
-                } else if (devCard >= 4 && devCard <= 5) {
-                    //BLUE, SMALL); OUT = GREY
-                    action.append(Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + (devCard - 4))))).append(", ")
-                            .append(info.get("pos" + devCard + "1").toLowerCase()).append("); OUT = ").append(info.get("out" + devCard).toUpperCase());
+                    devCard++;
                 }
-
-                devCard++;
             }
             
             

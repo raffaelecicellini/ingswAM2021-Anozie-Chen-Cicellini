@@ -42,9 +42,9 @@ public class App
                 break;
             case 2:
                 System.out.println("You selected the GUI interface, have fun!\nStarting...");
-                //GUI.main(null);
+                GUI.main(null);
                 //ControllerProva.main(null);
-                Main.main(null);
+                //Main.main(null);
                 break;
             default:
                 System.err.println("Invalid argument, please run the executable again.");

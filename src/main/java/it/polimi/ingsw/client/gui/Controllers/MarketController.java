@@ -20,6 +20,12 @@ public class MarketController implements GUIController{
     private Stage stage;
     @FXML private Button row_1, row_2, row_3, col_1, col_2, col_3, col_4;
 
+    /**
+     * This method is called when a user presses one of the button row/col. It retrieves the information on the row/col
+     * chosen, then for each resource in the row/col shows a ChoiceDialog asking the user the position where he wants to put
+     * the resource.
+     * @param event the event produced by the user when he pressed a button
+     */
     public void select(ActionEvent event){
         //Recupera info su bottone (target) che è stato schiacciato per capire row/col scelta. A partire da questo recupera
         //info da modelView. Ciclo per ogni risorsa che produce Alert.CONFIRMATION per chiedere dove salvare risorsa.
@@ -145,6 +151,11 @@ public class MarketController implements GUIController{
         stage.close();
     }
 
+    /**
+     * Method used to get the correct information from the ModelView based on the button clicked by the user
+     * @param source the Button that the user pressed
+     * @return the list of resources (as String) in the position specified by the user
+     */
     private ArrayList<String> parseChoice(Button source){
         if (source==row_1){
             info.put("row", "1");
@@ -178,6 +189,11 @@ public class MarketController implements GUIController{
     }
 
     //metodo per creare un nuovo stage?
+
+    /**
+     * This method prepares a new stage for market.fxml, setting the modality to prevent the user to change his action
+     * before closing this new stage
+     */
     public void market(){
         //Chiamato quando utente da board schiaccia su bottone corrispondente. Viene creato nuovo stage con scena market.fxml
         //da cui non si può uscire senza averlo chiuso o senza aver finito la mossa.
@@ -194,6 +210,10 @@ public class MarketController implements GUIController{
 
     //Metodi set per cambiare la disposizione delle biglie?
 
+    /**
+     * @see GUIController
+     * @param gui the gui to be set
+     */
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;

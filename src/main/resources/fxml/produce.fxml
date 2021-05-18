@@ -28,7 +28,7 @@
       </Button>
       <ImageView fx:id="leader0" fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="310.0" onMouseClicked="#selectLeader" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.212120056152344" AnchorPane.leftAnchor="21.0" />
       <ImageView fx:id="leader1" fitHeight="150.0" fitWidth="200.0" layoutX="236.0" layoutY="309.0" onMouseClicked="#selectLeader" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.212120056152344" AnchorPane.rightAnchor="164.0" />
-      <Button fx:id="confirm" layoutX="450.0" layoutY="310.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="133.0" text="PRODUCE">
+      <Button fx:id="confirm" layoutX="450.0" layoutY="310.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="133.0" text="PRODUCE" onAction="#confirm">
          <font>
             <Font size="22.0" />
          </font>

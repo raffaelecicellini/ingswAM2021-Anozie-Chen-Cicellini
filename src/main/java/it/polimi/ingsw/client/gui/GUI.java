@@ -86,6 +86,7 @@ public class GUI extends Application implements SourceListener {
         }
         currentScene = mapNameScene.get("start.fxml");
         stage.setScene(currentScene);
+        stage.setTitle("Maestri");
         stage.show();
     }
 

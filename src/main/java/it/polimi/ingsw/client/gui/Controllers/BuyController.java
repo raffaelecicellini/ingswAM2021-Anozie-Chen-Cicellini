@@ -20,29 +20,13 @@ import java.util.Optional;
 
 public class BuyController implements GUIController{
     private GUI gui;
-    private Map<String, String> action =  new HashMap<>() {{put("action","buy");put("player",gui.getModelView().getName());}};
+    private Map<String, String> action =  new HashMap<>();
+    private Stage stage;
 
     public void buy(){
         //Metodo chiamato quando utente da board schiaccia su tasto buy. Mostra un nuovo stage buy.fxml da cui non si può uscire
         //se non dopo aver fatto mossa o aver chiuso la finestra
-        if (!gui.getModelView().isActiveTurn()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("It is not your turn!");
-            alert.showAndWait();
-            return;
-        }
-        if (!gui.getModelView().isDoneMandatory()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("You have already done a mandatory move!");
-            alert.showAndWait();
-            return;
-        }
-        action.entrySet().removeIf(x->x.getKey().startsWith("res"));
-        action.remove("row");
-        action.remove("column");
-        action.remove("ind");
+        action.clear();
         showDecks();
     }
 
@@ -60,7 +44,7 @@ public class BuyController implements GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("You must select the index!");
             alert.showAndWait();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            //((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
         action.put("ind",ind);
@@ -79,7 +63,7 @@ public class BuyController implements GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("There are no more cards in this deck! Try another one!");
             alert.showAndWait();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            //((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
 
@@ -93,7 +77,8 @@ public class BuyController implements GUIController{
                     alert.initModality(Modality.APPLICATION_MODAL);
                     alert.setContentText("You must chose for each resource!");
                     alert.showAndWait();
-                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                    //((Node)(event.getSource())).getScene().getWindow().hide();
+                    return;
                 } else {
                     action.put("res"+i,choice.toLowerCase());
                     i++;
@@ -107,18 +92,24 @@ public class BuyController implements GUIController{
         alert.setContentText("Do you want to confirm?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) {
+            action.clear();
             return;
         }
 
         //NOTIFIES THE LISTENER AND CLOSES THE WINDOW
+        action.put("action","buy");
+        action.put("player",gui.getModelView().getName());
         gui.getModelView().setActiveTurn(false);
         gui.getListeners().fireUpdates("buy", action);
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        //((Node)(event.getSource())).getScene().getWindow().hide();
+        stage.close();
     }
 
     private void showDecks() {
-        Stage stage = new Stage();
-        stage.setScene(gui.getSceneFromName("buy.fxml"));
+        Scene decks = gui.getSceneFromName("buy.fxml");
+        stage = new Stage();
+        stage.setScene(decks);
+        stage.setTitle("Buy");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
@@ -176,7 +167,7 @@ public class BuyController implements GUIController{
         }
     }
 
-    public String askResource (String resource) {
+    private String askResource (String resource) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);
@@ -210,7 +201,7 @@ public class BuyController implements GUIController{
         }
     }
 
-    public String askInd () {
+    private String askInd () {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);

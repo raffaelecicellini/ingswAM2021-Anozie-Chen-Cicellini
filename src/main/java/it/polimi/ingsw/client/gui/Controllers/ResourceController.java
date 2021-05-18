@@ -16,7 +16,7 @@ import java.util.Optional;
 public class ResourceController implements GUIController {
     private GUI gui;
     private int resources;
-    private Map<String, String> action = new HashMap<>() {{put("action","chooseresources");put("player",gui.getModelView().getName());}};
+    private Map<String, String> action = new HashMap<>();
     private int count=1;
 
     @FXML
@@ -52,10 +52,11 @@ public class ResourceController implements GUIController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() != ButtonType.OK) {
                 count = 1;
-                action.entrySet().removeIf(x->x.getKey().startsWith("pos"));
-                action.entrySet().removeIf(x->x.getKey().startsWith("res"));
+                action.clear();
                 return;
             }
+            action.put("action","chooseresources");
+            action.put("player",gui.getModelView().getName());
             gui.getListeners().fireUpdates("chooseresources", action);
         } else {
             label.setText("You have one more resource!");
@@ -64,7 +65,7 @@ public class ResourceController implements GUIController {
 
     }
 
-    public String position () {
+    private String position () {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);

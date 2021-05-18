@@ -21,37 +21,37 @@
             <Image url="@../PNG/punchboard/plancia_portabiglie.png" />
          </image>
       </ImageView>
-      <Button fx:id="row_1" layoutX="554.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="43.0" text="row 1">
+      <Button fx:id="row_1" layoutX="554.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="43.0" text="row 1" onAction="#select">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="row_2" layoutX="553.0" layoutY="136.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="43.0" text="row 2">
+      <Button fx:id="row_2" layoutX="553.0" layoutY="136.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="43.0" text="row 2" onAction="#select">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="row_3" layoutX="553.0" layoutY="182.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="43.0" text="row 3">
+      <Button fx:id="row_3" layoutX="553.0" layoutY="182.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="43.0" text="row 3" onAction="#select">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="col_1" layoutX="368.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="40.0" text="col 1">
+      <Button fx:id="col_1" layoutX="368.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="40.0" text="col 1" onAction="#select">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="col_2" layoutX="415.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="40.0" text="col 2">
+      <Button fx:id="col_2" layoutX="415.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="40.0" text="col 2" onAction="#select">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="col_3" layoutX="462.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="40.0" text="col 3">
+      <Button fx:id="col_3" layoutX="462.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="40.0" text="col 3" onAction="#select">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="col_4" layoutX="510.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="40.0" text="col 4">
+      <Button fx:id="col_4" layoutX="510.0" layoutY="233.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="40.0" text="col 4" onAction="#select">
          <font>
             <Font size="11.0" />
          </font>

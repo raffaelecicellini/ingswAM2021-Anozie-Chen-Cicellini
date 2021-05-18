@@ -116,6 +116,7 @@ public class MarketController implements GUIController{
                     return;
                 }
             }
+            System.out.println(selection.get(i-1));
             i++;
         }
 
@@ -131,7 +132,7 @@ public class MarketController implements GUIController{
             i++;
             curr="pos"+i;
         }
-        action.append("Do you confirm your action?");
+        action.append("\nDo you confirm your action?");
         Alert confirm= new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setHeaderText("Market confirmation");
         confirm.setContentText(action.toString());

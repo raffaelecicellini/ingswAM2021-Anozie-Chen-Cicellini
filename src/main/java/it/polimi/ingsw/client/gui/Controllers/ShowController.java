@@ -17,6 +17,11 @@ public class ShowController implements GUIController{
     @FXML private ImageView dev0, dev1, dev2, leader0, leader1;
 
 
+    /**
+     * This method is called by the Board Controller whenever tha player wants to see another player's board.
+     * It sets on a board all the information from the ModelView.
+     * @param name the name of the player that the player wants to see.
+     */
     public void prepareShow(String name){
         //Metodo chiamato quando utente vuole vedere situazione del player name. Prepara il file show.fxml con le info di
         //tale player, poi lo mostra in un nuovo stage (da cui non si esce se non chiudendolo)

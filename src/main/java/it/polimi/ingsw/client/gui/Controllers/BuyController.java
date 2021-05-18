@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -30,7 +31,7 @@ public class BuyController implements GUIController{
         showDecks();
     }
 
-    public void select(ActionEvent event){
+    public void select(MouseEvent event){
         //Si recuperano info su carta scelta cosi da recuperare costo (check per sconti). Per ogni risorsa, Alert.CONFIRMATION
         //per chiedere da dove recuperarla. Finito il ciclo, ultimo Alert per chiedere conferma: se ok si manda pack, altrimenti
         //si chiude stage.
@@ -44,7 +45,7 @@ public class BuyController implements GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("You must select the index!");
             alert.showAndWait();
-            //((Node)(event.getSource())).getScene().getWindow().hide();
+            ((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
         action.put("ind",ind);
@@ -63,7 +64,7 @@ public class BuyController implements GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("There are no more cards in this deck! Try another one!");
             alert.showAndWait();
-            //((Node)(event.getSource())).getScene().getWindow().hide();
+            ((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
 
@@ -77,7 +78,7 @@ public class BuyController implements GUIController{
                     alert.initModality(Modality.APPLICATION_MODAL);
                     alert.setContentText("You must chose for each resource!");
                     alert.showAndWait();
-                    //((Node)(event.getSource())).getScene().getWindow().hide();
+                    ((Node)(event.getSource())).getScene().getWindow().hide();
                     return;
                 } else {
                     action.put("res"+i,choice.toLowerCase());
@@ -93,6 +94,7 @@ public class BuyController implements GUIController{
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) {
             action.clear();
+            ((Node)(event.getSource())).getScene().getWindow().hide();
             return;
         }
 
@@ -101,8 +103,8 @@ public class BuyController implements GUIController{
         action.put("player",gui.getModelView().getName());
         gui.getModelView().setActiveTurn(false);
         gui.getListeners().fireUpdates("buy", action);
-        //((Node)(event.getSource())).getScene().getWindow().hide();
-        stage.close();
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+        //stage.close();
     }
 
     private void showDecks() {

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
+import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.Tile;
 import it.polimi.ingsw.client.gui.GUI;
 import javafx.fxml.FXML;
@@ -9,8 +10,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ShowController implements GUIController{
@@ -26,126 +29,169 @@ public class ShowController implements GUIController{
      * It sets on a board all the information from the ModelView.
      * @param name the name of the player that the player wants to see.
      */
-    public void prepareShow(String name){
+    public void prepareShow(String name) {
         //Metodo chiamato quando utente vuole vedere situazione del player name. Prepara il file show.fxml con le info di
         //tale player, poi lo mostra in un nuovo stage (da cui non si esce se non chiudendolo)
 
         if (gui.getModelView().getPlayers().contains(name)) {
 
-            Image image = null;
+            Image image;
 
             // DEPOSITS
             Map<String, String> deposits = gui.getModelView().getDeposits(name);
-            if (Integer.parseInt(deposits.get("smallqty")) == 1) {
+            if (Integer.parseInt(deposits.get("smallqty")) == 1)
                 image = new Image("@../PNG/marbles_bg/" + deposits.get("smallres").toLowerCase() + "_ball.png");
-                small.setImage(image);
+            else image = null;
+            small.setImage(image);
+
+            for (int i = 0; i < 2; i++) {
+                if (i < Integer.parseInt(deposits.get("midqty")))
+                    image = new Image("@../PNG/marbles_bg/" + deposits.get("midres").toLowerCase() + "_ball.png");
+                else image = null;
+
+                switch (i) {
+                    case 0:
+                        mid1.setImage(image);
+                        break;
+                    case 1:
+                        mid2.setImage(image);
+                        break;
+                }
             }
-            for (int i = 0; i < Integer.parseInt(deposits.get("midqty")); i++) {
-                image = new Image("@../PNG/marbles_bg/" + deposits.get("midres").toLowerCase() + "_ball.png");
-                if (i == 0) mid1.setImage(image);
-                else if (i == 1) mid2.setImage(image);
+
+            for (int i = 0; i < 3; i++) {
+                if (i < Integer.parseInt(deposits.get("bigqty")))
+                    image = new Image("@../PNG/marbles_bg/" + deposits.get("bigres").toLowerCase() + "_ball.png");
+                else image = null;
+                switch (i) {
+                    case 0:
+                        big1.setImage(image);
+                        break;
+                    case 1:
+                        big2.setImage(image);
+                        break;
+                    case 2:
+                        big3.setImage(image);
+                        break;
+                }
             }
-            for (int i = 0; i < Integer.parseInt(deposits.get("bigqty")); i++) {
-                image = new Image("@../PNG/marbles_bg/" + deposits.get("bigres").toLowerCase() + "_ball.png");
-                if (i == 0) big1.setImage(image);
-                else if (i == 1) big2.setImage(image);
-                else if (i == 2) big3.setImage(image);
-            }
+
             if (deposits.containsKey("sp1res")) {
-                for (int i = 0; i < Integer.parseInt(deposits.get("sp1qty")); i++) {
-                    image = new Image("@../PNG/marbles_bg/" + deposits.get("sp1res").toLowerCase() + "_ball.png");
+                for (int i = 0; i < 2; i++) {
+                    if (i < Integer.parseInt(deposits.get("sp1qty")))
+                        image = new Image("@../PNG/marbles_bg/" + deposits.get("sp1res").toLowerCase() + "_ball.png");
+                    else image = null;
                     if (sp_leader0.getText().equalsIgnoreCase("sp1")) {
                         if (i == 0) leaderRes00.setImage(image);
                         else if (i == 1) leaderRes01.setImage(image);
-                    }
-                    else if (sp_leader1.getText().equalsIgnoreCase("sp1")) {
+                    } else if (sp_leader1.getText().equalsIgnoreCase("sp1")) {
                         if (i == 0) leaderRes10.setImage(image);
                         else if (i == 1) leaderRes11.setImage(image);
                     }
                 }
             }
             if (deposits.containsKey("sp2res")) {
-                for (int i = 0; i < Integer.parseInt(deposits.get("sp2qty")); i++) {
-                    image = new Image("@../PNG/marbles_bg/" + deposits.get("sp2res").toLowerCase() + "_ball.png");
+                for (int i = 0; i < 2; i++) {
+                    if (i < Integer.parseInt(deposits.get("sp2qty")))
+                        image = new Image("@../PNG/marbles_bg/" + deposits.get("sp2res").toLowerCase() + "_ball.png");
+                    else image = null;
                     if (sp_leader0.getText().equalsIgnoreCase("sp2")) {
                         if (i == 0) leaderRes00.setImage(image);
                         else if (i == 1) leaderRes01.setImage(image);
-                    }
-                    else if (sp_leader1.getText().equalsIgnoreCase("sp2")) {
+                    } else if (sp_leader1.getText().equalsIgnoreCase("sp2")) {
                         if (i == 0) leaderRes10.setImage(image);
                         else if (i == 1) leaderRes11.setImage(image);
                     }
                 }
-            }
 
-            // STRONGBOX
-            Map<String, String> strongbox = gui.getModelView().getStrongbox(name);
-            for (int i = 0; i < strongbox.size()/2; i++) {
-                switch (strongbox.get("strres" + i).toUpperCase()) {
-                    case "BLUE":
-                        blue_qty.setText("x " + strongbox.get("strqty" + i));
-                        break;
-                    case "YELLOW":
-                        yellow_qty.setText("x " + strongbox.get("strqty" + i));
-                        break;
-                    case "GREY":
-                        grey_qty.setText("x " + strongbox.get("strqty" + i));
-                        break;
-                    case "PURPLE":
-                        purple_qty.setText("x " + strongbox.get("strqty" + i));
-                        break;
+                // STRONGBOX
+                Map<String, String> strongbox = gui.getModelView().getStrongbox(name);
+                for (int i = 0; i < strongbox.size() / 2; i++) {
+                    switch (strongbox.get("strres" + i).toUpperCase()) {
+                        case "BLUE":
+                            blue_qty.setText("x " + strongbox.get("strqty" + i));
+                            break;
+                        case "YELLOW":
+                            yellow_qty.setText("x " + strongbox.get("strqty" + i));
+                            break;
+                        case "GREY":
+                            grey_qty.setText("x " + strongbox.get("strqty" + i));
+                            break;
+                        case "PURPLE":
+                            purple_qty.setText("x " + strongbox.get("strqty" + i));
+                            break;
+                    }
                 }
-            }
 
-            // SLOTS
-            for (int i = 0; i < gui.getModelView().getSlots(name).size(); i++) {
-                if (gui.getModelView().getTopId(gui.getModelView().getSlots(name).get(i)) > 0) {
-                    image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(gui.getModelView().getSlots(name).get(i)) + ".png");
-                    if (i == 0) dev0.setImage(image);
-                    else if (i == 1) dev1.setImage(image);
-                    else if (i == 2) dev2.setImage(image);
+                // SLOTS
+                List<int[]> slots = gui.getModelView().getSlots(name);
+                for (int i = 0; i < slots.size(); i++) {
+                    if (gui.getModelView().getTopId(slots.get(i)) > 0)
+                        image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
+                    else image = null;
+
+                    switch (i) {
+                        case 0:
+                            dev0.setImage(image);
+                            break;
+                        case 1:
+                            dev1.setImage(image);
+                            break;
+                        case 2:
+                            dev2.setImage(image);
+                            break;
+                    }
                 }
-            }
 
-            // LEADERS
-            Map<String, String> leaders = gui.getModelView().getLeaders(name);
-            for (int i = 0; i < leaders.size() / 2; i++) {
-                if (leaders.get("state" + i).equalsIgnoreCase("active")) {
-                    // todo (da aggiungere controllo sp1 o sp2)
-                    image = new Image("../PNG/cards/lc_" + leaders.get("leader" + i));
-                    if (i == 0) leader0.setImage(image);
-                    else if (i == 1) leader1.setImage(image);
+                // LEADERS
+                Map<String, String> leaders = gui.getModelView().getLeaders(name);
+                for (int i = 0; i < leaders.size() / 2; i++) {
+                    if (leaders.get("state" + i).equalsIgnoreCase("active"))
+                        image = new Image("../PNG/cards/lc_" + leaders.get("leader" + i));
+                    else image = null;
+                    switch (i) {
+                        case 0:
+                            leader0.setImage(image);
+                            break;
+                        case 1:
+                            leader1.setImage(image);
+                            break;
+                    }
                 }
-            }
 
-            Tile[] tiles = gui.getModelView().getTiles(name);
-            for (int i = 0; i < tiles.length; i++) {
-                if (!tiles[i].isActive() && !tiles[i].isDiscarded()) image = new Image("../PNG/punchboard/quadrato" + (i + 2) + ".png");
-                else if (tiles[i].isActive()) image = new Image("../PNG/punchboard/active" + (i + 2) + ".png");
-                //else if (tiles[i].isDiscarded()) image = null;
+                // TILES
+                Tile[] tiles = gui.getModelView().getTiles(name);
+                for (int i = 0; i < tiles.length; i++) {
+                    if (!tiles[i].isActive() && !tiles[i].isDiscarded())
+                        image = new Image("../PNG/punchboard/quadrato" + (i + 2) + ".png");
+                    else if (tiles[i].isActive()) image = new Image("../PNG/punchboard/active" + (i + 2) + ".png");
+                    else if (tiles[i].isDiscarded()) image = null;
 
-                switch (i) {
+                    switch (i) {
+                        case 0:
+                            slot0.setImage(image);
+                            break;
+                        case 1:
+                            slot1.setImage(image);
+                            break;
+                        case 2:
+                            slot2.setImage(image);
+                            break;
+                    }
+                }
+
+                switch (gui.getModelView().getPosition(name)) {
                     case 0:
-                        slot0.setImage(image);
-                        break;
-                    case 1:
-                        slot1.setImage(image);
-                        break;
-                    case 2:
-                        slot2.setImage(image);
-                        break;
                 }
             }
 
-            //gui.getModelView().getPosition(name);
+            Scene produce = gui.getSceneFromName("show.fxml");
+            Stage stage = new Stage();
+            stage.setScene(produce);
+            stage.setTitle("Produce");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
         }
-
-        Scene produce = gui.getSceneFromName("show.fxml");
-        Stage stage = new Stage();
-        stage.setScene(produce);
-        stage.setTitle("Produce");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
     }
 
     @Override

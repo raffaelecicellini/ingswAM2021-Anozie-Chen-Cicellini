@@ -118,5 +118,20 @@
       <ImageView fx:id="leader_res11" fitHeight="23.0" fitWidth="21.0" layoutX="20.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="sp_leader0" alignment="CENTER" layoutX="36.0" layoutY="9.0" opacity="0.0" prefHeight="18.0" prefWidth="23.0" style="-fx-background-color: white;" text="SP" />
       <Label fx:id="sp_leader1" alignment="CENTER" layoutX="36.0" layoutY="223.0" opacity="0.0" prefHeight="18.0" prefWidth="23.0" style="-fx-background-color: white;" text="SP" />
+      <Label fx:id="slot0" layoutX="294.0" layoutY="310.0" prefHeight="30.0" prefWidth="76.0" style="-fx-background-color: white;">
+         <font>
+            <Font size="5.0" />
+         </font>
+      </Label>
+      <Label fx:id="slot1" layoutX="390.0" layoutY="310.0" prefHeight="30.0" prefWidth="76.0" style="-fx-background-color: white;">
+         <font>
+            <Font size="5.0" />
+         </font>
+      </Label>
+      <Label fx:id="slot2" layoutX="486.0" layoutY="310.0" prefHeight="30.0" prefWidth="76.0" style="-fx-background-color: white;">
+         <font>
+            <Font size="5.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

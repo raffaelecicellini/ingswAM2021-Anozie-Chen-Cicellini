@@ -96,6 +96,9 @@ public class Cards {
         }
     }
 
+    public static String getResourceById(int id){
+        return null;
+    }
     /**
      * Method used to retrieve a formatted representation of a DevelopCard based on its id
      * @param id the id of a DevelopCard

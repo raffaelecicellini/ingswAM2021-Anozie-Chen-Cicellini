@@ -54,22 +54,35 @@ public class GUI extends Application implements SourceListener {
         activeGame = true;
     }
 
+    /**
+     * @see Application
+     */
     @Override
     public void start(Stage stage) throws Exception {
         this.stage=stage;
         setup();
     }
 
+    /**
+     * @see Application
+     */
     @Override
     public void stop(){
         System.out.println("Stopping...");
         System.exit(0);
     }
 
+    /**
+     * Main method of GUI
+     * @param args arguments of the main
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * This method loads the Scene and the controllers for each fxml and put them in two maps
+     */
     public void setup() {
         List<String> list = new ArrayList<>(Arrays.asList("online.fxml", "local.fxml", "start.fxml", "wait.fxml", "board.fxml", "buy.fxml", "market.fxml", "produce.fxml", "chooseLeaders.fxml", "chooseResources.fxml", "show.fxml"));
         try {
@@ -90,53 +103,102 @@ public class GUI extends Application implements SourceListener {
         stage.show();
     }
 
-
+    /**
+     * Method used to set the state of the current game
+     * @param active the new value of attribute activeGame
+     */
     private void setActiveGame(boolean active) {
         this.activeGame=active;
     }
 
+    /**
+     * ModelView getter method used by the GuiControllers
+     * @return the ModelView of the current game
+     */
     public ModelView getModelView() {
         return this.modelView;
     }
 
+    /**
+     * AnswerHandler getter method used by GuiControllers
+     * @return the AnswerHandler of this class
+     */
     public AnswerHandler getAnswerHandler() {
         return this.answerHandler;
     }
 
+    /**
+     * ConnectionSocket setter method used by GuiControllers
+     * @param connectionSocket the value for the attribute connectionSocket
+     */
     public void setConnectionSocket(ConnectionSocket connectionSocket) {
         this.connectionSocket=connectionSocket;
     }
 
+    /**
+     * Listener getter method used by GuiControllers to fire changes caused by user actions
+     * @return the value of the attribute listener
+     */
     public Source getListeners() {
         return this.listener;
     }
 
+    /**
+     * Model setter method used by GuiControllers (in SoloGame)
+     * @param game the value of the model attribute
+     */
     public void setModel(Game game) {
         this.model = game;
     }
 
+    /**
+     * Model getter method used by GuiControllers (in SoloGame)
+     * @return the value of the attribute model
+     */
     public Game getModel() {
         return model;
     }
 
+    /**
+     * Controller setter method used by GuiControllers (in SoloGame)
+     * @param controller the value of the controller attribute
+     */
     public void setController(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Controller getter method used by GuiControllers (in SoloGame)
+     * @return the value of the controller attribute
+     */
     public Controller getController() {
         return controller;
     }
 
+    /**
+     * This method is used to change the scene in the main stage
+     * @param scene the name of the fxml file to show in the main stage
+     */
     public void changeScene(String scene) {
         currentScene=mapNameScene.get(scene);
         stage.setScene(currentScene);
         stage.show();
     }
 
+    /**
+     * This method is used to get the GuiController associated to the fxml whose name is passed as a parameter
+     * @param name the name of the fxml file
+     * @return the GuiController associated to the fxml file
+     */
     public GUIController getControllerFromName(String name) {
         return mapNameController.get(name);
     }
 
+    /**
+     * This method is used to get the Scene associated to the fxml whose name is passed as a parameter
+     * @param name the name of the fxml file
+     * @return the Scene associated to the fxml file
+     */
     public Scene getSceneFromName(String name) {
         return mapNameScene.get(name);
     }
@@ -146,6 +208,38 @@ public class GUI extends Application implements SourceListener {
         //tanti metodi separati uno per ogni azione?
     }
 
+    private void updateMarket(){
+        //board.updateDeps, market.updateMarket, board.updatePosition
+    }
+
+    private void updateBuy(){
+        //board.updateDeps, updateStr, updateSlots, buy.updateDecks, produce.updateSlots
+        Platform.runLater(() -> {
+
+        });
+    }
+
+    private void updateProduce(){
+        //board.updateDeps, updateStr, updatePosition
+    }
+
+    private void updateSwap(){
+        //board.updateDeps
+    }
+
+    private void updateLeader(){
+        //board.updateLeader, board.updatePosition
+    }
+
+    private void updateEndTurn(){
+        //board.updateTiles
+    }
+
+
+    /**
+     * This method is called when the client receive a ChooseLeader message from the model. It changes the scene and
+     * the fxml file associated to that scene
+     */
     private void chooseLeaders() {
         Platform.runLater(() -> {
             ArrayList<String> location = new ArrayList<>();
@@ -160,6 +254,10 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    /**
+     * This method is called when the client receive a ChooseResource message from the model. It changes the scene
+     * @param initialRes the amount of resources the user has
+     */
     private void chooseResources(int initialRes){
         Platform.runLater(() -> {
             ResourceController controller;
@@ -169,6 +267,9 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    /**
+     * @see SourceListener
+     */
     @Override
     public void update(String propertyName, Map<String, String> value) {
         switch (propertyName.toUpperCase()) {

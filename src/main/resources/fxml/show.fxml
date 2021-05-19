@@ -5,8 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.client.gui.Controllers.ShowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.ShowController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
@@ -18,7 +17,7 @@
             <Image url="@../PNG/board/board.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="leader0" fitHeight="168.0" fitWidth="117.0" layoutX="3.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leader0" fitHeight="168.0" fitWidth="117.0" layoutX="3.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader1" fitHeight="168.0" fitWidth="117.0" layoutX="3.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="small" fitHeight="18.0" fitWidth="17.0" layoutX="179.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="mid1" fitHeight="18.0" fitWidth="17.0" layoutX="167.0" layoutY="212.0" pickOnBounds="true" preserveRatio="true" />
@@ -53,9 +52,26 @@
       <ImageView fx:id="dev0" fitHeight="134.0" fitWidth="80.0" layoutX="312.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="dev1" fitHeight="134.0" fitWidth="80.0" layoutX="404.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="dev2" fitHeight="134.0" fitWidth="80.0" layoutX="499.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leaderRes00" fitHeight="24.0" fitWidth="24.0" layoutX="27.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leaderRes01" fitHeight="24.0" fitWidth="24.0" layoutX="68.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leaderRes00" fitHeight="24.0" fitWidth="24.0" layoutX="27.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leaderRes01" fitHeight="24.0" fitWidth="24.0" layoutX="68.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leaderRes10" fitHeight="24.0" fitWidth="24.0" layoutX="27.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leaderRes11" fitHeight="24.0" fitWidth="24.0" layoutX="68.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot0" fitHeight="36.0" fitWidth="36.0" layoutX="241.0" layoutY="59.0" pickOnBounds="true">
+         <image>
+            <Image url="@../PNG/punchboard/active2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="slot1" fitHeight="36.0" fitWidth="36.0" layoutX="359.0" layoutY="32.0" pickOnBounds="true">
+         <image>
+            <Image url="@../PNG/punchboard/active2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="slot2" fitHeight="36.0" fitWidth="36.0" layoutX="501.0" layoutY="59.0" pickOnBounds="true">
+         <image>
+            <Image url="@../PNG/punchboard/active2.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="sp_leader0" alignment="CENTER" layoutX="43.0" layoutY="13.0" opacity="0.0" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: white;" text="SP" />
+      <Label fx:id="sp_leader1" alignment="CENTER" layoutX="43.0" layoutY="208.0" opacity="0.0" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: white;" text="SP" />
    </children>
 </AnchorPane>

@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class ResourceController implements GUIController {
         label.setText("You can choose "+resources+" initial resources. Make your choice!");
     }
 
-    public void chosen(ActionEvent event){
+    public void chosen(MouseEvent event){
         //Controlla colore scelto, mostra Alert.CONFIRMATION per chiedere posizione in cui salvare. Salva in mappa le due
         //info. Controlla se ha diritto a un'altra risorsa: se si rimane in questa schermata (cambiando label?), altrimenti
         //Alert.CONFIRMATION per chiedere se mossa va bene. Alla conferma manda pack, altrimenti pulisce mappa e resetta la scena
@@ -58,6 +59,8 @@ public class ResourceController implements GUIController {
             action.put("action","chooseresources");
             action.put("player",gui.getModelView().getName());
             gui.getListeners().fireUpdates("chooseresources", action);
+            gui.changeScene("board.fxml");
+
         } else {
             label.setText("You have one more resource!");
             return;

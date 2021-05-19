@@ -208,6 +208,34 @@ public class GUI extends Application implements SourceListener {
         //tanti metodi separati uno per ogni azione?
     }
 
+    private void updateMarket(){
+        //board.updateDeps, market.updateMarket, board.updatePosition
+    }
+
+    private void updateBuy(){
+        //board.updateDeps, updateStr, updateSlots, buy.updateDecks, produce.updateSlots
+        Platform.runLater(() -> {
+
+        });
+    }
+
+    private void updateProduce(){
+        //board.updateDeps, updateStr, updatePosition
+    }
+
+    private void updateSwap(){
+        //board.updateDeps
+    }
+
+    private void updateLeader(){
+        //board.updateLeader, board.updatePosition
+    }
+
+    private void updateEndTurn(){
+        //board.updateTiles
+    }
+
+
     /**
      * This method is called when the client receive a ChooseLeader message from the model. It changes the scene and
      * the fxml file associated to that scene

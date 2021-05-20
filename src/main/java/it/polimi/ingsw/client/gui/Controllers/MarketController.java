@@ -210,6 +210,10 @@ public class MarketController implements GUIController{
 
     //Metodi set per cambiare la disposizione delle biglie?
 
+    public void updateMarket() {
+
+    }
+
     /**
      * @see GUIController
      * @param gui the gui to be set

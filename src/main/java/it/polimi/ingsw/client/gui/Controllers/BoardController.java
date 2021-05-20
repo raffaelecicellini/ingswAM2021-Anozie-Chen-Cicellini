@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
+import it.polimi.ingsw.client.Tile;
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
 import javafx.application.Platform;
@@ -22,6 +23,9 @@ public class BoardController implements GUIController{
     @FXML private ImageView leader0, leader1;
     @FXML private Label sp_leader0, sp_leader1;
     @FXML private Label slot0, slot1, slot2;
+
+    @FXML
+    private ImageView tile0,tile1,tile2;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -419,6 +423,31 @@ public class BoardController implements GUIController{
                 }
             }
         });
+    }
+
+    public void updateTiles() {
+        Tile[] model = gui.getModelView().getTiles(gui.getModelView().getName());
+        ImageView[] tiles = new ImageView[] {tile0,tile1,tile2};
+        for (int i = 0; i < model.length; i++) {
+            if (model[i].isActive())
+                tiles[i].setImage(new Image("/PNG/punchboard/active"+(i+2)+".png"));
+            else if (model[i].isDiscarded())
+                tiles[i].setImage(null);
+            else if (!model[i].isActive() && !model[i].isDiscarded())
+                tiles[i].setImage(new Image("/PNG/punchboard/quadrato"+(i+2)+".png"));
+        }
+    }
+
+    public void updatePosition() {
+
+    }
+
+    public void updateDeps() {
+
+    }
+
+    public void updateStr() {
+
     }
 
     /**

@@ -461,7 +461,7 @@ public class BoardController extends GUIController{
         Map<String, String> leaders = gui.getModelView().getLeaders(gui.getModelView().getName());
         for (int i = 0; i < leaders.size() / 2; i++) {
             if (leaders.get("state" + i).equalsIgnoreCase("discarded")) image = null;
-            else image = new Image("../PNG/cards/lc_" + leaders.get("leader" + i));
+            else image = new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png");
 
             switch (i) {
                 case 0:

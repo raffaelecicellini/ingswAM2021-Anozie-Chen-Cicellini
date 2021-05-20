@@ -40,13 +40,13 @@ public class ShowController extends GUIController{
             // DEPOSITS
             Map<String, String> deposits = gui.getModelView().getDeposits(name);
             if (Integer.parseInt(deposits.get("smallqty")) == 1)
-                image = new Image("@../PNG/marbles_bg/" + deposits.get("smallres").toLowerCase() + "_ball.png");
+                image = new Image("/PNG/marbles_bg/" + deposits.get("smallres").toLowerCase() + "_ball.png");
             else image = null;
             small.setImage(image);
 
             for (int i = 0; i < 2; i++) {
                 if (i < Integer.parseInt(deposits.get("midqty")))
-                    image = new Image("@../PNG/marbles_bg/" + deposits.get("midres").toLowerCase() + "_ball.png");
+                    image = new Image("/PNG/marbles_bg/" + deposits.get("midres").toLowerCase() + "_ball.png");
                 else image = null;
 
                 switch (i) {
@@ -61,7 +61,7 @@ public class ShowController extends GUIController{
 
             for (int i = 0; i < 3; i++) {
                 if (i < Integer.parseInt(deposits.get("bigqty")))
-                    image = new Image("@../PNG/marbles_bg/" + deposits.get("bigres").toLowerCase() + "_ball.png");
+                    image = new Image("/PNG/marbles_bg/" + deposits.get("bigres").toLowerCase() + "_ball.png");
                 else image = null;
                 switch (i) {
                     case 0:
@@ -79,7 +79,7 @@ public class ShowController extends GUIController{
             if (deposits.containsKey("sp1res")) {
                 for (int i = 0; i < 2; i++) {
                     if (i < Integer.parseInt(deposits.get("sp1qty")))
-                        image = new Image("@../PNG/marbles_bg/" + deposits.get("sp1res").toLowerCase() + "_ball.png");
+                        image = new Image("/PNG/marbles_bg/" + deposits.get("sp1res").toLowerCase() + "_ball.png");
                     else image = null;
                     if (sp_leader0.getText().equalsIgnoreCase("sp1")) {
                         if (i == 0) leaderRes00.setImage(image);
@@ -93,7 +93,7 @@ public class ShowController extends GUIController{
             if (deposits.containsKey("sp2res")) {
                 for (int i = 0; i < 2; i++) {
                     if (i < Integer.parseInt(deposits.get("sp2qty")))
-                        image = new Image("@../PNG/marbles_bg/" + deposits.get("sp2res").toLowerCase() + "_ball.png");
+                        image = new Image("/PNG/marbles_bg/" + deposits.get("sp2res").toLowerCase() + "_ball.png");
                     else image = null;
                     if (sp_leader0.getText().equalsIgnoreCase("sp2")) {
                         if (i == 0) leaderRes00.setImage(image);
@@ -147,7 +147,7 @@ public class ShowController extends GUIController{
                 Map<String, String> leaders = gui.getModelView().getLeaders(name);
                 for (int i = 0; i < leaders.size() / 2; i++) {
                     if (leaders.get("state" + i).equalsIgnoreCase("active"))
-                        image = new Image("../PNG/cards/lc_" + leaders.get("leader" + i));
+                        image = new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png");
                     else image = null;
                     switch (i) {
                         case 0:
@@ -163,8 +163,8 @@ public class ShowController extends GUIController{
                 Tile[] tiles = gui.getModelView().getTiles(name);
                 for (int i = 0; i < tiles.length; i++) {
                     if (!tiles[i].isActive() && !tiles[i].isDiscarded())
-                        image = new Image("../PNG/punchboard/quadrato" + (i + 2) + ".png");
-                    else if (tiles[i].isActive()) image = new Image("../PNG/punchboard/active" + (i + 2) + ".png");
+                        image = new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png");
+                    else if (tiles[i].isActive()) image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
                     else if (tiles[i].isDiscarded()) image = null;
 
                     switch (i) {

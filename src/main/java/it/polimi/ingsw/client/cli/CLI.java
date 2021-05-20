@@ -1506,7 +1506,7 @@ public class CLI implements Runnable, SourceListener {
                 list.append("                                            ");
             } else {
                 while (lv < modelView.getSlots(name).get(slot).length) {
-                    if (modelView.getSlots(name).get(slot)[lv] != 0) {
+                    if (modelView.getSlots(name).get(slot)[lv] > 0) {
                         if (lv == 0) list.append("          ");
                         else list.append(", ");
 

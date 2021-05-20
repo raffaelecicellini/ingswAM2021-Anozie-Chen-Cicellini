@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import java.util.*;
 
-public class LeadersController implements GUIController{
+public class LeadersController extends GUIController{
     private GUI gui;
     @FXML
     private ImageView leader1png, leader2png, leader3png, leader4png;

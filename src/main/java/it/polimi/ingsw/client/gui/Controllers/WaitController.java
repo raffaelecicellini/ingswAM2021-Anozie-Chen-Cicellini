@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.gui.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class WaitController implements GUIController{
+public class WaitController extends GUIController{
     private GUI gui;
     @FXML
     private Label status;

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class ResourceController implements GUIController {
+public class ResourceController extends GUIController {
     private GUI gui;
     private int resources;
     private Map<String, String> action = new HashMap<>();

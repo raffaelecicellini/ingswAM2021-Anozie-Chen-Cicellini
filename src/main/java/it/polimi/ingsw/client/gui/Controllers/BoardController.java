@@ -1,16 +1,24 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
+import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 
 import java.util.*;
 
-public class BoardController implements GUIController{
+public class BoardController extends GUIController{
     private GUI gui;
+    @FXML private Label blue_qty, yellow_qty, grey_qty, purple_qty;
+    @FXML private ImageView small, mid1, mid2, big1, big2, big3;
+    @FXML private ImageView leader_res00, leader_res01, leader_res10, leader_res11;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -314,12 +322,84 @@ public class BoardController implements GUIController{
     }
 
     //Metodi set per cambiare le informazioni presenti in schermata?
-    public void updateDeposits(){
 
+    /**
+     * This method is used to update the deposits view of a player. It updates the images representing the state of the
+     * deposits of the player
+     */
+    public void updateDeposits(){
+        List<ImageView> mid= Arrays.asList(mid1, mid2);
+        List<ImageView> big= Arrays.asList(big1, big2, big3);
+        Map<String, String> deps=gui.getModelView().getDeposits(gui.getModelView().getName());
+
+        if (Integer.parseInt(deps.get("smallqty"))==0) small.setImage(null);
+        else small.setImage(new Image(getPath(deps.get("smallres"))));
+
+        for (int i=0; i<mid.size(); i++){
+            if (i> Integer.parseInt(deps.get("midqty")) -1) mid.get(i).setImage(null);
+            else mid.get(i).setImage(new Image(getPath(deps.get("midres"))));
+        }
+
+        for (int i=0; i<big.size(); i++){
+            if (i> Integer.parseInt(deps.get("bigqty")) -1) big.get(i).setImage(null);
+            else big.get(i).setImage(new Image(getPath(deps.get("bigres"))));
+        }
+
+        if (deps.containsKey("sp1")) updateLeaderDeps(deps);
     }
 
-    public void updateStrongbox(){
+    /**
+     * This method is used when a user has at least one active Leadercard that gives a special deposit. It updates the
+     * resources in the special deposit
+     * @param deps the Map containing the info on the deposits of the player
+     */
+    private void updateLeaderDeps(Map<String, String> deps){
+        Map<String, String> leaders= gui.getModelView().getLeaders(gui.getModelView().getName());
+        List<ImageView> lead0= Arrays.asList(leader_res00, leader_res01);
+        List<ImageView> lead1= Arrays.asList(leader_res10, leader_res11);
 
+        if (deps.get("sp1res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
+            for (int i=0; i<lead0.size(); i++){
+                if (i> Integer.parseInt(deps.get("sp1qty")) -1) lead0.get(i).setImage(null);
+                else lead0.get(i).setImage(new Image(getPath(deps.get("sp1res"))));
+            }
+        }
+        else if (deps.get("sp1res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
+            for (int i=0; i<lead1.size(); i++){
+                if (i> Integer.parseInt(deps.get("sp1qty")) -1) lead1.get(i).setImage(null);
+                else lead1.get(i).setImage(new Image(getPath(deps.get("sp1res"))));
+            }
+        }
+
+        if (deps.containsKey("sp2res")){
+            if (deps.get("sp2res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
+                for (int i=0; i<lead0.size(); i++){
+                    if (i> Integer.parseInt(deps.get("sp2qty")) -1) lead0.get(i).setImage(null);
+                    else lead0.get(i).setImage(new Image(getPath(deps.get("sp2res"))));
+                }
+            }
+            else if (deps.get("sp2res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
+                for (int i=0; i<lead1.size(); i++){
+                    if (i> Integer.parseInt(deps.get("sp2qty")) -1) lead1.get(i).setImage(null);
+                    else lead1.get(i).setImage(new Image(getPath(deps.get("sp2res"))));
+                }
+            }
+        }
+    }
+
+    /**
+     * This method is used to update the strongbox view of a player. It changes the label that represents the quantity of
+     * a certain resource in the strongbox
+     */
+    public void updateStrongbox(){
+        Map<String, String> strongbox= gui.getModelView().getStrongbox(gui.getModelView().getName());
+        List<Label> labels= Arrays.asList(blue_qty, yellow_qty, grey_qty, purple_qty);
+
+        String curr;
+        for (int i=0; i<labels.size(); i++){
+            curr="strqty"+i;
+            labels.get(i).setText("x "+strongbox.get(curr));
+        }
     }
 
     /**

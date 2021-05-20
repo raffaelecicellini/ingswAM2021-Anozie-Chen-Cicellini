@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ShowController implements GUIController{
+public class ShowController extends GUIController{
     private GUI gui;
 
     @FXML private ImageView small, mid1, mid2, big1, big2, big3, leaderRes00, leaderRes01, leaderRes10, leaderRes11;

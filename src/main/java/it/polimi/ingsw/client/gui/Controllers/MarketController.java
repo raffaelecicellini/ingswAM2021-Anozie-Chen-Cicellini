@@ -2,13 +2,16 @@ package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -16,7 +19,7 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
-public class MarketController implements GUIController{
+public class MarketController extends GUIController{
     private GUI gui;
     private final Map<String, String> info=new HashMap<>();
     private Stage stage;
@@ -213,11 +216,21 @@ public class MarketController implements GUIController{
     }
 
     //Metodi set per cambiare la disposizione delle biglie?
+
+    /**
+     * This method is called when a player takes resources from the market. It updates the GridPane with the new images
+     */
     public void updateMarket(){
         String[][] market=gui.getModelView().getMarket();
-        String out=gui.getModelView().getOutMarble();
+        String outMarble=gui.getModelView().getOutMarble();
+        ObservableList<Node> list=market_board.getChildren();
 
-
+        out.setImage(new Image(getPath(outMarble)));
+        ImageView img;
+        for (Node node:list){
+            img= (ImageView) node;
+            img.setImage(new Image(getPath(market[GridPane.getColumnIndex(node)][GridPane.getRowIndex(node)])));
+        }
     }
 
     /**

@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class StartController implements GUIController{
+public class StartController extends GUIController{
     private GUI gui;
     @FXML
     private TextField nameLocal;

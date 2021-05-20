@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 
-public class ProduceController implements GUIController{
+public class ProduceController extends GUIController{
     @FXML private Button base, confirm;
 
     @FXML private ImageView dev0;

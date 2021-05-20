@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class BuyController implements GUIController{
+public class BuyController extends GUIController{
     private GUI gui;
     private Map<String, String> action =  new HashMap<>();
     private Stage stage;

@@ -1,16 +1,23 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
+import it.polimi.ingsw.client.Tile;
 import it.polimi.ingsw.client.gui.GUI;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 
 import java.util.*;
 
 public class BoardController implements GUIController{
     private GUI gui;
+
+    @FXML
+    private ImageView tile0,tile1,tile2;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -314,6 +321,39 @@ public class BoardController implements GUIController{
     }
 
     //Metodi set per cambiare le informazioni presenti in schermata?
+
+    public void updateTiles() {
+        Tile[] model = gui.getModelView().getTiles(gui.getModelView().getName());
+        ImageView[] tiles = new ImageView[] {tile0,tile1,tile2};
+        for (int i = 0; i < model.length; i++) {
+            if (model[i].isActive())
+                tiles[i].setImage(new Image("/PNG/punchboard/active"+(i+2)+".png"));
+            else if (model[i].isDiscarded())
+                tiles[i].setImage(null);
+            else if (!model[i].isActive() && !model[i].isDiscarded())
+                tiles[i].setImage(new Image("/PNG/punchboard/quadrato"+(i+2)+".png"));
+        }
+    }
+
+    public void updateLeader() {
+
+    }
+
+    public void updatePosition() {
+
+    }
+
+    public void updateDeps() {
+
+    }
+
+    public void updateStr() {
+
+    }
+
+    public void updateSlots() {
+
+    }
 
     /**
      * @see GUIController

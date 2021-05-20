@@ -305,6 +305,10 @@ public class ProduceController implements GUIController{
         }
     }
 
+    public void updateSlots() {
+
+    }
+
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;

@@ -3,10 +3,7 @@ package it.polimi.ingsw.client.gui;
 import it.polimi.ingsw.client.AnswerHandler;
 import it.polimi.ingsw.client.ConnectionSocket;
 import it.polimi.ingsw.client.ModelView;
-import it.polimi.ingsw.client.gui.Controllers.GUIController;
-import it.polimi.ingsw.client.gui.Controllers.LeadersController;
-import it.polimi.ingsw.client.gui.Controllers.ResourceController;
-import it.polimi.ingsw.client.gui.Controllers.WaitController;
+import it.polimi.ingsw.client.gui.Controllers.*;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.notifications.Source;
@@ -210,29 +207,62 @@ public class GUI extends Application implements SourceListener {
 
     private void updateMarket(){
         //board.updateDeps, market.updateMarket, board.updatePosition
+        Platform.runLater(() -> {
+            BoardController board = (BoardController) getControllerFromName("board.fxml");
+            board.updateDeps();
+            board.updatePosition();
+            MarketController market = (MarketController) getControllerFromName("market.fxml");
+            market.updateMarket();
+        });
     }
 
     private void updateBuy(){
         //board.updateDeps, updateStr, updateSlots, buy.updateDecks, produce.updateSlots
         Platform.runLater(() -> {
-
+            BoardController board = (BoardController) getControllerFromName("board.fxml");
+            board.updateDeps();
+            board.updateStr();
+            board.updateSlots();
+            BuyController buy = (BuyController) getControllerFromName("buy.fxml");
+            buy.updateDecks();
+            ProduceController produce = (ProduceController) getControllerFromName("produce.fxml");
+            produce.updateSlots();
         });
     }
 
     private void updateProduce(){
         //board.updateDeps, updateStr, updatePosition
+        Platform.runLater(() -> {
+            BoardController board = (BoardController) getControllerFromName("board.fxml");
+            board.updateDeps();
+            board.updateStr();
+            board.updatePosition();
+        });
     }
 
     private void updateSwap(){
         //board.updateDeps
+        Platform.runLater(() -> {
+            BoardController board = (BoardController) getControllerFromName("board.fxml");
+            board.updateDeps();
+        });
     }
 
     private void updateLeader(){
         //board.updateLeader, board.updatePosition
+        Platform.runLater(() -> {
+            BoardController board = (BoardController) getControllerFromName("board.fxml");
+            board.updateLeader();
+            board.updatePosition();
+        });
     }
 
     private void updateEndTurn(){
         //board.updateTiles
+        Platform.runLater(() -> {
+            BoardController board = (BoardController) getControllerFromName("board.fxml");
+            board.updateTiles();
+        });
     }
 
 

@@ -69,15 +69,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="74.0" pickOnBounds="true" />
-            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="68.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="1" />
-            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="125.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="2" />
-            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="125.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="3" />
-            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.rowIndex="1" />
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="68.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="125.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="125.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="125.0" layoutY="74.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.rowIndex="2" />
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />

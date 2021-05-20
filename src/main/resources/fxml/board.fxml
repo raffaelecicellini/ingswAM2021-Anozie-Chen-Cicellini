@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.client.gui.Controllers.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.BoardController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="700.0" layoutX="-53.0" layoutY="111.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -19,42 +19,42 @@
             <Image url="@../PNG/board/board.png" />
          </image>
       </ImageView>
-      <Button fx:id="buy" layoutX="600.0" layoutY="2.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="BUY" onAction="#buy">
+      <Button fx:id="buy" layoutX="600.0" layoutY="2.0" mnemonicParsing="false" onAction="#buy" prefHeight="42.0" prefWidth="91.0" text="BUY">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="produce" layoutX="600.0" layoutY="50.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="PRODUCE" onAction="#produce">
+      <Button fx:id="produce" layoutX="600.0" layoutY="50.0" mnemonicParsing="false" onAction="#produce" prefHeight="42.0" prefWidth="91.0" text="PRODUCE">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="market" layoutX="600.0" layoutY="98.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="MARKET" onAction="#market">
+      <Button fx:id="market" layoutX="600.0" layoutY="98.0" mnemonicParsing="false" onAction="#market" prefHeight="42.0" prefWidth="91.0" text="MARKET">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="activate" layoutX="600.0" layoutY="146.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="ACTIVATE" onAction="#activate">
+      <Button fx:id="activate" layoutX="600.0" layoutY="146.0" mnemonicParsing="false" onAction="#activate" prefHeight="42.0" prefWidth="91.0" text="ACTIVATE">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="discard" layoutX="600.0" layoutY="194.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="DISCARD" onAction="#discard">
+      <Button fx:id="discard" layoutX="600.0" layoutY="194.0" mnemonicParsing="false" onAction="#discard" prefHeight="42.0" prefWidth="91.0" text="DISCARD">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="swap" layoutX="600.0" layoutY="242.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="SWAP" onAction="#swap">
+      <Button fx:id="swap" layoutX="600.0" layoutY="242.0" mnemonicParsing="false" onAction="#swap" prefHeight="42.0" prefWidth="91.0" text="SWAP">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="show" layoutX="600.0" layoutY="290.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" text="SHOW" onAction="#show">
+      <Button fx:id="show" layoutX="600.0" layoutY="290.0" mnemonicParsing="false" onAction="#show" prefHeight="42.0" prefWidth="91.0" text="SHOW">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="endturn" layoutX="600.0" layoutY="346.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="91.0" text="END TURN" onAction="#endTurn">
+      <Button fx:id="endturn" layoutX="600.0" layoutY="346.0" mnemonicParsing="false" onAction="#endTurn" prefHeight="40.0" prefWidth="91.0" text="END TURN">
          <font>
             <Font size="14.0" />
          </font>
@@ -116,5 +116,22 @@
       <ImageView fx:id="leader_res01" fitHeight="23.0" fitWidth="21.0" layoutX="53.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader_res10" fitHeight="23.0" fitWidth="21.0" layoutX="54.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader_res11" fitHeight="23.0" fitWidth="21.0" layoutX="20.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="sp_leader0" alignment="CENTER" layoutX="36.0" layoutY="9.0" opacity="0.0" prefHeight="18.0" prefWidth="23.0" style="-fx-background-color: white;" text="SP" />
+      <Label fx:id="sp_leader1" alignment="CENTER" layoutX="36.0" layoutY="223.0" opacity="0.0" prefHeight="18.0" prefWidth="23.0" style="-fx-background-color: white;" text="SP" />
+      <Label fx:id="slot0" layoutX="294.0" layoutY="310.0" prefHeight="30.0" prefWidth="76.0" style="-fx-background-color: white;">
+         <font>
+            <Font size="5.0" />
+         </font>
+      </Label>
+      <Label fx:id="slot1" layoutX="390.0" layoutY="310.0" prefHeight="30.0" prefWidth="76.0" style="-fx-background-color: white;">
+         <font>
+            <Font size="5.0" />
+         </font>
+      </Label>
+      <Label fx:id="slot2" layoutX="486.0" layoutY="310.0" prefHeight="30.0" prefWidth="76.0" style="-fx-background-color: white;">
+         <font>
+            <Font size="5.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

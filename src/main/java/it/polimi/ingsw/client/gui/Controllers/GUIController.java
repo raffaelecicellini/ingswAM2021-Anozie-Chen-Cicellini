@@ -7,14 +7,14 @@ public abstract class GUIController {
      * Method used to set the gui for each type of Controller
      * @param gui the gui to be set
      */
-    abstract void setGui(GUI gui);
+    public abstract void setGui(GUI gui);
 
     /**
      * Utility method used to get the path to the corresponding image of a certain marble
      * @param marble a String representing the marble
      * @return the path to the image of the marble
      */
-    String getPath(String marble){
+    public String getPath(String marble){
         switch (marble){
             case "BLUE": return "/PNG/marbles_bg/blue_ball.png";
             case "YELLOW": return "/PNG/marbles_bg/yellow_ball.png";

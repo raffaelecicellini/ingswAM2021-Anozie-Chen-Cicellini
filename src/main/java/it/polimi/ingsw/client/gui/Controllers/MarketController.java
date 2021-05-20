@@ -9,6 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -16,9 +18,11 @@ import java.util.*;
 
 public class MarketController implements GUIController{
     private GUI gui;
-    private Map<String, String> info=new HashMap<>();
+    private final Map<String, String> info=new HashMap<>();
     private Stage stage;
     @FXML private Button row_1, row_2, row_3, col_1, col_2, col_3, col_4;
+    @FXML private GridPane market_board;
+    @FXML private ImageView out;
 
     /**
      * This method is called when a user presses one of the button row/col. It retrieves the information on the row/col
@@ -209,6 +213,12 @@ public class MarketController implements GUIController{
     }
 
     //Metodi set per cambiare la disposizione delle biglie?
+    public void updateMarket(){
+        String[][] market=gui.getModelView().getMarket();
+        String out=gui.getModelView().getOutMarble();
+
+
+    }
 
     /**
      * @see GUIController

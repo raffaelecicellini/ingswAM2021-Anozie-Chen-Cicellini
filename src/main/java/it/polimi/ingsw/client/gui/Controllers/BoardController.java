@@ -314,6 +314,13 @@ public class BoardController implements GUIController{
     }
 
     //Metodi set per cambiare le informazioni presenti in schermata?
+    public void updateDeposits(){
+
+    }
+
+    public void updateStrongbox(){
+
+    }
 
     /**
      * @see GUIController

@@ -83,7 +83,7 @@ public class Cards {
 
     /**
      * Method used to get the input of the production given by a LeaderCard based on its id
-     * @param id the id of the Leadercard
+     * @param id the id of the LeaderCard
      * @return a String representing the resource requested as input for the production of the LeaderCard
      */
     public static String getProductionById(int id){
@@ -96,8 +96,19 @@ public class Cards {
         }
     }
 
+    /**
+     * Method used to get the resource that the user can put in a LeaderCard
+     * @param id the id of the LeaderCard
+     * @return a String representing the resource that can be put in the special deposit
+     */
     public static String getResourceById(int id){
-        return null;
+        switch(id){
+            case 7: return "GREY";
+            case 8: return "BLUE";
+            case 9: return  "YELLOW";
+            case 10: return "PURPLE";
+            default: return null;
+        }
     }
     /**
      * Method used to retrieve a formatted representation of a DevelopCard based on its id

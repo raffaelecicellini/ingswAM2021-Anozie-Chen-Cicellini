@@ -235,12 +235,12 @@ public class BuyController extends GUIController{
         int[][] modelDecks = gui.getModelView().getDevelopDecks();
         for (Node node : children) {
             int row;
-            if (decks.getRowIndex(node) == 0)
+            if (GridPane.getRowIndex(node) == 0)
                 row = 2;
-            else if (decks.getRowIndex(node) == 2)
+            else if (GridPane.getRowIndex(node) == 2)
                 row = 0;
-            else row = decks.getRowIndex(node);
-            int col = decks.getColumnIndex(node);
+            else row = GridPane.getRowIndex(node);
+            int col = GridPane.getColumnIndex(node);
             if (modelDecks[col][row] != 0) {
                 ImageView image = (ImageView) node;
                 image.setImage(new Image("/PNG/cards/dc_" + modelDecks[col][row] + ".png"));

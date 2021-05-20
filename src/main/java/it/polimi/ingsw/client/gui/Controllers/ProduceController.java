@@ -304,29 +304,25 @@ public class ProduceController extends GUIController{
     }
 
     public void updateSlots() {
-        Platform.runLater( () -> {
-            Image image;
-            List<int[]> slots = gui.getModelView().getSlots(gui.getModelView().getName());
-            for (int i = 0; i < slots.size(); i++) {
-                if (gui.getModelView().getTopId(slots.get(i)) > 0)
-                    image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
-                else image = null;
+        Image image;
+        List<int[]> slots = gui.getModelView().getSlots(gui.getModelView().getName());
+        for (int i = 0; i < slots.size(); i++) {
+            if (gui.getModelView().getTopId(slots.get(i)) > 0)
+                image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
+            else image = null;
 
-                switch (i) {
-                    case 0:
-                        dev0.setImage(image);
-                        break;
-                    case 1:
-                        dev1.setImage(image);
-                        break;
-                    case 2:
-                        dev2.setImage(image);
-                        break;
-                }
+            switch (i) {
+                case 0:
+                    dev0.setImage(image);
+                    break;
+                case 1:
+                    dev1.setImage(image);
+                    break;
+                case 2:
+                    dev2.setImage(image);
+                    break;
             }
-
-                }
-        );
+        }
     }
 
     @Override

@@ -209,7 +209,7 @@ public class GUI extends Application implements SourceListener {
         //board.updateDeps, market.updateMarket, board.updatePosition
         Platform.runLater(() -> {
             BoardController board = (BoardController) getControllerFromName("board.fxml");
-            board.updateDeps();
+            board.updateDeposits();
             board.updatePosition();
             MarketController market = (MarketController) getControllerFromName("market.fxml");
             market.updateMarket();
@@ -220,8 +220,8 @@ public class GUI extends Application implements SourceListener {
         //board.updateDeps, updateStr, updateSlots, buy.updateDecks, produce.updateSlots
         Platform.runLater(() -> {
             BoardController board = (BoardController) getControllerFromName("board.fxml");
-            board.updateDeps();
-            board.updateStr();
+            board.updateDeposits();
+            board.updateStrongbox();
             board.updateSlots();
             BuyController buy = (BuyController) getControllerFromName("buy.fxml");
             buy.updateDecks();
@@ -234,8 +234,8 @@ public class GUI extends Application implements SourceListener {
         //board.updateDeps, updateStr, updatePosition
         Platform.runLater(() -> {
             BoardController board = (BoardController) getControllerFromName("board.fxml");
-            board.updateDeps();
-            board.updateStr();
+            board.updateDeposits();
+            board.updateStrongbox();
             board.updatePosition();
         });
     }
@@ -244,7 +244,7 @@ public class GUI extends Application implements SourceListener {
         //board.updateDeps
         Platform.runLater(() -> {
             BoardController board = (BoardController) getControllerFromName("board.fxml");
-            board.updateDeps();
+            board.updateDeposits();
         });
     }
 
@@ -323,6 +323,12 @@ public class GUI extends Application implements SourceListener {
                 Platform.runLater(()->{
                     WaitController controller= (WaitController) mapNameController.get("wait.fxml");
                     controller.setText("Game started!");
+                    BoardController board= (BoardController) mapNameController.get("board.fxml");
+                    board.updateTiles();
+                    BuyController buy= (BuyController) mapNameController.get("buy.fxml");
+                    buy.updateDecks();
+                    MarketController market= (MarketController) mapNameController.get("market.fxml");
+                    market.updateMarket();
                 });
                 break;
 
@@ -344,7 +350,7 @@ public class GUI extends Application implements SourceListener {
             case "OKLEADERS":
 
                 if (value == null) {
-                    updateBoard();
+                    updateLeader();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
@@ -374,7 +380,11 @@ public class GUI extends Application implements SourceListener {
             case "OKRESOURCES":
 
                 if (value == null) {
-                    updateBoard();
+                    Platform.runLater(() -> {
+                        BoardController board = (BoardController) getControllerFromName("board.fxml");
+                        board.updateDeposits();
+                        board.updatePosition();
+                    });
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
@@ -401,7 +411,7 @@ public class GUI extends Application implements SourceListener {
             case "PRODUCE":
 
                 if (value == null) {
-                    updateBoard();
+                    updateProduce();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
@@ -416,9 +426,9 @@ public class GUI extends Application implements SourceListener {
             case "BUY":
 
                 if (value == null) {
-                    updateBoard();
+                    updateBuy();
                 } else {
-                    updateBoard();
+                    updateBuy();
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Buy");
@@ -431,9 +441,9 @@ public class GUI extends Application implements SourceListener {
             case "MARKET":
 
                 if (value == null) {
-                    updateBoard();
+                    updateMarket();
                 } else {
-                    updateBoard();
+                    updateMarket();
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Market");
@@ -447,7 +457,7 @@ public class GUI extends Application implements SourceListener {
             case "SWAP":
 
                 if (value == null) {
-                    updateBoard();
+                    updateSwap();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
@@ -462,7 +472,7 @@ public class GUI extends Application implements SourceListener {
             case "ACTIVATE":
 
                 if (value == null) {
-                    updateBoard();
+                    updateLeader();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
@@ -477,7 +487,7 @@ public class GUI extends Application implements SourceListener {
             case "DISCARD":
 
                 if (value == null) {
-                    updateBoard();
+                    updateLeader();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
@@ -490,7 +500,7 @@ public class GUI extends Application implements SourceListener {
                 break;
 
             case "ENDTURN":
-                updateBoard();
+                updateEndTurn();
                 if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     if (modelView.isSoloGame()){
                         Platform.runLater(() -> {

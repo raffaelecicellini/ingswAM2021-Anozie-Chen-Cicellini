@@ -217,10 +217,6 @@ public class MarketController extends GUIController{
 
     //Metodi set per cambiare la disposizione delle biglie?
 
-    public void updateMarket() {
-
-    }
-
     /**
      * This method is called when a player takes resources from the market. It updates the GridPane with the new images
      */

@@ -11,14 +11,13 @@ import java.util.Scanner;
  * Main App class. Its main is the beginning of the application and let the user select what he wants to launch (Server,
  * CLI, GUI).
  */
-public class App 
-{
+public class App {
     /**
      * Method main selects CLI, GUI or Server based on the arguments provided.
      * @param args of type String[]
      */
     public static void main(String[] args){
-        /*System.out.println("Hi! Welcome to Master of Renaissance!\nWhat do you want to launch?");
+        System.out.println("Hi! Welcome to Master of Renaissance!\nWhat do you want to launch?");
         System.out.println("0. SERVER\n1. CLIENT (CLI INTERFACE)\n2. CLIENT (GUI INTERFACE)");
         System.out.println("\n>Type the number of the desired option!");
         System.out.print(">");
@@ -30,8 +29,7 @@ public class App
             System.err.println("Numeric format requested, application will now close...");
             System.exit(-1);
         }
-        switch (input) {*/
-        switch (2) {
+        switch (input) {
             case 0:
                 Server.main(null);
                 break;

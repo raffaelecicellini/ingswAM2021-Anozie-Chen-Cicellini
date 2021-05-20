@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.gui.GUI;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;

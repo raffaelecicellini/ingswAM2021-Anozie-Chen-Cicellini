@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.gui.Controllers;
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -21,11 +23,8 @@ import java.util.*;
 public class ProduceController extends GUIController{
     @FXML private Button base, confirm;
 
-    @FXML private ImageView dev0;
-    @FXML private ImageView dev1;
-    @FXML private ImageView dev2;
-    @FXML private ImageView leader0;
-    @FXML private ImageView leader1;
+    @FXML private ImageView dev0, dev1, dev2;
+    @FXML private ImageView leader0, leader1;
 
 
     private GUI gui;
@@ -34,7 +33,6 @@ public class ProduceController extends GUIController{
 
     /**
      * This method is called by BoardController, whenever the player clicks on produce.
-     * @throws IOException
      */
     public void produce() {
         //Metodo chiamato quando utente da board.fxml schiaccia su pulsante corrispondente. Mostra nuovo stage da cui
@@ -80,6 +78,149 @@ public class ProduceController extends GUIController{
         info.put("pos02", choosePos("color"));
         info.put("out0", chooseColor("out"));
 
+    }
+
+    /**
+     * This method is activated when a player clicks on one of the develop cards. It asks the player from where he wants to
+     * take his resources.
+     * @param event the mouse click of the player on a develop card.
+     */
+    public void selectDev(MouseEvent event) {
+
+        // to get the index of the slot
+        int slot = Integer.parseInt(((Node) event.getSource()).getId().replaceAll("[^0-9]", ""));
+
+        switch (slot) {
+            case 0:
+                if (dev0.getImage() == null) return;
+                break;
+            case 1:
+                if (dev1.getImage() == null) return;
+                break;
+            case 2:
+                if (dev2.getImage() == null) return;
+                break;
+            default:
+                return;
+        }
+
+        info.put("prod" + (slot + 1), "yes");
+        List<String> input = Cards.getInputById(gui.getModelView().getTopId(gui.getModelView().getSlots(gui.getModelView().getName()).get(slot)));
+        int i = 1;
+        for (String res : input) { ;
+            info.put("pos1" + i, choosePos(res));
+            i++;
+        }
+
+    }
+
+    /**
+     * This method is activated when the player clicks on one of the leader productions. It asks which resource and
+     * from where he wants to take it and the resource he wants to produce.
+     * @param event when the player clicks on a leader.
+     */
+    public void selectLeader(MouseEvent event) {
+
+        // to get the index of the slot
+        int leader = Integer.parseInt(((Node) event.getSource()).getId().replaceAll("[^0-9]", ""));
+
+        switch (leader) {
+            case 0:
+                if (leader0.getImage() == null) return;
+                break;
+            case 1:
+                if (leader1.getImage() == null) return;
+                break;
+            default:
+                break;
+        }
+
+        info.put("prod" + (leader + 4), "yes");
+        String input = Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + leader)));
+        info.put("pos" + (leader + 4) + "1", choosePos(input));
+
+        info.put("out" + (leader + 4), chooseColor("out"));
+    }
+
+    /**
+     * This method is activated when the user clicks confirm to confirm his production. Is asks for confirmation and if
+     * it is confirmed, it notifies the answer handler of the change.
+     * @param event when the player clicks on confirm.
+     */
+    public void confirm (ActionEvent event) {
+        //Metodo chiamato quando utente conferma la mossa. Check per controllare se almeno una produzione è stata attivata
+        //(altrimenti Alert.ERROR). Alert.CONFIRMATION per chiedere conferma: se si pack inviato, altrimenti si chiude stage
+        //e si torna a board.fxml
+
+        boolean confirm = false;
+        for (int i = 0; i < 6; i++) {
+            if (info.get("prod" + i).equalsIgnoreCase("yes")) {
+                confirm = true;
+                break;
+            }
+        }
+
+        if (confirm) {
+
+            StringBuilder action = new StringBuilder();
+            int devCard = 0;
+
+            while (devCard < 6) {
+                while (info.containsKey("prod" + devCard) && !info.get("prod" + devCard).equalsIgnoreCase("yes")) {
+                    devCard++;
+                }
+
+                if (devCard < 6) {
+
+                    action.append("\n").append("prod").append(devCard).append(": IN = (");
+
+                    if (devCard == 0) {
+                        action.append(info.get("in01").toUpperCase()).append(", ").append(info.get("pos01").toLowerCase()).append("), (").append(info.get("in02").toUpperCase())
+                                .append(", ").append(info.get("pos02").toLowerCase()).append("); OUT = ").append(info.get("out0").toUpperCase());
+                    } else if (devCard >= 1 && devCard <= 3) {
+                        int n_pos = 1;
+                        ArrayList<String> inputRes = Cards.getInputById(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1)[gui.getModelView().getTopIndex(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1))]);
+                        // pos11 o pos12
+                        while (info.containsKey("pos" + devCard + n_pos)) {
+                            // BLUE, SMALL), (GREY, MID);
+                            if (n_pos == 1) {
+                                action.append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                            }
+                            if (n_pos == 2) {
+                                action.append(", (").append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
+                            }
+                            n_pos++;
+                        }
+                    } else if (devCard >= 4 && devCard <= 5) {
+                        //BLUE, SMALL); OUT = GREY
+                        action.append(Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + (devCard - 4))))).append(", ")
+                                .append(info.get("pos" + devCard + "1").toLowerCase()).append("); OUT = ").append(info.get("out" + devCard).toUpperCase());
+                    }
+                    devCard++;
+                }
+            }
+            
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setHeaderText("Confirm production");
+            alert.setContentText("Do you want to confirm?" + action);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                info.put("player", gui.getModelView().getName());
+                info.put("action", "produce");
+                gui.getModelView().setActiveTurn(false);
+                gui.getListeners().fireUpdates("produce", info);
+            }
+            info.clear();
+            stage.close();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setContentText("You must start at least one production!");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -162,147 +303,30 @@ public class ProduceController extends GUIController{
         return null;
     }
 
-    /**
-     * This method is activated when a player clicks on one of the develop cards. It asks the player from where he wants to
-     * take his resources.
-     * @param event the mouse click of the player.
-     */
-    public void selectDev(MouseEvent event) {
+    public void updateSlots() {
+        Platform.runLater( () -> {
+            Image image;
+            List<int[]> slots = gui.getModelView().getSlots(gui.getModelView().getName());
+            for (int i = 0; i < slots.size(); i++) {
+                if (gui.getModelView().getTopId(slots.get(i)) > 0)
+                    image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
+                else image = null;
 
-        // to get the index of the slot
-        int slot = Integer.parseInt(((Node) event.getSource()).getId().replaceAll("[^0-9]", ""));
-
-        switch (slot) {
-            case 0:
-                if (dev0.getImage() == null) return;
-                break;
-            case 1:
-                if (dev1.getImage() == null) return;
-                break;
-            case 2:
-                if (dev2.getImage() == null) return;
-                break;
-            default:
-                return;
-        }
-
-        info.put("prod" + (slot + 1), "yes");
-        List<String> input = Cards.getInputById(gui.getModelView().getTopId(gui.getModelView().getSlots(gui.getModelView().getName()).get(slot)));
-        int i = 1;
-        for (String res : input) { ;
-            info.put("pos1" + i, choosePos(res));
-            i++;
-        }
-
-    }
-
-    /**
-     * This method is activated when the player clicks on one of the leader productions. It asks which resource and
-     * from where he wants to take it and the resource he wants to produce.
-     * @param event
-     */
-    public void selectLeader(MouseEvent event) {
-
-        // to get the index of the slot
-        int leader = Integer.parseInt(((Node) event.getSource()).getId().replaceAll("[^0-9]", ""));
-
-        switch (leader) {
-            case 0:
-                if (leader0.getImage() == null) return;
-                break;
-            case 1:
-                if (leader1.getImage() == null) return;
-                break;
-            default:
-                break;
-        }
-
-        info.put("prod" + (leader + 4), "yes");
-        String input = Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + leader)));
-        info.put("pos" + (leader + 4) + "1", choosePos(input));
-
-        info.put("out" + (leader + 4), chooseColor("out"));
-    }
-
-    /**
-     * This method is activated when the user clicks confirm to confirm his production. Is asks for confirmation and if
-     * it is confirmed, it notifies the answer handler of the change.
-     * @param event
-     */
-    public void confirm (ActionEvent event) {
-        //Metodo chiamato quando utente conferma la mossa. Check per controllare se almeno una produzione è stata attivata
-        //(altrimenti Alert.ERROR). Alert.CONFIRMATION per chiedere conferma: se si pack inviato, altrimenti si chiude stage
-        //e si torna a board.fxml
-
-        boolean confirm = false;
-        for (int i = 0; i < 6; i++) {
-            if (info.get("prod" + i).equalsIgnoreCase("yes")) {
-                confirm = true;
-                break;
-            }
-        }
-
-        if (confirm) {
-
-            StringBuilder action = new StringBuilder();
-            int devCard = 0;
-
-            while (devCard < 6) {
-                while (info.containsKey("prod" + devCard) && !info.get("prod" + devCard).equalsIgnoreCase("yes")) {
-                    devCard++;
-                }
-
-                if (devCard < 6) {
-
-                    action.append("\n").append("prod").append(devCard).append(": IN = (");
-
-                    if (devCard == 0) {
-                        action.append(info.get("in01").toUpperCase()).append(", ").append(info.get("pos01").toLowerCase()).append("), (").append(info.get("in02").toUpperCase())
-                                .append(", ").append(info.get("pos02").toLowerCase()).append("); OUT = ").append(info.get("out0").toUpperCase());
-                    } else if (devCard >= 1 && devCard <= 3) {
-                        int n_pos = 1;
-                        ArrayList<String> inputRes = Cards.getInputById(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1)[gui.getModelView().getTopIndex(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1))]);
-                        // pos11 o pos12
-                        while (info.containsKey("pos" + devCard + n_pos)) {
-                            // BLUE, SMALL), (GREY, MID);
-                            if (n_pos == 1) {
-                                action.append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
-                            }
-                            if (n_pos == 2) {
-                                action.append(", (").append(inputRes.get(n_pos - 1).toUpperCase()).append(", ").append(info.get("pos" + devCard + n_pos).toLowerCase()).append(")");
-                            }
-                            n_pos++;
-                        }
-                    } else if (devCard >= 4 && devCard <= 5) {
-                        //BLUE, SMALL); OUT = GREY
-                        action.append(Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + (devCard - 4))))).append(", ")
-                                .append(info.get("pos" + devCard + "1").toLowerCase()).append("); OUT = ").append(info.get("out" + devCard).toUpperCase());
-                    }
-                    devCard++;
+                switch (i) {
+                    case 0:
+                        dev0.setImage(image);
+                        break;
+                    case 1:
+                        dev1.setImage(image);
+                        break;
+                    case 2:
+                        dev2.setImage(image);
+                        break;
                 }
             }
-            
-            
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setHeaderText("Confirm production");
-            alert.setContentText("Do you want to confirm?" + action);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                info.put("player", gui.getModelView().getName());
-                info.put("action", "produce");
-                gui.getModelView().setActiveTurn(false);
-                gui.getListeners().fireUpdates("produce", info);
-            }
-            info.clear();
-            stage.close();
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setContentText("You must start at least one production!");
-            alert.showAndWait();
-        }
+
+                }
+        );
     }
 
     @Override

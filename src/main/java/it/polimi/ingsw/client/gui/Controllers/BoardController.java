@@ -1,7 +1,9 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
+import it.polimi.ingsw.client.Tile;
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -19,6 +21,12 @@ public class BoardController extends GUIController{
     @FXML private Label blue_qty, yellow_qty, grey_qty, purple_qty;
     @FXML private ImageView small, mid1, mid2, big1, big2, big3;
     @FXML private ImageView leader_res00, leader_res01, leader_res10, leader_res11;
+    @FXML private ImageView dev0, dev1, dev2;
+    @FXML private ImageView leader0, leader1;
+    @FXML private Label sp_leader0, sp_leader1;
+    @FXML private Label slot0, slot1, slot2;
+    @FXML
+    private ImageView tile0,tile1,tile2;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -400,6 +408,118 @@ public class BoardController extends GUIController{
             curr="strqty"+i;
             labels.get(i).setText("x "+strongbox.get(curr));
         }
+    }
+
+    /**
+     * This method updates the Slots on the personal Board.
+     */
+    public void updateSlots() {
+        Platform.runLater( () -> {
+                    Image image;
+                    List<int[]> slots = gui.getModelView().getSlots(gui.getModelView().getName());
+                    int lv;
+                    StringBuilder label = new StringBuilder();
+                    for (int slot = 0; slot < slots.size(); slot++) {
+                        lv = 0;
+                        if (gui.getModelView().getTopId(slots.get(slot)) > 0) {
+                            // set image
+                            image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(slot)) + ".png");
+
+                            // set label
+                            while (lv < slots.get(slot).length) {
+                                if (slots.get(slot)[lv] != 0) {
+                                    if (lv != 0) label.append(", ");
+
+                                    label.append("LV").append(lv + 1).append(": ").append(Cards.getColorById(slots.get(slot)[lv]));
+                                    lv++;
+                                } else break;
+                            }
+                        }
+                        else image = null;
+
+                        switch (slot) {
+                            case 0:
+                                dev0.setImage(image);
+                                slot0.setText(label.toString());
+                                break;
+                            case 1:
+                                dev1.setImage(image);
+                                slot1.setText(label.toString());
+                                break;
+                            case 2:
+                                dev2.setImage(image);
+                                slot2.setText(label.toString());
+                                break;
+                        }
+                    }
+                }
+        );
+    }
+
+    /**
+     * This method updates the Leaders on the personal Board (after activate/discard leader actions).
+     */
+    public void updateLeader() {
+        Platform.runLater( () -> {
+            Image image;
+            Map<String, String> leaders = gui.getModelView().getLeaders(gui.getModelView().getName());
+            for (int i = 0; i < leaders.size() / 2; i++) {
+                if (leaders.get("state" + i).equalsIgnoreCase("discarded")) image = null;
+                else image = new Image("../PNG/cards/lc_" + leaders.get("leader" + i));
+
+                switch (i) {
+                    case 0:
+                        if (Integer.parseInt(leaders.get("leader" + i)) >= 7 &&
+                                Integer.parseInt(leaders.get("leader" + i)) <= 10 &&
+                                leaders.get("state" + i).equalsIgnoreCase("active")) {
+                            if (Integer.parseInt(leaders.get("leader" + (i+1))) >= 7 &&
+                                    Integer.parseInt(leaders.get("leader" + (i+1))) <= 10 &&
+                                    leaders.get("state" + (i+1)).equalsIgnoreCase("active"))
+                                sp_leader0.setText("SP2");
+                            else sp_leader0.setText("SP1");
+                            sp_leader0.setOpacity(1);
+                        }
+                        sp_leader0.setOpacity(0);
+                        leader0.setImage(image);
+                        if (leaders.get("state" + i).equalsIgnoreCase("active")) leader0.setOpacity(1);
+                        else if (leaders.get("state" + i).equalsIgnoreCase("available")) leader0.setOpacity(0.45);
+                        break;
+                    case 1:
+                        if (Integer.parseInt(leaders.get("leader" + i)) >= 7 &&
+                                Integer.parseInt(leaders.get("leader" + i)) <= 10 &&
+                                leaders.get("state" + i).equalsIgnoreCase("active")) {
+                            if (Integer.parseInt(leaders.get("leader" + (i-1))) >= 7 &&
+                                    Integer.parseInt(leaders.get("leader" + (i-1))) <= 10 &&
+                                    leaders.get("state" + (i-1)).equalsIgnoreCase("active"))
+                                sp_leader1.setText("SP2");
+                            else sp_leader1.setText("SP1");
+                            sp_leader1.setOpacity(1);
+                        }
+                        sp_leader1.setOpacity(0);
+                        leader1.setImage(image);
+                        if (leaders.get("state" + i).equalsIgnoreCase("active")) leader1.setOpacity(1);
+                        else if (leaders.get("state" + i).equalsIgnoreCase("available")) leader1.setOpacity(0.45);
+                        break;
+                }
+            }
+        });
+    }
+
+    public void updateTiles() {
+        Tile[] model = gui.getModelView().getTiles(gui.getModelView().getName());
+        ImageView[] tiles = new ImageView[] {tile0,tile1,tile2};
+        for (int i = 0; i < model.length; i++) {
+            if (model[i].isActive())
+                tiles[i].setImage(new Image("/PNG/punchboard/active"+(i+2)+".png"));
+            else if (model[i].isDiscarded())
+                tiles[i].setImage(null);
+            else if (!model[i].isActive() && !model[i].isDiscarded())
+                tiles[i].setImage(new Image("/PNG/punchboard/quadrato"+(i+2)+".png"));
+        }
+    }
+
+    public void updatePosition() {
+
     }
 
     /**

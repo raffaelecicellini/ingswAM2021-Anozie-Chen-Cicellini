@@ -2,18 +2,19 @@ package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,8 @@ public class BuyController extends GUIController{
     private GUI gui;
     private Map<String, String> action =  new HashMap<>();
     private Stage stage;
+    @FXML
+    private GridPane decks;
 
     public void buy(){
         //Metodo chiamato quando utente da board schiaccia su tasto buy. Mostra un nuovo stage buy.fxml da cui non si può uscire
@@ -224,6 +227,27 @@ public class BuyController extends GUIController{
         } else {
             //what to do?? :user chose CANCEL or closed the dialog
             return null;
+        }
+    }
+
+    public void updateDecks() {
+        ObservableList<Node> children = decks.getChildren();
+        int[][] modelDecks = gui.getModelView().getDevelopDecks();
+        for (Node node : children) {
+            int row;
+            if (decks.getRowIndex(node) == 0)
+                row = 2;
+            else if (decks.getRowIndex(node) == 2)
+                row = 0;
+            else row = decks.getRowIndex(node);
+            int col = decks.getColumnIndex(node);
+            if (modelDecks[col][row] != 0) {
+                ImageView image = (ImageView) node;
+                image.setImage(new Image("/PNG/cards/dc_" + modelDecks[col][row] + ".png"));
+            } else {
+                ImageView image = (ImageView) node;
+                image.setImage(null);
+            }
         }
     }
 

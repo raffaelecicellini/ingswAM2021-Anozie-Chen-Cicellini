@@ -55,11 +55,6 @@ public class ProduceController extends GUIController{
             info.clear();
         });
         stage.show();
-
-        /*Parent root = FXMLLoader.load(getClass().getResource("/fxml/dio.fxml"));
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();*/
     }
 
     /**

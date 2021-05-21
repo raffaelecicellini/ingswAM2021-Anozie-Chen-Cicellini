@@ -136,5 +136,7 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <ImageView fx:id="blackCross" fitHeight="33.0" fitWidth="39.0" layoutX="214.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos" fitHeight="33.0" fitWidth="39.0" layoutX="194.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

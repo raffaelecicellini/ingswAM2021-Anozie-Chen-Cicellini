@@ -61,5 +61,7 @@
       <ImageView fx:id="slot2" fitHeight="48.0" fitWidth="48.0" layoutX="750.0" layoutY="75.0" pickOnBounds="true" />
       <Label fx:id="sp_leader0" alignment="CENTER" layoutX="43.0" layoutY="13.0" opacity="0.0" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: white;" text="SP" />
       <Label fx:id="sp_leader1" alignment="CENTER" layoutX="43.0" layoutY="208.0" opacity="0.0" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: white;" text="SP" />
+      <ImageView fx:id="blackCross" fitHeight="33.0" fitWidth="39.0" layoutX="231.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos" fitHeight="33.0" fitWidth="39.0" layoutX="217.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

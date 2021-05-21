@@ -40,7 +40,7 @@ public class ServerPing implements Runnable{
         do {
             try {
                 //5000 is timeout/2
-                Thread.currentThread().sleep(5000);
+                Thread.sleep(10000);
                 pingServer();
             } catch (InterruptedException e) {
                 System.err.println(e.getMessage());

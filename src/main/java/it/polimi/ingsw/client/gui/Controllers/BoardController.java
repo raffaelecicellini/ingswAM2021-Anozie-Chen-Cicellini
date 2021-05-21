@@ -401,7 +401,7 @@ public class BoardController extends GUIController{
      */
     public void updateStrongbox(){
         Map<String, String> strongbox= gui.getModelView().getStrongbox(gui.getModelView().getName());
-        List<Label> labels= Arrays.asList(blue_qty, yellow_qty, grey_qty, purple_qty);
+        List<Label> labels= Arrays.asList(blue_qty, purple_qty, grey_qty, yellow_qty);
 
         String curr;
         for (int i=0; i<labels.size(); i++){

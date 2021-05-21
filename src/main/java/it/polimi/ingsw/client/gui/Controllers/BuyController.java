@@ -234,19 +234,21 @@ public class BuyController extends GUIController{
         ObservableList<Node> children = decks.getChildren();
         int[][] modelDecks = gui.getModelView().getDevelopDecks();
         for (Node node : children) {
-            int row;
-            if (GridPane.getRowIndex(node) == 0)
-                row = 2;
-            else if (GridPane.getRowIndex(node) == 2)
-                row = 0;
-            else row = GridPane.getRowIndex(node);
-            int col = GridPane.getColumnIndex(node);
-            if (modelDecks[col][row] != 0) {
-                ImageView image = (ImageView) node;
-                image.setImage(new Image("/PNG/cards/dc_" + modelDecks[col][row] + ".png"));
-            } else {
-                ImageView image = (ImageView) node;
-                image.setImage(null);
+            if (node instanceof ImageView) {
+                int row;
+                if (GridPane.getRowIndex(node) == 0)
+                    row = 2;
+                else if (GridPane.getRowIndex(node) == 2)
+                    row = 0;
+                else row = GridPane.getRowIndex(node);
+                int col = GridPane.getColumnIndex(node);
+                if (modelDecks[col][row] != 0) {
+                    ImageView image = (ImageView) node;
+                    image.setImage(new Image("/PNG/cards/dc_" + modelDecks[col][row] + ".png"));
+                } else {
+                    ImageView image = (ImageView) node;
+                    image.setImage(null);
+                }
             }
         }
     }

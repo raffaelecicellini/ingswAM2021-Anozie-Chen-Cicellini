@@ -39,17 +39,17 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="discard" layoutX="600.0" layoutY="310.0" mnemonicParsing="false" onAction="#discard" prefHeight="55.0" prefWidth="120.0" text="DISCARD" AnchorPane.rightAnchor="10.0">
+      <Button fx:id="discard" layoutX="600.0" layoutY="250.0" mnemonicParsing="false" onAction="#discard" prefHeight="55.0" prefWidth="120.0" text="DISCARD" AnchorPane.rightAnchor="10.0">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="swap" layoutX="600.0" layoutY="370.0" mnemonicParsing="false" onAction="#swap" prefHeight="55.0" prefWidth="120.0" text="SWAP" AnchorPane.rightAnchor="10.0">
+      <Button fx:id="swap" layoutX="600.0" layoutY="310.0" mnemonicParsing="false" onAction="#swap" prefHeight="55.0" prefWidth="120.0" text="SWAP" AnchorPane.rightAnchor="10.0">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="show" layoutX="600.0" layoutY="250.0" mnemonicParsing="false" onAction="#show" prefHeight="55.0" prefWidth="120.0" text="SHOW" AnchorPane.rightAnchor="10.0">
+      <Button fx:id="show" layoutX="600.0" layoutY="370.0" mnemonicParsing="false" onAction="#show" prefHeight="55.0" prefWidth="120.0" text="SHOW" AnchorPane.rightAnchor="10.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -123,17 +123,17 @@
          </font></Label>
       <Label fx:id="slot0" layoutX="438.0" layoutY="400.0" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: white;">
          <font>
-            <Font size="16.0" />
+            <Font size="9.0" />
          </font>
       </Label>
       <Label fx:id="slot1" layoutX="566.0" layoutY="400.0" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: white;">
          <font>
-            <Font size="14.0" />
+            <Font size="9.0" />
          </font>
       </Label>
       <Label fx:id="slot2" layoutX="696.0" layoutY="400.0" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: white;">
          <font>
-            <Font size="14.0" />
+            <Font size="9.0" />
          </font>
       </Label>
       <ImageView fx:id="blackCross" fitHeight="33.0" fitWidth="39.0" layoutX="214.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />

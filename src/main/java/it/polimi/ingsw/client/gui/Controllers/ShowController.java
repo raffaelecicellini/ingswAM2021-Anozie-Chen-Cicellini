@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.HashMap;
 import java.util.List;
@@ -183,7 +182,8 @@ public class ShowController extends GUIController{
                 for (int i = 0; i < tiles.length; i++) {
                     if (!tiles[i].isActive() && !tiles[i].isDiscarded())
                         image = new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png");
-                    else if (tiles[i].isActive()) image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
+                    else if (tiles[i].isActive())
+                        image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
                     else if (tiles[i].isDiscarded()) image = null;
 
                     slot[i].setImage(image);

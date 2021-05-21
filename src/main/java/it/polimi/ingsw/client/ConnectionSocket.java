@@ -115,7 +115,7 @@ public class ConnectionSocket {
 
         try {
             //10000 is the timeout
-            socket.setSoTimeout(10000);
+            socket.setSoTimeout(20000);
         }catch (SocketException e) {
             System.err.println(e.getMessage());
         }

@@ -506,6 +506,10 @@ public class GUI extends Application implements SourceListener {
                 if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     if (modelView.isSoloGame()){
                         Platform.runLater(() -> {
+                            BuyController buy = (BuyController) getControllerFromName("buy.fxml");
+                            buy.updateDecks();
+                            BoardController board = (BoardController) getControllerFromName("board.fxml");
+                            board.updatePosition();
                             Alert alert= new Alert(Alert.AlertType.INFORMATION);
                             alert.setHeaderText("EndTurn");
                             alert.setContentText("The Token that has been activated is: ");

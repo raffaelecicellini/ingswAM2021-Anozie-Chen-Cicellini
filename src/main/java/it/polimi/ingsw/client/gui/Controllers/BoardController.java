@@ -454,10 +454,12 @@ public class BoardController extends GUIController{
     public void updateLeader() {
         Image image;
         Map<String, String> leaders = gui.getModelView().getLeaders(gui.getModelView().getName());
+        ImageView[] leaderImages = new ImageView[]{leader0, leader1};
         for (int i = 0; i < leaders.size() / 2; i++) {
             if (leaders.get("state" + i).equalsIgnoreCase("discarded")) image = null;
-            else image = new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png");
+            else image = new Image("/PNG/cards/lc_" + leaders.get("leader" + i) + ".png");
 
+            // now setting the labels if there are two extraDepositLeaders
             switch (i) {
                 case 0:
                     if (Integer.parseInt(leaders.get("leader" + i)) >= 7 &&
@@ -465,15 +467,15 @@ public class BoardController extends GUIController{
                             leaders.get("state" + i).equalsIgnoreCase("active")) {
                         if (Integer.parseInt(leaders.get("leader" + (i + 1))) >= 7 &&
                                 Integer.parseInt(leaders.get("leader" + (i + 1))) <= 10 &&
-                                leaders.get("state" + (i + 1)).equalsIgnoreCase("active"))
-                            sp_leader0.setText("SP2");
+                                leaders.get("state" + (i + 1)).equalsIgnoreCase("active")) {
+                            if (sp_leader1.getText().equalsIgnoreCase("SP1"))
+                                sp_leader0.setText("SP2");
+                        }
                         else sp_leader0.setText("SP1");
+
                         sp_leader0.setOpacity(1);
                     }
-                    sp_leader0.setOpacity(0);
-                    leader0.setImage(image);
-                    if (leaders.get("state" + i).equalsIgnoreCase("active")) leader0.setOpacity(1);
-                    else if (leaders.get("state" + i).equalsIgnoreCase("available")) leader0.setOpacity(0.45);
+                    else sp_leader0.setOpacity(0);
                     break;
                 case 1:
                     if (Integer.parseInt(leaders.get("leader" + i)) >= 7 &&
@@ -481,17 +483,23 @@ public class BoardController extends GUIController{
                             leaders.get("state" + i).equalsIgnoreCase("active")) {
                         if (Integer.parseInt(leaders.get("leader" + (i - 1))) >= 7 &&
                                 Integer.parseInt(leaders.get("leader" + (i - 1))) <= 10 &&
-                                leaders.get("state" + (i - 1)).equalsIgnoreCase("active"))
-                            sp_leader1.setText("SP2");
+                                leaders.get("state" + (i - 1)).equalsIgnoreCase("active")) {
+                            if (sp_leader0.getText().equalsIgnoreCase("SP1"))
+                                sp_leader1.setText("SP2");
+                        }
                         else sp_leader1.setText("SP1");
+
                         sp_leader1.setOpacity(1);
                     }
-                    sp_leader1.setOpacity(0);
-                    leader1.setImage(image);
-                    if (leaders.get("state" + i).equalsIgnoreCase("active")) leader1.setOpacity(1);
-                    else if (leaders.get("state" + i).equalsIgnoreCase("available")) leader1.setOpacity(0.45);
+                    else sp_leader1.setOpacity(0);
                     break;
             }
+
+            leaderImages[i].setImage(image);
+            double opacity = 0;
+            if (leaders.get("state" + i).equalsIgnoreCase("active")) opacity = 1;
+            else if (leaders.get("state" + i).equalsIgnoreCase("available")) opacity = 0.45;
+            leaderImages[i].setOpacity(opacity);
         }
     }
 

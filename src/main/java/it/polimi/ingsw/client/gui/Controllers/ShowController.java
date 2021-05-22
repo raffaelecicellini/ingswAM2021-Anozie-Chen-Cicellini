@@ -181,7 +181,7 @@ public class ShowController extends GUIController{
                 for (int i = 0; i < tiles.length; i++) {
                     if (!tiles[i].isActive() && !tiles[i].isDiscarded())
                         image = new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png");
-                    else if (tiles[i].isActive())
+                    else if (tiles[i].isActive() && !tiles[i].isDiscarded())
                         image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
                     else if (tiles[i].isDiscarded())
                         image = null;
@@ -200,22 +200,18 @@ public class ShowController extends GUIController{
                     }*/
                 }
 
-                switch (gui.getModelView().getPosition(name)) {
-                    case 0:
-                }
+                // POSITION
+                if (pos.getImage() == null)
+                    pos.setImage(new Image("/PNG/punchboard/red_cross.png"));
+                setPosition(pos,gui.getModelView().getPosition(name));
+
+                Scene show = gui.getSceneFromName("show.fxml");
+                Stage stage = new Stage();
+                stage.setScene(show);
+                stage.setTitle("Show");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
             }
-
-            // POSITION
-            if (pos.getImage() == null)
-                pos.setImage(new Image("/PNG/punchboard/red_cross.png"));
-            setPosition(pos,gui.getModelView().getPosition(name));
-
-            Scene show = gui.getSceneFromName("show.fxml");
-            Stage stage = new Stage();
-            stage.setScene(show);
-            stage.setTitle("Show");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
         }
     }
 

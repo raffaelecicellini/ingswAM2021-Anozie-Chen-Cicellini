@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,7 @@ public class ShowController extends GUIController{
     @FXML private ImageView small, mid1, mid2, big1, big2, big3, leaderRes00, leaderRes01, leaderRes10, leaderRes11;
     @FXML private Label blue_qty, purple_qty, grey_qty, yellow_qty, sp_leader0, sp_leader1;
     @FXML private ImageView dev0, dev1, dev2, leader0, leader1, slot0, slot1, slot2;
+    @FXML private ImageView pos;
 
 
     /**
@@ -183,7 +183,8 @@ public class ShowController extends GUIController{
                 for (int i = 0; i < tiles.length; i++) {
                     if (!tiles[i].isActive() && !tiles[i].isDiscarded())
                         image = new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png");
-                    else if (tiles[i].isActive()) image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
+                    else if (tiles[i].isActive())
+                        image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
                     else if (tiles[i].isDiscarded()) image = null;
 
                     slot[i].setImage(image);
@@ -204,6 +205,11 @@ public class ShowController extends GUIController{
                     case 0:
                 }
             }
+
+            // POSITION
+            if (pos.getImage() == null)
+                pos.setImage(new Image("/PNG/punchboard/red_cross.png"));
+            setPosition(pos,gui.getModelView().getPosition(name));
 
             Scene show = gui.getSceneFromName("show.fxml");
             Stage stage = new Stage();

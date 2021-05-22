@@ -27,6 +27,8 @@ public class BoardController extends GUIController{
     @FXML private Label slot0, slot1, slot2;
     @FXML
     private ImageView tile0,tile1,tile2;
+    @FXML
+    private ImageView pos,blackCross;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -418,10 +420,13 @@ public class BoardController extends GUIController{
     public void updateSlots() {
         Image image;
         List<int[]> slots = gui.getModelView().getSlots(gui.getModelView().getName());
+        ImageView[] devs = new ImageView[]{dev0, dev1, dev2};
+        Label[] slotsLabel = new Label[]{slot0, slot1, slot2};
         int lv;
         StringBuilder label = new StringBuilder();
         for (int slot = 0; slot < slots.size(); slot++) {
             lv = 0;
+            label.setLength(0);
             if (gui.getModelView().getTopId(slots.get(slot)) > 0) {
                 // set image
                 image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(slot)) + ".png");
@@ -429,29 +434,17 @@ public class BoardController extends GUIController{
                 // set label
                 while (lv < slots.get(slot).length) {
                     if (slots.get(slot)[lv] != 0) {
-                        if (lv != 0) label.append(", ");
+                        if (lv != 0) label.append(" - ");
 
-                        label.append("LV").append(lv + 1).append(": ").append(Cards.getColorById(slots.get(slot)[lv]));
+                        label.append(" LV").append(lv + 1).append(": ").append(Cards.getColorById(slots.get(slot)[lv]));
                         lv++;
                     } else break;
                 }
             }
             else image = null;
 
-            switch (slot) {
-                case 0:
-                    dev0.setImage(image);
-                    slot0.setText(label.toString());
-                    break;
-                case 1:
-                    dev1.setImage(image);
-                    slot1.setText(label.toString());
-                    break;
-                case 2:
-                    dev2.setImage(image);
-                    slot2.setText(label.toString());
-                    break;
-            }
+            devs[slot].setImage(image);
+            slotsLabel[slot].setText(label.toString());
         }
     }
 
@@ -516,7 +509,16 @@ public class BoardController extends GUIController{
     }
 
     public void updatePosition() {
-
+        if (gui.getModelView().isSoloGame()) {
+            if (blackCross.getImage() == null)
+                blackCross.setImage(new Image("/PNG/punchboard/croce.png"));
+            setPosition(blackCross,gui.getModelView().getBlackCross());
+            blackCross.setLayoutX(blackCross.getLayoutX()+5);
+            blackCross.setLayoutY(blackCross.getLayoutY()+5);
+        }
+        if (pos.getImage() == null)
+            pos.setImage(new Image("/PNG/punchboard/red_cross.png"));
+        setPosition(pos,gui.getModelView().getPosition(gui.getModelView().getName()));
     }
 
     /**

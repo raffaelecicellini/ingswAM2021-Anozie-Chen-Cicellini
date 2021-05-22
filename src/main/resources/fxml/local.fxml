@@ -8,23 +8,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.client.gui.Controllers.StartController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.StartController">
    <children>
       <ImageView fx:id="background" fitHeight="400.0" fitWidth="600.0" layoutX="86.0" layoutY="34.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../PNG/marbles_bg/background.png" />
          </image>
       </ImageView>
-      <TextField fx:id="nameLocal" layoutX="247.0" layoutY="175.0" prefHeight="55.0" prefWidth="335.0" AnchorPane.bottomAnchor="169.0">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </TextField>
       <Label fx:id="tlabel" layoutX="47.0" layoutY="178.0" prefHeight="50.0" prefWidth="199.0" style="-fx-background-color: white;" text="Select a username">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <TextField fx:id="nameLocal" layoutX="247.0" layoutY="175.0" prefHeight="55.0" prefWidth="335.0" AnchorPane.bottomAnchor="169.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
       <Button fx:id="confirmButton" layoutX="512.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleLocal" prefHeight="41.0" prefWidth="59.0" text="Confirm" />
    </children>
 </AnchorPane>

@@ -370,13 +370,13 @@ public class BoardController extends GUIController{
 
         System.out.println(deps.get("sp1res")+" "+deps.get("sp1qty"));
 
-        if (deps.get("sp1res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
+        if (deps.get("sp1res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
             for (int i=0; i<lead0.size(); i++){
                 if (i> Integer.parseInt(deps.get("sp1qty")) -1) lead0.get(i).setImage(null);
                 else lead0.get(i).setImage(new Image(getPath(deps.get("sp1res"))));
             }
         }
-        else if (deps.get("sp1res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
+        else if (deps.get("sp1res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
             for (int i=0; i<lead1.size(); i++){
                 if (i> Integer.parseInt(deps.get("sp1qty")) -1) lead1.get(i).setImage(null);
                 else lead1.get(i).setImage(new Image(getPath(deps.get("sp1res"))));
@@ -384,13 +384,13 @@ public class BoardController extends GUIController{
         }
 
         if (deps.containsKey("sp2res")){
-            if (deps.get("sp2res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
+            if (deps.get("sp2res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
                 for (int i=0; i<lead0.size(); i++){
                     if (i> Integer.parseInt(deps.get("sp2qty")) -1) lead0.get(i).setImage(null);
                     else lead0.get(i).setImage(new Image(getPath(deps.get("sp2res"))));
                 }
             }
-            else if (deps.get("sp2res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
+            else if (deps.get("sp2res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
                 for (int i=0; i<lead1.size(); i++){
                     if (i> Integer.parseInt(deps.get("sp2qty")) -1) lead1.get(i).setImage(null);
                     else lead1.get(i).setImage(new Image(getPath(deps.get("sp2res"))));

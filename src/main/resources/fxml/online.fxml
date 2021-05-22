@@ -35,7 +35,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="address" layoutX="162.0" layoutY="202.0" prefHeight="50.0" prefWidth="170.0" text="0.tcp.ngrok.io">
+      <TextField fx:id="address" layoutX="162.0" layoutY="202.0" prefHeight="50.0" prefWidth="170.0">
          <font>
             <Font size="18.0" />
          </font></TextField>

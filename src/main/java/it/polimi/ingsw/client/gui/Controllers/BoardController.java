@@ -368,6 +368,8 @@ public class BoardController extends GUIController{
         List<ImageView> lead0= Arrays.asList(leader_res00, leader_res01);
         List<ImageView> lead1= Arrays.asList(leader_res10, leader_res11);
 
+        System.out.println(deps.get("sp1res")+" "+deps.get("sp1qty"));
+
         if (deps.get("sp1res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
             for (int i=0; i<lead0.size(); i++){
                 if (i> Integer.parseInt(deps.get("sp1qty")) -1) lead0.get(i).setImage(null);
@@ -497,12 +499,12 @@ public class BoardController extends GUIController{
         Tile[] model = gui.getModelView().getTiles(gui.getModelView().getName());
         ImageView[] tiles = new ImageView[] {tile0,tile1,tile2};
         for (int i = 0; i < model.length; i++) {
-            if (model[i].isActive())
+            if (model[i].isActive() && !model[i].isDiscarded())
                 tiles[i].setImage(new Image("/PNG/punchboard/active"+(i+2)+".png"));
-            else if (model[i].isDiscarded())
-                tiles[i].setImage(null);
             else if (!model[i].isActive() && !model[i].isDiscarded())
                 tiles[i].setImage(new Image("/PNG/punchboard/quadrato"+(i+2)+".png"));
+            else if (model[i].isDiscarded())
+                tiles[i].setImage(null);
         }
     }
 

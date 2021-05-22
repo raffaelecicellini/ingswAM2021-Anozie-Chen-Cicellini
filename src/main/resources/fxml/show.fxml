@@ -56,9 +56,9 @@
       <ImageView fx:id="leaderRes01" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leaderRes10" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leaderRes11" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="slot0" fitHeight="51.0" fitWidth="51.0" layoutX="339.0" layoutY="72.0" pickOnBounds="true" />
-      <ImageView fx:id="slot1" fitHeight="51.0" fitWidth="51.0" layoutX="502.0" layoutY="37.0" pickOnBounds="true" />
-      <ImageView fx:id="slot2" fitHeight="51.0" fitWidth="51.0" layoutX="698.0" layoutY="73.0" pickOnBounds="true" />
+      <ImageView fx:id="tile0" fitHeight="51.0" fitWidth="51.0" layoutX="339.0" layoutY="72.0" pickOnBounds="true" />
+      <ImageView fx:id="tile1" fitHeight="51.0" fitWidth="51.0" layoutX="502.0" layoutY="37.0" pickOnBounds="true" />
+      <ImageView fx:id="tile2" fitHeight="51.0" fitWidth="51.0" layoutX="698.0" layoutY="73.0" pickOnBounds="true" />
       <Label fx:id="sp_leader0" alignment="CENTER" layoutX="43.0" layoutY="13.0" opacity="0.0" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: white;" text="SP" />
       <Label fx:id="sp_leader1" alignment="CENTER" layoutX="43.0" layoutY="208.0" opacity="0.0" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: white;" text="SP" />
       <ImageView fx:id="pos" fitHeight="33.0" fitWidth="39.0" layoutX="217.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />

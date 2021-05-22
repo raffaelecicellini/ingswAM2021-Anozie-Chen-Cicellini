@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
-import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.Tile;
 import it.polimi.ingsw.client.gui.GUI;
 import javafx.fxml.FXML;
@@ -11,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +18,7 @@ public class ShowController extends GUIController{
 
     @FXML private ImageView small, mid1, mid2, big1, big2, big3, leaderRes00, leaderRes01, leaderRes10, leaderRes11;
     @FXML private Label blue_qty, purple_qty, grey_qty, yellow_qty, sp_leader0, sp_leader1;
-    @FXML private ImageView dev0, dev1, dev2, leader0, leader1, slot0, slot1, slot2;
+    @FXML private ImageView dev0, dev1, dev2, leader0, leader1, tile0, tile1, tile2;
     @FXML private ImageView pos;
 
 
@@ -179,15 +177,16 @@ public class ShowController extends GUIController{
 
                 // TILES
                 Tile[] tiles = gui.getModelView().getTiles(name);
-                ImageView[] slot = new ImageView[] {slot0, slot1, slot2};
+                ImageView[] tilesImages = new ImageView[] {tile0, tile1, tile2};
                 for (int i = 0; i < tiles.length; i++) {
                     if (!tiles[i].isActive() && !tiles[i].isDiscarded())
                         image = new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png");
                     else if (tiles[i].isActive())
                         image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
-                    else if (tiles[i].isDiscarded()) image = null;
+                    else if (tiles[i].isDiscarded())
+                        image = null;
 
-                    slot[i].setImage(image);
+                    tilesImages[i].setImage(image);
                     /*switch (i) {
                         case 0:
                             slot0.setImage(image);

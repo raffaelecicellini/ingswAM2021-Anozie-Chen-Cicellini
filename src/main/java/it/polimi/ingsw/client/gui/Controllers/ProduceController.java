@@ -305,6 +305,9 @@ public class ProduceController extends GUIController{
         return null;
     }
 
+    /**
+     * This method updates the Slots situation in the Produce scene, by setting the correct images.
+     */
     public void updateSlots() {
         Image image;
         List<int[]> slots = gui.getModelView().getSlots(gui.getModelView().getName());

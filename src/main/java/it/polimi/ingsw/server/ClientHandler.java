@@ -311,5 +311,6 @@ public class ClientHandler implements Runnable{
             System.out.println("Error");
             if (name != null && game != null && server.getConnectedClients().contains(name)) server.manageDisconnection(this);
         }
+        if (name != null && game != null && server.getConnectedClients().contains(name)) server.manageDisconnection(this);
     }
 }

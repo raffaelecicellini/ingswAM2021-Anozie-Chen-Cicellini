@@ -422,17 +422,17 @@ public class BoardController extends GUIController{
         StringBuilder label = new StringBuilder();
         for (int slot = 0; slot < slots.size(); slot++) {
             lv = 0;
+            label.setLength(0);
             if (gui.getModelView().getTopId(slots.get(slot)) > 0) {
                 // set image
                 image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(slot)) + ".png");
 
                 // set label
-                label.setLength(0);
                 while (lv < slots.get(slot).length) {
                     if (slots.get(slot)[lv] != 0) {
                         if (lv != 0) label.append(" - ");
 
-                        label.append(Cards.getColorById(slots.get(slot)[lv]));
+                        label.append(" LV").append(lv + 1).append(": ").append(Cards.getColorById(slots.get(slot)[lv]));
                         lv++;
                     } else break;
                 }

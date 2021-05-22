@@ -84,8 +84,11 @@ public class ProduceController extends GUIController{
 
         // to get the index of the slot
         int slot = Integer.parseInt(((Node) event.getSource()).getId().replaceAll("[^0-9]", ""));
+        ImageView[] devs = new ImageView[]{dev0, dev1, dev2};
 
-        switch (slot) {
+        if (devs[slot].getImage() == null) return;
+
+        /*switch (slot) {
             case 0:
                 if (dev0.getImage() == null) return;
                 break;
@@ -97,12 +100,12 @@ public class ProduceController extends GUIController{
                 break;
             default:
                 return;
-        }
+        }*/
 
         info.put("prod" + (slot + 1), "yes");
         List<String> input = Cards.getInputById(gui.getModelView().getTopId(gui.getModelView().getSlots(gui.getModelView().getName()).get(slot)));
         int i = 1;
-        for (String res : input) { ;
+        for (String res : input) {
             info.put("pos1" + i, choosePos(res));
             i++;
         }
@@ -119,7 +122,9 @@ public class ProduceController extends GUIController{
         // to get the index of the slot
         int leader = Integer.parseInt(((Node) event.getSource()).getId().replaceAll("[^0-9]", ""));
 
-        switch (leader) {
+        ImageView[] leaders = new ImageView[]{leader0, leader1};
+        if (leaders[leader].getImage() == null) return;
+        /*switch (leader) {
             case 0:
                 if (leader0.getImage() == null) return;
                 break;
@@ -128,7 +133,7 @@ public class ProduceController extends GUIController{
                 break;
             default:
                 break;
-        }
+        }*/
 
         info.put("prod" + (leader + 4), "yes");
         String input = Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + leader)));
@@ -306,7 +311,10 @@ public class ProduceController extends GUIController{
                 image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
             else image = null;
 
-            switch (i) {
+            ImageView[] devs = new ImageView[]{dev0, dev1, dev2};
+            devs[i].setImage(image);
+
+            /*switch (i) {
                 case 0:
                     dev0.setImage(image);
                     break;
@@ -316,7 +324,7 @@ public class ProduceController extends GUIController{
                 case 2:
                     dev2.setImage(image);
                     break;
-            }
+            }*/
         }
     }
 

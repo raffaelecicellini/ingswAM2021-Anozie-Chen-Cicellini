@@ -557,7 +557,7 @@ public class GUI extends Application implements SourceListener {
 
                 setActiveGame(false);
                 if (connectionSocket!=null) connectionSocket.close();
-                System.exit(0);
+                //System.exit(0);
 
                 break;
 
@@ -587,7 +587,7 @@ public class GUI extends Application implements SourceListener {
                     alert.showAndWait();
                     System.exit(0);
                 });
-                System.exit(0);
+                //System.exit(0);
                 break;
 
             case "OTHERDISCONNECTED":

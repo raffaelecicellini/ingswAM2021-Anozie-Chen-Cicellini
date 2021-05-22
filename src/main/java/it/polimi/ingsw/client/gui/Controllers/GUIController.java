@@ -16,7 +16,7 @@ public abstract class GUIController {
      * @return the path to the image of the marble
      */
     public String getPath(String marble){
-        switch (marble){
+        switch (marble.toUpperCase()){
             case "BLUE": return "/PNG/marbles_bg/blue_ball.png";
             case "YELLOW": return "/PNG/marbles_bg/yellow_ball.png";
             case "PURPLE": return "/PNG/marbles_bg/purple_ball.png";

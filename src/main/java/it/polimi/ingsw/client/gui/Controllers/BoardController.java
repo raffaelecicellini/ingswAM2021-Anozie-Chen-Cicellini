@@ -355,7 +355,7 @@ public class BoardController extends GUIController{
             else big.get(i).setImage(new Image(getPath(deps.get("bigres"))));
         }
 
-        if (deps.containsKey("sp1")) updateLeaderDeps(deps);
+        if (deps.containsKey("sp1res")) updateLeaderDeps(deps);
     }
 
     /**

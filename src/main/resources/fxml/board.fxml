@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.BoardController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="1000.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -112,8 +114,8 @@
       <ImageView fx:id="leader1" fitHeight="270.0" fitWidth="154.0" layoutX="1.0" layoutY="237.0" opacity="0.45" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
       <ImageView fx:id="leader_res00" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader_res01" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leader_res10" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leader_res11" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leader_res11" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leader_res10" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="sp_leader0" alignment="CENTER" layoutX="77.0" layoutY="9.0" opacity="0.0" prefHeight="40.0" prefWidth="51.0" style="-fx-background-color: white;" text="SP" />
       <Label fx:id="sp_leader1" alignment="CENTER" layoutX="77.0" layoutY="256.0" opacity="0.0" prefHeight="40.0" prefWidth="51.0" style="-fx-background-color: white;" text="SP">
          <font>

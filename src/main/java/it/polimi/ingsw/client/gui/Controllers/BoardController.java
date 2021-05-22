@@ -366,6 +366,8 @@ public class BoardController extends GUIController{
         List<ImageView> lead0= Arrays.asList(leader_res00, leader_res01);
         List<ImageView> lead1= Arrays.asList(leader_res10, leader_res11);
 
+        System.out.println(deps.get("sp1res")+" "+deps.get("sp1qty"));
+
         if (deps.get("sp1res").equals(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
             for (int i=0; i<lead0.size(); i++){
                 if (i> Integer.parseInt(deps.get("sp1qty")) -1) lead0.get(i).setImage(null);

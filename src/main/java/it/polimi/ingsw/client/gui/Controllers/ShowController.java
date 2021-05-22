@@ -98,8 +98,8 @@ public class ShowController extends GUIController{
                 }
             }
             if (deposits.containsKey("sp2res")) {
-                ImageView[] leaderRes0 = new ImageView[] {leaderRes00, leaderRes01};
-                ImageView[] leaderRes1 = new ImageView[] {leaderRes10, leaderRes11};
+                ImageView[] leaderRes0 = new ImageView[]{leaderRes00, leaderRes01};
+                ImageView[] leaderRes1 = new ImageView[]{leaderRes10, leaderRes11};
                 for (int i = 0; i < 2; i++) {
                     if (i < Integer.parseInt(deposits.get("sp2qty")))
                         image = new Image("/PNG/marbles_bg/" + deposits.get("sp2res").toLowerCase() + "_ball.png");
@@ -114,104 +114,103 @@ public class ShowController extends GUIController{
                         else if (i == 1) leaderRes11.setImage(image);*/
                     }
                 }
-
-                // STRONGBOX
-                Map<String, String> strongbox = gui.getModelView().getStrongbox(name);
-                for (int i = 0; i < strongbox.size() / 2; i++) {
-                    switch (strongbox.get("strres" + i).toUpperCase()) {
-                        case "BLUE":
-                            blue_qty.setText("x " + strongbox.get("strqty" + i));
-                            break;
-                        case "YELLOW":
-                            yellow_qty.setText("x " + strongbox.get("strqty" + i));
-                            break;
-                        case "GREY":
-                            grey_qty.setText("x " + strongbox.get("strqty" + i));
-                            break;
-                        case "PURPLE":
-                            purple_qty.setText("x " + strongbox.get("strqty" + i));
-                            break;
-                    }
-                }
-
-                // SLOTS
-                List<int[]> slots = gui.getModelView().getSlots(name);
-                ImageView[] devs = new ImageView[] {dev0, dev1, dev2};
-                for (int i = 0; i < slots.size(); i++) {
-                    if (gui.getModelView().getTopId(slots.get(i)) > 0)
-                        image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
-                    else image = null;
-
-                    devs[i].setImage(image);
-                    /*switch (i) {
-                        case 0:
-                            dev0.setImage(image);
-                            break;
-                        case 1:
-                            dev1.setImage(image);
-                            break;
-                        case 2:
-                            dev2.setImage(image);
-                            break;
-                    }*/
-                }
-
-                // LEADERS
-                Map<String, String> leaders = gui.getModelView().getLeaders(name);
-                ImageView[] leader = new ImageView[] {leader0, leader1};
-                for (int i = 0; i < leaders.size() / 2; i++) {
-                    if (leaders.get("state" + i).equalsIgnoreCase("active"))
-                        image = new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png");
-                    else image = null;
-
-                    leader[i].setImage(image);
-                    /*switch (i) {
-                        case 0:
-                            leader0.setImage(image);
-                            break;
-                        case 1:
-                            leader1.setImage(image);
-                            break;
-                    }*/
-                }
-
-                // TILES
-                Tile[] tiles = gui.getModelView().getTiles(name);
-                ImageView[] tilesImages = new ImageView[] {tile0, tile1, tile2};
-                for (int i = 0; i < tiles.length; i++) {
-                    if (!tiles[i].isActive() && !tiles[i].isDiscarded())
-                        image = new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png");
-                    else if (tiles[i].isActive() && !tiles[i].isDiscarded())
-                        image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
-                    else if (tiles[i].isDiscarded())
-                        image = null;
-
-                    tilesImages[i].setImage(image);
-                    /*switch (i) {
-                        case 0:
-                            slot0.setImage(image);
-                            break;
-                        case 1:
-                            slot1.setImage(image);
-                            break;
-                        case 2:
-                            slot2.setImage(image);
-                            break;
-                    }*/
-                }
-
-                // POSITION
-                if (pos.getImage() == null)
-                    pos.setImage(new Image("/PNG/punchboard/red_cross.png"));
-                setPosition(pos,gui.getModelView().getPosition(name));
-
-                Scene show = gui.getSceneFromName("show.fxml");
-                Stage stage = new Stage();
-                stage.setScene(show);
-                stage.setTitle("Show");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.show();
             }
+            // STRONGBOX
+            Map<String, String> strongbox = gui.getModelView().getStrongbox(name);
+            for (int i = 0; i < strongbox.size() / 2; i++) {
+                switch (strongbox.get("strres" + i).toUpperCase()) {
+                    case "BLUE":
+                        blue_qty.setText("x " + strongbox.get("strqty" + i));
+                        break;
+                    case "YELLOW":
+                        yellow_qty.setText("x " + strongbox.get("strqty" + i));
+                        break;
+                    case "GREY":
+                        grey_qty.setText("x " + strongbox.get("strqty" + i));
+                        break;
+                    case "PURPLE":
+                        purple_qty.setText("x " + strongbox.get("strqty" + i));
+                        break;
+                }
+            }
+
+            // SLOTS
+            List<int[]> slots = gui.getModelView().getSlots(name);
+            ImageView[] devs = new ImageView[] {dev0, dev1, dev2};
+            for (int i = 0; i < slots.size(); i++) {
+                if (gui.getModelView().getTopId(slots.get(i)) > 0)
+                    image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
+                else image = null;
+
+                devs[i].setImage(image);
+                /*switch (i) {
+                    case 0:
+                        dev0.setImage(image);
+                        break;
+                    case 1:
+                        dev1.setImage(image);
+                        break;
+                    case 2:
+                        dev2.setImage(image);
+                        break;
+                }*/
+            }
+
+            // LEADERS
+            Map<String, String> leaders = gui.getModelView().getLeaders(name);
+            ImageView[] leader = new ImageView[] {leader0, leader1};
+            for (int i = 0; i < leaders.size() / 2; i++) {
+                if (leaders.get("state" + i).equalsIgnoreCase("active"))
+                    image = new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png");
+                else image = null;
+
+                leader[i].setImage(image);
+                /*switch (i) {
+                    case 0:
+                        leader0.setImage(image);
+                        break;
+                    case 1:
+                        leader1.setImage(image);
+                        break;
+                }*/
+            }
+
+            // TILES
+            Tile[] tiles = gui.getModelView().getTiles(name);
+            ImageView[] tilesImages = new ImageView[] {tile0, tile1, tile2};
+            for (int i = 0; i < tiles.length; i++) {
+                if (!tiles[i].isActive() && !tiles[i].isDiscarded())
+                    image = new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png");
+                else if (tiles[i].isActive() && !tiles[i].isDiscarded())
+                    image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
+                else if (tiles[i].isDiscarded())
+                    image = null;
+
+                tilesImages[i].setImage(image);
+                /*switch (i) {
+                    case 0:
+                        slot0.setImage(image);
+                        break;
+                    case 1:
+                        slot1.setImage(image);
+                        break;
+                    case 2:
+                        slot2.setImage(image);
+                        break;
+                }*/
+            }
+
+            // POSITION
+            if (pos.getImage() == null)
+                pos.setImage(new Image("/PNG/punchboard/red_cross.png"));
+            setPosition(pos,gui.getModelView().getPosition(name));
+
+            Scene show = gui.getSceneFromName("show.fxml");
+            Stage stage = new Stage();
+            stage.setScene(show);
+            stage.setTitle("Show");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
         }
     }
 

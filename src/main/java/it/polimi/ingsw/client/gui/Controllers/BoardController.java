@@ -27,6 +27,8 @@ public class BoardController extends GUIController{
     @FXML private Label slot0, slot1, slot2;
     @FXML
     private ImageView tile0,tile1,tile2;
+    @FXML
+    private ImageView pos,blackCross;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -505,7 +507,16 @@ public class BoardController extends GUIController{
     }
 
     public void updatePosition() {
-
+        if (gui.getModelView().isSoloGame()) {
+            if (blackCross.getImage() == null)
+                blackCross.setImage(new Image("/PNG/punchboard/croce.png"));
+            setPosition(blackCross,gui.getModelView().getBlackCross());
+            blackCross.setLayoutX(blackCross.getLayoutX()+5);
+            blackCross.setLayoutY(blackCross.getLayoutY()+5);
+        }
+        if (pos.getImage() == null)
+            pos.setImage(new Image("/PNG/punchboard/red_cross.png"));
+        setPosition(pos,gui.getModelView().getPosition(gui.getModelView().getName()));
     }
 
     /**

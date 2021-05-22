@@ -14,7 +14,7 @@
             <Image url="@../PNG/marbles_bg/background_rinascimento.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="500.0" fitWidth="740.0" layoutX="200.0" pickOnBounds="true" scaleX="0.9" x="-35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="500.0" fitWidth="740.0" layoutX="200.0" pickOnBounds="true" scaleX="0.9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../PNG/board/board.png" />
          </image>
@@ -65,41 +65,41 @@
       <ImageView fx:id="big1" fitHeight="28.0" fitWidth="28.0" layoutX="223.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="big3" fitHeight="28.0" fitWidth="28.0" layoutX="277.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="big2" fitHeight="28.0" fitWidth="28.0" layoutX="250.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="str_blue" fitHeight="20.0" fitWidth="20.0" layoutX="211.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="str_blue" fitHeight="20.0" fitWidth="20.0" layoutX="223.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../PNG/marbles_bg/blue_ball.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="str_purple" fitHeight="20.0" fitWidth="20.0" layoutX="211.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="str_purple" fitHeight="20.0" fitWidth="20.0" layoutX="223.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../PNG/marbles_bg/purple_ball.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="str_grey" fitHeight="20.0" fitWidth="20.0" layoutX="211.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="str_grey" fitHeight="20.0" fitWidth="20.0" layoutX="223.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../PNG/marbles_bg/grey_ball.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="str_yellow" fitHeight="20.0" fitWidth="20.0" layoutX="211.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="str_yellow" fitHeight="20.0" fitWidth="20.0" layoutX="223.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../PNG/marbles_bg/yellow_ball.png" />
          </image>
       </ImageView>
-      <Label fx:id="blue_qty" layoutX="234.0" layoutY="379.0" prefHeight="16.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0">
+      <Label fx:id="blue_qty" layoutX="246.0" layoutY="379.0" prefHeight="16.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0">
          <font>
             <Font size="10.0" />
          </font></Label>
-      <Label fx:id="yellow_qty" layoutX="234.0" layoutY="441.0" prefHeight="15.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0">
+      <Label fx:id="yellow_qty" layoutX="246.0" layoutY="441.0" prefHeight="15.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="grey_qty" layoutX="234.0" layoutY="420.0" prefHeight="15.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0">
+      <Label fx:id="grey_qty" layoutX="246.0" layoutY="420.0" prefHeight="15.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="purple_qty" layoutX="234.0" layoutY="400.0" prefHeight="15.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0">
+      <Label fx:id="purple_qty" layoutX="246.0" layoutY="400.0" prefHeight="15.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0">
          <font>
             <Font size="10.0" />
          </font>
@@ -108,7 +108,7 @@
       <ImageView fx:id="dev1" fitHeight="176.0" fitWidth="110.0" layoutX="565.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="dev2" fitHeight="176.0" fitWidth="110.0" layoutX="695.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="tile1" fitHeight="51.0" fitWidth="51.0" layoutX="502.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="tile0" fitHeight="55.0" fitWidth="51.0" layoutX="339.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="tile0" fitHeight="51.0" fitWidth="51.0" layoutX="339.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="tile2" fitHeight="51.0" fitWidth="51.0" layoutX="698.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader0" fitHeight="233.0" fitWidth="162.0" layoutX="1.0" layoutY="23.0" opacity="0.45" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <ImageView fx:id="leader1" fitHeight="270.0" fitWidth="154.0" layoutX="1.0" layoutY="237.0" opacity="0.45" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />

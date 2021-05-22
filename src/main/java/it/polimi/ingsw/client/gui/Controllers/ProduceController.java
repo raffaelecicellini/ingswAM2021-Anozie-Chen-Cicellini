@@ -68,9 +68,9 @@ public class ProduceController extends GUIController{
         info.put("prod0", "yes");
 
         info.put("in01", chooseColor("in"));
-        info.put("pos01", choosePos("color"));
+        info.put("pos01", choosePos(info.get("in01")));
         info.put("in02", chooseColor("in"));
-        info.put("pos02", choosePos("color"));
+        info.put("pos02", choosePos(info.get("in02")));
         info.put("out0", chooseColor("out"));
 
     }
@@ -106,10 +106,9 @@ public class ProduceController extends GUIController{
         List<String> input = Cards.getInputById(gui.getModelView().getTopId(gui.getModelView().getSlots(gui.getModelView().getName()).get(slot)));
         int i = 1;
         for (String res : input) {
-            info.put("pos1" + i, choosePos(res));
+            info.put("pos" + (slot + 1) + i, choosePos(res));
             i++;
         }
-
     }
 
     /**
@@ -152,6 +151,7 @@ public class ProduceController extends GUIController{
         //(altrimenti Alert.ERROR). Alert.CONFIRMATION per chiedere conferma: se si pack inviato, altrimenti si chiude stage
         //e si torna a board.fxml
 
+        // check if at least 1 yes
         boolean confirm = false;
         for (int i = 0; i < 6; i++) {
             if (info.get("prod" + i).equalsIgnoreCase("yes")) {
@@ -175,11 +175,13 @@ public class ProduceController extends GUIController{
                     action.append("\n").append("prod").append(devCard).append(": IN = (");
 
                     if (devCard == 0) {
-                        action.append(info.get("in01").toUpperCase()).append(", ").append(info.get("pos01").toLowerCase()).append("), (").append(info.get("in02").toUpperCase())
-                                .append(", ").append(info.get("pos02").toLowerCase()).append("); OUT = ").append(info.get("out0").toUpperCase());
+                        action.append(info.get("in01").toUpperCase()).append(", ").append(info.get("pos01").toLowerCase()).append("), (")
+                                .append(info.get("in02").toUpperCase()).append(", ").append(info.get("pos02").toLowerCase())
+                                .append("); OUT = ").append(info.get("out0").toUpperCase());
                     } else if (devCard >= 1 && devCard <= 3) {
                         int n_pos = 1;
-                        ArrayList<String> inputRes = Cards.getInputById(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1)[gui.getModelView().getTopIndex(gui.getModelView().getSlots(gui.getModelView().getName()).get(devCard - 1))]);
+                        List<int[]> slots = gui.getModelView().getSlots(gui.getModelView().getName());
+                        ArrayList<String> inputRes = Cards.getInputById(slots.get(devCard - 1)[gui.getModelView().getTopIndex(slots.get(devCard - 1))]);
                         // pos11 o pos12
                         while (info.containsKey("pos" + devCard + n_pos)) {
                             // BLUE, SMALL), (GREY, MID);
@@ -306,12 +308,12 @@ public class ProduceController extends GUIController{
     public void updateSlots() {
         Image image;
         List<int[]> slots = gui.getModelView().getSlots(gui.getModelView().getName());
+        ImageView[] devs = new ImageView[]{dev0, dev1, dev2};
         for (int i = 0; i < slots.size(); i++) {
             if (gui.getModelView().getTopId(slots.get(i)) > 0)
                 image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
             else image = null;
 
-            ImageView[] devs = new ImageView[]{dev0, dev1, dev2};
             devs[i].setImage(image);
 
             /*switch (i) {
@@ -325,6 +327,18 @@ public class ProduceController extends GUIController{
                     dev2.setImage(image);
                     break;
             }*/
+        }
+
+        Map<String, String> leaders = gui.getModelView().getLeaders(gui.getModelView().getName());
+        ImageView[] leaderDevs = new ImageView[]{leader0, leader1};
+        for (int i = 0; i < leaders.size() / 2; i++) {
+            if (leaders.get("state" + i).equalsIgnoreCase("active") &&
+                    Integer.parseInt(leaders.get("leader" + i)) >= 15 &&
+                    Integer.parseInt(leaders.get("leader" + i)) <= 18)
+                image = new Image("PNG/marbles_bg/dev_leader_" + leaders.get("leader" + i) + ".png");
+            else image = null;
+
+            leaderDevs[i].setImage(image);
         }
     }
 

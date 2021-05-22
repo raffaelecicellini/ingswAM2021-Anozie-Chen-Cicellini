@@ -254,6 +254,8 @@ public class GUI extends Application implements SourceListener {
             BoardController board = (BoardController) getControllerFromName("board.fxml");
             board.updateLeader();
             board.updatePosition();
+            ProduceController produce = (ProduceController) getControllerFromName("produce.fxml");
+            produce.updateSlots();
         });
     }
 

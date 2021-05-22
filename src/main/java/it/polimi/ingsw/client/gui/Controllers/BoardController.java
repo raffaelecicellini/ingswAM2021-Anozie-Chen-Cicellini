@@ -499,12 +499,12 @@ public class BoardController extends GUIController{
         Tile[] model = gui.getModelView().getTiles(gui.getModelView().getName());
         ImageView[] tiles = new ImageView[] {tile0,tile1,tile2};
         for (int i = 0; i < model.length; i++) {
-            if (model[i].isActive())
+            if (model[i].isActive() && !model[i].isDiscarded())
                 tiles[i].setImage(new Image("/PNG/punchboard/active"+(i+2)+".png"));
-            else if (model[i].isDiscarded())
-                tiles[i].setImage(null);
             else if (!model[i].isActive() && !model[i].isDiscarded())
                 tiles[i].setImage(new Image("/PNG/punchboard/quadrato"+(i+2)+".png"));
+            else if (model[i].isDiscarded())
+                tiles[i].setImage(null);
         }
     }
 

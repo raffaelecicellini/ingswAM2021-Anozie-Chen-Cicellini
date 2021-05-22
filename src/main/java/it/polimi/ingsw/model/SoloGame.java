@@ -657,12 +657,12 @@ public class SoloGame extends Game{
         DevelopCard card;
         int id;
         state.put("action", "endturn");
-        state.put("player", currentPlayer.getName());
         state.put("endedTurnPlayer", currentPlayer.getName());
         state.put("currentPlayer", currentPlayer.getName());
 
+        state.put("player0", currentPlayer.getName());
         for (int i = 0; i < tiles.length; i++) {
-            tile = "tile" + i;
+            tile = "tile0" + i;
             if (tiles[i].isActive()) {
                 state.put(tile, "active");
             } else if (tiles[i].isDiscarded()) {

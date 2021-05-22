@@ -539,6 +539,7 @@ public class GUI extends Application implements SourceListener {
                         alert.setHeaderText("Winner");
                         alert.setContentText("You won! You made " + value.get("winnerpoints") + " points! ");
                         alert.showAndWait();
+                        System.exit(0);
                     });
                 } else {
                     Platform.runLater(() -> {
@@ -550,6 +551,7 @@ public class GUI extends Application implements SourceListener {
                         alert.setHeaderText("Loser");
                         alert.setContentText(content);
                         alert.showAndWait();
+                        System.exit(0);
                     });
                 }
 
@@ -583,6 +585,7 @@ public class GUI extends Application implements SourceListener {
                     alert.setHeaderText("End");
                     alert.setContentText(value.get("content"));
                     alert.showAndWait();
+                    System.exit(0);
                 });
                 System.exit(0);
                 break;

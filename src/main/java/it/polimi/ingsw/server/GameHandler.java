@@ -120,7 +120,7 @@ public class GameHandler implements SourceListener {
      * @param player the name of the player that sent the message
      */
     public synchronized void makeAction(Map<String, String> message, String player){
-        System.out.println("I am in gameHandler.makeAction");
+        System.out.println("I am in gameHandler.makeAction. Action: "+message.get("action")+"; Player: "+message.get("player"));
         //controls if the move can be done
         if (model.getPhase()!=GamePhase.NOTSTARTED){
             if (model.getCurrentPlayer().getName().equalsIgnoreCase(player)){
@@ -280,7 +280,7 @@ public class GameHandler implements SourceListener {
         Gson gson=new Gson();
         String jsonMessage;
         String addressee;
-        System.out.println("I am in GameHandler, ready to send a message");
+        System.out.println("I am in GameHandler, ready to send a message. Action: "+propertyName+"; Player: "+value.get("player"));
         switch (propertyName.toUpperCase()){
             case "STARTED":
                 //sendall

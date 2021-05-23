@@ -257,7 +257,7 @@ public class DevelopCard {
             int i;
             int k = Integer.parseInt(s) - 1;
 
-            if (m.getValue().toLowerCase().equals("strongbox")) {
+            if (m.getValue().equalsIgnoreCase("strongbox")) {
                 i = 0;
                     while (i < strongbox.length && !exit) {
                         if (newInput[k].getColor() == strongbox[i].getColor()) {

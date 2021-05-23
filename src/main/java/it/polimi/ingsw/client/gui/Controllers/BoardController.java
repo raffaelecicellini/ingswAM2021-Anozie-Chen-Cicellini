@@ -25,10 +25,9 @@ public class BoardController extends GUIController{
     @FXML private ImageView leader0, leader1;
     @FXML private Label sp_leader0, sp_leader1;
     @FXML private Label slot0, slot1, slot2;
-    @FXML
-    private ImageView tile0,tile1,tile2;
-    @FXML
-    private ImageView pos,blackCross;
+    @FXML private ImageView tile0, tile1, tile2;
+    @FXML private ImageView pos, blackCross;
+    @FXML private Label current;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -503,6 +502,9 @@ public class BoardController extends GUIController{
         }
     }
 
+    /**
+     * This method update the TIles on the personale Board.
+     */
     public void updateTiles() {
         Tile[] model = gui.getModelView().getTiles(gui.getModelView().getName());
         ImageView[] tiles = new ImageView[] {tile0,tile1,tile2};
@@ -516,6 +518,9 @@ public class BoardController extends GUIController{
         }
     }
 
+    /**
+     * This method updates the Player's position (if SoloGame, also Lorenzo's one).
+     */
     public void updatePosition() {
         if (gui.getModelView().isSoloGame()) {
             if (blackCross.getImage() == null)
@@ -527,6 +532,13 @@ public class BoardController extends GUIController{
         if (pos.getImage() == null)
             pos.setImage(new Image("/PNG/punchboard/red_cross.png"));
         setPosition(pos,gui.getModelView().getPosition(gui.getModelView().getName()));
+    }
+
+    /**
+     * This method sets the label that shows who is the current player.
+     */
+    public void updateCurrentPlayer() {
+        current.setText(gui.getModelView().getCurrentPlayer());
     }
 
     /**

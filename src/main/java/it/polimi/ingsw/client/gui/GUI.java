@@ -205,6 +205,9 @@ public class GUI extends Application implements SourceListener {
         //tanti metodi separati uno per ogni azione?
     }
 
+    /**
+     * This method is used to update the situation after a Market action.
+     */
     private void updateMarket(){
         //board.updateDeps, market.updateMarket, board.updatePosition
         Platform.runLater(() -> {
@@ -216,6 +219,9 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    /**
+     * This method is used to update the situation after a Buy action.
+     */
     private void updateBuy(){
         //board.updateDeps, updateStr, updateSlots, buy.updateDecks, produce.updateSlots
         Platform.runLater(() -> {
@@ -230,6 +236,9 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    /**
+     * This method is used to update the situation after a Produce action.
+     */
     private void updateProduce(){
         //board.updateDeps, updateStr, updatePosition
         Platform.runLater(() -> {
@@ -240,6 +249,9 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    /**
+     * This method is used to update the situation after a Swap action.
+     */
     private void updateSwap(){
         //board.updateDeps
         Platform.runLater(() -> {
@@ -248,6 +260,9 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    /**
+     * This method is used to update the situation after a Leader action.
+     */
     private void updateLeader(){
         //board.updateLeader, board.updatePosition
         Platform.runLater(() -> {
@@ -259,11 +274,15 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    /**
+     * This method is used to update the situation after a Player has ended his turn.
+     */
     private void updateEndTurn(){
         //board.updateTiles
         Platform.runLater(() -> {
             BoardController board = (BoardController) getControllerFromName("board.fxml");
             board.updateTiles();
+            board.updateCurrentPlayer();
         });
     }
 
@@ -327,6 +346,7 @@ public class GUI extends Application implements SourceListener {
                     controller.setText("Game started!");
                     BoardController board= (BoardController) mapNameController.get("board.fxml");
                     board.updateTiles();
+                    board.updateCurrentPlayer();
                     BuyController buy= (BuyController) mapNameController.get("buy.fxml");
                     buy.updateDecks();
                     MarketController market= (MarketController) mapNameController.get("market.fxml");

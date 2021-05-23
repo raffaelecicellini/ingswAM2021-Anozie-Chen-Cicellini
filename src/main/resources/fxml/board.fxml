@@ -141,5 +141,7 @@
       </Label>
       <ImageView fx:id="blackCross" fitHeight="33.0" fitWidth="39.0" layoutX="200.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="pos" fitHeight="33.0" fitWidth="39.0" layoutX="200.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="172.0" layoutY="9.0" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: white;" text="Current player" />
+      <Label fx:id="current" layoutX="172.0" layoutY="38.0" prefHeight="28.0" prefWidth="80.0" style="-fx-background-color: white;" />
    </children>
 </AnchorPane>

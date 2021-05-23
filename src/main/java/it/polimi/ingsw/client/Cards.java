@@ -841,7 +841,6 @@ public class Cards {
                 return input;
             case 18:
                 input.add("GREY");
-                input.add("GREY");
                 return input;
             case 19:
                 input.add("GREY");

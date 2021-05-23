@@ -116,7 +116,10 @@
       <ImageView fx:id="leader_res01" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader_res11" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="leader_res10" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="sp_leader0" alignment="CENTER" layoutX="77.0" layoutY="9.0" opacity="0.0" prefHeight="40.0" prefWidth="51.0" style="-fx-background-color: white;" text="SP" />
+      <Label fx:id="sp_leader0" alignment="CENTER" layoutX="77.0" layoutY="9.0" opacity="0.0" prefHeight="40.0" prefWidth="51.0" style="-fx-background-color: white;" text="SP">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
       <Label fx:id="sp_leader1" alignment="CENTER" layoutX="77.0" layoutY="256.0" opacity="0.0" prefHeight="40.0" prefWidth="51.0" style="-fx-background-color: white;" text="SP">
          <font>
             <Font size="18.0" />

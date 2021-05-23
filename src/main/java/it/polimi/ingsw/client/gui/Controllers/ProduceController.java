@@ -276,28 +276,24 @@ public class ProduceController extends GUIController{
             else if (pos.get().equals(big)) return "big";
             else if (pos.get().equals(strongbox)) return "strongbox";
             else if (pos.get().equals(sp1)) {
-                if (gui.getModelView().getLeaders(gui.getModelView().getName()).get("state0").equalsIgnoreCase("active") &&
-                        Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader0")) >= 7 &&
-                        Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader0")) <= 10)
-                    return "sp1";
+                if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp1res")) return "sp1";
                 else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("Error!");
                     alert.setTitle("Error!");
                     alert.setContentText("You don't have a leader deposit here! Try again!");
+                    alert.showAndWait();
                     return choosePos(color);
                 }
             }
             else if (pos.get().equals(sp2)) {
-                if (gui.getModelView().getLeaders(gui.getModelView().getName()).get("state1").equalsIgnoreCase("active") &&
-                        Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader1")) >= 7 &&
-                        Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader1")) <= 10)
-                    return "sp2";
+                if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp2res")) return "sp2";
                 else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("Error!");
                     alert.setTitle("Error!");
                     alert.setContentText("You don't have a leader deposit here! Try again!");
+                    alert.showAndWait();
                     return choosePos(color);
                 }
             }

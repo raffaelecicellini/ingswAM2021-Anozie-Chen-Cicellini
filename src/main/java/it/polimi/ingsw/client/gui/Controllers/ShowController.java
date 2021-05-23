@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
+import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.Tile;
 import it.polimi.ingsw.client.gui.GUI;
 import javafx.fxml.FXML;
@@ -33,88 +34,71 @@ public class ShowController extends GUIController{
 
         if (gui.getModelView().getPlayers().contains(name)) {
 
-            Image image;
+            // LEADERS
+            Map<String, String> leaders = gui.getModelView().getLeaders(name);
+            ImageView[] leader = new ImageView[] {leader0, leader1};
+            for (int i = 0; i < leaders.size() / 2; i++) {
+                if (leaders.get("state" + i).equalsIgnoreCase("active"))
+                    leader[i].setImage(new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png"));
+                else leader[i].setImage(null);
+            }
 
             // DEPOSITS
             Map<String, String> deposits = gui.getModelView().getDeposits(name);
             ImageView[] mid = new ImageView[] {mid1, mid2};
             if (Integer.parseInt(deposits.get("smallqty")) == 1)
-                image = new Image("/PNG/marbles_bg/" + deposits.get("smallres").toLowerCase() + "_ball.png");
-            else image = null;
-            small.setImage(image);
+                small.setImage(new Image("/PNG/marbles_bg/" + deposits.get("smallres").toLowerCase() + "_ball.png"));
+            else  small.setImage(null);
 
             for (int i = 0; i < 2; i++) {
                 if (i < Integer.parseInt(deposits.get("midqty")))
-                    image = new Image("/PNG/marbles_bg/" + deposits.get("midres").toLowerCase() + "_ball.png");
-                else image = null;
-
-                mid[i].setImage(image);
-                /*switch (i) {
-                    case 0:
-                        mid1.setImage(image);
-                        break;
-                    case 1:
-                        mid2.setImage(image);
-                        break;
-                }*/
+                    mid[i].setImage(new Image("/PNG/marbles_bg/" + deposits.get("midres").toLowerCase() + "_ball.png"));
+                else mid[i].setImage(null);
             }
 
             ImageView[] big = new ImageView[] {big1, big2, big3};
             for (int i = 0; i < 3; i++) {
                 if (i < Integer.parseInt(deposits.get("bigqty")))
-                    image = new Image("/PNG/marbles_bg/" + deposits.get("bigres").toLowerCase() + "_ball.png");
-                else image = null;
-
-                big[i].setImage(image);
-                /*switch (i) {
-                    case 0:
-                        big1.setImage(image);
-                        break;
-                    case 1:
-                        big2.setImage(image);
-                        break;
-                    case 2:
-                        big3.setImage(image);
-                        break;
-                }*/
+                    big[i].setImage(new Image("/PNG/marbles_bg/" + deposits.get("bigres").toLowerCase() + "_ball.png"));
+                else big[i].setImage(null);
             }
 
             if (deposits.containsKey("sp1res")) {
-                ImageView[] leaderRes0 = new ImageView[] {leaderRes00, leaderRes01};
-                ImageView[] leaderRes1 = new ImageView[] {leaderRes10, leaderRes11};
-                for (int i = 0; i < 2; i++) {
-                    if (i < Integer.parseInt(deposits.get("sp1qty")))
-                        image = new Image("/PNG/marbles_bg/" + deposits.get("sp1res").toLowerCase() + "_ball.png");
-                    else image = null;
-                    if (sp_leader0.getText().equalsIgnoreCase("sp1")) {
-                        leaderRes0[i].setImage(image);
-                        /*if (i == 0) leaderRes00.setImage(image);
-                        else if (i == 1) leaderRes01.setImage(image);*/
-                    } else if (sp_leader1.getText().equalsIgnoreCase("sp1")) {
-                        leaderRes1[i].setImage(image);
-                        /*if (i == 0) leaderRes10.setImage(image);
-                        else if (i == 1) leaderRes11.setImage(image);*/
-                    }
-                }
-            }
-            if (deposits.containsKey("sp2res")) {
                 ImageView[] leaderRes0 = new ImageView[]{leaderRes00, leaderRes01};
                 ImageView[] leaderRes1 = new ImageView[]{leaderRes10, leaderRes11};
-                for (int i = 0; i < 2; i++) {
-                    if (i < Integer.parseInt(deposits.get("sp2qty")))
-                        image = new Image("/PNG/marbles_bg/" + deposits.get("sp2res").toLowerCase() + "_ball.png");
-                    else image = null;
-                    if (sp_leader0.getText().equalsIgnoreCase("sp2")) {
-                        leaderRes0[i].setImage(image);
-                        /*if (i == 0) leaderRes00.setImage(image);
-                        else if (i == 1) leaderRes01.setImage(image);*/
-                    } else if (sp_leader1.getText().equalsIgnoreCase("sp2")) {
-                        leaderRes1[i].setImage(image);
-                        /*if (i == 0) leaderRes10.setImage(image);
-                        else if (i == 1) leaderRes11.setImage(image);*/
+                if (deposits.get("sp1res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))) {
+                    for (int i = 0; i < leaderRes0.length; i++) {
+                        if (i > Integer.parseInt(deposits.get("sp1qty")) - 1) leaderRes0[i].setImage(null);
+                        else leaderRes0[i].setImage(new Image(getPath(deposits.get("sp1res"))));
+                    }
+                } else if (deposits.get("sp1res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))) {
+                    for (int i = 0; i < leaderRes1.length; i++) {
+                        if (i > Integer.parseInt(deposits.get("sp1qty")) - 1) leaderRes1[i].setImage(null);
+                        else leaderRes1[i].setImage(new Image(getPath(deposits.get("sp1res"))));
                     }
                 }
             }
+
+            if (deposits.containsKey("sp2res")){
+                ImageView[] leaderRes0 = new ImageView[]{leaderRes00, leaderRes01};
+                ImageView[] leaderRes1 = new ImageView[]{leaderRes10, leaderRes11};
+                if (deposits.get("sp2res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
+                    for (int i=0; i<leaderRes0.length; i++){
+                        if (i> Integer.parseInt(deposits.get("sp2qty")) -1) leaderRes0[i].setImage(null);
+                        else leaderRes0[i].setImage(new Image(getPath(deposits.get("sp2res"))));
+                    }
+                }
+                else if (deposits.get("sp2res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
+                    for (int i=0; i<leaderRes1.length; i++){
+                        if (i> Integer.parseInt(deposits.get("sp2qty")) -1) leaderRes1[i].setImage(null);
+                        else leaderRes1[i].setImage(new Image(getPath(deposits.get("sp2res"))));
+                    }
+                }
+            }
+
+
+
+
             // STRONGBOX
             Map<String, String> strongbox = gui.getModelView().getStrongbox(name);
             for (int i = 0; i < strongbox.size() / 2; i++) {
@@ -139,40 +123,8 @@ public class ShowController extends GUIController{
             ImageView[] devs = new ImageView[] {dev0, dev1, dev2};
             for (int i = 0; i < slots.size(); i++) {
                 if (gui.getModelView().getTopId(slots.get(i)) > 0)
-                    image = new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png");
-                else image = null;
-
-                devs[i].setImage(image);
-                /*switch (i) {
-                    case 0:
-                        dev0.setImage(image);
-                        break;
-                    case 1:
-                        dev1.setImage(image);
-                        break;
-                    case 2:
-                        dev2.setImage(image);
-                        break;
-                }*/
-            }
-
-            // LEADERS
-            Map<String, String> leaders = gui.getModelView().getLeaders(name);
-            ImageView[] leader = new ImageView[] {leader0, leader1};
-            for (int i = 0; i < leaders.size() / 2; i++) {
-                if (leaders.get("state" + i).equalsIgnoreCase("active"))
-                    image = new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png");
-                else image = null;
-
-                leader[i].setImage(image);
-                /*switch (i) {
-                    case 0:
-                        leader0.setImage(image);
-                        break;
-                    case 1:
-                        leader1.setImage(image);
-                        break;
-                }*/
+                    devs[i].setImage(new Image("/PNG/cards/dc_" + gui.getModelView().getTopId(slots.get(i)) + ".png"));
+                else devs[i].setImage(null);
             }
 
             // TILES
@@ -180,24 +132,11 @@ public class ShowController extends GUIController{
             ImageView[] tilesImages = new ImageView[] {tile0, tile1, tile2};
             for (int i = 0; i < tiles.length; i++) {
                 if (!tiles[i].isActive() && !tiles[i].isDiscarded())
-                    image = new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png");
+                    tilesImages[i].setImage(new Image("/PNG/punchboard/quadrato" + (i + 2) + ".png"));
                 else if (tiles[i].isActive() && !tiles[i].isDiscarded())
-                    image = new Image("/PNG/punchboard/active" + (i + 2) + ".png");
+                    tilesImages[i].setImage(new Image("/PNG/punchboard/active" + (i + 2) + ".png"));
                 else if (tiles[i].isDiscarded())
-                    image = null;
-
-                tilesImages[i].setImage(image);
-                /*switch (i) {
-                    case 0:
-                        slot0.setImage(image);
-                        break;
-                    case 1:
-                        slot1.setImage(image);
-                        break;
-                    case 2:
-                        slot2.setImage(image);
-                        break;
-                }*/
+                    tilesImages[i].setImage(null);
             }
 
             // POSITION

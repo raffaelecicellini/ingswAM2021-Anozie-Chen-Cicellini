@@ -81,6 +81,7 @@ public class PersonalBoard {
      *This method changes the faith marker's position.
      */
     public void setPosition(int position) {
+        if (position > 24) position = 24;
         faithMarker.setPosition(position);
     }
 

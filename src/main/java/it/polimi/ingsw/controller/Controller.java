@@ -116,7 +116,7 @@ public class Controller implements SourceListener {
      */
     private void produce(Map<String, String> map) {
 
-        if (model.getCurrentPlayer().getName().equals(map.get("player"))) {
+        if (model.getCurrentPlayer().getName().equalsIgnoreCase(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
 

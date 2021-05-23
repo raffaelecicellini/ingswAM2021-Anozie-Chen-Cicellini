@@ -230,7 +230,7 @@ public class Cards {
             case 18:
                 card[0]="+----------------------------------------+";
                 card[1]="|Col:Purple; "+"Lev:2; "+"Cost:[3P, 3B];"+"       |";
-                card[2]="|In:[2G]; "+"Out:[2P, 1F]; "+"VP:8;"+"            |";
+                card[2]="|In:[1G]; "+"Out:[2P, 1F]; "+"VP:8;"+"            |";
                 card[3]="+----------------------------------------+";
                 return card;
             case 19:
@@ -840,7 +840,6 @@ public class Cards {
                 input.add("YELLOW");
                 return input;
             case 18:
-                input.add("GREY");
                 input.add("GREY");
                 return input;
             case 19:

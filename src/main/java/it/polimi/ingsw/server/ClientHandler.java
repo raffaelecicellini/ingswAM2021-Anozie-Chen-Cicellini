@@ -9,6 +9,10 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * This class represents a ClientHandler. It is a thread instantiated by the server when a clients connects to it.
@@ -60,6 +64,8 @@ public class ClientHandler implements Runnable{
      * Registers if the client has already done a setup action.
      */
     private boolean doneSetup;
+
+    private final Logger logger= Logger.getLogger(getClass().getName());
 
     /**
      * This method is called when a client sends a setup message. It will check if the client username is available and
@@ -209,6 +215,7 @@ public class ClientHandler implements Runnable{
         try {
             output.write(message+"\n");
             output.flush();
+            logger.log(Level.INFO, message);
             System.out.println("ClientHandler "+ name +", I sent a message: "+message);
         } catch (IOException e) {
             System.out.println("Failed to send the message.");
@@ -223,6 +230,14 @@ public class ClientHandler implements Runnable{
      * @param server is the ClientHandler's server.
      */
     public ClientHandler(Socket socket, Server server) {
+        try {
+            FileHandler fh= new FileHandler("%h/ClientHandler.log");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.socket = socket;
         this.server = server;
         try {
@@ -267,6 +282,7 @@ public class ClientHandler implements Runnable{
     public void readMessage() throws IOException{
         Gson gson = new Gson();
         String line = input.readLine();
+        logger.log(Level.INFO, line);
         Map<String,String > message;
         message = gson.fromJson(line, new TypeToken<Map<String,String>>(){}.getType());
         if (message != null)

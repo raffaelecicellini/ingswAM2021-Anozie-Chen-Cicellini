@@ -127,6 +127,7 @@ public class GameHandler implements SourceListener {
                 System.out.println("Passing action to Controller...");
                 System.out.println("Player: "+player+", Action: "+message.get("action"));
                 controllerListener.fireUpdates(message.get("action"), message);
+                System.out.println(message);
             }
             else {
                 Map<String, String> map= new HashMap<>();

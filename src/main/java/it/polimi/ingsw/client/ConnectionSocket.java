@@ -16,6 +16,10 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * This class represents a ConnectionSocket, a way to connect to the server.
@@ -47,12 +51,23 @@ public class ConnectionSocket {
      */
     private SocketListener socketListener;
 
+    private final Logger logger= Logger.getLogger(getClass().getName());
+
     /**
      * Constructor ConnectionSocket create a new ConnectionSocket instance.
      * @param serverAddress is the server's ip address.
      * @param serverPort is the server's port.
      */
     public ConnectionSocket(String serverAddress, int serverPort) {
+        try {
+            FileHandler fh= new FileHandler("%h/ConnectionSocket.log");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+            logger.setUseParentHandlers(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
     }
@@ -65,6 +80,7 @@ public class ConnectionSocket {
         try {
             output.write(message+"\n");
             output.flush();
+            logger.log(Level.INFO, message);
         } catch (IOException e) {
             System.out.println("Failed to send the message.");
             System.out.println(e.getMessage());

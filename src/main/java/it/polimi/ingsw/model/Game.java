@@ -439,10 +439,11 @@ public class Game {
      * @throws InvalidActionException when it is not the turn of the player
      */
     public void endTurn(String player) throws InvalidActionException {
-        if(!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
+        if(!currentPlayer.getName().equalsIgnoreCase(player)) throw new InvalidActionException("It is not your turn!");
         else if (!doneMandatory) throw new InvalidActionException("You have to do a mandatory action (buy a DevelopCard, activate production or take resources from market)");
 
         //select max position and set the tiles if needed: if someone is at the end, set isEndgame
+        boolean inIf = false, inElse=false;
         int max=0;
         int curr;
         Player maxPlayer=null;
@@ -459,6 +460,7 @@ public class Game {
                 tile.setActive(true);
                 this.setTiles(maxPlayer, i);
                 if (i==2){
+                    System.out.println("Someone reached the end of the track");
                     this.isEndGame=true;
                 }
             }
@@ -473,7 +475,9 @@ public class Game {
         doneLeader=0;
         doneMandatory=false;
 
-        if (isEndGame && currentPlayer.getName().equals(firstPlayer.getName())){
+        if (isEndGame && currentPlayer.getName().equalsIgnoreCase(firstPlayer.getName())){
+            inIf=true;
+            System.out.println("Counting points...");
             //count points
             int maxpoints=0;
             int currpoints;
@@ -487,24 +491,34 @@ public class Game {
                     maxpoints=points[i];
                     winner=activePlayers.get(i);
                 }
-                else if (currpoints==maxpoints){
+                else if (currpoints==maxpoints && currpoints>0){
                     winner=winnerByResources(activePlayers.get(i), winner);
                 }
             }
             //notify players win/lose
+            System.out.println("Will I send the endgame message or not?");
             for (int i=0; i<activePlayers.size(); i++){
                 notifyEndGame(activePlayers.get(i).getName(), winner.getName(), points[i], maxpoints);
+                System.out.println("Sent it!");
             }
 
             this.phase=GamePhase.ENDED;
         }
         else {
+            inElse=true;
+            System.out.println("Just a normal end turn");
             //notify endturn
 
             notifyEndTurn(ended.getName());
+            System.out.println("Sent an endTurn");
 
             notifyTurn();
+            System.out.println("Sent a yourTurn");
         }
+
+        System.out.println("I am at the end of endTurn in Game");
+        System.out.println("Entered in if: "+inIf);
+        System.out.println("Entered in else: "+inElse);
     }
 
     /**

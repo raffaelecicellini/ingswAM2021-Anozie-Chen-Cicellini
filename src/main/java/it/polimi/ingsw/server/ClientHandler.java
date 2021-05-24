@@ -209,7 +209,7 @@ public class ClientHandler implements Runnable{
         try {
             output.write(message+"\n");
             output.flush();
-            System.out.println("ClientHandler, I sent a message: "+message);
+            System.out.println("ClientHandler "+ name +", I sent a message: "+message);
         } catch (IOException e) {
             System.out.println("Failed to send the message.");
             System.out.println(e.getMessage());

@@ -564,13 +564,14 @@ public class Controller implements SourceListener {
         if (model.getCurrentPlayer().getName().equalsIgnoreCase(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
-
                 try {
-                    model.endTurn(model.getCurrentPlayer().getName());
+                    System.out.println("Passing control to model...");
+                    model.endTurn(map.get("player"));
                 } catch (InvalidActionException e) {
                     e.printStackTrace();
                 }
             } else {
+                System.out.println("Wrong phase!");
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", map.get("player"));
@@ -579,6 +580,7 @@ public class Controller implements SourceListener {
                 gameHandlerListener.fireUpdates(error.get("action"), error);
             }
         } else {
+            System.out.println("Not your turn!");
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", map.get("player"));

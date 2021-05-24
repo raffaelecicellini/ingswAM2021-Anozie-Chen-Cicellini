@@ -439,7 +439,7 @@ public class Game {
      * @throws InvalidActionException when it is not the turn of the player
      */
     public void endTurn(String player) throws InvalidActionException {
-        if(!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
+        if(!currentPlayer.getName().equalsIgnoreCase(player)) throw new InvalidActionException("It is not your turn!");
         else if (!doneMandatory) throw new InvalidActionException("You have to do a mandatory action (buy a DevelopCard, activate production or take resources from market)");
 
         //select max position and set the tiles if needed: if someone is at the end, set isEndgame
@@ -459,6 +459,7 @@ public class Game {
                 tile.setActive(true);
                 this.setTiles(maxPlayer, i);
                 if (i==2){
+                    System.out.println("Someone reached the end of the track");
                     this.isEndGame=true;
                 }
             }
@@ -474,6 +475,7 @@ public class Game {
         doneMandatory=false;
 
         if (isEndGame && currentPlayer.getName().equalsIgnoreCase(firstPlayer.getName())){
+            System.out.println("Counting points...");
             //count points
             int maxpoints=0;
             int currpoints;
@@ -501,6 +503,7 @@ public class Game {
             this.phase=GamePhase.ENDED;
         }
         else {
+            System.out.println("Just a normal end turn");
             //notify endturn
 
             notifyEndTurn(ended.getName());

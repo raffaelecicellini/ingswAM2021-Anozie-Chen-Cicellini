@@ -443,6 +443,7 @@ public class Game {
         else if (!doneMandatory) throw new InvalidActionException("You have to do a mandatory action (buy a DevelopCard, activate production or take resources from market)");
 
         //select max position and set the tiles if needed: if someone is at the end, set isEndgame
+        boolean inIf = false, inElse=false;
         int max=0;
         int curr;
         Player maxPlayer=null;
@@ -475,6 +476,7 @@ public class Game {
         doneMandatory=false;
 
         if (isEndGame && currentPlayer.getName().equalsIgnoreCase(firstPlayer.getName())){
+            inIf=true;
             System.out.println("Counting points...");
             //count points
             int maxpoints=0;
@@ -489,7 +491,7 @@ public class Game {
                     maxpoints=points[i];
                     winner=activePlayers.get(i);
                 }
-                else if (currpoints==maxpoints){
+                else if (currpoints==maxpoints && currpoints>0){
                     winner=winnerByResources(activePlayers.get(i), winner);
                 }
             }
@@ -503,6 +505,7 @@ public class Game {
             this.phase=GamePhase.ENDED;
         }
         else {
+            inElse=true;
             System.out.println("Just a normal end turn");
             //notify endturn
 
@@ -512,6 +515,10 @@ public class Game {
             notifyTurn();
             System.out.println("Sent a yourTurn");
         }
+
+        System.out.println("I am at the end of endTurn in Game");
+        System.out.println("Entered in if: "+inIf);
+        System.out.println("Entered in else: "+inElse);
     }
 
     /**

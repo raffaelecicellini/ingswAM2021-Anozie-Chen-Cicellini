@@ -28,6 +28,7 @@ public class FaithMarker {
      * @param position is the new position of the FaithMarker.
      */
     public void setPosition(int position) {
+        if (position > 24) position = 24;
         this.position = position;
     }
 

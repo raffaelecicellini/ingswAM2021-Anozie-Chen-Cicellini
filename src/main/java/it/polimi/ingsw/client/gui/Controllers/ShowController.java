@@ -63,9 +63,13 @@ public class ShowController extends GUIController{
                 else big[i].setImage(null);
             }
 
+            ImageView[] leaderRes0 = new ImageView[]{leaderRes00, leaderRes01};
+            ImageView[] leaderRes1 = new ImageView[]{leaderRes10, leaderRes11};
+            for (int i = 0; i < 2; i++) {
+                leaderRes0[i].setImage(null);
+                leaderRes1[i].setImage(null);
+            }
             if (deposits.containsKey("sp1res")) {
-                ImageView[] leaderRes0 = new ImageView[]{leaderRes00, leaderRes01};
-                ImageView[] leaderRes1 = new ImageView[]{leaderRes10, leaderRes11};
                 if (deposits.get("sp1res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))) {
                     for (int i = 0; i < leaderRes0.length; i++) {
                         if (i > Integer.parseInt(deposits.get("sp1qty")) - 1) leaderRes0[i].setImage(null);
@@ -77,21 +81,19 @@ public class ShowController extends GUIController{
                         else leaderRes1[i].setImage(new Image(getPath(deposits.get("sp1res"))));
                     }
                 }
-            }
 
-            if (deposits.containsKey("sp2res")){
-                ImageView[] leaderRes0 = new ImageView[]{leaderRes00, leaderRes01};
-                ImageView[] leaderRes1 = new ImageView[]{leaderRes10, leaderRes11};
-                if (deposits.get("sp2res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
-                    for (int i=0; i<leaderRes0.length; i++){
-                        if (i> Integer.parseInt(deposits.get("sp2qty")) -1) leaderRes0[i].setImage(null);
-                        else leaderRes0[i].setImage(new Image(getPath(deposits.get("sp2res"))));
+                if (deposits.containsKey("sp2res")){
+                    if (deposits.get("sp2res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader0"))))){
+                        for (int i=0; i<leaderRes0.length; i++){
+                            if (i> Integer.parseInt(deposits.get("sp2qty")) -1) leaderRes0[i].setImage(null);
+                            else leaderRes0[i].setImage(new Image(getPath(deposits.get("sp2res"))));
+                        }
                     }
-                }
-                else if (deposits.get("sp2res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
-                    for (int i=0; i<leaderRes1.length; i++){
-                        if (i> Integer.parseInt(deposits.get("sp2qty")) -1) leaderRes1[i].setImage(null);
-                        else leaderRes1[i].setImage(new Image(getPath(deposits.get("sp2res"))));
+                    else if (deposits.get("sp2res").equalsIgnoreCase(Cards.getResourceById(Integer.parseInt(leaders.get("leader1"))))){
+                        for (int i=0; i<leaderRes1.length; i++){
+                            if (i> Integer.parseInt(deposits.get("sp2qty")) -1) leaderRes1[i].setImage(null);
+                            else leaderRes1[i].setImage(new Image(getPath(deposits.get("sp2res"))));
+                        }
                     }
                 }
             }

@@ -473,7 +473,7 @@ public class Game {
         doneLeader=0;
         doneMandatory=false;
 
-        if (isEndGame && currentPlayer.getName().equals(firstPlayer.getName())){
+        if (isEndGame && currentPlayer.getName().equalsIgnoreCase(firstPlayer.getName())){
             //count points
             int maxpoints=0;
             int currpoints;
@@ -492,8 +492,10 @@ public class Game {
                 }
             }
             //notify players win/lose
+            System.out.println("Will I send the endgame message or not?");
             for (int i=0; i<activePlayers.size(); i++){
                 notifyEndGame(activePlayers.get(i).getName(), winner.getName(), points[i], maxpoints);
+                System.out.println("Sent it!");
             }
 
             this.phase=GamePhase.ENDED;
@@ -502,8 +504,10 @@ public class Game {
             //notify endturn
 
             notifyEndTurn(ended.getName());
+            System.out.println("Sent an endTurn");
 
             notifyTurn();
+            System.out.println("Sent a yourTurn");
         }
     }
 

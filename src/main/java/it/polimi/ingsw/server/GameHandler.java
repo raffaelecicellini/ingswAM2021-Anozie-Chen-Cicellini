@@ -124,6 +124,8 @@ public class GameHandler implements SourceListener {
         //controls if the move can be done
         if (model.getPhase()!=GamePhase.NOTSTARTED){
             if (model.getCurrentPlayer().getName().equalsIgnoreCase(player)){
+                System.out.println("Passing action to Controller...");
+                System.out.println("Player: "+player+", Action: "+message.get("action"));
                 controllerListener.fireUpdates(message.get("action"), message);
             }
             else {
@@ -280,7 +282,8 @@ public class GameHandler implements SourceListener {
         Gson gson=new Gson();
         String jsonMessage;
         String addressee;
-        System.out.println("I am in GameHandler, ready to send a message. Action: "+propertyName+"; Player: "+value.get("player"));
+        String player= value.get("player")!=null? value.get("player") : value.get("endedTurnPlayer");
+        System.out.println("I am in GameHandler, ready to send a message. Action: "+propertyName+"; Player: "+player);
         switch (propertyName.toUpperCase()){
             case "STARTED":
                 //sendall

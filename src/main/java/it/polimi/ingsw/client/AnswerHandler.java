@@ -550,6 +550,8 @@ public class AnswerHandler implements SourceListener {
             case "OTHERDISCONNECTED":
                 viewListener.fireUpdates(value.get("action"), value);
                 break;
+            default:
+                viewListener.fireUpdates("default", null);
         }
     }
 }

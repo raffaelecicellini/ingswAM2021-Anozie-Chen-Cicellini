@@ -26,7 +26,6 @@ public class FakeStartParams {
 
     void AskToHumans() {
 
-
         System.out.println("Hi! Welcome to Master of Renaissance!\nWhat do you want to launch?");
         System.out.println("0. SERVER\n1. CLIENT (CLI INTERFACE)\n2. CLIENT (GUI INTERFACE)");
         System.out.println("\n>Type the number of the desired option!");

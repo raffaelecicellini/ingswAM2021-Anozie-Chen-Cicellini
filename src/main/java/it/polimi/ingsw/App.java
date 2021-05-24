@@ -11,6 +11,7 @@ import java.util.Scanner;
  * Main App class. Its main is the beginning of the application and let the user select what he wants to launch (Server,
  * CLI, GUI).
  */
+
 public class App {
     /**
      * Method main selects CLI, GUI or Server based on the arguments provided.

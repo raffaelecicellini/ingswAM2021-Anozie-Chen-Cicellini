@@ -41,11 +41,9 @@ public class Controller implements SourceListener {
      * Start method: the controller checks the inputs and calls start on the Game.
      */
     private void start(){
-
         if (model.getPhase() == GamePhase.NOTSTARTED) {
             model.start();
         }
-
     }
 
     /**

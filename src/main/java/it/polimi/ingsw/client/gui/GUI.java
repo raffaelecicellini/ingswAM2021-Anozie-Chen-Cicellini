@@ -322,11 +322,13 @@ public class GUI extends Application implements SourceListener {
      * @see SourceListener
      */
     @Override
+    //public void update(String propertyName, Message message) {
     public void update(String propertyName, Map<String, String> value) {
         switch (propertyName.toUpperCase()) {
             case "START":
                 Platform.runLater(()->{
                     WaitController controller= (WaitController) mapNameController.get("wait.fxml");
+                    //controller.setText(message.getContent());
                     controller.setText(value.get("content"));
                 });
 
@@ -335,6 +337,7 @@ public class GUI extends Application implements SourceListener {
             case "OTHERCONNECTED":
                 Platform.runLater(()->{
                     WaitController controller= (WaitController) mapNameController.get("wait.fxml");
+                    //controller.setText(message.getContent());
                     controller.setText(value.get("content"));
                 });
 
@@ -356,12 +359,14 @@ public class GUI extends Application implements SourceListener {
 
             case "CHOOSELEADERS":
 
+                // if (message == null)
                 if (value == null) {
                     chooseLeaders();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("ChooseLeaders");
+                        //alert.setContentText(message.getPlayer() + " is choosing his leaders!");
                         alert.setContentText(value.get("other") + " is choosing his leaders!");
                         alert.showAndWait();
                     });
@@ -371,12 +376,14 @@ public class GUI extends Application implements SourceListener {
 
             case "OKLEADERS":
 
+                // if (message == null)
                 if (value == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("OkLeaders");
+                        //alert.setContentText(message.getPlayer() + " has chosen his leaders!");
                         alert.setContentText(value.get("other") + " has chosen his leaders!");
                         alert.showAndWait();
                     });
@@ -386,12 +393,15 @@ public class GUI extends Application implements SourceListener {
 
             case "CHOOSERESOURCES":
 
+                //if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                 if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
+                    //chooseResources(message.getResQty);
                     chooseResources(Integer.parseInt(value.get("qty")));
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("ChooseResources");
+                        //alert.setContentText(message.getPlayer() + " is choosing his initial resources!");
                         alert.setContentText(value.get("other") + " is choosing his initial resources!");
                         alert.showAndWait();
                     });
@@ -401,6 +411,7 @@ public class GUI extends Application implements SourceListener {
 
             case "OKRESOURCES":
 
+                //if (message == null) {
                 if (value == null) {
                     Platform.runLater(() -> {
                         BoardController board = (BoardController) getControllerFromName("board.fxml");
@@ -411,6 +422,7 @@ public class GUI extends Application implements SourceListener {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("OkResources");
+                        //alert.setContentText(message.getPlayer() + " has chosen his initial resources!");
                         alert.setContentText(value.get("other") + " has chosen his initial resources!");
                         alert.showAndWait();
                     });
@@ -420,10 +432,11 @@ public class GUI extends Application implements SourceListener {
 
             case "YOURTURN":
 
+                //if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
                 if (value.get("player").equalsIgnoreCase(modelView.getName())) {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
-                        alert.setHeaderText("YourTurn");
+                        alert.setHeaderText("Your Turn");
                         alert.setContentText("It is your turn now! Choose your move!");
                         alert.showAndWait();
                     });
@@ -432,12 +445,14 @@ public class GUI extends Application implements SourceListener {
 
             case "PRODUCE":
 
+                //if (message == null) {
                 if (value == null) {
                     updateProduce();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Produce");
+                        //alert.setContentText(message.getPlayer() + " has made some productions!");
                         alert.setContentText(value.get("other") + " has made some productions!");
                         alert.showAndWait();
                     });
@@ -447,6 +462,7 @@ public class GUI extends Application implements SourceListener {
 
             case "BUY":
 
+                //if (message == null) {
                 if (value == null) {
                     updateBuy();
                 } else {
@@ -454,6 +470,7 @@ public class GUI extends Application implements SourceListener {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Buy");
+                        //alert.setContentText(message.getPlayer() + " has bought a Develop Card!");
                         alert.setContentText(value.get("other") + " has bought a Develop Card!");
                         alert.showAndWait();
                     });
@@ -462,6 +479,7 @@ public class GUI extends Application implements SourceListener {
 
             case "MARKET":
 
+                //if (message == null) {
                 if (value == null) {
                     updateMarket();
                 } else {
@@ -469,6 +487,7 @@ public class GUI extends Application implements SourceListener {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Market");
+                        //alert.setContentText(message.getPlayer() + " has taken resources from the Market!");
                         alert.setContentText(value.get("other") + " has taken resources from the Market!");
                         alert.showAndWait();
                     });
@@ -478,12 +497,14 @@ public class GUI extends Application implements SourceListener {
 
             case "SWAP":
 
+                //if (message == null) {
                 if (value == null) {
                     updateSwap();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Swap");
+                        //alert.setContentText(message.getPlayer() + " has swapped his deposits!");
                         alert.setContentText(value.get("other") + " has swapped his deposits!");
                         alert.showAndWait();
                     });
@@ -493,12 +514,14 @@ public class GUI extends Application implements SourceListener {
 
             case "ACTIVATE":
 
+                //if (message == null) {
                 if (value == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("ActivateLeader");
+                        //alert.setContentText(message.getPlayer() + " has activated his leader!");
                         alert.setContentText(value.get("other") + " has activated his leader!");
                         alert.showAndWait();
                     });
@@ -508,12 +531,14 @@ public class GUI extends Application implements SourceListener {
 
             case "DISCARD":
 
+                //if (message == null) {
                 if (value == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("DiscardLeader");
+                        //alert.setContentText(message.getPlayer() + " has discarded his leader!");
                         alert.setContentText(value.get("other") + " has discarded his leader!");
                         alert.showAndWait();
                     });
@@ -522,7 +547,9 @@ public class GUI extends Application implements SourceListener {
                 break;
 
             case "ENDTURN":
+
                 updateEndTurn();
+                //if (modelView.getName().equalsIgnoreCase(message.getEndedPlayer())) {
                 if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     if (modelView.isSoloGame()){
                         Platform.runLater(() -> {
@@ -533,6 +560,7 @@ public class GUI extends Application implements SourceListener {
                             Alert alert= new Alert(Alert.AlertType.INFORMATION);
                             alert.setHeaderText("EndTurn");
                             alert.setContentText("The Token that has been activated is: ");
+                            //String token="/PNG/punchboard/cerchio"+message.getToken()+".png";
                             String token="/PNG/punchboard/cerchio"+value.get("tokenActivated")+".png";
                             Image image= new Image(token);
                             ImageView img= new ImageView(image);
@@ -544,6 +572,7 @@ public class GUI extends Application implements SourceListener {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("EndTurn");
+                        //alert.setContentText(message.getPlayer() + " has ended his turn!"+" It is " + message.getCurrentPlayer() + " turn now!");
                         alert.setContentText(value.get("other") + " has ended his turn!"+" It is " + value.get("currentPlayer") + " turn now!");
                         alert.showAndWait();
                     });
@@ -553,19 +582,23 @@ public class GUI extends Application implements SourceListener {
 
             case "ENDGAME":
 
+                //if (message.getWinner().equalsIgnoreCase(modelView.getName())) {
                 if (value.containsKey("winner") && value.get("winner").equalsIgnoreCase(modelView.getName())) {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Winner");
-                        alert.setContentText("You won! You made " + value.get("winnerpoints") + " points! ");
+                        //alert.setContentText("You won! You made " + message.getWinnerPoints() + " points!");
+                        alert.setContentText("You won! You made " + value.get("winnerpoints") + " points!");
                         alert.showAndWait();
                         System.exit(0);
                     });
                 } else {
                     Platform.runLater(() -> {
-                        String content="You lost! You made " + value.get("points") + " points! ";
+                        //String content="You lost! You made " + message.getPoints() + " points!";
+                        String content="You lost! You made " + value.get("points") + " points!";
                         if (!modelView.isSoloGame()) {
-                            content=content+value.get("winner") + " won with " + value.get("winnerpoints") + " points! ";
+                            //content=content+ message.getWinner() + " won with " + message.getWinnerPoints() + " points!";
+                            content=content+value.get("winner") + " won with " + value.get("winnerpoints") + " points!";
                         }
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Loser");
@@ -583,17 +616,21 @@ public class GUI extends Application implements SourceListener {
 
             case "ERROR":
 
+                //if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
                 if (value.get("player").equalsIgnoreCase(modelView.getName())) {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.ERROR);
                         alert.setHeaderText("Error");
+                        //alert.setContentText(message.getContent());
                         alert.setContentText(value.get("content"));
                         alert.showAndWait();
                     });
                 }
+                //if (message.getMethod().equalsIgnoreCase("chooseleaders")){
                 if (value.get("method").equalsIgnoreCase("chooseleaders")){
                     chooseLeaders();
                 }
+                //else if (message.getMethod().equalsIgnoreCase("chooseresources")){
                 else if (value.get("method").equalsIgnoreCase("chooseresources")){
                     chooseResources(modelView.getInitialRes());
                 }
@@ -603,20 +640,22 @@ public class GUI extends Application implements SourceListener {
                 Platform.runLater(() -> {
                     Alert alert= new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("End");
+                    //alert.setContentText(message.getContent());
                     alert.setContentText(value.get("content"));
                     alert.showAndWait();
                     System.exit(0);
                 });
-                //System.exit(0);
                 break;
 
             case "OTHERDISCONNECTED":
                 Platform.runLater(() -> {
                     Alert alert= new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("End");
+                    //alert.setContentText(message.getContent());
                     alert.setContentText(value.get("content"));
                     alert.showAndWait();
                 });
+                //System.out.println(message.getContent());
                 System.out.println(value.get("content"));
                 break;
 

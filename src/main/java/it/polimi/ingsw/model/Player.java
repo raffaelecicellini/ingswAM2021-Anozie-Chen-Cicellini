@@ -462,7 +462,7 @@ public class Player {
                 else throw new InvalidActionException("Invalid action! You typed a wrong deposit! dep:" + dep);
             }
             else {
-                // 2 possible colors to choose
+                // 2 possible colors to choose from
                 if (dep>=0 && dep<=4){
                     Color color = Color.valueOf(map.get("res" + (i+1)).toUpperCase());
                     discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, color);

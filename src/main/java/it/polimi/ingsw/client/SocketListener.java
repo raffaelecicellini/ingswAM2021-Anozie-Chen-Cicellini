@@ -127,9 +127,19 @@ public class SocketListener implements Runnable{
             }
         } catch (SocketTimeoutException e) {
             System.out.println(e.getMessage());
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             System.exit(0);
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             System.exit(0);
         }
     }

@@ -771,7 +771,6 @@ public class Game {
             state.put("bigres", colors[2]);
             state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
         }
-
         listener.fireUpdates(state.get("action"), state);
     }
 

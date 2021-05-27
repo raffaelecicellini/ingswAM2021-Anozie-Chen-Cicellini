@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.messages.ErrorAnswer;
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
@@ -589,45 +591,57 @@ public class Controller implements SourceListener {
 
     }
 
-    @Override
-    public void update(String propertyName, Map<String, String> value) {
+
+
+    /*@Override
+    //public void update(String propertyName, Map<String, String> value) {
+    public void update(String propertyName, Message message) {
         switch (propertyName.toUpperCase()){
             case "START":
                 start();
                 break;
             case "BUY":
-                value.remove("action");
-                buy(value);
+                buy(message);
+                //value.remove("action");
+                //buy(value);
                 break;
             case "PRODUCE":
-                value.remove("action");
-                produce(value);
+                produce(message);
+                //value.remove("action");
+                //produce(value);
                 break;
             case "MARKET":
-                value.remove("action");
-                fromMarket(value);
+                fromMarket(message);
+                //value.remove("action");
+                //fromMarket(value);
                 break;
             case "SWAP":
+                swapDeposits(message);
                 value.remove("action");
                 swapDeposits(value);
                 break;
             case "CHOOSELEADERS":
+                chooseLeaders(message);
                 value.remove("action");
                 chooseLeaders(value);
                 break;
             case "CHOOSERESOURCES":
+                chooseResources(message);
                 value.remove("action");
                 chooseResources(value);
                 break;
             case "ACTIVATE":
+                activateLeader(message);
                 value.remove("action");
                 activateLeader(value);
                 break;
             case "DISCARD":
+                discardLeader(message);
                 value.remove("action");
                 discardLeader(value);
                 break;
             case "ENDTURN":
+                endTurn(message);
                 //message.remove("action");
                 endTurn(value);
                 break;
@@ -635,11 +649,13 @@ public class Controller implements SourceListener {
                 model.setPhase(GamePhase.ENDED);
                 break;
             default:
-                Map<String, String> error = new HashMap<>();
-                error.put("action", "error");
-                error.put("player", value.get("player"));
-                error.put("content", "Illegal action! Try typing again!");
-                gameHandlerListener.fireUpdates("error", error);
+                Map<String, String> map = new HashMap<>();
+                map.put("action", "error");
+                map.put("player", message.getPlayer());
+                //map.put("player", value.get("player"));
+                map.put("content", "Illegal action! Try typing again!");
+                Message error = new ErrorAnswer(map);
+                gameHandlerListener.fireUpdates(map.get("action"), error);
         }
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
@@ -288,7 +289,7 @@ public class Game {
      * @throws InvalidActionException when it is not the turn of the player who wants to act, when he already did a mandatory action
      * or when the one of the productions was invalid (no resources or wrong positions from where to take them)
      */
-    public void produce(String player, Map<String, String> info) throws InvalidActionException {
+    public void produce(String player, ProductionMessage info) throws InvalidActionException {
         if (currentPlayer.getName().equals(player) && !doneMandatory) {
             currentPlayer.produce(info);
             doneMandatory=true;
@@ -676,13 +677,13 @@ public class Game {
     /**
      * This method is used for a chooseInitialResource move at the start of the game.
      * @param player is the player's name.
-     * @param map is where the information is stored.
+     * @param info is where the information is stored.
      * @throws InvalidActionException is the move is not valid.
      */
-    public void chooseInitialResource(String player,Map<String, String> map) throws InvalidActionException {
+    public void chooseInitialResource(String player, ResourceMessage info) throws InvalidActionException {
         if (currentPlayer.getName().equals(player)) {
             if (currentPlayer.getNumberInitialResource() != 0)
-                currentPlayer.chooseInitialResource(map);
+                currentPlayer.chooseInitialResource(info);
         }
         else throw new InvalidActionException("It is not your turn!");
         //notify changes to player
@@ -790,24 +791,25 @@ public class Game {
     /**
      * This method is used for a buy move during the turn.
      * @param player is the player's name.
-     * @param map is where the information is stored.
+     * @param info is where the information is stored.
      * @throws InvalidActionException if the move is not valid.
      * @throws NumberFormatException if the format is not valid.
      */
-    public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
+    public void buy(String player, BuyMessage info) throws InvalidActionException {
         if (!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory operation in this turn.");
-        if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("You didn't select the card.");
-        int row = Integer.parseInt(map.get("row"));
-        int column = Integer.parseInt(map.get("column"));
+        if(info.getRow()==-1 || info.getCol()==-1) throw new InvalidActionException("You didn't select the card.");
+        int row = info.getRow();
+        int column = info.getCol();
         if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("Wrong indexes selected ");
         boolean end;
         int slot, id;
         DevelopCard card = developDecks[column][row].getCard();
         if (card==null) throw new InvalidActionException("No more cards in this deck!");
         id=card.getId();
-        slot=Integer.parseInt(map.get("ind"));
-        end = currentPlayer.buy(map, card);
+        if (info.getSlot() == -1) throw new InvalidActionException("You didn't select the slot.");
+        slot = info.getSlot();
+        end = currentPlayer.buy(info, card);
         developDecks[column][row].removeCard();
         if (end)
             isEndGame = true;
@@ -878,11 +880,11 @@ public class Game {
     /**
      * This method is used for a swapDeposit move during the turn.
      * @param player is the player's name.
-     * @param map is where the information is stored.
+     * @param info is where the information is stored.
      * @throws InvalidActionException if the move is not valid.
      */
-    public void swapDeposit(String player, Map<String,String> map) throws InvalidActionException {
-        if (currentPlayer.getName().equals(player)) currentPlayer.swapDeposit(map);
+    public void swapDeposit(String player, SwapMessage info) throws InvalidActionException {
+        if (currentPlayer.getName().equals(player)) currentPlayer.swapDeposit(info);
         else throw new InvalidActionException("It is not your turn!");
         //notify changes to player
         notifySwap();
@@ -925,10 +927,10 @@ public class Game {
     /**
      * This method is used for taking resources from the Market
      * @param player is the Player's name
-     * @param map is the map with the information
+     * @param info is where the info about the move is stored.
      * @throws InvalidActionException if the move is not valid
      */
-    public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
+    public void fromMarket(String player, MarketMessage info) throws InvalidActionException {
         int value;
         String chosen;
         int discarded=0;
@@ -936,18 +938,12 @@ public class Game {
 
             if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");
 
-            // to lowercase the entire map
-            Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                    e1 -> e1.getKey().toLowerCase(),
-                    e1 -> e1.getValue().toLowerCase()));
-
-            if (mapCopy.containsKey("row")) {
-                int row = Integer.parseInt(mapCopy.get("row"));
+            if (info.isRow()) {
+                int row = info.getMarblesIndex();
                 value=row-1;
                 chosen="row";
                 if (row >= 1 && row <= 3) {
-                    mapCopy.remove("row");
-                    discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                    discarded = currentPlayer.fromMarket(info, market.selectRow(row - 1));
                     market.pushRow(row-1);
                     for (Player p : players) {
                         if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
@@ -955,13 +951,12 @@ public class Game {
                     doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             } else
-            if (mapCopy.containsKey("col")) {
-                int col = Integer.parseInt(mapCopy.get("col"));
+            if (info.isCol()) {
+                int col = info.getMarblesIndex();
                 value=col-1;
                 chosen="col";
                 if (col >= 1 && col <= 4) {
-                    mapCopy.remove("col");
-                    discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                    discarded = currentPlayer.fromMarket(info, market.selectColumn(col - 1));
                     market.pushColumn(col-1);
                     for (Player p : players) {
                         if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);

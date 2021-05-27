@@ -11,6 +11,8 @@ public class ProductionMessage extends Message{
 
     @Override
     public boolean isSelected(int ind) {
+        if (!info.containsKey("prod"+ind))
+            return false;
         String selected = info.get("prod"+ind);
         return selected.equalsIgnoreCase("yes");
     }

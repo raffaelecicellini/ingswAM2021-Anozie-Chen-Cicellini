@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
@@ -72,9 +73,9 @@ public class Controller implements SourceListener {
                         Integer.parseInt(mapCopy.get("ind")) >= 0 && Integer.parseInt(mapCopy.get("ind")) <= 2 &&
                         mapCopy.containsKey("res1") && mapCopy.get("res1") != null) {
                     try {
-                        mapCopy.remove("player");
-                        mapCopy.remove("action");
-                        model.buy(model.getCurrentPlayer().getName(), mapCopy);
+                        //mapCopy.remove("player");
+                        //mapCopy.remove("action");
+                        model.buy(model.getCurrentPlayer().getName(), new BuyMessage(mapCopy));
                     } catch (InvalidActionException e) {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
@@ -130,9 +131,9 @@ public class Controller implements SourceListener {
                         mapCopy.get("prod0") != null && mapCopy.get("prod1") != null && mapCopy.get("prod2") != null &&
                         mapCopy.get("prod3") != null /*&& mapCopy.get("prod4") != null && mapCopy.get("prod5") != null*/ ) {
                     try {
-                        mapCopy.remove("player");
-                        mapCopy.remove("action");
-                        model.produce(model.getCurrentPlayer().getName(), mapCopy);
+                        //mapCopy.remove("player");
+                        //mapCopy.remove("action");
+                        model.produce(model.getCurrentPlayer().getName(), new ProductionMessage(mapCopy));
                     } catch (InvalidActionException e) {
                         //e.printStackTrace();
                         Map<String, String> error = new HashMap<>();
@@ -188,9 +189,9 @@ public class Controller implements SourceListener {
                 if (mapCopy.containsKey("row")) {
                     if (mapCopy.size() >= 5) {
                         try {
-                            mapCopy.remove("player");
-                            mapCopy.remove("action");
-                            model.fromMarket(model.getCurrentPlayer().getName(), mapCopy);
+                            //mapCopy.remove("player");
+                            //mapCopy.remove("action");
+                            model.fromMarket(model.getCurrentPlayer().getName(), new MarketMessage(mapCopy));
                         } catch (InvalidActionException e) {
                             //e.printStackTrace();
                             Map<String, String> error = new HashMap<>();
@@ -204,9 +205,9 @@ public class Controller implements SourceListener {
                 } else if (mapCopy.containsKey("col")) {
                     if (mapCopy.size() >= 4) {
                         try {
-                            mapCopy.remove("player");
-                            mapCopy.remove("action");
-                            model.fromMarket(model.getCurrentPlayer().getName(), mapCopy);
+                            //mapCopy.remove("player");
+                            //mapCopy.remove("action");
+                            model.fromMarket(model.getCurrentPlayer().getName(), new MarketMessage(mapCopy));
                         } catch (InvalidActionException e) {
                             //e.printStackTrace();
                             Map<String, String> error = new HashMap<>();
@@ -265,9 +266,9 @@ public class Controller implements SourceListener {
                         mapCopy.containsKey("source") && mapCopy.containsKey("dest") &&
                         mapCopy.get("source") != null && mapCopy.get("dest") != null) {
                     try {
-                        mapCopy.remove("player");
-                        mapCopy.remove("action");
-                        model.swapDeposit(model.getCurrentPlayer().getName(), mapCopy);
+                        //mapCopy.remove("player");
+                        //mapCopy.remove("action");
+                        model.swapDeposit(model.getCurrentPlayer().getName(), new SwapMessage(mapCopy));
                     } catch (InvalidActionException e) {
                         //e.printStackTrace();
                         Map<String, String> error = new HashMap<>();
@@ -382,9 +383,9 @@ public class Controller implements SourceListener {
                 if (mapCopy.containsKey("res1") && mapCopy.containsKey("pos1") &&
                         mapCopy.get("res1") != null && mapCopy.get("pos1") != null) {
                     try {
-                        mapCopy.remove("player");
-                        mapCopy.remove("action");
-                        model.chooseInitialResource(model.getCurrentPlayer().getName(), mapCopy);
+                        //mapCopy.remove("player");
+                        //mapCopy.remove("action");
+                        model.chooseInitialResource(model.getCurrentPlayer().getName(), new ResourceMessage(mapCopy));
                     } catch (InvalidActionException e) {
                         //e.printStackTrace();
                         Map<String, String> error = new HashMap<>();

@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.messages.BuyMessage;
+import it.polimi.ingsw.messages.MarketMessage;
+import it.polimi.ingsw.messages.ProductionMessage;
+import it.polimi.ingsw.messages.SwapMessage;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
@@ -108,23 +112,24 @@ public class SoloGame extends Game{
     /**
      * This method is used for a buy move during the turn.
      * @param player is ignored.
-     * @param map is where the information is stored.
+     * @param info is where the information is stored.
      * @throws InvalidActionException if the move is not valid.
      * @throws NumberFormatException if the format is not valid.
      */
     @Override
-    public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
+    public void buy(String player, BuyMessage info) throws InvalidActionException{
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory operation in this turn.");
-        if (map.get("row") == null || map.get("column") == null)
+        if (info.getRow() == -1 || info.getCol() == -1)
             throw new InvalidActionException("You didn't select the card.");
-        int row = Integer.parseInt(map.get("row"));
-        int column = Integer.parseInt(map.get("column"));
+        int row = info.getRow();
+        int column = info.getCol();
         if (row < 0 || row > 2 || column < 0 || column > 3) throw new InvalidActionException("Wrong indexes selected ");
-        int ind = Integer.parseInt(map.get("ind"));
+        if (info.getSlot() == -1) throw new InvalidActionException("You didn't select the slot.");
+        int ind = info.getSlot();
 
         DevelopCard card = developDecks[column][row].getCard();
-        isEndGame = currentPlayer.buy(map, card);
+        isEndGame = currentPlayer.buy(info, card);
         developDecks[column][row].removeCard();
         doneMandatory = true;
         notifyBuy(ind, card.getId(), column, row);
@@ -141,7 +146,7 @@ public class SoloGame extends Game{
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void produce(String player, Map<String, String> info) throws InvalidActionException {
+    public void produce(String player, ProductionMessage info) throws InvalidActionException {
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory operation in this turn.");
         currentPlayer.produce(info);
@@ -152,33 +157,25 @@ public class SoloGame extends Game{
     /**
      * This method is used for taking resources from the Market
      * @param player is ignored
-     * @param map is the map with the information
+     * @param info is where the infos about the move are stored.
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
+    public void fromMarket(String player, MarketMessage info) throws InvalidActionException {
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");
-
-        // to lowercase the entire map
-        Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                e1 -> e1.getKey().toLowerCase(),
-                e1 -> e1.getValue().toLowerCase()));
-
-        if (mapCopy.containsKey("row")) {
-            int row = Integer.parseInt(mapCopy.get("row"));
+        if (info.isRow()) {
+            int row = info.getMarblesIndex();
             if (row >= 1 && row <= 3) {
-                mapCopy.remove("row");
-                int discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                int discarded = currentPlayer.fromMarket(info, market.selectRow(row - 1));
                 market.pushRow(row - 1);
                 blackCross.setPosition(blackCross.getPosition() + discarded);
                 doneMandatory = true;
             } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             notifyMarket("row", row - 1);
-        } else if (mapCopy.containsKey("col")) {
-            int col = Integer.parseInt(mapCopy.get("col"));
+        } else if (info.isCol()) {
+            int col = info.getMarblesIndex();
             if (col >= 1 && col <= 4) {
-                mapCopy.remove("col");
-                int discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
+                int discarded = currentPlayer.fromMarket(info, market.selectColumn(col - 1));
                 market.pushColumn(col - 1);
                 blackCross.setPosition(blackCross.getPosition() + discarded);
                 doneMandatory = true;
@@ -190,12 +187,12 @@ public class SoloGame extends Game{
     /**
      * This method is used for a swapDeposit move during the turn.
      * @param player is ignored
-     * @param map is where the information is stored.
+     * @param info is where the information is stored.
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void swapDeposit(String player, Map<String, String> map) throws InvalidActionException {
-        currentPlayer.swapDeposit(map);
+    public void swapDeposit(String player, SwapMessage info) throws InvalidActionException {
+        currentPlayer.swapDeposit(info);
         notifySwap();
     }
 

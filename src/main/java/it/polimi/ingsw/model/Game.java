@@ -296,9 +296,9 @@ public class Game {
      * @throws InvalidActionException when it is not the turn of the player who wants to act, when he already did a mandatory action
      * or when the one of the productions was invalid (no resources or wrong positions from where to take them)
      */
-    public void produce(String player, Map<String, String> info) throws InvalidActionException {
+    public void produce(String player, Message info) throws InvalidActionException {
         if (currentPlayer.getName().equals(player) && !doneMandatory) {
-            currentPlayer.produce(info);
+            //currentPlayer.produce(info);
             doneMandatory=true;
         }
         else if (currentPlayer.getName().equals(player) && doneMandatory) throw new InvalidActionException("You have already done a mandatory action!");
@@ -691,10 +691,10 @@ public class Game {
      * @param map is where the information is stored.
      * @throws InvalidActionException is the move is not valid.
      */
-    public void chooseInitialResource(String player,Map<String, String> map) throws InvalidActionException {
+    public void chooseInitialResource(String player, Message map) throws InvalidActionException {
         if (currentPlayer.getName().equals(player)) {
-            if (currentPlayer.getNumberInitialResource() != 0)
-                currentPlayer.chooseInitialResource(map);
+            //if (currentPlayer.getNumberInitialResource() != 0)
+                //currentPlayer.chooseInitialResource(map);
         }
         else throw new InvalidActionException("It is not your turn!");
         //notify changes to player
@@ -720,15 +720,13 @@ public class Game {
      * @param map this map contains the indexes of the two leaders chosen
      * @throws InvalidActionException when one or both indexes are missing or if it is not the turn of the player.
      */
-    public void chooseLeaders(String player, Map<String, String> map) throws InvalidActionException {
+    public void chooseLeaders(String player, Message map) throws InvalidActionException {
         if (currentPlayer.getName().equals(player)) {
             int leader1, leader2;
-            if (map.containsKey("ind1") && map.containsKey("ind2")){
-                leader1=Integer.parseInt(map.get("ind1"));
-                leader2=Integer.parseInt(map.get("ind2"));
-                currentPlayer.chooseLeader(leader1, leader2);
-            }
-            else throw new InvalidActionException("Missing parameters!");
+
+            //leader1=map.getLeader(1);
+            //leader2=map.getLeader(2);
+            //currentPlayer.chooseLeader(leader1, leader2);
         }
         else throw new InvalidActionException("It is not your turn!");
 
@@ -811,27 +809,27 @@ public class Game {
      * @throws InvalidActionException if the move is not valid.
      * @throws NumberFormatException if the format is not valid.
      */
-    public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
+    public void buy(String player, Message map) throws InvalidActionException, NumberFormatException {
         if (!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory operation in this turn.");
-        if(map.get("row")==null || map.get("column")==null) throw new InvalidActionException("You didn't select the card.");
-        int row = Integer.parseInt(map.get("row"));
-        int column = Integer.parseInt(map.get("column"));
-        if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("Wrong indexes selected ");
-        boolean end;
+        //if(map.getRow()==null || map.getCol()==null) throw new InvalidActionException("You didn't select the card.");
+        //int row = map.getRow();
+        //int column = map.getCol();
+        //if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("Wrong indexes selected ");
+        boolean end = false;
         int slot, id;
-        DevelopCard card = developDecks[column][row].getCard();
-        if (card==null) throw new InvalidActionException("No more cards in this deck!");
-        id=card.getId();
-        slot=Integer.parseInt(map.get("ind"));
-        end = currentPlayer.buy(map, card);
-        developDecks[column][row].removeCard();
+        //DevelopCard card = developDecks[column][row].getCard();
+        //if (card==null) throw new InvalidActionException("No more cards in this deck!");
+        //id=card.getId();
+        //slot=map.getSlot();
+        //end = currentPlayer.buy(map, card);
+        //developDecks[column][row].removeCard();
         if (end)
             isEndGame = true;
         doneMandatory = true;
 
         //notify changes to players (it is the listener that separates the infos
-        notifyBuy(slot, id, column, row);
+        //notifyBuy(slot, id, column, row);
     }
 
     /**
@@ -899,9 +897,9 @@ public class Game {
      * @param map is where the information is stored.
      * @throws InvalidActionException if the move is not valid.
      */
-    public void swapDeposit(String player, Map<String,String> map) throws InvalidActionException {
-        if (currentPlayer.getName().equals(player)) currentPlayer.swapDeposit(map);
-        else throw new InvalidActionException("It is not your turn!");
+    public void swapDeposit(String player, Message map) throws InvalidActionException {
+        //if (currentPlayer.getName().equals(player)) currentPlayer.swapDeposit(map);
+        //else throw new InvalidActionException("It is not your turn!");
         //notify changes to player
         notifySwap();
     }
@@ -947,7 +945,7 @@ public class Game {
      * @param map is the map with the information
      * @throws InvalidActionException if the move is not valid
      */
-    public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
+    public void fromMarket(String player, Message map) throws InvalidActionException {
         int value;
         String chosen;
         int discarded=0;
@@ -955,18 +953,12 @@ public class Game {
 
             if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");
 
-            // to lowercase the entire map
-            Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                    e1 -> e1.getKey().toLowerCase(),
-                    e1 -> e1.getValue().toLowerCase()));
-
-            if (mapCopy.containsKey("row")) {
-                int row = Integer.parseInt(mapCopy.get("row"));
+            /*if (map.isRow()) {
+                int row = map.getMarblesIndex();
                 value=row-1;
                 chosen="row";
                 if (row >= 1 && row <= 3) {
-                    mapCopy.remove("row");
-                    discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+                    discarded = currentPlayer.fromMarket(map, market.selectRow(row - 1));
                     market.pushRow(row-1);
                     for (Player p : players) {
                         if (!p.equals(currentPlayer)) p.getPersonalBoard().setPosition(p.getPersonalBoard().getPosition()+discarded);
@@ -974,12 +966,11 @@ public class Game {
                     doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
             } else
-            if (mapCopy.containsKey("col")) {
-                int col = Integer.parseInt(mapCopy.get("col"));
+            if (map.isCol()) {
+                int col = map.getMarblesIndex();
                 value=col-1;
                 chosen="col";
                 if (col >= 1 && col <= 4) {
-                    mapCopy.remove("col");
                     discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
                     market.pushColumn(col-1);
                     for (Player p : players) {
@@ -988,11 +979,11 @@ public class Game {
                     doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
 
-            } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
+            } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");*/
         }
         else throw new InvalidActionException("It is not your turn!");
         //notify changes
-        notifyMarket(chosen, value, discarded);
+        //notifyMarket(chosen, value, discarded);
     }
 
     /**

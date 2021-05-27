@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.Test;
 import java.util.*;
@@ -153,8 +154,13 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
+        info.put("player", curr.getName());
+        info.put("action", "produce");
+
+        Message message= null;
+        //message= new ProductionMessage(info);
         try {
-            test.produce(curr.getName(), info);
+            test.produce(curr.getName(), message);
             assertTrue(test.isDoneMandatory());
             System.out.println(curr.getPersonalBoard().getDeposits().toString());
             System.out.println(Arrays.toString(curr.getPersonalBoard().getStrongbox()));
@@ -163,15 +169,18 @@ public class GameTest {
         }
 
         try {
-            test.produce(curr.getName(), info);
+            test.produce(curr.getName(), message);
         } catch (InvalidActionException e) {
             e.printStackTrace();
             assertTrue(test.isDoneMandatory());
             assertEquals("it.polimi.ingsw.model.exceptions.InvalidActionException: You have already done a mandatory action!", e.toString());
         }
 
+        info.put("player", second.getName());
+        info.put("action", "produce");
+        //message= new ProductionMessage(info);
         try {
-            test.produce(second.getName(), info);
+            test.produce(second.getName(), message);
         } catch (InvalidActionException e) {
             e.printStackTrace();
             assertEquals("it.polimi.ingsw.model.exceptions.InvalidActionException: It is not your turn!", e.toString());
@@ -192,16 +201,20 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
+        info.put("player", second.getName());
+        info.put("action", "produce");
+        //message= new ProductionMessage(info);
         try {
-            test.produce(second.getName(), info);
+            test.produce(second.getName(), message);
             assertTrue(test.isDoneMandatory());
             System.out.println(second.getPersonalBoard().getDeposits().toString());
             System.out.println(Arrays.toString(second.getPersonalBoard().getStrongbox()));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
+
         try {
-            test.produce(second.getName(), info);
+            test.produce(second.getName(), message);
         } catch (InvalidActionException e) {
             e.printStackTrace();
             assertTrue(test.isDoneMandatory());
@@ -241,8 +254,11 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
+
+        Message message=null;
+        //message= new ProductionMessage(info);
         try {
-            test.produce(curr.getName(), info);
+            test.produce(curr.getName(), message);
             assertTrue(test.isDoneMandatory());
             System.out.println(curr.getPersonalBoard().getDeposits().toString());
             System.out.println(Arrays.toString(curr.getPersonalBoard().getStrongbox()));
@@ -263,8 +279,10 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
+
+        //message= new ProductionMessage(info);
         try {
-            test.produce(second.getName(), info);
+            test.produce(second.getName(), message);
             assertTrue(test.isDoneMandatory());
             System.out.println(second.getPersonalBoard().getDeposits().toString());
             System.out.println(Arrays.toString(second.getPersonalBoard().getStrongbox()));
@@ -313,8 +331,11 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
+
+        Message message=null;
+        //message= new ProductionMessage(info);
         try {
-            test.produce(curr.getName(), info);
+            test.produce(curr.getName(), message);
             assertTrue(test.isDoneMandatory());
             System.out.println(curr.getPersonalBoard().getDeposits().toString());
             System.out.println(Arrays.toString(curr.getPersonalBoard().getStrongbox()));
@@ -335,8 +356,10 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
+
+        //message= new ProductionMessage(info);
         try {
-            test.produce(second.getName(), info);
+            test.produce(second.getName(), message);
             assertTrue(test.isDoneMandatory());
             System.out.println(second.getPersonalBoard().getDeposits().toString());
             System.out.println(Arrays.toString(second.getPersonalBoard().getStrongbox()));
@@ -386,13 +409,15 @@ public class GameTest {
         Map<String, String> map = new HashMap<>();
         map.put("ind1", "2");
         map.put("ind2", "1");
+        Message chosen= null;
+        //chosen= new LeaderMessage(map);
         try {
-            game.chooseLeaders(first.getName(), map);
+            game.chooseLeaders(first.getName(), chosen);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
         try {
-            game.chooseLeaders(second.getName(), map);
+            game.chooseLeaders(second.getName(), chosen);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -400,8 +425,10 @@ public class GameTest {
         Map<String, String> res = new HashMap<>();
         res.put("res1", "blue");
         res.put("pos1", "small");
+        Message resources=null;
+        //resources= new ResourceMessage(res);
         try {
-            game.chooseInitialResource(second.getName(), res);
+            game.chooseInitialResource(second.getName(), resources);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -431,9 +458,11 @@ public class GameTest {
         map.put("pos3", "big");
         map.put("pos4", "big");
 
+        Message marketMex=null;
+        //marketMex= new MarketMessage(map);
 
         try {
-            game.fromMarket(first.getName(), map);
+            game.fromMarket(first.getName(), marketMex);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -473,9 +502,10 @@ public class GameTest {
         map.put("pos3", "mid");
         map.put("pos4", "big");
 
+        //marketMex= new MarketMessage(map);
 
         try {
-            game.fromMarket(second.getName(), map);
+            game.fromMarket(second.getName(), marketMex);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -511,11 +541,13 @@ public class GameTest {
         map.put("source", "small");
         map.put("dest", "big");
 
-        try {
-            first.swapDeposit(map);
+        Message swap=null;
+        //swap=new SwapMessage(map);
+        /*try {
+            first.swapDeposit(swap);
         } catch (InvalidActionException e) {
             e.printStackTrace();
-        }
+        }*/
 
         assertEquals(Color.PURPLE, first.getPersonalBoard().getDeposits().get(0).getColor());
         assertEquals(1, first.getPersonalBoard().getDeposits().get(0).getAmount());
@@ -531,8 +563,10 @@ public class GameTest {
         map.put("pos2", "big");
         map.put("pos3", "big");
 
+        //marketMex= new MarketMessage(map);
+
         try {
-            game.fromMarket(first.getName(), map);
+            game.fromMarket(first.getName(), marketMex);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -558,11 +592,12 @@ public class GameTest {
         map.put("source", "small");
         map.put("dest", "big");
 
-        try {
-            second.swapDeposit(map);
+        //swap=new SwapMessage(map);
+        /*try {
+            second.swapDeposit(swap);
         } catch (InvalidActionException e) {
             e.printStackTrace();
-        }
+        }*/
 
         map.clear();
         map.put("row", "2");
@@ -573,9 +608,10 @@ public class GameTest {
         map.put("pos3", "small");
         map.put("pos4", "big");
 
+        //marketMex= new MarketMessage(map);
 
         try {
-            game.fromMarket(second.getName(), map);
+            game.fromMarket(second.getName(), marketMex);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -607,8 +643,10 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("res1","yellow");
         map.put("pos1","mid");
+        Message initial= null;
+        //initial= new ResourceMessage(map);
         try {
-            test.chooseInitialResource("one", map);
+            test.chooseInitialResource("one", initial);
         } catch (InvalidActionException e) {
             e.printStackTrace();
             assertEquals(test.getActivePlayers().get(0).getPersonalBoard().getDeposits().get(0).getAmount(),0);
@@ -634,8 +672,10 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("res1","yellow");
         map.put("pos1","mid");
+        Message initial= null;
+        //initial= new ResourceMessage(map);
         try {
-            test.chooseInitialResource("two", map);
+            test.chooseInitialResource("two", initial);
         } catch (InvalidActionException e) {
             e.printStackTrace();
             assertEquals(test.getActivePlayers().get(1).getPersonalBoard().getDeposits().get(0).getAmount(),0);
@@ -666,9 +706,10 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("res1","yellow");
         map.put("pos1","mid");
-
+        Message initial= null;
+        //initial= new ResourceMessage(map);
         try {
-            test.chooseInitialResource(one, map);
+            test.chooseInitialResource(one, initial);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -681,7 +722,7 @@ public class GameTest {
         assertEquals(test.getActivePlayers().get(0).getPersonalBoard().getDeposits().get(2).getColor(),null);
 
         try {
-            test.chooseInitialResource(two, map);
+            test.chooseInitialResource(two, initial);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -693,7 +734,7 @@ public class GameTest {
         assertEquals(test.getActivePlayers().get(1).getPersonalBoard().getDeposits().get(2).getColor(),null);
 
         try {
-            test.chooseInitialResource(three, map);
+            test.chooseInitialResource(three, initial);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -706,9 +747,9 @@ public class GameTest {
 
         map.put("pos2","big");
         map.put("res2","blue");
-
+        //initial= new ResourceMessage(map);
         try {
-            test.chooseInitialResource(four, map);
+            test.chooseInitialResource(four, initial);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -741,8 +782,10 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("source","big");
         map.put("dest","mid");
+        Message swap= null;
+        //swap=new SwapMessage(map);
         try {
-            test.swapDeposit("one",map);
+            test.swapDeposit("one",swap);
         }catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -755,7 +798,7 @@ public class GameTest {
     }
 
     /**
-     * Tests that a player can't successfully swap his deposits if is not is turn.
+     * Tests that a player can't successfully swap his deposits if it is not his turn.
      */
     @Test
     public void swapDepositTest1() {
@@ -776,8 +819,10 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("source","big");
         map.put("dest","mid");
+        Message swap= null;
+        //swap=new SwapMessage(map);
         try {
-            test.swapDeposit(test.getActivePlayers().get(1).getName(),map);
+            test.swapDeposit(test.getActivePlayers().get(1).getName(),swap);
         }catch (InvalidActionException e) {
             e.printStackTrace();
             assertEquals(two.getPersonalBoard().getDeposits().get(1).getColor(),null);
@@ -809,12 +854,14 @@ public class GameTest {
         map.put("res3","strongbox");
         map.put("res4","strongbox");
         map.put("row","0");
-        map.put("column","0");
+        map.put("col","0");
         map.put("ind","0");
         one.getPersonalBoard().setStrongbox(strongbox);
         assertEquals(one.getNumberDevelopCards(),0);
+        Message buy=null;
+        //buy=new BuyMessage(map);
         try {
-            test.buy("one",map);
+            test.buy("one", buy);
             System.out.println("yes1");
             assertEquals(one.getNumberDevelopCards(),1);
         }catch (InvalidActionException e) {
@@ -822,8 +869,9 @@ public class GameTest {
             e.printStackTrace();
             assertEquals(one.getNumberDevelopCards(),0);
             map.remove("res4");
+            //buy=new BuyMessage(map);
             try {
-                test.buy("one",map);
+                test.buy("one", buy);
                 System.out.println("yes2");
                 assertEquals(one.getNumberDevelopCards(),1);
             }catch (InvalidActionException e1) {
@@ -856,14 +904,18 @@ public class GameTest {
         map.put("ind","1");
         one.getPersonalBoard().setStrongbox(strongbox);
         assertEquals(one.getNumberDevelopCards(),0);
+
+        Message buy=null;
+        //buy=new BuyMessage(map);
         try {
-            test.buy("one",map);
+            test.buy("one",buy);
         }catch (InvalidActionException e) {
             e.printStackTrace();
             assertEquals(one.getNumberDevelopCards(),0);
             map.remove("res4");
+            //buy=new BuyMessage(map);
             try {
-                test.buy("one",map);
+                test.buy("one",buy);
             }catch (InvalidActionException e1) {
                 e1.printStackTrace();
                 assertEquals(one.getNumberDevelopCards(),0);

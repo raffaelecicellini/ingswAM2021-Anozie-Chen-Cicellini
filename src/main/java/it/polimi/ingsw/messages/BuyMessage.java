@@ -11,17 +11,18 @@ public class BuyMessage extends Message{
 
     @Override
     public int getCol() {
-        return info.containsKey("column") ? Integer.parseInt("column") : -1;
+        return info.containsKey("column") ? Integer.parseInt(info.get("column")) : -1;
     }
 
     @Override
     public int getRow() {
-        return info.containsKey("row") ? Integer.parseInt("row") : -1;
+        return info.containsKey("row") ? Integer.parseInt(info.get("row")) : -1;
     }
 
     @Override
     public int getSlot() {
-        return info.containsKey("ind") ? Integer.parseInt("ind") : -1;
+        return (info.containsKey("ind")) ?
+                Integer.parseInt(info.get("ind")) : -1;
     }
 
     @Override

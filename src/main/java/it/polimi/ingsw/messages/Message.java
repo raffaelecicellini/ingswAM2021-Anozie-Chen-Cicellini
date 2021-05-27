@@ -1,6 +1,7 @@
 package it.polimi.ingsw.messages;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class Message {
     protected Map<String,String> info;
@@ -8,6 +9,7 @@ public abstract class Message {
     private final String action;
 
     public Message (Map<String, String> info){
+        info.entrySet().stream().collect(Collectors.toMap(e1 -> e1.getKey().toLowerCase(), e1 -> e1.getValue().toLowerCase()));
         player=info.remove("player");
         action=info.remove("action");
         this.info=info;
@@ -195,5 +197,9 @@ public abstract class Message {
 
     public String getPlayer() {
         return player;
+    }
+
+    public int size() {
+        return info.size();
     }
 }

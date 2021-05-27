@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class represents a Player of the game "Maestri del Rinascimento". Each client connected to the game is represented
@@ -152,9 +151,9 @@ public class Player {
      * @throws InvalidActionException when the player selected a DevelopCard slot that does not contain a card or if one
      * of the chosen productions can't be executed (no resources, wrong positions from where to take them, etc.)
      */
-    public void produce(Map<String, String> info) throws InvalidActionException{
-        String curr;
-        String key;
+    public void produce(ProductionMessage info) throws InvalidActionException{
+        int curr;
+        int key;
         DevelopCard card;
         int faith=0;
         ResourceAmount[] strongbox= personalBoard.getStrongbox();
@@ -167,23 +166,23 @@ public class Player {
         boolean exit = false;
         for (int i=0; i<6; i++){
             Map<String, String> production= new HashMap<>();
-            curr="prod"+i;
-            if (info.containsKey(curr) && info.get(curr).equalsIgnoreCase("yes")){
+            curr=i;
+            if (info.isSelected(curr)){
                 exit = true;
                 if (i==0){
-                    production.put("in1", info.get("in01"));
-                    production.put("pos1", info.get("pos01"));
-                    production.put("in2", info.get("in02"));
-                    production.put("pos2", info.get("pos02"));
-                    production.put("out", info.get("out0"));
+                    production.put("in1", info.getRes(0,1));
+                    production.put("pos1", info.getPos(0,1));
+                    production.put("in2", info.getRes(0,2));
+                    production.put("pos2", info.getPos(0,2));
+                    production.put("out", info.getOut(0));
                     this.baseProduction(production, strongbox, deposits, output);
                 }
                 else if (i>0 && i<4){
-                    key="pos"+i+"1";
-                    production.put("Res1", info.get(key));
-                    if (info.containsKey("pos"+i+"2")) {
-                        key="pos"+i+"2";
-                        production.put("Res2", info.get(key));
+                    //key="pos"+i+"1";
+                    production.put("Res1", info.getPos(i,1));
+                    if (info.getPos(i,2) != null) {
+                        //key="pos"+i+"2";
+                        production.put("Res2", info.getPos(i,2));
                     }
                     card= personalBoard.getTopCard(i-1);
                     if (card!=null){
@@ -192,10 +191,10 @@ public class Player {
                     else throw new InvalidActionException("You don't have a production in slot: "+(i-1));
                 }
                 else {
-                    key="pos"+i+"1";
-                    production.put("Res1", info.get(key));
-                    key="out"+i;
-                    production.put("Resout", info.get(key));
+                    //key="pos"+i+"1";
+                    production.put("Res1", info.getPos(i,1));
+                    //key="out"+i;
+                    production.put("Resout", info.getOut(i));
                     card= personalBoard.getTopCard(i-1);
                     faith=faith+card.activateProduction(production, strongbox, deposits, output);
                 }
@@ -295,38 +294,38 @@ public class Player {
 
     /**
      * This method is used for getting the player's initial resources.
-     * @param map is where the instruction on the turns are stored.
+     * @param info is where the instruction on the turns are stored.
      * @throws InvalidActionException if the move is not valid.
      */
-    public void chooseInitialResource(Map<String, String> map) throws InvalidActionException {
+    public void chooseInitialResource(ResourceMessage info) throws InvalidActionException {
         if (numberInitialResource <= 0) throw new InvalidActionException("You can't receive initial resources");
         ArrayList<ResourceAmount> deposits = personalBoard.getDeposits();
         Color color1 = null;
         Color color2 = null;
         int pos1 = -1;
         int pos2 = -1;
-        if (map.size() != numberInitialResource*2) throw new InvalidActionException("You didn't select the right amount of resources.");
+        if (info.size() != numberInitialResource*2) throw new InvalidActionException("You didn't select the right amount of resources.");
         if (numberInitialResource == 1) {
-            if (map.get("res1") != null)
-                color1 = parseColor(map.get("res1"));
+            if (info.getResource(1) != null)
+                color1 = parseColor(info.getResource(1));
             else throw new InvalidActionException("You didn't select the resource");
-            if (map.get("pos1") != null)
-                pos1 = parseChoice(map.get("pos1"));
+            if (info.getPosition(1) != null)
+                pos1 = parseChoice(info.getPosition(1));
             else throw new InvalidActionException("You didn't select the deposit");
             if (color1 == null) throw new InvalidActionException("You had to select a color.");
             if (pos1 == -1) throw new InvalidActionException("You had to select the position.");
         } else if (numberInitialResource == 2) {
-            if (map.get("res1") != null)
-                color1 = parseColor(map.get("res1"));
+            if (info.getResource(1) != null)
+                color1 = parseColor(info.getResource(1));
             else throw new InvalidActionException("You didn't select the resource");
-            if (map.get("pos1") != null)
-                pos1 = parseChoice(map.get("pos1"));
+            if (info.getPosition(1) != null)
+                pos1 = parseChoice(info.getPosition(1));
             else throw new InvalidActionException("You didn't select the deposit");
-            if (map.get("res2") != null)
-                color2 = parseColor(map.get("res2"));
+            if (info.getResource(2) != null)
+                color2 = parseColor(info.getResource(2));
             else throw new InvalidActionException("You didn't select the resource");
-            if (map.get("pos2") != null)
-                pos2 = parseChoice(map.get("pos2"));
+            if (info.getPosition(2) != null)
+                pos2 = parseChoice(info.getPosition(2));
             else throw new InvalidActionException("You didn't select the deposit");
             if (color1 == null || color2 == null) throw new InvalidActionException("You had to select a color.");
             if (pos1 == -1 || pos2 == -1) throw new InvalidActionException("You had to select the position.");
@@ -375,13 +374,13 @@ public class Player {
 
     /**
      * This method is used for swapping deposits.
-     * @param map is where the information is stored.
+     * @param info is where the information is stored.
      * @throws InvalidActionException if the move is not valid.
      */
-    public void swapDeposit(Map<String,String> map) throws InvalidActionException {
-        if (map.size()!= 2) throw new InvalidActionException("Invalid action! Make sure to select the source and the destination!");
-        String source = map.get("source");
-        String dest = map.get("dest");
+    public void swapDeposit(SwapMessage info) throws InvalidActionException {
+        if (info.size()!= 2) throw new InvalidActionException("Invalid action! Make sure to select the source and the destination!");
+        String source = info.getSource();
+        String dest = info.getDest();
         if (source == null || dest == null) throw new InvalidActionException("Invalid action! You didn't select the source and/or the destination!");
         if(parseChoice(source)>=5 || parseChoice(dest)>=5) throw new InvalidActionException("Invalid action! You can't select the strongbox!");
         if(parseChoice(source)==-1 || parseChoice(dest)==-1) throw new InvalidActionException("Invalid action! Make sure you typed the source and the destination correctly!");
@@ -390,37 +389,35 @@ public class Player {
 
     /**
      * This method is used for buying a card.
-     * @param map is where the instructions are stored.
+     * @param info is where the instructions are stored.
      * @param card is the card to buy.
      * @return if the played bought the seventh card.
      * @throws InvalidActionException if the move is not valid.
      * @throws NumberFormatException if the input format is not valid.
      */
-    public boolean buy (Map<String, String> map, DevelopCard card) throws InvalidActionException, NumberFormatException {
+    public boolean buy (BuyMessage info, DevelopCard card) throws InvalidActionException, NumberFormatException {
         ArrayList<ResourceAmount> deposit = personalBoard.getDeposits();
         ResourceAmount[] strongbox = personalBoard.getStrongbox();
         int ind;
-        if (map.get("ind") != null)
-            ind = Integer.parseInt(map.get("ind"));
+        if (info.getSlot() != -1)
+            ind = info.getSlot();
         else throw new InvalidActionException("You didn't pick the index");
-        map.remove("row");
-        map.remove("column");
-        map.remove("ind");
         if(ind<0 || ind>2) throw new InvalidActionException("Wrong card index");
         //CHECK FOR LEADERS
+        Map<String,String> cost = info.getCost();
         if (leaders.get(0).getType().equalsIgnoreCase("oneandone") && leaders.get(0).isActive()){
-            map.put("disc0", leaders.get(0).getDiscount().toString());
+            cost.put("disc0", leaders.get(0).getDiscount().toString());
         }
         if (leaders.get(1).getType().equalsIgnoreCase("oneandone") && leaders.get(1).isActive()){
-            map.put("disc1", leaders.get(1).getDiscount().toString());
+            cost.put("disc1", leaders.get(1).getDiscount().toString());
         }
         if (personalBoard.getTopCard(ind) == null)
             if (card.getLevel()==1)
-                card.buyDevelopCard(map,strongbox,deposit);
+                card.buyDevelopCard(cost,strongbox,deposit);
             else
                 throw new InvalidActionException("You can't place this card here.");
         else if (personalBoard.getTopCard(ind).getLevel() == card.getLevel()-1)
-            card.buyDevelopCard(map,strongbox,deposit);
+            card.buyDevelopCard(cost,strongbox,deposit);
         else
             throw new InvalidActionException("You can't place this card here.");
         this.personalBoard.addCard(ind,card,false);
@@ -433,30 +430,30 @@ public class Player {
 
     /**
      * This method is used when a Player wants to take resources from the Market
-     * @param map is where the instructions are stored.
+     * @param info is where the instructions are stored.
      * @param marbles is the array of Marbles that has been selected
      * @throws InvalidActionException when an invalid action occurs
      */
-    public int fromMarket(Map<String, String> map, Marble[] marbles) throws InvalidActionException{
+    public int fromMarket(MarketMessage info, Marble[] marbles) throws InvalidActionException{
 
         ArrayList<ResourceAmount> deposits = personalBoard.getDeposits();
         int discarded = 0;
-        String curr;
+        int curr;
         for (int i=0; i<marbles.length; i++){
-            curr="pos"+(i+1);
+            curr=i+1;
             int dep=-1;
-            if (map.get(curr)!=null) {
-                dep = parseChoice(map.get(curr));
+            if (info.getPos(curr) != null) {
+                dep = parseChoice(info.getPos(curr));
             }
             else throw new InvalidActionException("Invalid action! You typed a wrong deposit!");
-            if (!map.containsKey("res" + (i+1))) {
+            if (info.getRes(i+1) == null ) {
                 if (dep >= 0 && dep <= 4) {
                     if (leaders.get(0).getType().equals("TwoAndOne") && leaders.get(0).isActive() && leaders.get(1).getType().equals("TwoAndOne") && !leaders.get(1).isActive()) {
-                        discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(0).getWhiteBall());
+                        discarded += marbles[i].action(info.getPos(curr), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(0).getWhiteBall());
                     } else if (leaders.get(0).getType().equals("TwoAndOne") && !leaders.get(0).isActive() && leaders.get(1).getType().equals("TwoAndOne") && leaders.get(1).isActive()) {
-                        discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(1).getWhiteBall());
+                        discarded += marbles[i].action(info.getPos(curr), deposits, personalBoard.getFaithMarker(), leaders, leaders.get(1).getWhiteBall());
                     } else {
-                        discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, null);
+                        discarded += marbles[i].action(info.getPos(curr), deposits, personalBoard.getFaithMarker(), leaders, null);
                     }
                 } else if (dep == 6) discarded++;
                 else throw new InvalidActionException("Invalid action! You typed a wrong deposit! dep:" + dep);
@@ -464,8 +461,8 @@ public class Player {
             else {
                 // 2 possible colors to choose from
                 if (dep>=0 && dep<=4){
-                    Color color = Color.valueOf(map.get("res" + (i+1)).toUpperCase());
-                    discarded += marbles[i].action(map.get(curr), deposits, personalBoard.getFaithMarker(), leaders, color);
+                    Color color = Color.valueOf(info.getRes(i+1).toUpperCase());
+                    discarded += marbles[i].action(info.getPos(curr), deposits, personalBoard.getFaithMarker(), leaders, color);
                 }
                 else if (dep==6) discarded++;
                 else throw new InvalidActionException("Invalid action! You typed a wrong deposit! dep:" + dep);

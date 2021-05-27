@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SoloGame extends Game{
 
@@ -100,9 +99,7 @@ public class SoloGame extends Game{
         }
         currentPlayer.receiveLeaders(cards);
         phase = GamePhase.LEADER;
-        //notify initial state
         notifyInitialState();
-        //notify the player to choose the leaders
         notifyLeaders("chooseLeaders");
     }
 
@@ -162,8 +159,8 @@ public class SoloGame extends Game{
         //currentPlayer.chooseLeader(leader1, leader2);
         //} else throw new InvalidActionException("Missing parameters!");
         phase = GamePhase.FULLGAME;
+
         notifyLeaders("okLeaders");
-        //notify the player that it is his turn
         notifyTurn();
     }
 

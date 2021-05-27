@@ -355,7 +355,7 @@ public class Controller implements SourceListener {
                         e1 -> e1.getKey().toLowerCase(),
                         e1 -> e1.getValue().toLowerCase()));*/
 
-                if (message.isRow() && message.getSize() >= 5) {
+                if (message.isRow() && message.size() >= 5) {
                 //if (mapCopy.containsKey("row")) {
                     //if (mapCopy.size() >= 5) {
                         try {
@@ -375,7 +375,7 @@ public class Controller implements SourceListener {
                         }
                     //}
                 } else
-                    if (message.isCol() && message.getSize() >= 4) {
+                    if (message.isCol() && message.size() >= 4) {
                         //if (mapCopy.containsKey("col")) {
                         //if (mapCopy.size() >= 4) {
                         try {
@@ -446,7 +446,7 @@ public class Controller implements SourceListener {
 
                 //mapCopy.remove("player");
 
-                if (message.getSize() == 2 &&
+                if (message.size() == 2 &&
                         message.getSource() != null && message.getDest() != null) {
                 //if (mapCopy.size() == 2 &&
                         //mapCopy.containsKey("source") && mapCopy.containsKey("dest") &&
@@ -517,7 +517,7 @@ public class Controller implements SourceListener {
                         e1 -> e1.getKey().toLowerCase(),
                         e1 -> e1.getValue().toLowerCase()));*/
 
-                if (message.getSize() >= 1 && message.getIndex() >= 0 && message.getIndex() <= 1) {
+                if (message.size() >= 1 && message.getIndex() >= 0 && message.getIndex() <= 1) {
                     //if (mapCopy.size() >= 1 && mapCopy.get("pos") != null) {
 
                     //int pos = Integer.parseInt(mapCopy.get("pos"));
@@ -597,7 +597,7 @@ public class Controller implements SourceListener {
                         e1 -> e1.getKey().toLowerCase(),
                         e1 -> e1.getValue().toLowerCase()));*/
 
-                if (message.getSize() >= 1 && message.getIndex() >= 0 && message.getIndex() <= 1) {
+                if (message.size() >= 1 && message.getIndex() >= 0 && message.getIndex() <= 1) {
                 //if (mapCopy.size() >= 1 && mapCopy.get("pos") != null) {
 
                     //int pos = Integer.parseInt(mapCopy.get("pos"));

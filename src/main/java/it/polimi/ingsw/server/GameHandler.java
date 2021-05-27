@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.Player;
@@ -119,14 +120,14 @@ public class GameHandler implements SourceListener {
      * @param message the message sent by the client: it contains all the info needed to perform the action
      * @param player the name of the player that sent the message
      */
-    public synchronized void makeAction(Map<String, String> message, String player){
-        System.out.println("I am in gameHandler.makeAction. Action: "+message.get("action")+"; Player: "+message.get("player"));
+    public synchronized void makeAction(Message message, String player){
+        //System.out.println("I am in gameHandler.makeAction. Action: "+message.get("action")+"; Player: "+message.get("player"));
         //controls if the move can be done
         if (model.getPhase()!=GamePhase.NOTSTARTED){
             if (model.getCurrentPlayer().getName().equalsIgnoreCase(player)){
                 System.out.println("Passing action to Controller...");
-                System.out.println("Player: "+player+", Action: "+message.get("action"));
-                controllerListener.fireUpdates(message.get("action"), message);
+                //System.out.println("Player: "+player+", Action: "+message.get("action"));
+                //controllerListener.fireUpdates(message.get("action"), message);
                 System.out.println(message);
             }
             else {
@@ -278,14 +279,14 @@ public class GameHandler implements SourceListener {
     }
 
     @Override
-    public void update(String propertyName, Map<String, String> value) {
+    public void update(String propertyName, Message value) {
         //switch for different kind of maps sent by model and controller
         Gson gson=new Gson();
         String jsonMessage;
         String addressee;
-        String player= value.get("player")!=null? value.get("player") : value.get("endedTurnPlayer");
-        System.out.println("I am in GameHandler, ready to send a message. Action: "+propertyName+"; Player: "+player);
-        switch (propertyName.toUpperCase()){
+        //String player= value.get("player")!=null? value.get("player") : value.get("endedTurnPlayer");
+        //System.out.println("I am in GameHandler, ready to send a message. Action: "+propertyName+"; Player: "+player);
+        /*switch (propertyName.toUpperCase()){
             case "STARTED":
                 //sendall
                 jsonMessage=gson.toJson(value);
@@ -394,6 +395,6 @@ public class GameHandler implements SourceListener {
                 System.out.println(jsonMessage);
                 sendSingle(jsonMessage, addressee);
                 break;
-        }
+        }*/
     }
 }

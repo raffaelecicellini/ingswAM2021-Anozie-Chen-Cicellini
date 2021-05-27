@@ -2,6 +2,7 @@ package it.polimi.ingsw.server;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.messages.Message;
 
 import java.io.*;
 import java.net.Socket;
@@ -9,10 +10,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 /**
  * This class represents a ClientHandler. It is a thread instantiated by the server when a clients connects to it.
@@ -129,43 +127,53 @@ public class ClientHandler implements Runnable{
 
     /**
      * This method is used when the ClientHandler receives a message from the client, in order to call the right method.
-     * @param message is the message received from the client.
+     * @param map is the message received from the client.
      */
-    public void actionHandler(Map<String,String> message) {
-        String action = message.get("action");
-        switch (action.toLowerCase()) {
+    public void actionHandler(Map<String,String> map) {
+        String action = map.get("action");
+        Message message=null;
+        /*switch (action.toLowerCase()) {
             case "setup":
-                setup(message);
+                setup(map);
                 break;
             case "disconnect":
                 if (game!=null) server.manageDisconnection(this);
                 close();
                 break;
             case "buy" :
+                message= new BuyMessage(map);
                 makeAction(message);
                 break;
             case "produce":
+                message= new ProductionMessage(map);
                 makeAction(message);
                 break;
             case "swap":
+                message= new SwapMessage(map);
                 makeAction(message);
                 break;
             case "endturn":
+                message= new EndTurnMessage(map);
                 makeAction(message);
                 break;
             case "activate":
+                message= new LeaderActionMessage(map);
                 makeAction(message);
                 break;
             case "discard":
+                message= new LeaderActionMessage(map);
                 makeAction(message);
                 break;
             case "chooseresources":
+                message= new ResourceMessage(map);
                 makeAction(message);
                 break;
             case "chooseleaders":
+                message= new LeaderMessage(map);
                 makeAction(message);
                 break;
             case "market":
+                message= new MarketMessage(map);
                 makeAction(message);
                 break;
             case "ping":
@@ -178,7 +186,7 @@ public class ClientHandler implements Runnable{
                 Gson gson= new Gson();
                 String back=gson.toJson(error);
                 send(back);
-        }
+        }*/
     }
 
     /**
@@ -186,7 +194,7 @@ public class ClientHandler implements Runnable{
      * GameHandler.
      * @param message is the message received from the client.
      */
-    public void makeAction(Map<String,String> message) {
+    public void makeAction(Message message) {
         if (game!=null){
             game.makeAction(message,name);
         }

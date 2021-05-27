@@ -594,7 +594,7 @@ public class Controller implements SourceListener {
 
     @Override
     public void update(String propertyName, Message value) {
-        switch (propertyName.toUpperCase()){
+        /*switch (propertyName.toUpperCase()){
             case "START":
                 start();
                 break;
@@ -643,6 +643,6 @@ public class Controller implements SourceListener {
                 error.put("player", value.get("player"));
                 error.put("content", "Illegal action! Try typing again!");
                 gameHandlerListener.fireUpdates("error", error);
-        }
+        }*/
     }
 }

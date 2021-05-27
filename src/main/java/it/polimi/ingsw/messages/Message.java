@@ -12,4 +12,10 @@ public abstract class Message {
         action=map.remove("action");
         this.map=map;
     }
+
+    public Map<String, String> getAll(){
+        map.put("player", player);
+        map.put("action", action);
+        return map;
+    }
 }

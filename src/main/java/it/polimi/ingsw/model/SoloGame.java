@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -359,7 +361,8 @@ public class SoloGame extends Game{
             i++;
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new StartedAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -384,7 +387,12 @@ public class SoloGame extends Game{
             state.put(cardId, String.valueOf(id));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        Message message;
+        /*if (action.equalsIgnoreCase("chooseleaders")){
+            message= new ChooseLeadersAnswer(state);
+        }
+        else message= new OkLeadersAnswer(state);
+        listener.fireUpdates(state.get("action"), message);*/
     }
 
     /**
@@ -397,7 +405,8 @@ public class SoloGame extends Game{
         state.put("content", content);
         state.put("player", currentPlayer.getName());
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new YourTurnAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -454,7 +463,8 @@ public class SoloGame extends Game{
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new BuyAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -499,7 +509,8 @@ public class SoloGame extends Game{
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new ProduceAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -559,7 +570,8 @@ public class SoloGame extends Game{
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new MarketAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -593,7 +605,8 @@ public class SoloGame extends Game{
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new SwapAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -642,7 +655,8 @@ public class SoloGame extends Game{
 
         state.put("countLeader", String.valueOf(doneLeader));
 
-        this.listener.fireUpdates(state.get("action"), state);
+        //Message message= new LeaderActionAnswer(state);
+        //this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -684,7 +698,8 @@ public class SoloGame extends Game{
 
         state.put("tokenActivated", String.valueOf(token));
 
-        this.listener.fireUpdates(state.get("action"), state);
+        //Message message= new EndTurnAnswer(state);
+        //this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -708,7 +723,8 @@ public class SoloGame extends Game{
         state.put("points", String.valueOf(points));
         state.put("winnerpoints", String.valueOf(points));
 
-        this.listener.fireUpdates(state.get("action"), state);
+        //Message message= new EndgameAnswer(state);
+        //this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**

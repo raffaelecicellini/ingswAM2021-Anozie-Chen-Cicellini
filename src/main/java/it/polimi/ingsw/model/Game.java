@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
@@ -230,7 +231,9 @@ public class Game {
             state.put(curr, x.getName());
             i++;
         }
-        listener.fireUpdates(state.get("action"), state);
+
+        //Message message= new SatrtedAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -255,7 +258,12 @@ public class Game {
             state.put(cardId, String.valueOf(id));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        Message message;
+        /*if (action.equalsIgnoreCase("chooseleaders")){
+            message= new ChooseLeadersAnswer(state);
+        }
+        else message= new OkLeadersAnswer(state);
+        listener.fireUpdates(state.get("action"), message);*/
     }
 
     /**
@@ -341,7 +349,8 @@ public class Game {
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new ProduceAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -409,7 +418,8 @@ public class Game {
 
         state.put("countLeader", String.valueOf(doneLeader));
 
-        this.listener.fireUpdates(state.get("action"), state);
+        //Message message= new LeaderActionAnswer(state);
+        //this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -555,7 +565,8 @@ public class Game {
             j++;
         }
 
-        this.listener.fireUpdates(state.get("action"), state);
+        //Message message= new EndTurnAnswer(state);
+        //this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -573,7 +584,8 @@ public class Game {
         state.put("points", String.valueOf(points));
         state.put("winnerpoints", String.valueOf(winnerpoints));
 
-        this.listener.fireUpdates(state.get("action"), state);
+        //Message message= new EndgameAnswer(state);
+        //this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -755,9 +767,11 @@ public class Game {
 
         state.put("action", action);
         state.put("player", currentPlayer.getName());
+        Message message;
         if (action.equalsIgnoreCase("chooseResources")){
             state.put("qty", String.valueOf(qty));
             if (faith>0) state.put("addpos", String.valueOf(faith));
+            //message= new ChooseResourcesAnswer(state);
         }
         else if (action.equalsIgnoreCase("okResources")){
             for (int i=0; i<deps.size(); i++){
@@ -770,8 +784,10 @@ public class Game {
             state.put("midqty", String.valueOf(deps.get(1).getAmount()));
             state.put("bigres", colors[2]);
             state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
+            //message= new OkResourcesAnswer(state);
         }
-        listener.fireUpdates(state.get("action"), state);
+
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -784,7 +800,8 @@ public class Game {
         state.put("content", content);
         state.put("player", currentPlayer.getName());
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new YourTurnAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -872,7 +889,8 @@ public class Game {
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new BuyAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -919,7 +937,8 @@ public class Game {
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new SwapAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -1035,7 +1054,8 @@ public class Game {
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        listener.fireUpdates(state.get("action"), state);
+        //Message message= new MarketAnswer(state);
+        //listener.fireUpdates(state.get("action"), message);
     }
 
     /**

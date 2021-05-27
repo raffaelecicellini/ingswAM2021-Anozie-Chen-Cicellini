@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
+import it.polimi.ingsw.messages.Message;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -212,7 +213,8 @@ public class ProduceController extends GUIController{
                 info.put("player", gui.getModelView().getName());
                 info.put("action", "produce");
                 gui.getModelView().setActiveTurn(false);
-                gui.getListeners().fireUpdates("produce", info);
+                //Message message= new ProductionMessage(info);
+                //gui.getListeners().fireUpdates("produce", message);
             }
             info.clear();
             stage.close();

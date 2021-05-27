@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.gui.GUI;
+import it.polimi.ingsw.messages.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -57,7 +58,8 @@ public class LeadersController extends GUIController{
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK)
             return;
-        gui.getListeners().fireUpdates("chooseleaders", action);
+        //Message message= new LeaderMessage(action);
+        //gui.getListeners().fireUpdates("chooseleaders", message);
         gui.changeScene("board.fxml");
     }
 

@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.cli;
 import com.google.gson.Gson;
 import it.polimi.ingsw.client.*;
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
@@ -165,7 +166,7 @@ public class CLI implements Runnable, SourceListener {
     public void run() {
         setup();
         while(isActiveGame()){
-            if (modelView.isActiveTurn() && modelView.getPhase()==GamePhase.FULLGAME){
+            if (/*modelView.isActiveTurn() && */modelView.getPhase()==GamePhase.FULLGAME){
                 String command= input.nextLine();
                 parseCommand(command);
             }
@@ -175,7 +176,8 @@ public class CLI implements Runnable, SourceListener {
     private void parseCommand(String cmd){
         switch (cmd.toUpperCase()){
             case "BUY":
-                buy();
+                if(modelView.isActiveTurn()) buy();
+                else printActions();
                 break;
             case "PRODUCE":
                 produce();
@@ -342,7 +344,8 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
         modelView.setActiveTurn(false);
-        listener.fireUpdates("buy", action);
+        //Message message= new BuyMessage(action);
+        //listener.fireUpdates("buy", message);
     }
 
     /**
@@ -601,7 +604,8 @@ public class CLI implements Runnable, SourceListener {
             map.put("action", "produce");
             map.put("player", modelView.getName());
             modelView.setActiveTurn(false);
-            listener.fireUpdates(map.get("action"), map);
+            //Message message= new ProductionMessage(map);
+            //listener.fireUpdates(map.get("action"), message);
         } else
         if (answer.equalsIgnoreCase("no")) {
             System.out.println("Alright, you can type the action again!");
@@ -770,7 +774,8 @@ public class CLI implements Runnable, SourceListener {
 
                 if (confirmed.equalsIgnoreCase("yes")){
                     modelView.setActiveTurn(false);
-                    listener.fireUpdates(map.get("action"), map);
+                    //Message message= new MarketMessage(map);
+                    //listener.fireUpdates(map.get("action"), message);
                 }
                 else printActions();
             }
@@ -840,7 +845,8 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
 
-        listener.fireUpdates("swap", action);
+        //Message message= new SwapMessage(action);
+        //listener.fireUpdates("swap", message);
     }
 
     /**
@@ -878,7 +884,8 @@ public class CLI implements Runnable, SourceListener {
         System.out.print(">");
         if (input.nextLine().equalsIgnoreCase("yes")){
             modelView.setActiveTurn(false);
-            listener.fireUpdates(map.get("action"), map);
+            //Message message= new LeaderActionMessage(map);
+            //listener.fireUpdates(map.get("action"), message);
         }
         //printActions();
     }
@@ -918,7 +925,8 @@ public class CLI implements Runnable, SourceListener {
         System.out.print(">");
         if (input.nextLine().equalsIgnoreCase("yes")){
             modelView.setActiveTurn(false);
-            listener.fireUpdates(map.get("action"), map);
+            //Message message= new LeaderActionMessage(map);
+            //listener.fireUpdates(map.get("action"), message);
         }
         //printActions();
     }
@@ -946,7 +954,9 @@ public class CLI implements Runnable, SourceListener {
                 map.put("action", "endturn");
                 map.put("player", modelView.getName());
                 modelView.setActiveTurn(false);
-                listener.fireUpdates(map.get("action"), map);
+
+                //Message message= new EndTurnMessage(map);
+                //listener.fireUpdates(map.get("action"), message);
             } else
                 if (answer.equalsIgnoreCase("no")) {
                     System.out.println("Alright, you can type the action again!");
@@ -987,7 +997,9 @@ public class CLI implements Runnable, SourceListener {
         action.put("action","disconnect");
         action.put("player",modelView.getName());
 
-        listener.fireUpdates("disconnect", action);
+        //Message message=new DisconnectionMessage(action);
+        //listener.fireUpdates("disconnect", message);
+
         if (connectionSocket!=null) connectionSocket.close();
         System.exit(0);
     }
@@ -1073,7 +1085,9 @@ public class CLI implements Runnable, SourceListener {
             chooseLeaders();
             return;
         }
-        listener.fireUpdates("chooseleaders", action);
+
+        //Message message= new LeaderMessage(action);
+        //listener.fireUpdates("chooseleaders", message);
     }
 
     /**
@@ -1145,7 +1159,8 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
 
-        listener.fireUpdates("chooseresources", action);
+        //Message message= new ResourceMessage(action);
+        //listener.fireUpdates("chooseresources", message);
     }
 
     /**
@@ -1174,17 +1189,20 @@ public class CLI implements Runnable, SourceListener {
 
         actions.append(">Choose your action typing one of the following words: ");
 
-        if (!modelView.isDoneMandatory()){
-            actions.append("BUY, PRODUCE, MARKET, ");
+        if (modelView.isActiveTurn()) {
+            if (!modelView.isDoneMandatory()) {
+                actions.append("BUY, PRODUCE, MARKET, ");
+            }
+
+            if (modelView.getCountLeader() < 2) {
+                actions.append("ACTIVATE, DISCARD, ");
+            }
+
+            actions.append("SWAP, ENDTURN, QUIT");
         }
+        else actions.append("QUIT");
 
-        if (modelView.getCountLeader() < 2) {
-            actions.append("ACTIVATE, DISCARD, ");
-        }
-
-        actions.append("SWAP, ENDTURN, QUIT");
-
-        if(!modelView.isSoloGame()) actions.append(", SHOWPLAYER");
+        if (!modelView.isSoloGame()) actions.append(", SHOWPLAYER");
 
         System.out.println(actions);
         System.out.print(">");
@@ -1532,7 +1550,8 @@ public class CLI implements Runnable, SourceListener {
 
     //AnswerHandler notifies it of changes, cli reads the ModelView and prints the new state
     @Override
-    public void update(String propertyName, Map<String, String> value) {
+    public void update(String propertyName, Message value) {
+        /*
         switch (propertyName.toUpperCase()) {
             case "START":
                 System.out.println(value.get("content"));
@@ -1591,47 +1610,44 @@ public class CLI implements Runnable, SourceListener {
 
             case "YOURTURN":
 
+                System.out.println("\n");
                 if (value.get("player").equalsIgnoreCase(modelView.getName())) {
                     System.out.println(value.get("content"));
-                    printActions();
                 } else {
                     System.out.println("It's " + value.get("player") + "'s turn now!");
                 }
+                printActions();
                 break;
 
             case "PRODUCE":
 
                 if (value == null) {
                     printBoard();
-                    printActions();
                 } else {
-                    System.out.println(value.get("other") + " has made some productions!" );
+                    System.out.println("\n"+value.get("other") + " has made some productions!" );
                 }
-
+                printActions();
                 break;
 
             case "BUY":
-
+                System.out.println("\n");
                 if (value == null) {
                     // the player that has bought a dev card
                     //System.out.println("Here is your new situation!");
                     printBoard();
-                    printActions();
-
                 } else {
                     printBoard();
                     System.out.println(value.get("other") + " has bought a Develop Card!" );
                 }
+                printActions();
                 break;
 
             case "MARKET":
-
+                System.out.println("\n");
                 if (value == null) {
                     // the player that has bought a dev card
                     //System.out.println("Here is your new situation!");
                     printBoard();
-                    printActions();
-
                 } else {
                     printBoard();
                     System.out.println(value.get("other") + " has taken resources from the Market!" );
@@ -1639,41 +1655,38 @@ public class CLI implements Runnable, SourceListener {
                         System.out.println("Your position has been increased!");
                     }
                 }
-
+                printActions();
                 break;
 
             case "SWAP":
-
+                System.out.println("\n");
                 if (value == null) {
-                    //printDeps();
                     printBoard();
-                    printActions();
+
                 } else {
                     System.out.println(value.get("other") + " has swapped his deposits!" );
                 }
-
+                printActions();
                 break;
 
             case "ACTIVATE":
-
+                System.out.println("\n");
                 if (value == null) {
                     printBoard();
-                    printActions();
                 } else {
                     System.out.println(value.get("other") + " has activated his leader!" );
                 }
-
+                printActions();
                 break;
 
             case "DISCARD":
-
+                System.out.println("\n");
                 if (value == null) {
                     printBoard();
-                    printActions();
                 } else {
                     System.out.println(value.get("other") + " has discarded his leader!" );
                 }
-
+                printActions();
                 break;
 
             case "ENDTURN":
@@ -1692,7 +1705,7 @@ public class CLI implements Runnable, SourceListener {
                 break;
 
             case "ENDGAME":
-
+                System.out.println("\n");
                 if (value.containsKey("winner") && value.get("winner").equalsIgnoreCase(modelView.getName())) {
                     System.out.println("You won! You made " + value.get("winnerpoints") + " points! ");
                 } else {
@@ -1709,7 +1722,7 @@ public class CLI implements Runnable, SourceListener {
                 break;
 
             case "ERROR":
-
+                System.out.println("\n");
                 if (value.get("player").equalsIgnoreCase(modelView.getName())) {
                     System.out.println(value.get("content"));
                 }
@@ -1723,18 +1736,21 @@ public class CLI implements Runnable, SourceListener {
                 break;
 
             case "END":
+                System.out.println("\n");
                 System.out.println(value.get("content"));
                 System.exit(0);
                 break;
 
             case "OTHERDISCONNECTED":
+                System.out.println("\n");
                 System.out.println(value.get("content"));
                 break;
 
             default:
+                System.out.println("\n");
                 System.out.println("Unrecognized answer!");
                 break;
-        }
+        }*/
     }
 
 }

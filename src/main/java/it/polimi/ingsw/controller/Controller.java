@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
@@ -592,7 +593,7 @@ public class Controller implements SourceListener {
     }
 
     @Override
-    public void update(String propertyName, Map<String, String> value) {
+    public void update(String propertyName, Message value) {
         switch (propertyName.toUpperCase()){
             case "START":
                 start();

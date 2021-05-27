@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
 import java.io.BufferedReader;
@@ -86,12 +87,70 @@ public class SocketListener implements Runnable{
 
     /**
      * This method updates the listener with the message received from the server.
-     * @param message is the message received from the server.
+     * @param map is the message received from the server.
      */
-    public void actionHandler(Map<String,String> message) {
-        String action = message.get("action");
-        listener.fireUpdates(message.get("action"), message);
-        if (action.toLowerCase().equals("end") || action.toLowerCase().equals("endgame"))
+    public void actionHandler(Map<String,String> map) {
+        String action = map.get("action");
+        Message message=null;
+        /*switch (action.toUpperCase()){
+            case "START": break;
+            case "OTHERCONNECTED":
+                message= new OtherConnectedAnswer(map);
+                break;
+            case "STARTED":
+                message= new StartedAnswer(map);
+                break;
+            case "CHOOSELEADERS":
+                message= new ChooseLeadersAnswer(map);
+                break;
+            case "OKLEADERS":
+                message= new OkLeadersAnswer(map);
+                break;
+            case "CHOOSERESOURCES":
+                message= new ChooseResourcesAnswer(map);
+                break;
+            case "OKRESOURCES":
+                message= new OkResourcesMessage(map);
+                break;
+            case "YOURTURN":
+                message= new YourTurnAnswer(map);
+                break;
+            case "BUY" :
+                message= new BuyAnswer(map);
+                break;
+            case "PRODUCE":
+                message= new ProduceAnswer(map);
+                break;
+            case "MARKET":
+                message= new MarketAnswer(map);
+                break;
+            case "SWAP":
+                message= new SwapAnswer(map);
+                break;
+            case "ACTIVATE":
+                message= new LeaderActonAnswer(map);
+                break;
+            case "DISCARD":
+                message= new LeaderActonAnswer(map);
+                break;
+            case "ENDTURN":
+                message= new EndTurnAnswer(map);
+                break;
+            case "ENDGAME":
+                message= new EndgameAnswer(map);
+                break;
+            case "ERROR":
+                message= new ErrorAnswer(map);
+                break;
+            case "END":
+                message= new EndAnswer(map);
+                break;
+            case "OTHERDISCONNECTED":
+                message= new OtherDisconnectedAnswer(map);
+                break;
+        }*/
+        listener.fireUpdates(map.get("action"), message);
+        if (action.equalsIgnoreCase("end") || action.equalsIgnoreCase("endgame"))
             close();
     }
 

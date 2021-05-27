@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
@@ -31,7 +32,7 @@ public class AnswerHandler implements SourceListener {
     }
 
     @Override
-    public void update(String propertyName, Map<String, String> value) {
+    public void update(String propertyName, Message value) {
         // Map used just to notify other players who hasn't done the action with a message containing the name of the
         // player who has done the action and the action.
         Map<String, String> map = new HashMap<>();
@@ -39,11 +40,11 @@ public class AnswerHandler implements SourceListener {
         Map<String, String> deposits;
         String player_name;
         int[][] developDecks;
-        map.put("player", value.get("player"));
-        map.put("action", value.get("action"));
+        //map.put("player", value.get("player"));
+        //map.put("action", value.get("action"));
 
 
-        switch (propertyName.toUpperCase()) {
+        /*switch (propertyName.toUpperCase()) {
 
             case "START":
                 viewListener.fireUpdates(value.get("action"), value);
@@ -552,6 +553,6 @@ public class AnswerHandler implements SourceListener {
                 break;
             default:
                 viewListener.fireUpdates("default", null);
-        }
+        }*/
     }
 }

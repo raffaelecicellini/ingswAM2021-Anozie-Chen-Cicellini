@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.ConnectionSocket;
 import it.polimi.ingsw.client.ModelView;
 import it.polimi.ingsw.client.gui.Controllers.*;
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
@@ -323,7 +324,8 @@ public class GUI extends Application implements SourceListener {
      * @see SourceListener
      */
     @Override
-    public void update(String propertyName, Map<String, String> value) {
+    public void update(String propertyName, Message value) {
+        /*
         switch (propertyName.toUpperCase()) {
             case "START":
                 Platform.runLater(()->{
@@ -629,6 +631,6 @@ public class GUI extends Application implements SourceListener {
                     alert.showAndWait();
                 });
                 break;
-        }
+        }*/
     }
 }

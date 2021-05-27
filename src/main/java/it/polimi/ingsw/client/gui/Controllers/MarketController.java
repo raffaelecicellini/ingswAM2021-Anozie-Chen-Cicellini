@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
+import it.polimi.ingsw.messages.Message;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -152,7 +153,8 @@ public class MarketController extends GUIController{
         Optional<ButtonType> ok=confirm.showAndWait();
         if (ok.isPresent() && ok.get()==ButtonType.OK){
             gui.getModelView().setActiveTurn(false);
-            gui.getListeners().fireUpdates(info.get("action"), info);
+            //Message message= new MarketMessage(info);
+            //gui.getListeners().fireUpdates(info.get("action"), message);
         }
         info.clear();
         stage.close();

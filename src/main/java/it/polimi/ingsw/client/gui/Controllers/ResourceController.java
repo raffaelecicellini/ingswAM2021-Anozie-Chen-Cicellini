@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.gui.GUI;
+import it.polimi.ingsw.messages.Message;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -57,7 +58,8 @@ public class ResourceController extends GUIController {
             }
             action.put("action","chooseresources");
             action.put("player",gui.getModelView().getName());
-            gui.getListeners().fireUpdates("chooseresources", action);
+            //Message message= new ResourceMessage(action);
+            //gui.getListeners().fireUpdates("chooseresources", message);
             gui.changeScene("board.fxml");
 
         } else {

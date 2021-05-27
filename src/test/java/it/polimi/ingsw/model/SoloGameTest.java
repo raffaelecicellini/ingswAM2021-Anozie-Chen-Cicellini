@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.messages.MarketMessage;
+import it.polimi.ingsw.messages.SwapMessage;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.Test;
 
@@ -78,10 +80,12 @@ public class SoloGameTest {
         map.put("pos2", "mid");
         map.put("pos3", "big");
         map.put("pos4", "big");
+        map.put("action","market");
+        map.put("player","test");
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -108,9 +112,11 @@ public class SoloGameTest {
         map.clear();
         map.put("source", "small");
         map.put("dest", "big");
+        map.put("action","swap");
+        map.put("player","test");
 
         try {
-            soloGame.swapDeposit("", map);
+            soloGame.swapDeposit("", new SwapMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -128,9 +134,11 @@ public class SoloGameTest {
         map.put("pos1", "mid");
         map.put("pos2", "big");
         map.put("pos3", "big");
+        map.put("action","market");
+        map.put("player","test");
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -162,9 +170,11 @@ public class SoloGameTest {
         map.put("pos1", "big");
         map.put("pos2", "big");
         map.put("pos3", "big");
+        map.put("action","market");
+        map.put("player","test");
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -234,9 +244,11 @@ public class SoloGameTest {
         map.put("pos1", "small");
         map.put("pos2", "mid");
         map.put("pos3", "big");
+        map.put("action","market");
+        map.put("player","test");
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -249,7 +261,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -262,7 +274,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -275,7 +287,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -288,7 +300,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -301,7 +313,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -358,9 +370,11 @@ public class SoloGameTest {
         map.put("pos1", "small");
         map.put("pos2", "mid");
         map.put("pos3", "big");
+        map.put("action","market");
+        map.put("player","test");
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -373,7 +387,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -386,7 +400,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -399,7 +413,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -412,7 +426,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -425,7 +439,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -438,7 +452,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -451,7 +465,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -464,7 +478,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -477,7 +491,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -490,7 +504,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
@@ -503,7 +517,7 @@ public class SoloGameTest {
 
 
         try {
-            soloGame.fromMarket("", map);
+            soloGame.fromMarket("", new MarketMessage(map));
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }

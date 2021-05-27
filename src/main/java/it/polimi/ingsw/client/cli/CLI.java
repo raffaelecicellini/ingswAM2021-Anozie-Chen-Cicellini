@@ -1550,108 +1550,125 @@ public class CLI implements Runnable, SourceListener {
 
     //AnswerHandler notifies it of changes, cli reads the ModelView and prints the new state
     @Override
-    public void update(String propertyName, Message value) {
+    public void update(String propertyName, Message message) {
         /*
         switch (propertyName.toUpperCase()) {
             case "START":
-                System.out.println(value.get("content"));
+                System.out.println(message.getContent());
+                //System.out.println(value.get("content"));
                 break;
 
             case "OTHERCONNECTED":
-                System.out.println(value.get("content"));
+                System.out.println(message.getContent());
+                //System.out.println(value.get("content"));
                 break;
 
             case "STARTED":
                 System.out.println("Game started!");
-                //printBoard();
-
                 break;
 
             case "CHOOSELEADERS":
 
-                if (value == null) {
+                if (message == null) {
+                //if (value == null) {
                     chooseLeaders();
                 } else {
-                    System.out.println(value.get("other") + " is choosing his leaders!" );
+                    System.out.println(message.getPlayer() + " is choosing his leaders!" );
+                    //System.out.println(value.get("other") + " is choosing his leaders!" );
                 }
 
                 break;
 
             case "OKLEADERS":
 
-                if (value == null) {
-                    // print leaders
+                if (message == null) {
+                //if (value == null) {
                     printBoard();
                 } else {
-                    System.out.println(value.get("other") + " has chosen his leaders!" );
+                    System.out.println(message.getPlayer() + " has chosen his leaders!" );
+                    //System.out.println(value.get("other") + " has chosen his leaders!" );
                 }
 
                 break;
 
             case "CHOOSERESOURCES":
 
-                if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
-                    chooseResources(Integer.parseInt(value.get("qty")));
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
+                    chooseResources(message.getResQty());
+                    //chooseResources(Integer.parseInt(value.get("qty")));
                 } else {
-                    System.out.println(value.get("other") + " is choosing his initial resources!" );
+                    System.out.println(message.getPlayer() + " is choosing his initial resources!" );
+                    //System.out.println(value.get("other") + " is choosing his initial resources!" );
                 }
 
                 break;
 
             case "OKRESOURCES":
 
-                if (value == null) {
+                if (message == null) {
+                //if (value == null) {
                     printBoard();
                 } else {
-                    System.out.println(value.get("other") + " has chosen his initial resources!" );
+                    System.out.println(message.getPlayer() + " has chosen his initial resources!" );
+                    //System.out.println(value.get("other") + " has chosen his initial resources!" );
                 }
 
                 break;
 
             case "YOURTURN":
 
-                System.out.println("\n");
-                if (value.get("player").equalsIgnoreCase(modelView.getName())) {
-                    System.out.println(value.get("content"));
+                if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
+                //if (value.get("player").equalsIgnoreCase(modelView.getName())) {
+                    System.out.println(message.getContent());
+                    //System.out.println(value.get("content"));
                 } else {
-                    System.out.println("It's " + value.get("player") + "'s turn now!");
+                    System.out.println("It's " + message.getPlayer() + "'s turn now!");
+                    //System.out.println("It's " + value.get("player") + "'s turn now!");
                 }
                 printActions();
                 break;
 
             case "PRODUCE":
 
-                if (value == null) {
+                if (message == null) {
+                //if (value == null) {
                     printBoard();
                 } else {
-                    System.out.println("\n"+value.get("other") + " has made some productions!" );
+                    System.out.println(message.getPlayer() + " has made some productions!" );
+                    //System.out.println(value.get("other") + " has made some productions!" );
                 }
                 printActions();
                 break;
 
             case "BUY":
-                System.out.println("\n");
-                if (value == null) {
+
+                printBoard();
+
+                if (message == null) {
+                //if (value == null) {
                     // the player that has bought a dev card
-                    //System.out.println("Here is your new situation!");
-                    printBoard();
                 } else {
-                    printBoard();
-                    System.out.println(value.get("other") + " has bought a Develop Card!" );
+                    System.out.println(message.getPlayer() + " has bought a Develop Card!" );
+                    //System.out.println(value.get("other") + " has bought a Develop Card!" );
                 }
                 printActions();
                 break;
 
             case "MARKET":
-                System.out.println("\n");
-                if (value == null) {
+
+                printBoard();
+
+                if (message == null) {
+                //if (value == null) {
                     // the player that has bought a dev card
-                    //System.out.println("Here is your new situation!");
-                    printBoard();
-                } else {
-                    printBoard();
-                    System.out.println(value.get("other") + " has taken resources from the Market!" );
-                    if (Integer.parseInt(value.get("discarded")) != 0) {
+                    printActions();
+                }
+                else {
+                    System.out.println(message.getPlayer() + " has taken resources from the Market!" );
+                    //System.out.println(value.get("other") + " has taken resources from the Market!" );
+                    if (message.getDiscarded() != 0) {
+                    //if (Integer.parseInt(value.get("discarded")) != 0) {
                         System.out.println("Your position has been increased!");
                     }
                 }
@@ -1659,59 +1676,76 @@ public class CLI implements Runnable, SourceListener {
                 break;
 
             case "SWAP":
-                System.out.println("\n");
-                if (value == null) {
+
+                if (message == null) {
+                //if (value == null) {
                     printBoard();
 
                 } else {
-                    System.out.println(value.get("other") + " has swapped his deposits!" );
+                    System.out.println(message.getPlayer() + " has swapped his deposits!" );
+                    //System.out.println(value.get("other") + " has swapped his deposits!" );
                 }
                 printActions();
                 break;
 
             case "ACTIVATE":
-                System.out.println("\n");
-                if (value == null) {
+
+                if (message == null) {
+                //if (value == null) {
                     printBoard();
                 } else {
-                    System.out.println(value.get("other") + " has activated his leader!" );
+                    System.out.println(message.getPlayer() + " has activated his leader!");
+                    //System.out.println(value.get("other") + " has activated his leader!");
                 }
                 printActions();
                 break;
 
             case "DISCARD":
-                System.out.println("\n");
-                if (value == null) {
+
+                if (message == null) {
+                //if (value == null) {
                     printBoard();
                 } else {
-                    System.out.println(value.get("other") + " has discarded his leader!" );
+                    System.out.println(message.getPlayer() + " has discarded his leader!");
+                    //System.out.println(value.get("other") + " has discarded his leader!");
                 }
                 printActions();
                 break;
 
             case "ENDTURN":
+
                 printBoard();
-                if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
+
+                if (modelView.getName().equalsIgnoreCase(message.getEndedPlayer())) {
+                //if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     if (modelView.isSoloGame()){
-                        System.out.println("The Token that has been activated is: " + Cards.getTokenById(Integer.parseInt(value.get("tokenActivated"))));
+                        System.out.println("The Token that has been activated is: " + Cards.getTokenById(message.getToken()));
+                        //System.out.println("The Token that has been activated is: " + Cards.getTokenById(Integer.parseInt(value.get("tokenActivated"))));
                     }
                 } else {
-                    System.out.println(value.get("other") + " has ended his turn!" );
-                    if (!modelView.getName().equalsIgnoreCase(value.get("currentPlayer"))) {
-                        System.out.println("It is " + value.get("currentPlayer") + " turn now!");
+                    System.out.println(message.getPlayer() + " has ended his turn!" );
+                    //System.out.println(value.get("other") + " has ended his turn!" );
+                    if (!modelView.getName().equalsIgnoreCase(message.getCurrentPlayer())) {
+                    //if (!modelView.getName().equalsIgnoreCase(value.get("currentPlayer"))) {
+                        System.out.println("It's' " + message.getCurrentPlayer() + " turn now!");
+                        //System.out.println("It's " + value.get("currentPlayer") + " turn now!");
                     }
                 }
 
                 break;
 
             case "ENDGAME":
-                System.out.println("\n");
-                if (value.containsKey("winner") && value.get("winner").equalsIgnoreCase(modelView.getName())) {
-                    System.out.println("You won! You made " + value.get("winnerpoints") + " points! ");
+
+                if (message.getWinner().equalsIgnoreCase(modelView.getName())) {
+                //if (value.containsKey("winner") && value.get("winner").equalsIgnoreCase(modelView.getName())) {
+                    System.out.println("You won! You made " + message.getWinnerPoints() + " points!");
+                    //System.out.println("You won! You made " + value.get("winnerpoints") + " points!");
                 } else {
-                    System.out.println("You lost! You made " + value.get("points") + " points! ");
+                    System.out.println("You lost! You made " + message.getPoints() + " points! ");
+                    //System.out.println("You lost! You made " + value.get("points") + " points! ");
                     if (!modelView.isSoloGame()) {
-                        System.out.println(value.get("winner") + " won with " + value.get("winnerpoints") + " points! ");
+                        System.out.println(message.getWinner() + " won with " + message.getWinnerPoints() + " points! ");
+                        //System.out.println(value.get("winner") + " won with " + value.get("winnerpoints") + " points! ");
                     }
                 }
 
@@ -1722,28 +1756,32 @@ public class CLI implements Runnable, SourceListener {
                 break;
 
             case "ERROR":
-                System.out.println("\n");
-                if (value.get("player").equalsIgnoreCase(modelView.getName())) {
-                    System.out.println(value.get("content"));
+
+                if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
+                //if (value.get("player").equalsIgnoreCase(modelView.getName())) {
+                    System.out.println(message.getContent());
+                    //System.out.println(value.get("content"));
                 }
-                if (value.get("method").equalsIgnoreCase("chooseleaders")){
+                if (message.getMethod().equalsIgnoreCase("chooseleaders")){
+                //if (value.get("method").equalsIgnoreCase("chooseleaders")){
                     chooseLeaders();
                 }
-                else if (value.get("method").equalsIgnoreCase("chooseresources")){
+                else if (message.getMethod().equalsIgnoreCase("chooseresources")){
+                //else if (value.get("method").equalsIgnoreCase("chooseresources")){
                     chooseResources(modelView.getInitialRes());
                 }
                 else printActions();
                 break;
 
             case "END":
-                System.out.println("\n");
-                System.out.println(value.get("content"));
+                System.out.println(message.getContent());
+                //System.out.println(value.get("content"));
                 System.exit(0);
                 break;
 
             case "OTHERDISCONNECTED":
-                System.out.println("\n");
-                System.out.println(value.get("content"));
+                System.out.println(message.getContent());
+                //System.out.println(value.get("content"));
                 break;
 
             default:

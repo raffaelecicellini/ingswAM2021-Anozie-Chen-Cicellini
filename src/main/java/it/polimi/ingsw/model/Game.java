@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
@@ -812,18 +812,19 @@ public class Game {
     public void buy(String player, Message map) throws InvalidActionException, NumberFormatException {
         if (!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory operation in this turn.");
-        //if(map.getRow()==null || map.getCol()==null) throw new InvalidActionException("You didn't select the card.");
-        //int row = map.getRow();
-        //int column = map.getCol();
-        //if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("Wrong indexes selected ");
-        boolean end = false;
+        if(map.getRow()==-1 || map.getCol()==-1) throw new InvalidActionException("You didn't select the card.");
+        int row = map.getRow();
+        int column = map.getCol();
+        if (row<0 || row>2 || column<0 || column>3) throw new InvalidActionException("Wrong indexes selected ");
+        boolean end;
         int slot, id;
-        //DevelopCard card = developDecks[column][row].getCard();
-        //if (card==null) throw new InvalidActionException("No more cards in this deck!");
-        //id=card.getId();
-        //slot=map.getSlot();
-        //end = currentPlayer.buy(map, card);
-        //developDecks[column][row].removeCard();
+        DevelopCard card = developDecks[column][row].getCard();
+        if (card==null) throw new InvalidActionException("No more cards in this deck!");
+        id=card.getId();
+        if (map.getSlot() == -1) throw new InvalidActionException("You didn't select the slot.");
+        slot = map.getSlot();
+        end = currentPlayer.buy(map, card);
+        developDecks[column][row].removeCard();
         if (end)
             isEndGame = true;
         doneMandatory = true;

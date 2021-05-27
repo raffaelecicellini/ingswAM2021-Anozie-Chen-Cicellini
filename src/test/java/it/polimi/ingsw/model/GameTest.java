@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.Test;
 import java.util.*;
@@ -279,7 +279,8 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
-
+        info.put("player", "test");
+        info.put("action", "produce");
         //message= new ProductionMessage(info);
         try {
             test.produce(second.getName(), message);
@@ -331,7 +332,8 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
-
+        info.put("player", "test");
+        info.put("action", "produce");
         Message message=null;
         //message= new ProductionMessage(info);
         try {
@@ -356,7 +358,8 @@ public class GameTest {
         info.put("in02", "grey");
         info.put("pos02", "big");
         info.put("out0", "yellow");
-
+        info.put("player", "test");
+        info.put("action", "produce");
         //message= new ProductionMessage(info);
         try {
             test.produce(second.getName(), message);
@@ -425,6 +428,8 @@ public class GameTest {
         Map<String, String> res = new HashMap<>();
         res.put("res1", "blue");
         res.put("pos1", "small");
+        res.put("action", "chooseresources");
+        res.put("player", "test");
         Message resources=null;
         //resources= new ResourceMessage(res);
         try {
@@ -457,7 +462,8 @@ public class GameTest {
         map.put("pos2", "mid");
         map.put("pos3", "big");
         map.put("pos4", "big");
-
+        map.put("action","market");
+        map.put("player","test");
         Message marketMex=null;
         //marketMex= new MarketMessage(map);
 
@@ -501,6 +507,8 @@ public class GameTest {
         map.put("pos2", "mid");
         map.put("pos3", "mid");
         map.put("pos4", "big");
+        map.put("action","market");
+        map.put("player","test");
 
         //marketMex= new MarketMessage(map);
 
@@ -540,6 +548,8 @@ public class GameTest {
         map.clear();
         map.put("source", "small");
         map.put("dest", "big");
+        map.put("action","swap");
+        map.put("player","test");
 
         Message swap=null;
         //swap=new SwapMessage(map);
@@ -562,6 +572,8 @@ public class GameTest {
         map.put("pos1", "mid");
         map.put("pos2", "big");
         map.put("pos3", "big");
+        map.put("action","market");
+        map.put("player","test");
 
         //marketMex= new MarketMessage(map);
 
@@ -591,6 +603,8 @@ public class GameTest {
         map.clear();
         map.put("source", "small");
         map.put("dest", "big");
+        map.put("action","swap");
+        map.put("player","test");
 
         //swap=new SwapMessage(map);
         /*try {
@@ -607,6 +621,8 @@ public class GameTest {
         map.put("res2", "BLUE");
         map.put("pos3", "small");
         map.put("pos4", "big");
+        map.put("action","market");
+        map.put("player","test");
 
         //marketMex= new MarketMessage(map);
 
@@ -643,6 +659,8 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("res1","yellow");
         map.put("pos1","mid");
+        map.put("action", "chooseresources");
+        map.put("player", "test");
         Message initial= null;
         //initial= new ResourceMessage(map);
         try {
@@ -672,6 +690,8 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("res1","yellow");
         map.put("pos1","mid");
+        map.put("action", "chooseresources");
+        map.put("player", "test");
         Message initial= null;
         //initial= new ResourceMessage(map);
         try {
@@ -706,6 +726,8 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("res1","yellow");
         map.put("pos1","mid");
+        map.put("action", "chooseresources");
+        map.put("player", "test");
         Message initial= null;
         //initial= new ResourceMessage(map);
         try {
@@ -747,6 +769,8 @@ public class GameTest {
 
         map.put("pos2","big");
         map.put("res2","blue");
+        map.put("action", "chooseresources");
+        map.put("player", "test");
         //initial= new ResourceMessage(map);
         try {
             test.chooseInitialResource(four, initial);
@@ -782,6 +806,8 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("source","big");
         map.put("dest","mid");
+        map.put("action","swap");
+        map.put("player","test");
         Message swap= null;
         //swap=new SwapMessage(map);
         try {
@@ -819,6 +845,8 @@ public class GameTest {
         Map<String,String> map = new HashMap<>();
         map.put("source","big");
         map.put("dest","mid");
+        map.put("action","swap");
+        map.put("player","test");
         Message swap= null;
         //swap=new SwapMessage(map);
         try {
@@ -856,6 +884,8 @@ public class GameTest {
         map.put("row","0");
         map.put("col","0");
         map.put("ind","0");
+        map.put("action","buy");
+        map.put("player","test");
         one.getPersonalBoard().setStrongbox(strongbox);
         assertEquals(one.getNumberDevelopCards(),0);
         Message buy=null;
@@ -902,6 +932,8 @@ public class GameTest {
         map.put("row","0");
         map.put("column","0");
         map.put("ind","1");
+        map.put("action","buy");
+        map.put("player","test");
         one.getPersonalBoard().setStrongbox(strongbox);
         assertEquals(one.getNumberDevelopCards(),0);
 

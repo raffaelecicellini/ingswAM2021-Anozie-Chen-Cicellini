@@ -88,4 +88,104 @@ public abstract class Message {
     public Map<String,String> getCost() {
         return null;
     }
+
+    public int getCard(int col, int row) {
+        return -1;
+    }
+
+    public String getMarble(int col, int row) {
+        return null;
+    }
+
+    public String getPlayer(int ind) {
+        return null;
+    }
+
+    public String getOutMarble() {
+        return null;
+    }
+
+    public String getContent() {
+        return null;
+    }
+
+    public String getLeaders(int ind) {
+        return null;
+    }
+
+    public int getAddPos() {
+        return -1;
+    }
+
+    public int getResQty() {
+        return -1;
+    }
+
+    public Map<String,String> getDeposits() {
+        return null;
+    }
+
+    public int getIdNew() {
+        return -1;
+    }
+
+    public Map<String,String> getStrongbox() {
+        return null;
+    }
+
+    public int getIdBought() {
+        return -1;
+    }
+
+    public int getBlackPos() {
+        return -1;
+    }
+
+    public int getNewPos() {
+        return -1;
+    }
+
+    public int getDiscarded() {
+        return -1;
+    }
+
+    public boolean isDep() {
+        return false;
+    }
+
+    public int getCountLeader() {
+        return -1;
+    }
+
+    public String getWinner() {
+        return null;
+    }
+
+    public int getWinnerPoints() {
+        return -1;
+    }
+
+    public int getPoints() {
+        return -1;
+    }
+
+    public String getMethod() {
+        return null;
+    }
+
+    public String getTileState(int player, int index) {
+        return null;
+    }
+
+    public String getCurrentPlayer() {
+        return null;
+    }
+
+    public String getEndedPlayer() {
+        return null;
+    }
+
+    public int getToken() {
+        return -1;
+    }
 }

@@ -85,7 +85,7 @@ public class ClientHandler implements Runnable{
                 active = false;
                 return;
             }
-            if (server.checkName(message.get("username"))) {
+            if (server.checkName(message.get("username").toLowerCase())) {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("content", "Duplicate username. Pick a new name and connect again.");

@@ -30,6 +30,10 @@ public class MarketMessage extends Message{
 
     @Override
     public int getMarblesIndex() {
-        return info.containsKey("row") ? Integer.parseInt(info.get("row")) : Integer.parseInt(info.get("col"));
+        if (info.containsKey("row"))
+            return Integer.parseInt(info.get("row"));
+        else if (info.containsKey("col"))
+            return (Integer.parseInt(info.get("col")));
+        return -1;
     }
 }

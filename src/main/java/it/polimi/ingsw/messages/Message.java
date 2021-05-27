@@ -188,4 +188,12 @@ public abstract class Message {
     public int getToken() {
         return -1;
     }
+
+    public String getAction() {
+        return action;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
 }

@@ -14,8 +14,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -99,6 +101,20 @@ public class GUI extends Application implements SourceListener {
         stage.setScene(currentScene);
         stage.setTitle("Maestri");
         stage.getIcons().add(new Image("/PNG/punchboard/calamaio.png"));
+        stage.setOnCloseRequest(e->{
+            Alert alert= new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Quit");
+            alert.setHeaderText("Are you sure you want to quit?");
+            alert.initModality(Modality.APPLICATION_MODAL);
+            Optional<ButtonType> result=alert.showAndWait();
+            if (result.isPresent() && result.get()==ButtonType.OK){
+                Map<String, String> map= new HashMap<>();
+                map.put("player", modelView.getName());
+                map.put("acton", "disconnect");
+                //Message message= new DisconnectionMessage(map);
+                //listener.fireUpdates("disconnect", message);
+            }
+        });
         stage.show();
     }
 

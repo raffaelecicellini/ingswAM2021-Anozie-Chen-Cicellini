@@ -93,7 +93,9 @@ public class SocketListener implements Runnable{
         String action = map.get("action");
         Message message=null;
         switch (action.toUpperCase()){
-            case "START": break;
+            case "START":
+                message= new StartedAnswer(map);
+                break;
             case "OTHERCONNECTED":
                 message= new OtherConnectedAnswer(map);
                 break;
@@ -148,8 +150,10 @@ public class SocketListener implements Runnable{
             case "OTHERDISCONNECTED":
                 message= new OtherDisconnectedAnswer(map);
                 break;
+            default:
+                message= new ErrorAnswer(map);
         }
-        listener.fireUpdates(map.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
         if (action.equalsIgnoreCase("end") || action.equalsIgnoreCase("endgame"))
             close();
     }

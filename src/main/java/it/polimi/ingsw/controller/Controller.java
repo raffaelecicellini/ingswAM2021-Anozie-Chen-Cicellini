@@ -368,7 +368,7 @@ public class Controller implements SourceListener {
                             error.put("content", "There is an error in fromMarket: " + e.getMessage());
                             error.put("method", "fromMarket");
                             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                            gameHandlerListener.fireUpdates(error.get("action"), errorAnswer);
+                            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                         }
                     //}
                 } else

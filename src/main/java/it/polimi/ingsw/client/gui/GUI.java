@@ -584,7 +584,7 @@ public class GUI extends Application implements SourceListener {
 
             case "ENDGAME":
 
-                if (message.getWinner().equalsIgnoreCase(modelView.getName())) {
+                if (message.getWinner()!=null && message.getWinner().equalsIgnoreCase(modelView.getName())) {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Winner");

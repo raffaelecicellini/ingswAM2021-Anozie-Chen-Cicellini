@@ -279,12 +279,13 @@ public class GameHandler implements SourceListener {
     }
 
     @Override
-    public void update(String propertyName, Message value) {
+    public void update(String propertyName, Message message) {
         //switch for different kind of maps sent by model and controller
         Gson gson=new Gson();
         String jsonMessage;
         String addressee;
-        String player= value.getPlayer()!=null? value.getPlayer() : value.getEndedPlayer();
+        String player= message.getPlayer()!=null? message.getPlayer() : message.getEndedPlayer();
+        Map<String, String> value=message.getAll();
         System.out.println("I am in GameHandler, ready to send a message. Action: "+propertyName+"; Player: "+player);
         switch (propertyName.toUpperCase()){
             case "STARTED":
@@ -294,7 +295,7 @@ public class GameHandler implements SourceListener {
                 sendAll(jsonMessage);
                 break;
             case "YOURTURN":
-                addressee=value.getPlayer();
+                addressee=message.getPlayer();
                 jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
@@ -304,7 +305,7 @@ public class GameHandler implements SourceListener {
                 System.out.println("I am sending a choose leaders message");
                 break;
             case "OKLEADERS":
-                addressee=value.getPlayer();
+                addressee=message.getPlayer();
                 jsonMessage=gson.toJson(value);
                 //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
@@ -380,7 +381,7 @@ public class GameHandler implements SourceListener {
                 break;
             case "ENDGAME":
                 //singlesend
-                addressee=value.getPlayer();
+                addressee=message.getPlayer();
                 jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
 
@@ -390,7 +391,7 @@ public class GameHandler implements SourceListener {
                 break;
             case "ERROR":
                 //singlesend
-                addressee=value.getPlayer();
+                addressee=message.getPlayer();
                 jsonMessage=gson.toJson(value);
                 System.out.println(jsonMessage);
                 sendSingle(jsonMessage, addressee);

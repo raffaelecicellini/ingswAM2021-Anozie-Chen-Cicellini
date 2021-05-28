@@ -117,6 +117,7 @@ public class GUI extends Application implements SourceListener {
                 }
             }
         });
+        stage.setResizable(false);
         stage.show();
     }
 

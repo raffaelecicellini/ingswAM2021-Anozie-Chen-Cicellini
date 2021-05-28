@@ -7,10 +7,7 @@ import it.polimi.ingsw.messages.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
@@ -29,6 +26,7 @@ public class BoardController extends GUIController{
     @FXML private ImageView tile0, tile1, tile2;
     @FXML private ImageView pos, blackCross;
     @FXML private Label current;
+    @FXML private Button show;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -550,6 +548,9 @@ public class BoardController extends GUIController{
         current.setText(gui.getModelView().getCurrentPlayer());
     }
 
+    public void disableShow(){
+        this.show.setDisable(true);
+    }
     /**
      * @see GUIController
      * @param gui the gui to be set

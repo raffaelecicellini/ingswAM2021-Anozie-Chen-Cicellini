@@ -58,6 +58,8 @@ public class StartController extends GUIController{
         gui.setController(new Controller(gui.getModel(),gui.getAnswerHandler()));
         gui.getListeners().addListener(gui.getController());
         gui.getListeners().fireUpdates("start",null);
+        BoardController board=(BoardController) gui.getControllerFromName("board.fxml");
+        board.disableShow();
         gui.changeScene("board.fxml");
     }
 
@@ -122,6 +124,10 @@ public class StartController extends GUIController{
         controller.setText("Socket setup completed!");
         controller.setText("Waiting for players...");
         gui.getListeners().addListener(new ActionParser(connectionSocket));
+        if (players==1) {
+            BoardController board= (BoardController) gui.getControllerFromName("board.fxml");
+            board.disableShow();
+        }
     }
 
 

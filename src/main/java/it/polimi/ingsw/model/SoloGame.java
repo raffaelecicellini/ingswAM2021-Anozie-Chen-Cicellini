@@ -371,47 +371,26 @@ public class SoloGame extends Game{
      */
     @Override
     public void fromMarket(String player, Message message) throws InvalidActionException {
-    //public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
-        if (doneMandatory)
-            throw new InvalidActionException("You have already done a mandatory action in this turn!");
-
-        // to lowercase the entire map
-        /*Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                e1 -> e1.getKey().toLowerCase(),
-                e1 -> e1.getValue().toLowerCase()));*/
-
-        /*if (mapCopy.containsKey("row")) {
-            int row = Integer.parseInt(mapCopy.get("row"));
-            if (row >= 1 && row <= 3) {
-                mapCopy.remove("row");*/
-                int discarded = currentPlayer.fromMarket(message, market.selectRow(message.getMarblesIndex() - 1));
-                //int discarded = currentPlayer.fromMarket(mapCopy, market.selectRow(row - 1));
+        if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");
         if (message.isRow()) {
-            market.pushRow(message.getMarblesIndex() - 1);
-            blackCross.setPosition(blackCross.getPosition() + discarded);
-            doneMandatory = true;
-            notifyMarket("row", message.getMarblesIndex() - 1);
-        }
-            //} else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
-            //notifyMarket("row", row - 1);
-        /*} else if (mapCopy.containsKey("col")) {
-            int col = Integer.parseInt(mapCopy.get("col"));
-            if (col >= 1 && col <= 4) {
-                mapCopy.remove("col");*/
-                //int discarded = currentPlayer.fromMarket(message, market.selectColumn(message.getMarblesIndex() - 1));
-                //int discarded = currentPlayer.fromMarket(map, market.selectColumn(col - 1));
-        else
-            if (message.isCol()) {
-                market.pushColumn(message.getMarblesIndex() - 1);
-                //market.pushColumn(col - 1);
+            int row = message.getMarblesIndex();
+            if (row >= 1 && row <= 3) {
+                int discarded = currentPlayer.fromMarket(message, market.selectRow(row - 1));
+                market.pushRow(row - 1);
                 blackCross.setPosition(blackCross.getPosition() + discarded);
                 doneMandatory = true;
-                notifyMarket("col", message.getMarblesIndex() - 1);
-            }
-            //} else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
-            //notifyMarket("col", message.getMarblesIndex() - 1);
-            //notifyMarket("col", col - 1);
-        //} else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
+            } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for row!");
+            notifyMarket("row", row - 1);
+        } else if (message.isCol()) {
+            int col = message.getMarblesIndex();
+            if (col >= 1 && col <= 4) {
+                int discarded = currentPlayer.fromMarket(message, market.selectColumn(col - 1));
+                market.pushColumn(col - 1);
+                blackCross.setPosition(blackCross.getPosition() + discarded);
+                doneMandatory = true;
+            } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
+            notifyMarket("col", col - 1);
+        } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
     }
 
     /**

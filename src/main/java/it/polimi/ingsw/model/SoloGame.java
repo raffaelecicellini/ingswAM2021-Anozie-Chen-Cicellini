@@ -139,7 +139,8 @@ public class SoloGame extends Game{
         }
 
         Message message= new StartedAnswer(state);
-        listener.fireUpdates(state.get("action"), message);
+        //listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -176,7 +177,8 @@ public class SoloGame extends Game{
         state.put("player", currentPlayer.getName());
         Message message= new YourTurnAnswer(state);
 
-        listener.fireUpdates(state.get("action"), message);
+        //listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -206,7 +208,8 @@ public class SoloGame extends Game{
             message= new ChooseLeadersAnswer(state);
         }
         else message= new OkLeadersAnswer(state);
-        listener.fireUpdates(state.get("action"), message);
+        //listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -296,7 +299,8 @@ public class SoloGame extends Game{
         }
 
         Message message= new BuyAnswer(state);
-        listener.fireUpdates(state.get("action"), message);
+        //listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -360,7 +364,8 @@ public class SoloGame extends Game{
         }
 
         Message message= new ProduceAnswer(state);
-        listener.fireUpdates(state.get("action"), message);
+        //listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -451,7 +456,8 @@ public class SoloGame extends Game{
         }
 
         Message message= new MarketAnswer(state);
-        listener.fireUpdates(state.get("action"), message);
+        //listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -498,7 +504,8 @@ public class SoloGame extends Game{
         }
 
         Message message= new SwapAnswer(state);
-        listener.fireUpdates(state.get("action"), message);
+        //listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -579,7 +586,8 @@ public class SoloGame extends Game{
         state.put("countLeader", String.valueOf(doneLeader));
 
         Message message= new LeaderActionAnswer(state);
-        this.listener.fireUpdates(state.get("action"), message);
+        //this.listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -695,7 +703,8 @@ public class SoloGame extends Game{
         state.put("tokenActivated", String.valueOf(token));
 
         Message message= new EndTurnAnswer(state);
-        this.listener.fireUpdates(state.get("action"), message);
+        //this.listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -720,7 +729,8 @@ public class SoloGame extends Game{
         state.put("winnerpoints", String.valueOf(points));
 
         Message message= new EndgameAnswer(state);
-        this.listener.fireUpdates(state.get("action"), message);
+        //this.listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(message.getAction(), message);
     }
 
 

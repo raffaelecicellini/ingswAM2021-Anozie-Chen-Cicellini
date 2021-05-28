@@ -9,6 +9,11 @@ public class EndTurnAnswer extends Message{
     }
 
     @Override
+    public String getPlayer(int ind) {
+        return info.get("player"+ind);
+    }
+
+    @Override
     public String getTileState(int player, int index) {
         return info.get("tile"+player+index);
     }

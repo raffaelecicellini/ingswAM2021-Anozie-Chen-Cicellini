@@ -162,7 +162,8 @@ public class BoardController extends GUIController{
         if (result.isPresent() && result.get()==ButtonType.OK){
             gui.getModelView().setActiveTurn(false);
             Message message= new LeaderActionMessage(pack);
-            gui.getListeners().fireUpdates(pack.get("action"), message);
+            gui.getListeners().fireUpdates(message.getAction(), message);
+            //gui.getListeners().fireUpdates(pack.get("action"), message);
         }
     }
 
@@ -211,7 +212,8 @@ public class BoardController extends GUIController{
         if (result.isPresent() && result.get()==ButtonType.OK){
             gui.getModelView().setActiveTurn(false);
             Message message= new LeaderActionMessage(pack);
-            gui.getListeners().fireUpdates(pack.get("action"), message);
+            gui.getListeners().fireUpdates(message.getAction(), message);
+            //gui.getListeners().fireUpdates(pack.get("action"), message);
         }
     }
 
@@ -262,7 +264,8 @@ public class BoardController extends GUIController{
                 pack.put("action", "swap");
                 pack.put("player", gui.getModelView().getName());
                 Message message= new SwapMessage(pack);
-                gui.getListeners().fireUpdates(pack.get("action"), message);
+                gui.getListeners().fireUpdates(message.getAction(), message);
+                //gui.getListeners().fireUpdates(pack.get("action"), message);
             }
         }
     }
@@ -330,7 +333,8 @@ public class BoardController extends GUIController{
             pack.put("action", "endturn");
             pack.put("player", gui.getModelView().getName());
             Message message= new EndTurnMessage(pack);
-            gui.getListeners().fireUpdates(pack.get("action"), message);
+            gui.getListeners().fireUpdates(message.getAction(), message);
+            //gui.getListeners().fireUpdates(pack.get("action"), message);
         }
 
     }

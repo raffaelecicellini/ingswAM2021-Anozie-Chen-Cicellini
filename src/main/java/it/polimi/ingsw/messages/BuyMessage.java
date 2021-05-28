@@ -28,9 +28,10 @@ public class BuyMessage extends Message{
     @Override
     public Map<String,String> getCost() {
         Map<String,String> cost = new HashMap<>(info);
+        System.out.println(cost);
         cost.remove("ind");
         cost.remove("row");
-        cost.remove("ind");
+        cost.remove("column");
         return cost;
     }
 }

@@ -13,12 +13,12 @@ public class PlayerTest {
     public void leaderTest(){
         Player test= new Player("test");
         assertEquals("test", test.getName());
-        test.leaders.add(0, new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY, 0));
-        test.leaders.add(1, new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE, 0));
+        test.getLeaders().add(0, new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY, 0));
+        test.getLeaders().add(1, new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE, 0));
 
         try {
             test.discardLeader(0);
-            assertTrue(test.leaders.get(0).isDiscarded());
+            assertTrue(test.getLeaders().get(0).isDiscarded());
             assertEquals(1, test.getPersonalBoard().getFaithMarker().getPosition());
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -27,7 +27,7 @@ public class PlayerTest {
             test.activateLeader(0);
         } catch (InvalidActionException e) {
             e.printStackTrace();
-            assertFalse(test.leaders.get(0).isActive());
+            assertFalse(test.getLeaders().get(0).isActive());
         }
         try {
             test.discardLeader(2);
@@ -78,7 +78,7 @@ public class PlayerTest {
 
         try {
             test.activateLeader(1);
-            assertTrue(test.leaders.get(1).isActive());
+            assertTrue(test.getLeaders().get(1).isActive());
             assertNotNull(pb.getSlot(3));
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class PlayerTest {
             test.discardLeader(1);
         } catch (InvalidActionException e) {
             e.printStackTrace();
-            assertFalse(test.leaders.get(1).isDiscarded());
+            assertFalse(test.getLeaders().get(1).isDiscarded());
             assertEquals(1, test.getPersonalBoard().getFaithMarker().getPosition());
         }
         try {
@@ -95,18 +95,18 @@ public class PlayerTest {
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
-        test.leaders.get(0).setDiscarded(false);
+        test.getLeaders().get(0).setDiscarded(false);
         try {
             test.activateLeader(0);
         } catch (InvalidActionException e) {
             e.printStackTrace();
-            assertFalse(test.leaders.get(0).isActive());
+            assertFalse(test.getLeaders().get(0).isActive());
         }
         ResourceAmount[] strongbox= {new ResourceAmount(Color.YELLOW, 5), new ResourceAmount(Color.BLUE, 0), new ResourceAmount(Color.GREY, 0), new ResourceAmount(Color.PURPLE, 0)};
         test.getPersonalBoard().setStrongbox(strongbox);
         try {
             test.activateLeader(0);
-            assertTrue(test.leaders.get(0).isActive());
+            assertTrue(test.getLeaders().get(0).isActive());
             assertNotNull(test.getPersonalBoard().getDeposits().get(3));
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -445,9 +445,9 @@ public class PlayerTest {
 
         try {
             player.chooseLeader(1, 2);
-            assertEquals("OneAndOne", player.leaders.get(0).getType());
-            assertEquals("Resource", player.leaders.get(1).getType());
-            assertEquals(2, player.leaders.size());
+            assertEquals("OneAndOne", player.getLeaders().get(0).getType());
+            assertEquals("Resource", player.getLeaders().get(1).getType());
+            assertEquals(2, player.getLeaders().size());
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }

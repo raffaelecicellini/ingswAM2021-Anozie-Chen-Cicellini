@@ -2,7 +2,7 @@ package it.polimi.ingsw.client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
 import java.io.BufferedReader;
@@ -92,7 +92,7 @@ public class SocketListener implements Runnable{
     public void actionHandler(Map<String,String> map) {
         String action = map.get("action");
         Message message=null;
-        /*switch (action.toUpperCase()){
+        switch (action.toUpperCase()){
             case "START": break;
             case "OTHERCONNECTED":
                 message= new OtherConnectedAnswer(map);
@@ -110,7 +110,7 @@ public class SocketListener implements Runnable{
                 message= new ChooseResourcesAnswer(map);
                 break;
             case "OKRESOURCES":
-                message= new OkResourcesMessage(map);
+                message= new OkResourcesAnswer(map);
                 break;
             case "YOURTURN":
                 message= new YourTurnAnswer(map);
@@ -128,10 +128,10 @@ public class SocketListener implements Runnable{
                 message= new SwapAnswer(map);
                 break;
             case "ACTIVATE":
-                message= new LeaderActonAnswer(map);
+                message= new LeaderActionAnswer(map);
                 break;
             case "DISCARD":
-                message= new LeaderActonAnswer(map);
+                message= new LeaderActionAnswer(map);
                 break;
             case "ENDTURN":
                 message= new EndTurnAnswer(map);
@@ -148,7 +148,7 @@ public class SocketListener implements Runnable{
             case "OTHERDISCONNECTED":
                 message= new OtherDisconnectedAnswer(map);
                 break;
-        }*/
+        }
         listener.fireUpdates(map.get("action"), message);
         if (action.equalsIgnoreCase("end") || action.equalsIgnoreCase("endgame"))
             close();

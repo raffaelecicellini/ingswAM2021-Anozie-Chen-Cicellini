@@ -3,9 +3,9 @@ package it.polimi.ingsw.messages;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OkResourcesMessage extends Message{
+public class OkResourcesAnswer extends Message{
 
-    public OkResourcesMessage(Map<String, String> info) {
+    public OkResourcesAnswer(Map<String, String> info) {
         super(info);
     }
 

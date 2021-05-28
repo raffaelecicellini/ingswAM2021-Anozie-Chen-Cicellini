@@ -22,7 +22,7 @@ public class BuyAnswer extends Message{
 
     @Override
     public int getIdNew() {
-        return info.get("idNew").equalsIgnoreCase("empty") ? -1 : Integer.parseInt(info.get("idNew"));
+        return info.get("idNew").equalsIgnoreCase("empty") ? 0 : Integer.parseInt(info.get("idNew"));
     }
 
     @Override

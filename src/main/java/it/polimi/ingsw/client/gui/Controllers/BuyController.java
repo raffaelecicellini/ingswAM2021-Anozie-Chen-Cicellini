@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.gui.Controllers;
 
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
-import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -106,8 +106,8 @@ public class BuyController extends GUIController{
         action.put("action","buy");
         action.put("player",gui.getModelView().getName());
         gui.getModelView().setActiveTurn(false);
-        //Message message= new BuyMessage(action);
-        //gui.getListeners().fireUpdates("buy", message);
+        Message message= new BuyMessage(action);
+        gui.getListeners().fireUpdates("buy", message);
         ((Node)(event.getSource())).getScene().getWindow().hide();
         //stage.close();
     }

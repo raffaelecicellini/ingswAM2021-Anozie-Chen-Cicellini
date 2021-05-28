@@ -121,13 +121,13 @@ public class GameHandler implements SourceListener {
      * @param player the name of the player that sent the message
      */
     public synchronized void makeAction(Message message, String player){
-        //System.out.println("I am in gameHandler.makeAction. Action: "+message.get("action")+"; Player: "+message.get("player"));
+        System.out.println("I am in gameHandler.makeAction. Action: "+message.getAction()+"; Player: "+message.getPlayer());
         //controls if the move can be done
         if (model.getPhase()!=GamePhase.NOTSTARTED){
             if (model.getCurrentPlayer().getName().equalsIgnoreCase(player)){
                 System.out.println("Passing action to Controller...");
-                //System.out.println("Player: "+player+", Action: "+message.get("action"));
-                //controllerListener.fireUpdates(message.get("action"), message);
+                System.out.println("Player: "+player+", Action: "+message.getAction());
+                controllerListener.fireUpdates(message.getAction(), message);
                 System.out.println(message);
             }
             else {
@@ -284,9 +284,9 @@ public class GameHandler implements SourceListener {
         Gson gson=new Gson();
         String jsonMessage;
         String addressee;
-        //String player= value.get("player")!=null? value.get("player") : value.get("endedTurnPlayer");
-        //System.out.println("I am in GameHandler, ready to send a message. Action: "+propertyName+"; Player: "+player);
-        /*switch (propertyName.toUpperCase()){
+        String player= value.getPlayer()!=null? value.getPlayer() : value.getEndedPlayer();
+        System.out.println("I am in GameHandler, ready to send a message. Action: "+propertyName+"; Player: "+player);
+        switch (propertyName.toUpperCase()){
             case "STARTED":
                 //sendall
                 jsonMessage=gson.toJson(value);
@@ -294,7 +294,7 @@ public class GameHandler implements SourceListener {
                 sendAll(jsonMessage);
                 break;
             case "YOURTURN":
-                addressee=value.get("player");
+                addressee=value.getPlayer();
                 jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
                 break;
@@ -304,7 +304,7 @@ public class GameHandler implements SourceListener {
                 System.out.println("I am sending a choose leaders message");
                 break;
             case "OKLEADERS":
-                addressee=value.get("player");
+                addressee=value.getPlayer();
                 jsonMessage=gson.toJson(value);
                 //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
@@ -380,7 +380,7 @@ public class GameHandler implements SourceListener {
                 break;
             case "ENDGAME":
                 //singlesend
-                addressee=value.get("player");
+                addressee=value.getPlayer();
                 jsonMessage=gson.toJson(value);
                 sendSingle(jsonMessage, addressee);
 
@@ -390,11 +390,11 @@ public class GameHandler implements SourceListener {
                 break;
             case "ERROR":
                 //singlesend
-                addressee=value.get("player");
+                addressee=value.getPlayer();
                 jsonMessage=gson.toJson(value);
                 System.out.println(jsonMessage);
                 sendSingle(jsonMessage, addressee);
                 break;
-        }*/
+        }
     }
 }

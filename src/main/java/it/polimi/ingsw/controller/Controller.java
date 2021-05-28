@@ -84,7 +84,7 @@ public class Controller implements SourceListener {
                         error.put("content", "There is an error in chooseLeaders: " + e.getMessage());
                         error.put("method", "chooseLeaders");
                         ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                        //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -94,7 +94,7 @@ public class Controller implements SourceListener {
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "chooseLeaders");
                     ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -104,7 +104,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "chooseLeaders");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         }  else {
             Map<String, String> error = new HashMap<>();
@@ -114,7 +114,7 @@ public class Controller implements SourceListener {
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "chooseLeaders");
             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
         }
 
     }
@@ -153,7 +153,7 @@ public class Controller implements SourceListener {
                         error.put("content", "There is an error in chooseResources: " + e.getMessage());
                         error.put("method", "chooseResources");
                         ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                        //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -163,7 +163,7 @@ public class Controller implements SourceListener {
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "chooseResources");
                     ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -173,7 +173,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "chooseResources");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -183,7 +183,7 @@ public class Controller implements SourceListener {
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "chooseResources");
             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
         }
     }
 
@@ -228,8 +228,7 @@ public class Controller implements SourceListener {
                             error.put("content", "There is an error in Buy: " + e.getMessage());
                             error.put("method", "buy");
                             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                            gameHandlerListener.fireUpdates(error.get("action"), error);
+                            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                         }
                     } else {
                         Map<String, String> error = new HashMap<>();
@@ -239,8 +238,7 @@ public class Controller implements SourceListener {
                         error.put("content", "Attention! You did not type correctly! Try again!");
                         error.put("method", "buy");
                         ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                        //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                        gameHandlerListener.fireUpdates(error.get("action"), error);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -250,8 +248,7 @@ public class Controller implements SourceListener {
                     error.put("content", "Attention! You can not do this action in this phase!");
                     error.put("method", "buy");
                     ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                    gameHandlerListener.fireUpdates(error.get("action"), error);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -261,8 +258,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! It is not your turn!");
                 error.put("method", "buy");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                gameHandlerListener.fireUpdates(error.get("action"), error);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
     }
 
@@ -303,7 +299,7 @@ public class Controller implements SourceListener {
                         error.put("content", "There is an error in Produce: " + e.getMessage());
                         error.put("method", "produce");
                         ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                        //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -313,7 +309,7 @@ public class Controller implements SourceListener {
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "produce");
                     ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -323,7 +319,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "produce");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -333,7 +329,7 @@ public class Controller implements SourceListener {
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "produce");
             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
         }
 
     }
@@ -371,7 +367,8 @@ public class Controller implements SourceListener {
                             //error.put("player", map.get("player"));
                             error.put("content", "There is an error in fromMarket: " + e.getMessage());
                             error.put("method", "fromMarket");
-                            gameHandlerListener.fireUpdates(error.get("action"), error);
+                            ErrorAnswer errorAnswer = new ErrorAnswer(error);
+                            gameHandlerListener.fireUpdates(error.get("action"), errorAnswer);
                         }
                     //}
                 } else
@@ -392,7 +389,7 @@ public class Controller implements SourceListener {
                             error.put("content", "There is an error in fromMarket: " + e.getMessage());
                             error.put("method", "fromMarket");
                             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                         }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -402,7 +399,7 @@ public class Controller implements SourceListener {
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "fromMarket");
                     ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -412,7 +409,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "fromMarket");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -422,7 +419,7 @@ public class Controller implements SourceListener {
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "fromMarket");
             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
         }
 
     }
@@ -465,7 +462,7 @@ public class Controller implements SourceListener {
                         error.put("content", "There is an error in swapDeposits: " + e.getMessage());
                         error.put("method", "swapDeposits");
                         ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                        //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -475,7 +472,7 @@ public class Controller implements SourceListener {
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "swapDeposits");
                     ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
             } else {
                 Map<String, String> error = new HashMap<>();
@@ -485,7 +482,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "swapDeposits");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -495,7 +492,7 @@ public class Controller implements SourceListener {
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "swapDeposits");
             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
         }
 
     }
@@ -537,7 +534,7 @@ public class Controller implements SourceListener {
                         error.put("content", "There is an error in activateLeader: " + e.getMessage());
                         error.put("method", "activateLeader");
                         ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                        //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
                 } else {
                     Map<String, String> error = new HashMap<>();
@@ -547,7 +544,7 @@ public class Controller implements SourceListener {
                     error.put("content", "Attention! You did not type the index correctly! Try again!");
                     error.put("method", "activateLeader");
                     ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
                 /*} else {
                     Map<String, String> error = new HashMap<>();
@@ -566,7 +563,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "activateLeader");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         } else {
             Map<String, String> error = new HashMap<>();
@@ -576,7 +573,7 @@ public class Controller implements SourceListener {
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "activateLeader");
             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
         }
     }
 
@@ -617,7 +614,7 @@ public class Controller implements SourceListener {
                             error.put("content", "There is an error in discardLeader: " + e.getMessage());
                             error.put("method", "discardLeader");
                             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                         }
                     } else {
                         Map<String, String> error = new HashMap<>();
@@ -627,7 +624,7 @@ public class Controller implements SourceListener {
                         error.put("content", "Attention! You did not type the index correctly! Try again!");
                         error.put("method", "discardLeader");
                         ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                        //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
                 /*} else {
                     Map<String, String> error = new HashMap<>();
@@ -647,7 +644,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "discardLeader");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         } else  {
             Map<String, String> error = new HashMap<>();
@@ -657,7 +654,7 @@ public class Controller implements SourceListener {
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "discardLeader");
             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
         }
 
     }
@@ -689,7 +686,7 @@ public class Controller implements SourceListener {
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "endturn");
                 ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         } else {
             System.out.println("Not your turn!");
@@ -700,7 +697,7 @@ public class Controller implements SourceListener {
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "endturn");
             ErrorAnswer errorAnswer = new ErrorAnswer(error);
-            //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
         }
 
     }
@@ -769,7 +766,7 @@ public class Controller implements SourceListener {
                 //map.put("player", value.get("player"));
                 map.put("content", "Illegal action! Try typing again!");
                 Message error = new ErrorAnswer(map);
-                //gameHandlerListener.fireUpdates(map.get("action"), error);
+                gameHandlerListener.fireUpdates(map.get("action"), error);
         }
     }
 }

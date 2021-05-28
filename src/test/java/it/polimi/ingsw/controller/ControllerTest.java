@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.Player;
@@ -40,7 +41,7 @@ public class ControllerTest {
         map.put("action", "start");
         map.put("player", "one");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), null/*map*/);
 
         /*for (int i = 0; i < game.getActivePlayers().size(); i++){
             System.out.println("Player " + i + ": " + game.getActivePlayers().get(i).getName());
@@ -52,7 +53,7 @@ public class ControllerTest {
         map.put("ind1", "1");
         map.put("ind2", "3");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new LeaderMessage(map));
 
         map.clear();
         map.put("action", "chooseleaders");
@@ -60,7 +61,7 @@ public class ControllerTest {
         map.put("ind1", "2");
         map.put("ind2", "4");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new LeaderMessage(map));
 
         map.clear();
         map.put("action", "chooseleaders");
@@ -68,7 +69,7 @@ public class ControllerTest {
         map.put("ind1", "1");
         map.put("ind2", "4");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new LeaderMessage(map));
 
         map.clear();
         map.put("action", "chooseResources");
@@ -76,7 +77,7 @@ public class ControllerTest {
         map.put("res1", "blue");
         map.put("pos1", "small");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new ResourceMessage(map));
 
         map.clear();
         map.put("action", "chooseResources");
@@ -84,7 +85,7 @@ public class ControllerTest {
         map.put("res1", "blue");
         map.put("pos1", "small");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new ResourceMessage(map));
 
     }
 
@@ -111,7 +112,7 @@ public class ControllerTest {
         map.put("action", "start");
         map.put("player", "one");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), null);
 
         for (int i = 0; i < game.getActivePlayers().size(); i++){
             System.out.println("Player " + i + ": " + game.getActivePlayers().get(i).getName());
@@ -127,7 +128,7 @@ public class ControllerTest {
         map.put("ind", "1");
         map.put("res1", "strongbox");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new BuyMessage(map));
 
         map.clear();
         map.put("action", "produce");
@@ -139,7 +140,7 @@ public class ControllerTest {
         map.put("prod4", "no");
         map.put("prod5", "no");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new ProductionMessage(map));
 
         map.clear();
         map.put("action", "market");
@@ -149,7 +150,7 @@ public class ControllerTest {
         map.put("res2", "mid");
         map.put("res3", "small");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new MarketMessage(map));
 
         map.clear();
         map.put("action", "swap");
@@ -157,13 +158,13 @@ public class ControllerTest {
         map.put("source", "small");
         map.put("dest", "big");
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new SwapMessage(map));
 
         map.clear();
         map.put("action", "endturn");
         map.put("player", game.getCurrentPlayer().getName());
 
-        controller.update(map.get("action"), map);
+        controller.update(map.get("action"), new EndTurnMessage(map));
 
     }
 

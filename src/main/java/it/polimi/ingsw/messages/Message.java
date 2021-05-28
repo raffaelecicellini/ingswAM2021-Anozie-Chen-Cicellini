@@ -203,9 +203,13 @@ public abstract class Message {
         return info.size();
     }
 
+    public boolean containsPlayer(int i){
+        return false;
+    }
+
     public Map<String, String> getAll(){
-        map.put("player", player);
-        map.put("action", action);
-        return map;
+        info.put("player", player);
+        info.put("action", action);
+        return info;
     }
 }

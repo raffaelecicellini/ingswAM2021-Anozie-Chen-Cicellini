@@ -1,10 +1,13 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.messages.MarketMessage;
+import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.ResourceMessage;
 import it.polimi.ingsw.messages.SwapMessage;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,8 +53,9 @@ public class SoloGameTest {
         map.put("ind1", "2");
         map.put("ind2", "1");
 
+        Message message= new ResourceMessage(map);
         try {
-            soloGame.chooseLeaders("", map);
+            soloGame.chooseLeaders("", message);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }

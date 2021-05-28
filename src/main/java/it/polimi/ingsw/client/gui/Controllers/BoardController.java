@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.gui.Controllers;
 import it.polimi.ingsw.client.Tile;
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
-import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -161,8 +161,8 @@ public class BoardController extends GUIController{
         result=confirm.showAndWait();
         if (result.isPresent() && result.get()==ButtonType.OK){
             gui.getModelView().setActiveTurn(false);
-            //Message message= new LeaderActionMessage(pack);
-            //gui.getListeners().fireUpdates(pack.get("action"), message);
+            Message message= new LeaderActionMessage(pack);
+            gui.getListeners().fireUpdates(pack.get("action"), message);
         }
     }
 
@@ -210,8 +210,8 @@ public class BoardController extends GUIController{
         result=confirm.showAndWait();
         if (result.isPresent() && result.get()==ButtonType.OK){
             gui.getModelView().setActiveTurn(false);
-            //Message message= new LeaderActionMessage(pack);
-            //gui.getListeners().fireUpdates(pack.get("action"), message);
+            Message message= new LeaderActionMessage(pack);
+            gui.getListeners().fireUpdates(pack.get("action"), message);
         }
     }
 
@@ -261,8 +261,8 @@ public class BoardController extends GUIController{
             if (result.isPresent() && res.get()==ButtonType.OK){
                 pack.put("action", "swap");
                 pack.put("player", gui.getModelView().getName());
-                //Message message= new SwapMessage(pack);
-                //gui.getListeners().fireUpdates(pack.get("action"), message);
+                Message message= new SwapMessage(pack);
+                gui.getListeners().fireUpdates(pack.get("action"), message);
             }
         }
     }
@@ -329,8 +329,8 @@ public class BoardController extends GUIController{
             Map<String, String> pack= new HashMap<>();
             pack.put("action", "endturn");
             pack.put("player", gui.getModelView().getName());
-            //Message message= new EndTurnMessage(pack);
-            //gui.getListeners().fireUpdates(pack.get("action"), message);
+            Message message= new EndTurnMessage(pack);
+            gui.getListeners().fireUpdates(pack.get("action"), message);
         }
 
     }

@@ -38,6 +38,11 @@ public class EndTurnAnswer extends Message{
     @Override
     public int getCard(int col, int row) {
         return info.containsKey("card" + col + row) ?
-                Integer.parseInt(info.get("card" + col + row)) : -1;
+                Integer.parseInt(info.get("card" + col + row)) : 0;
+    }
+
+    @Override
+    public boolean containsPlayer(int i){
+        return info.containsKey("player"+i);
     }
 }

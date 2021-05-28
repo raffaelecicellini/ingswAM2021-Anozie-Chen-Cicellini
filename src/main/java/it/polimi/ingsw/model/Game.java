@@ -232,8 +232,8 @@ public class Game {
             i++;
         }
 
-        //Message message= new SatrtedAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new StartedAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -259,11 +259,11 @@ public class Game {
         }
 
         Message message;
-        /*if (action.equalsIgnoreCase("chooseleaders")){
+        if (action.equalsIgnoreCase("chooseleaders")){
             message= new ChooseLeadersAnswer(state);
         }
         else message= new OkLeadersAnswer(state);
-        listener.fireUpdates(state.get("action"), message);*/
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -298,7 +298,7 @@ public class Game {
      */
     public void produce(String player, Message info) throws InvalidActionException {
         if (currentPlayer.getName().equals(player) && !doneMandatory) {
-            //currentPlayer.produce(info);
+            currentPlayer.produce(info);
             doneMandatory=true;
         }
         else if (currentPlayer.getName().equals(player) && doneMandatory) throw new InvalidActionException("You have already done a mandatory action!");
@@ -349,8 +349,8 @@ public class Game {
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        //Message message= new ProduceAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new ProduceAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -418,8 +418,8 @@ public class Game {
 
         state.put("countLeader", String.valueOf(doneLeader));
 
-        //Message message= new LeaderActionAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
+        Message message= new LeaderActionAnswer(state);
+        this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -565,8 +565,8 @@ public class Game {
             j++;
         }
 
-        //Message message= new EndTurnAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
+        Message message= new EndTurnAnswer(state);
+        this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -584,8 +584,8 @@ public class Game {
         state.put("points", String.valueOf(points));
         state.put("winnerpoints", String.valueOf(winnerpoints));
 
-        //Message message= new EndgameAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
+        Message message= new EndgameAnswer(state);
+        this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -631,7 +631,8 @@ public class Game {
                 points=points+pb.getTile(i).getVictoryPoints();
             }
         }
-        for (LeaderCard leader: player.leaders) {
+        List<LeaderCard> leaders=player.getLeaders();
+        for (LeaderCard leader: leaders) {
             if(leader.isActive()) points=points+leader.getVictoryPoints();
         }
         int res=0;
@@ -693,8 +694,8 @@ public class Game {
      */
     public void chooseInitialResource(String player, Message map) throws InvalidActionException {
         if (currentPlayer.getName().equals(player)) {
-            //if (currentPlayer.getNumberInitialResource() != 0)
-                //currentPlayer.chooseInitialResource(map);
+            if (currentPlayer.getNumberInitialResource() != 0)
+                currentPlayer.chooseInitialResource(map);
         }
         else throw new InvalidActionException("It is not your turn!");
         //notify changes to player
@@ -724,9 +725,9 @@ public class Game {
         if (currentPlayer.getName().equals(player)) {
             int leader1, leader2;
 
-            //leader1=map.getLeader(1);
-            //leader2=map.getLeader(2);
-            //currentPlayer.chooseLeader(leader1, leader2);
+            leader1=map.getLeader(1);
+            leader2=map.getLeader(2);
+            currentPlayer.chooseLeader(leader1, leader2);
         }
         else throw new InvalidActionException("It is not your turn!");
 
@@ -765,11 +766,11 @@ public class Game {
 
         state.put("action", action);
         state.put("player", currentPlayer.getName());
-        Message message;
+        Message message=null;
         if (action.equalsIgnoreCase("chooseResources")){
             state.put("qty", String.valueOf(qty));
             if (faith>0) state.put("addpos", String.valueOf(faith));
-            //message= new ChooseResourcesAnswer(state);
+            message= new ChooseResourcesAnswer(state);
         }
         else if (action.equalsIgnoreCase("okResources")){
             for (int i=0; i<deps.size(); i++){
@@ -782,10 +783,10 @@ public class Game {
             state.put("midqty", String.valueOf(deps.get(1).getAmount()));
             state.put("bigres", colors[2]);
             state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
-            //message= new OkResourcesAnswer(state);
+            message= new OkResourcesAnswer(state);
         }
 
-        //listener.fireUpdates(state.get("action"), message);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -798,8 +799,8 @@ public class Game {
         state.put("content", content);
         state.put("player", currentPlayer.getName());
 
-        //Message message= new YourTurnAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new YourTurnAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -810,7 +811,7 @@ public class Game {
      * @throws NumberFormatException if the format is not valid.
      */
     public void buy(String player, Message map) throws InvalidActionException, NumberFormatException {
-        if (!currentPlayer.getName().equals(player)) throw new InvalidActionException("It is not your turn!");
+        if (!currentPlayer.getName().equalsIgnoreCase(player)) throw new InvalidActionException("It is not your turn!");
         if (doneMandatory) throw new InvalidActionException("You have already done a mandatory operation in this turn.");
         if(map.getRow()==-1 || map.getCol()==-1) throw new InvalidActionException("You didn't select the card.");
         int row = map.getRow();
@@ -830,7 +831,7 @@ public class Game {
         doneMandatory = true;
 
         //notify changes to players (it is the listener that separates the infos
-        //notifyBuy(slot, id, column, row);
+        notifyBuy(slot, id, column, row);
     }
 
     /**
@@ -888,8 +889,8 @@ public class Game {
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        //Message message= new BuyAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new BuyAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -899,8 +900,8 @@ public class Game {
      * @throws InvalidActionException if the move is not valid.
      */
     public void swapDeposit(String player, Message map) throws InvalidActionException {
-        //if (currentPlayer.getName().equals(player)) currentPlayer.swapDeposit(map);
-        //else throw new InvalidActionException("It is not your turn!");
+        if (currentPlayer.getName().equalsIgnoreCase(player)) currentPlayer.swapDeposit(map);
+        else throw new InvalidActionException("It is not your turn!");
         //notify changes to player
         notifySwap();
     }
@@ -936,8 +937,8 @@ public class Game {
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        //Message message= new SwapAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new SwapAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -950,11 +951,11 @@ public class Game {
         int value;
         String chosen;
         int discarded=0;
-        if (currentPlayer.getName().equals(player)){
+        if (currentPlayer.getName().equalsIgnoreCase(player)){
 
             if (doneMandatory) throw new InvalidActionException("You have already done a mandatory action in this turn!");
 
-            /*if (map.isRow()) {
+            if (map.isRow()) {
                 int row = map.getMarblesIndex();
                 value=row-1;
                 chosen="row";
@@ -980,11 +981,11 @@ public class Game {
                     doneMandatory = true;
                 } else throw new InvalidActionException("Invalid action! You didn't insert a correct index for col!");
 
-            } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");*/
+            } else throw new InvalidActionException("Invalid action! You didn't insert \"row\" or \"col\" correctly!");
         }
         else throw new InvalidActionException("It is not your turn!");
         //notify changes
-        //notifyMarket(chosen, value, discarded);
+        notifyMarket(chosen, value, discarded);
     }
 
     /**
@@ -1046,8 +1047,8 @@ public class Game {
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        //Message message= new MarketAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new MarketAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**

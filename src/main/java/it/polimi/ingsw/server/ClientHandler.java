@@ -2,7 +2,7 @@ package it.polimi.ingsw.server;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -132,7 +132,7 @@ public class ClientHandler implements Runnable{
     public void actionHandler(Map<String,String> map) {
         String action = map.get("action");
         Message message=null;
-        /*switch (action.toLowerCase()) {
+        switch (action.toLowerCase()) {
             case "setup":
                 setup(map);
                 break;
@@ -186,7 +186,7 @@ public class ClientHandler implements Runnable{
                 Gson gson= new Gson();
                 String back=gson.toJson(error);
                 send(back);
-        }*/
+        }
     }
 
     /**

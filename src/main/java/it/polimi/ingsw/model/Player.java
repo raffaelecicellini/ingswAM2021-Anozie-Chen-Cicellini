@@ -19,9 +19,8 @@ public class Player {
 
     /**
      * Leader Cards chosen by Player
-     * TODO change to private
      */
-    protected ArrayList<LeaderCard> leaders;
+    private ArrayList<LeaderCard> leaders;
 
     /**
      * Player's Personal Board
@@ -151,7 +150,7 @@ public class Player {
      * @throws InvalidActionException when the player selected a DevelopCard slot that does not contain a card or if one
      * of the chosen productions can't be executed (no resources, wrong positions from where to take them, etc.)
      */
-    public void produce(ProductionMessage info) throws InvalidActionException{
+    public void produce(Message info) throws InvalidActionException{
         int curr;
         int key;
         DevelopCard card;
@@ -297,7 +296,7 @@ public class Player {
      * @param info is where the instruction on the turns are stored.
      * @throws InvalidActionException if the move is not valid.
      */
-    public void chooseInitialResource(ResourceMessage info) throws InvalidActionException {
+    public void chooseInitialResource(Message info) throws InvalidActionException {
         if (numberInitialResource <= 0) throw new InvalidActionException("You can't receive initial resources");
         ArrayList<ResourceAmount> deposits = personalBoard.getDeposits();
         Color color1 = null;
@@ -377,7 +376,7 @@ public class Player {
      * @param info is where the information is stored.
      * @throws InvalidActionException if the move is not valid.
      */
-    public void swapDeposit(SwapMessage info) throws InvalidActionException {
+    public void swapDeposit(Message info) throws InvalidActionException {
         if (info.size()!= 2) throw new InvalidActionException("Invalid action! Make sure to select the source and the destination!");
         String source = info.getSource();
         String dest = info.getDest();
@@ -395,7 +394,7 @@ public class Player {
      * @throws InvalidActionException if the move is not valid.
      * @throws NumberFormatException if the input format is not valid.
      */
-    public boolean buy (BuyMessage info, DevelopCard card) throws InvalidActionException, NumberFormatException {
+    public boolean buy (Message info, DevelopCard card) throws InvalidActionException, NumberFormatException {
         ArrayList<ResourceAmount> deposit = personalBoard.getDeposits();
         ResourceAmount[] strongbox = personalBoard.getStrongbox();
         int ind;
@@ -434,7 +433,7 @@ public class Player {
      * @param marbles is the array of Marbles that has been selected
      * @throws InvalidActionException when an invalid action occurs
      */
-    public int fromMarket(MarketMessage info, Marble[] marbles) throws InvalidActionException{
+    public int fromMarket(Message info, Marble[] marbles) throws InvalidActionException{
 
         ArrayList<ResourceAmount> deposits = personalBoard.getDeposits();
         int discarded = 0;

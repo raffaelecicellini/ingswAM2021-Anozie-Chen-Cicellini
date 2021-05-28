@@ -138,8 +138,8 @@ public class SoloGame extends Game{
             i++;
         }
 
-        //Message message= new StartedAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new StartedAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -152,8 +152,8 @@ public class SoloGame extends Game{
     @Override
     public void chooseLeaders(String player, Message message) throws InvalidActionException {
         //public void chooseLeaders(String player, Map<String, String> map) throws InvalidActionException {
-        /*int leader1, leader2;
-        if (map.containsKey("ind1") && map.containsKey("ind2")) {
+        int leader1, leader2;
+        /*if (map.containsKey("ind1") && map.containsKey("ind2")) {
             leader1 = Integer.parseInt(map.get("ind1"));
             leader2 = Integer.parseInt(map.get("ind2"));*/
         currentPlayer.chooseLeader(message.getLeader(1), message.getLeader(2));
@@ -174,8 +174,9 @@ public class SoloGame extends Game{
         state.put("action", "yourTurn");
         state.put("content", content);
         state.put("player", currentPlayer.getName());
+        Message message= new YourTurnAnswer(state);
 
-        listener.fireUpdates(state.get("action"), state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -201,11 +202,11 @@ public class SoloGame extends Game{
         }
 
         Message message;
-        /*if (action.equalsIgnoreCase("chooseleaders")){
+        if (action.equalsIgnoreCase("chooseleaders")){
             message= new ChooseLeadersAnswer(state);
         }
         else message= new OkLeadersAnswer(state);
-        listener.fireUpdates(state.get("action"), message);*/
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -216,7 +217,7 @@ public class SoloGame extends Game{
      * @throws NumberFormatException if the format is not valid.
      */
     @Override
-    public void buy(String player, BuyMessage message) throws InvalidActionException, NumberFormatException {
+    public void buy(String player, Message message) throws InvalidActionException, NumberFormatException {
     //public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory operation in this turn.");
@@ -294,8 +295,8 @@ public class SoloGame extends Game{
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        //Message message= new BuyAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new BuyAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -305,7 +306,7 @@ public class SoloGame extends Game{
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void produce(String player, ProductionMessage message) throws InvalidActionException {
+    public void produce(String player, Message message) throws InvalidActionException {
     //public void produce(String player, Map<String, String> info) throws InvalidActionException {
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory operation in this turn.");
@@ -358,8 +359,8 @@ public class SoloGame extends Game{
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        //Message message= new ProduceAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new ProduceAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -369,7 +370,7 @@ public class SoloGame extends Game{
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void fromMarket(String player, MarketMessage message) throws InvalidActionException {
+    public void fromMarket(String player, Message message) throws InvalidActionException {
     //public void fromMarket(String player, Map<String, String> map) throws InvalidActionException {
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory action in this turn!");
@@ -470,8 +471,8 @@ public class SoloGame extends Game{
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        //Message message= new MarketAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new MarketAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -481,10 +482,8 @@ public class SoloGame extends Game{
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void swapDeposit(String player, SwapMessage message) throws InvalidActionException {
-    //public void swapDeposit(String player, Map<String, String> map) throws InvalidActionException {
+    public void swapDeposit(String player, Message message) throws InvalidActionException {
         currentPlayer.swapDeposit(message);
-        //currentPlayer.swapDeposit(map);
         notifySwap();
     }
 
@@ -519,8 +518,8 @@ public class SoloGame extends Game{
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        //Message message= new SwapAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
+        Message message= new SwapAnswer(state);
+        listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -600,8 +599,8 @@ public class SoloGame extends Game{
 
         state.put("countLeader", String.valueOf(doneLeader));
 
-        //Message message= new LeaderActionAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
+        Message message= new LeaderActionAnswer(state);
+        this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -716,8 +715,8 @@ public class SoloGame extends Game{
 
         state.put("tokenActivated", String.valueOf(token));
 
-        //Message message= new EndTurnAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
+        Message message= new EndTurnAnswer(state);
+        this.listener.fireUpdates(state.get("action"), message);
     }
 
     /**
@@ -741,8 +740,8 @@ public class SoloGame extends Game{
         state.put("points", String.valueOf(points));
         state.put("winnerpoints", String.valueOf(points));
 
-        //Message message= new EndgameAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
+        Message message= new EndgameAnswer(state);
+        this.listener.fireUpdates(state.get("action"), message);
     }
 
 

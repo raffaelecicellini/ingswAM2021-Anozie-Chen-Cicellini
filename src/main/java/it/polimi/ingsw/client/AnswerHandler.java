@@ -33,12 +33,14 @@ public class AnswerHandler implements SourceListener {
 
     @Override
     public void update(String propertyName, Message message) {
+
         // Map used just to notify other players who hasn't done the action with a message containing the name of the
         // player who has done the action and the action.
-        Map<String, String> map = new HashMap<>();
+        //Map<String, String> map = new HashMap<>();
+
         Map<String,String> leaders;
-        Map<String, String> deposits;
-        String player_name;
+        //Map<String, String> deposits;
+        //String player_name;
         int[][] developDecks;
         //map.put("player", value.get("player"));
         //map.put("action", value.get("action"));
@@ -97,20 +99,21 @@ public class AnswerHandler implements SourceListener {
                 // it puts the four leaders on the modelview
                 leaders = new HashMap<>();
                 for (int i = 0; i < 4; i++) {
-                    leaders.put("leader"+i, String.valueOf(message.getLeader(i)));
+                    leaders.put("leader"+i, String.valueOf(message.getLeaders(i)));
                 }
                 modelView.setLeaders(leaders, message.getPlayer());
 
 
-                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-
+                /*if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                     viewListener.fireUpdates(message.getAction(), null);
                 } else {
                     // other players
                     map.put("other", map.get("player"));
                     map.remove("player");
                     viewListener.fireUpdates(message.getAction(), message);
-                }
+                }*/
+
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -121,12 +124,12 @@ public class AnswerHandler implements SourceListener {
                 // it puts the two selected leaders on the modelview
                 leaders = new HashMap<>();
                 for (int i = 0; i < 2; i++) {
-                    leaders.put("leader" + i, String.valueOf(message.getLeader(i)));
+                    leaders.put("leader" + i, String.valueOf(message.getLeaders(i)));
                     leaders.put("state" + i, "available");
                 }
                 modelView.setLeaders(leaders, message.getPlayer());
 
-                if (modelView.getName().equalsIgnoreCase(message.getPlayer())){
+                /*if (modelView.getName().equalsIgnoreCase(message.getPlayer())){
 
                     viewListener.fireUpdates(message.getAction(), null);
 
@@ -135,7 +138,9 @@ public class AnswerHandler implements SourceListener {
                     map.put("other", map.get("player"));
                     map.remove("player");
                     viewListener.fireUpdates(message.getPlayer(), message);
-                }
+                }*/
+
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -155,12 +160,12 @@ public class AnswerHandler implements SourceListener {
                     modelView.setInitialRes(message.getResQty());
 
                     // in newValues there are: player, action and qty
-                    viewListener.fireUpdates(message.getAction(), message); //UNICO
+                    //viewListener.fireUpdates(message.getAction(), message); //UNICO
                 }else {
                     // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.fireUpdates(message.getAction(), message); //UNICO
+                    /*map.put("other", map.get("player"));
+                    map.remove("player");*/
+                    //viewListener.fireUpdates(message.getAction(), message); //UNICO
                 }
 
                 viewListener.fireUpdates(message.getAction(), message); //UNICO
@@ -173,7 +178,7 @@ public class AnswerHandler implements SourceListener {
 
                 modelView.setDeposits(message.getDeposits(), message.getPlayer());
 
-                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                /*if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                     // the player who has chosen the correct
 
                     viewListener.fireUpdates(message.getAction(), null);
@@ -182,7 +187,9 @@ public class AnswerHandler implements SourceListener {
                     map.put("other", map.get("player"));
                     map.remove("player");
                     viewListener.fireUpdates(message.getAction(), message);
-                }
+                }*/
+
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -192,7 +199,6 @@ public class AnswerHandler implements SourceListener {
                     modelView.setPhase(GamePhase.FULLGAME);
                     modelView.setDoneMandatory(false);
                     modelView.setActiveTurn(true);
-
                 }
                 viewListener.fireUpdates(message.getAction(), message);
                 break;
@@ -245,13 +251,14 @@ public class AnswerHandler implements SourceListener {
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    viewListener.fireUpdates(message.getAction(), null);
-                } else {
+                    //viewListener.fireUpdates(message.getAction(), null);
+                }/* else {
                     // other players
                     map.put("other", map.get("player"));
                     map.remove("player");
-                    viewListener.fireUpdates(message.getAction(), message);
-                }
+                    //viewListener.fireUpdates(message.getAction(), message);
+                }*/
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -291,14 +298,16 @@ public class AnswerHandler implements SourceListener {
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    viewListener.fireUpdates(message.getAction(), null);
+                    //viewListener.fireUpdates(message.getAction(), null);
 
-                } else {
+                } /*else {
                     // other players
                     map.put("other", map.get("player"));
                     map.remove("player");
                     viewListener.fireUpdates(message.getAction(), message);
-                }
+                }*/
+
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -357,12 +366,14 @@ public class AnswerHandler implements SourceListener {
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    viewListener.fireUpdates(message.getAction(), null);
+                    //viewListener.fireUpdates(message.getAction(), null);
 
-                } else {
+                }/* else {
                     // other players
                     viewListener.fireUpdates(message.getAction(), message);
-                }
+                }*/
+
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -375,13 +386,15 @@ public class AnswerHandler implements SourceListener {
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                     // the player who called the swap method
                     modelView.setActiveTurn(true);
-                    viewListener.fireUpdates(message.getAction(), null);
-                } else {
+                    //viewListener.fireUpdates(message.getAction(), null);
+                } /*else {
                     // other players
                     map.put("other", map.get("player"));
                     map.remove("player");
                     viewListener.fireUpdates(message.getAction(), message);
-                }
+                }*/
+
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -419,13 +432,15 @@ public class AnswerHandler implements SourceListener {
 
                     modelView.setCountLeader(message.getCountLeader());
 
-                    viewListener.fireUpdates(message.getAction(), null);
-                } else {
+                    //viewListener.fireUpdates(message.getAction(), null);
+                }/* else {
                     // other players
                     map.put("other", map.get("player"));
                     map.remove("player");
                     viewListener.fireUpdates(message.getAction(), message);
-                }
+                }*/
+
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -444,13 +459,15 @@ public class AnswerHandler implements SourceListener {
 
                     modelView.setCountLeader(message.getCountLeader());
 
-                    viewListener.fireUpdates(message.getAction(), null);
-                } else {
+                    //viewListener.fireUpdates(message.getAction(), null);
+                } /*else {
                     // other players
                     map.put("other", map.get("player"));
                     map.remove("player");
                     viewListener.fireUpdates(message.getAction(), message);
-                }
+                }*/
+
+                viewListener.fireUpdates(message.getAction(), message);
 
                 break;
 
@@ -462,6 +479,7 @@ public class AnswerHandler implements SourceListener {
 
                 while(message.containsPlayer(player)){
 
+                    System.out.println(message.getPlayer(player));
                     Tile[] tiles = modelView.getTiles(message.getPlayer(player));
                     for (int i = 0; i < 3; i++) {
                         if (message.getTileState(player, i).equalsIgnoreCase("active")) {
@@ -499,12 +517,12 @@ public class AnswerHandler implements SourceListener {
                         modelView.setActiveTurn(false);
                     }
 
-                    viewListener.fireUpdates(message.getAction(), message); //UNICO
+                    //viewListener.fireUpdates(message.getAction(), message); //UNICO
 
-                } else {
+                } /*else {
                     // other players
                     viewListener.fireUpdates(message.getAction(), message); //UNICO
-                }
+                }*/
 
                 viewListener.fireUpdates(message.getAction(), message); //UNICO
 

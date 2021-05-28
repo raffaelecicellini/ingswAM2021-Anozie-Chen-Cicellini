@@ -377,7 +377,8 @@ public class GUI extends Application implements SourceListener {
 
             case "CHOOSELEADERS":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     chooseLeaders();
                 } else {
                     Platform.runLater(() -> {
@@ -392,7 +393,8 @@ public class GUI extends Application implements SourceListener {
 
             case "OKLEADERS":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {
@@ -422,7 +424,8 @@ public class GUI extends Application implements SourceListener {
 
             case "OKRESOURCES":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     Platform.runLater(() -> {
                         BoardController board = (BoardController) getControllerFromName("board.fxml");
                         board.updateDeposits();
@@ -453,7 +456,8 @@ public class GUI extends Application implements SourceListener {
 
             case "PRODUCE":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     updateProduce();
                 } else {
                     Platform.runLater(() -> {
@@ -468,7 +472,8 @@ public class GUI extends Application implements SourceListener {
 
             case "BUY":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     updateBuy();
                 } else {
                     updateBuy();
@@ -483,7 +488,8 @@ public class GUI extends Application implements SourceListener {
 
             case "MARKET":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     updateMarket();
                 } else {
                     updateMarket();
@@ -499,7 +505,8 @@ public class GUI extends Application implements SourceListener {
 
             case "SWAP":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     updateSwap();
                 } else {
                     Platform.runLater(() -> {
@@ -514,7 +521,8 @@ public class GUI extends Application implements SourceListener {
 
             case "ACTIVATE":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {
@@ -529,7 +537,8 @@ public class GUI extends Application implements SourceListener {
 
             case "DISCARD":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {

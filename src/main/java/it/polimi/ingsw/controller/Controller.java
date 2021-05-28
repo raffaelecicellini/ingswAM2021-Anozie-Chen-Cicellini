@@ -205,8 +205,8 @@ public class Controller implements SourceListener {
                         e1 -> e1.getValue().toLowerCase()));*/
 
                 // NOTA: CONTROLLO SOLO RES1
-                if (message.isRow() && message.getRow() >= 0 && message.getRow() <= 2 &&
-                        message.isCol() && message.getCol() >= 0 && message.getCol() <= 3 &&
+                if (message.getRow() >= 0 && message.getRow() <= 2 &&
+                        message.getCol() >= 0 && message.getCol() <= 3 &&
                         message.getSlot() >= 0 && message.getSlot() <= 2) {
                 /*if (mapCopy.containsKey("row") && mapCopy.get("row") != null &&
                         Integer.parseInt(mapCopy.get("row")) >= 0 && Integer.parseInt(mapCopy.get("row")) <= 2 &&

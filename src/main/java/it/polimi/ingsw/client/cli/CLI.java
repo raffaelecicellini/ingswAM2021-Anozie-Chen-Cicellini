@@ -1591,7 +1591,8 @@ public class CLI implements Runnable, SourceListener {
 
             case "CHOOSELEADERS":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                 //if (value == null) {
                     chooseLeaders();
                 } else {
@@ -1603,7 +1604,8 @@ public class CLI implements Runnable, SourceListener {
 
             case "OKLEADERS":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                 //if (value == null) {
                     printBoard();
                 } else {
@@ -1628,7 +1630,8 @@ public class CLI implements Runnable, SourceListener {
 
             case "OKRESOURCES":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                 //if (value == null) {
                     printBoard();
                 } else {
@@ -1648,18 +1651,21 @@ public class CLI implements Runnable, SourceListener {
                     System.out.println("It's " + message.getPlayer() + "'s turn now!");
                     //System.out.println("It's " + value.get("player") + "'s turn now!");
                 }
+
                 printActions();
                 break;
 
             case "PRODUCE":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                 //if (value == null) {
                     printBoard();
                 } else {
                     System.out.println(message.getPlayer() + " has made some productions!" );
                     //System.out.println(value.get("other") + " has made some productions!" );
                 }
+
                 printActions();
                 break;
 
@@ -1667,13 +1673,15 @@ public class CLI implements Runnable, SourceListener {
 
                 printBoard();
 
-                if (message == null) {
+                if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                     //if (value == null) {
                     // the player that has bought a dev card
-                } else {
+                //} else {
                     System.out.println(message.getPlayer() + " has bought a Develop Card!" );
                     //System.out.println(value.get("other") + " has bought a Develop Card!" );
                 }
+
                 printActions();
                 break;
 
@@ -1681,12 +1689,12 @@ public class CLI implements Runnable, SourceListener {
 
                 printBoard();
 
-                if (message == null) {
+                if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                 //if (value == null) {
                     // the player that has bought a dev card
-                    printActions();
-                }
-                else {
+                    //printActions();
+                //} else {
                     System.out.println(message.getPlayer() + " has taken resources from the Market!" );
                     //System.out.println(value.get("other") + " has taken resources from the Market!" );
                     if (message.getDiscarded() != 0) {
@@ -1699,7 +1707,8 @@ public class CLI implements Runnable, SourceListener {
 
             case "SWAP":
 
-                if (message == null) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                 //if (value == null) {
                     printBoard();
 
@@ -1712,7 +1721,8 @@ public class CLI implements Runnable, SourceListener {
 
             case "ACTIVATE":
 
-                if (message == null) {
+                if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                 //if (value == null) {
                     printBoard();
                 } else {
@@ -1724,7 +1734,8 @@ public class CLI implements Runnable, SourceListener {
 
             case "DISCARD":
 
-                if (message == null) {
+                if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                //if (message == null) {
                 //if (value == null) {
                     printBoard();
                 } else {

@@ -10,6 +10,6 @@ public class LeaderMessage extends Message{
 
     @Override
     public int getLeader(int ind) {
-        return info.containsKey("ind"+ind) ? Integer.parseInt(info.get("ind"+ind)) : -1;
+        return info.containsKey("ind"+ind) ? Integer.parseInt(info.get("ind"+ind)) : 0;
     }
 }

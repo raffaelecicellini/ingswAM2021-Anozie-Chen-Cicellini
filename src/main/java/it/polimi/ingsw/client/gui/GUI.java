@@ -108,11 +108,13 @@ public class GUI extends Application implements SourceListener {
             alert.initModality(Modality.APPLICATION_MODAL);
             Optional<ButtonType> result=alert.showAndWait();
             if (result.isPresent() && result.get()==ButtonType.OK){
-                Map<String, String> map= new HashMap<>();
-                map.put("player", modelView.getName());
-                map.put("acton", "disconnect");
-                Message message= new DisconnectionMessage(map);
-                listener.fireUpdates("disconnect", message);
+                if (modelView.getName()!=null) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("player", modelView.getName());
+                    map.put("action", "disconnect");
+                    Message message = new DisconnectionMessage(map);
+                    listener.fireUpdates("disconnect", message);
+                }
             }
         });
         stage.show();

@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class SwapMessage extends Message{
 
     public SwapMessage(Map<String, String> info) {

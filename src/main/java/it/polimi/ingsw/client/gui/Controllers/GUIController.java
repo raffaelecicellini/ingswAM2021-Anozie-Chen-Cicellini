@@ -27,6 +27,11 @@ public abstract class GUIController {
         }
     }
 
+    /**
+     * This method sets the player's coordinates on the board.
+     * @param player is the player
+     * @param pos is the player's position.
+     */
     public void setPosition(ImageView player, int pos) {
         switch (pos) {
             case 0:

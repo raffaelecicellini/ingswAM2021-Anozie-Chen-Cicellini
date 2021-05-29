@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class MarketMessage extends Message{
 
     public MarketMessage(Map<String, String> info) {

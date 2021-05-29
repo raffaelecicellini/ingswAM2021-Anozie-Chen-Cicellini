@@ -40,6 +40,10 @@ public class StartController extends GUIController{
     @FXML
     private TextField number;
 
+    /**
+     * This method is called once the player decides to play a local game. It will show a new scene.
+     * @param actionEvent is the event caught by the player's click.
+     */
     public void handleLocal(ActionEvent actionEvent){
         String name = nameLocal.getText();
         ModelView modelView = gui.getModelView();
@@ -63,6 +67,10 @@ public class StartController extends GUIController{
         gui.changeScene("board.fxml");
     }
 
+    /**
+     * This method is called once the player decides to play an online game. It will show a new scene.
+     * @param actionEvent is the event caught by the player's click.
+     */
     public void handleOnline(ActionEvent actionEvent){
         String name= nameOnline.getText();
         String addr= address.getText();
@@ -131,14 +139,26 @@ public class StartController extends GUIController{
     }
 
 
+    /**
+     * This method changes the scene to local.fxml.
+     * @param event is the event caught by the player's click.
+     */
     public void setLocal(ActionEvent event) {
         gui.changeScene("local.fxml");
     }
 
+    /**
+     * This method changes the scene to online.fxml.
+     * @param event is the event caught by the player's click.
+     */
     public void setOnline(ActionEvent event){
         gui.changeScene("online.fxml");
     }
 
+    /**
+     * @see GUIController
+     * @param gui the gui to be set
+     */
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;

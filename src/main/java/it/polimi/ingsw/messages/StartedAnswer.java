@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class StartedAnswer extends Message{
 
     public StartedAnswer(Map<String, String> info) {

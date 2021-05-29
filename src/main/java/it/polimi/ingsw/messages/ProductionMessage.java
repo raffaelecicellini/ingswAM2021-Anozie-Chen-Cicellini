@@ -3,6 +3,9 @@ package it.polimi.ingsw.messages;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class ProductionMessage extends Message{
 
     public ProductionMessage(Map<String, String> info) {

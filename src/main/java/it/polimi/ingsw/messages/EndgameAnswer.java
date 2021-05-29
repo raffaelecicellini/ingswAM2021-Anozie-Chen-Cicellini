@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class EndgameAnswer extends Message{
 
     public EndgameAnswer(Map<String, String> info) {

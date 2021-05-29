@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class OtherConnectedAnswer extends Message{
     public OtherConnectedAnswer(Map<String, String> info) {
         super(info);

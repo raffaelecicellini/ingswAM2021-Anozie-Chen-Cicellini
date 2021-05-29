@@ -3,6 +3,9 @@ package it.polimi.ingsw.messages;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class MarketAnswer extends Message{
 
     public MarketAnswer(Map<String, String> info) {

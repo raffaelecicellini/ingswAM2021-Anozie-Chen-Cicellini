@@ -9,11 +9,19 @@ public class WaitController extends GUIController{
     @FXML
     private Label status;
 
+    /**
+     * @see GUIController
+     * @param gui the gui to be set
+     */
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;
     }
 
+    /**
+     * This method updates the label.
+     * @param s is the string that will replace the current label.
+     */
     public void setText(String s) {
         status.setText(s);
     }

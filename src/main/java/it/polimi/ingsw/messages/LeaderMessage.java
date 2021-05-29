@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class LeaderMessage extends Message{
 
     public LeaderMessage(Map<String, String> info) {

@@ -23,12 +23,20 @@ public class ResourceController extends GUIController {
     @FXML
     Label label;
 
-
+    /**
+     * Utility method used for updating the label that informs the player on how many resources he can choose.
+     * @param resources it's the number of resources the player can choose.
+     */
     public void setResources(int resources) {
         this.resources=resources;
         label.setText("You can choose "+resources+" initial resources. Make your choice!");
     }
 
+    /**
+     * This method is called when the player chose his resources. Once the player confirms it will change the scene to
+     * board.fxml
+     * @param event is the event caught once the player clicks on an Imageview which represents a resource.
+     */
     public void chosen(MouseEvent event){
         //Controlla colore scelto, mostra Alert.CONFIRMATION per chiedere posizione in cui salvare. Salva in mappa le due
         //info. Controlla se ha diritto a un'altra risorsa: se si rimane in questa schermata (cambiando label?), altrimenti
@@ -69,6 +77,11 @@ public class ResourceController extends GUIController {
 
     }
 
+    /**
+     * Utility method used for displaying a confirmation that will ask the user where he wants to place the selected
+     * resource.
+     * @return a String which represents the player's choice.
+     */
     private String position () {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
@@ -94,6 +107,10 @@ public class ResourceController extends GUIController {
         }
     }
 
+    /**
+     * @see GUIController
+     * @param gui the gui to be set
+     */
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;

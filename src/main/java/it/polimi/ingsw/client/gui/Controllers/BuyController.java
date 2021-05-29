@@ -28,6 +28,10 @@ public class BuyController extends GUIController{
     @FXML
     private GridPane decks;
 
+    /**
+     * This method is called when the user, while he's on the board.fxml page clicks the buy button.
+     * It will just show a new stage in which the user will see all the cards he can buy.
+     */
     public void buy(){
         //Metodo chiamato quando utente da board schiaccia su tasto buy. Mostra un nuovo stage buy.fxml da cui non si può uscire
         //se non dopo aver fatto mossa o aver chiuso la finestra
@@ -35,6 +39,10 @@ public class BuyController extends GUIController{
         showDecks();
     }
 
+    /**
+     * This method is called when the user clicks on a card. It will ask him all the info's needed for the buy move.
+     * @param event is the event caught when the user clicks on a card.
+     */
     public void select(MouseEvent event){
         //Si recuperano info su carta scelta cosi da recuperare costo (check per sconti). Per ogni risorsa, Alert.CONFIRMATION
         //per chiedere da dove recuperarla. Finito il ciclo, ultimo Alert per chiedere conferma: se ok si manda pack, altrimenti
@@ -112,6 +120,9 @@ public class BuyController extends GUIController{
         //stage.close();
     }
 
+    /**
+     * This method shows the new Stage.
+     */
     private void showDecks() {
         Scene decks = gui.getSceneFromName("buy.fxml");
         stage = new Stage();
@@ -122,6 +133,10 @@ public class BuyController extends GUIController{
         stage.show();
     }
 
+    /**
+     * Utility method used for storing the information about the card the user clicked.
+     * @param card is a string representation of the card the user clicked.
+     */
     private void putInfo(String card) {
         switch (card) {
             case "dev00":
@@ -175,6 +190,12 @@ public class BuyController extends GUIController{
         }
     }
 
+    /**
+     * Utility method used for displaying a Confirmation box asking the user where he would like to take
+     * the resource needed for buying the card from.
+     * @param resource is the resource needed for buying the card.
+     * @return a String which contains the source of the resource used for buying the card.
+     */
     private String askResource (String resource) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
@@ -209,6 +230,11 @@ public class BuyController extends GUIController{
         }
     }
 
+    /**
+     * Utility method used for displaying a confirmation box which will ask the user the slot in which he wants
+     * to place the card.
+     * @return a String which represents the slot.
+     */
     private String askInd () {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
@@ -233,6 +259,9 @@ public class BuyController extends GUIController{
         }
     }
 
+    /**
+     * This method updates the available decks after each buy move.
+     */
     public void updateDecks() {
         ObservableList<Node> children = decks.getChildren();
         int[][] modelDecks = gui.getModelView().getDevelopDecks();
@@ -256,6 +285,10 @@ public class BuyController extends GUIController{
         }
     }
 
+    /**
+     * @see GUIController
+     * @param gui the gui to be set
+     */
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;

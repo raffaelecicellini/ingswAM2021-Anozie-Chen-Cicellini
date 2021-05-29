@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class OkLeadersAnswer extends Message{
 
     public OkLeadersAnswer(Map<String, String> info) {

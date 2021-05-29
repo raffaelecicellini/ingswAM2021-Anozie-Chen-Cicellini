@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.Map;
 
+/**
+ * @see Message
+ */
 public class ChooseResourcesAnswer extends Message{
 
     public ChooseResourcesAnswer(Map<String, String> info) {

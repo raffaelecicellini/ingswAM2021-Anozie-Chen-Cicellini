@@ -19,6 +19,10 @@ public class LeadersController extends GUIController{
     @FXML
     private CheckBox leader1, leader2, leader3, leader4;
 
+    /**
+     * This method displays the leathers the player can choose.
+     * @param location is the list of leaders the player can choose.
+     */
     public void setLeaders(ArrayList<String> location) {
         List<ImageView> list= new ArrayList<>(Arrays.asList(leader1png, leader2png, leader3png, leader4png));
         Image img;
@@ -28,6 +32,11 @@ public class LeadersController extends GUIController{
         }
     }
 
+    /**
+     * This method is called once the player selected his leaders. Once the player confirms it will change scene to
+     * board.fxml
+     * @param event is the event caught when the players confirms his leaders.
+     */
     public void chosen(ActionEvent event) {
         //Controlla leader selezionati: se in numero corretto li mette in mappa, poi Alert.INFORMATION per chiedere conferma
         //(showandWait). Se utente conferma spedisco il pack e vado su board.fxml, altrimenti pulisco mappa e rimango qua
@@ -63,6 +72,10 @@ public class LeadersController extends GUIController{
         gui.changeScene("board.fxml");
     }
 
+    /**
+     * @see GUIController
+     * @param gui the gui to be set
+     */
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;

@@ -156,6 +156,10 @@ public class ShowController extends GUIController{
         }
     }
 
+    /**
+     * @see GUIController
+     * @param gui the gui to be set
+     */
     @Override
     public void setGui(GUI gui) {
         this.gui=gui;

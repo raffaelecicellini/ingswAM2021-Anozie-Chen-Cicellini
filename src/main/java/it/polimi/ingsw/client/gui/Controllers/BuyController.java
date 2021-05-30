@@ -222,7 +222,13 @@ public class BuyController extends GUIController{
         ButtonType buttonTypeFive = new ButtonType("sp2");
         ButtonType buttonTypeSix = new ButtonType("strongbox");
 
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree,buttonTypeFour,buttonTypeFive,buttonTypeSix);
+        //alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree,buttonTypeFour,buttonTypeFive,buttonTypeSix);
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
+        if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp1res"))
+            alert.getButtonTypes().add(buttonTypeFour);
+        if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp2res"))
+            alert.getButtonTypes().add(buttonTypeFive);
+        alert.getButtonTypes().add(buttonTypeSix);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne){

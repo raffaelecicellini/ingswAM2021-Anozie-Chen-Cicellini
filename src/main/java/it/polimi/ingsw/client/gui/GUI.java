@@ -349,7 +349,7 @@ public class GUI extends Application implements SourceListener {
             case "START":
                 Platform.runLater(()->{
                     WaitController controller= (WaitController) mapNameController.get("wait.fxml");
-                    controller.setText(message.getContent());
+                    controller.setText("Game is starting! Have fun!");
                 });
 
                 break;

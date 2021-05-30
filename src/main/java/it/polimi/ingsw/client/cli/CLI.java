@@ -1639,6 +1639,8 @@ public class CLI implements Runnable, SourceListener {
                     //System.out.println(value.get("other") + " has chosen his initial resources!" );
                 }
 
+                if(modelView.getPhase()==GamePhase.FULLGAME) printActions();
+
                 break;
 
             case "YOURTURN":
@@ -1756,7 +1758,7 @@ public class CLI implements Runnable, SourceListener {
                         //System.out.println("The Token that has been activated is: " + Cards.getTokenById(Integer.parseInt(value.get("tokenActivated"))));
                     }
                 } else {
-                    System.out.println(message.getPlayer() + " has ended his turn!" );
+                    System.out.println(message.getEndedPlayer() + " has ended his turn!" );
                     //System.out.println(value.get("other") + " has ended his turn!" );
                     if (!modelView.getName().equalsIgnoreCase(message.getCurrentPlayer())) {
                     //if (!modelView.getName().equalsIgnoreCase(value.get("currentPlayer"))) {
@@ -1764,6 +1766,9 @@ public class CLI implements Runnable, SourceListener {
                         //System.out.println("It's " + value.get("currentPlayer") + " turn now!");
                     }
                 }
+
+                if(!message.getCurrentPlayer().equalsIgnoreCase(modelView.getName())) printActions();
+
 
                 break;
 

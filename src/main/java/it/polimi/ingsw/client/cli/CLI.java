@@ -206,18 +206,21 @@ public class CLI implements Runnable, SourceListener {
                     System.out.println(">You cannot do it, it is not your turn!");
                     printActions();
                 }
+                break;
             case "DISCARD":
                 if(modelView.isActiveTurn()) discard();
                 else {
                     System.out.println(">You cannot do it, it is not your turn!");
                     printActions();
                 }
+                break;
             case "ENDTURN":
                 if(modelView.isActiveTurn()) endTurn();
                 else {
                     System.out.println(">You cannot do it, it is not your turn!");
                     printActions();
                 }
+                break;
             case "QUIT":
                 quit();
                 break;

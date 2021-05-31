@@ -55,7 +55,7 @@ public class ProduceController extends GUIController{
         stage.setOnCloseRequest((e)->{
             info.clear();
         });
-        stage.setResizable(false);
+        //stage.setResizable(false);
         stage.show();
     }
 

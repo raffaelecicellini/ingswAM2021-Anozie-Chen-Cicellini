@@ -170,6 +170,7 @@ public class CLI implements Runnable, SourceListener {
     }
 
     private void parseCommand(String cmd){
+        System.out.println(cmd);
         switch (cmd.toUpperCase()){
             case "BUY":
                 if(modelView.isActiveTurn()) buy();

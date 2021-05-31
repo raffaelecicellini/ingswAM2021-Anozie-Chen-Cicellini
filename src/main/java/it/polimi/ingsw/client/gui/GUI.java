@@ -576,7 +576,7 @@ public class GUI extends Application implements SourceListener {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("EndTurn");
-                        alert.setContentText(message.getPlayer() + " has ended his turn!"+" It is " + message.getCurrentPlayer() + " turn now!");
+                        alert.setContentText(message.getEndedPlayer() + " has ended his turn!"+" It is " + message.getCurrentPlayer() + " turn now!");
                         alert.showAndWait();
                     });
                 }

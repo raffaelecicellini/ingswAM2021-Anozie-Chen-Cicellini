@@ -396,6 +396,9 @@ public class GameHandler implements SourceListener {
                 System.out.println(jsonMessage);
                 sendSingle(jsonMessage, addressee);
                 break;
+            default:
+                System.out.println("Urecognized command!");
+                System.out.println(message.getAction());
         }
     }
 }

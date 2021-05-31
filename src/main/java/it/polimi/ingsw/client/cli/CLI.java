@@ -398,13 +398,9 @@ public class CLI implements Runnable, SourceListener {
         validInputs.add("mid");
         validInputs.add("big");
         validInputs.add("strongbox");
-        if (Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader0")) >= 7 &&
-                Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader0")) <= 10 &&
-                modelView.getLeaders(modelView.getName()).get("state0").equalsIgnoreCase("active") )
+        if (modelView.getDeposits(modelView.getName()).containsKey("sp1res"))
             validInputs.add("sp1");
-        if (Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader1")) >= 7 &&
-                Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader1")) <= 10 &&
-                modelView.getLeaders(modelView.getName()).get("state1").equalsIgnoreCase("active") )
+        if (modelView.getDeposits(modelView.getName()).containsKey("sp2res"))
             validInputs.add("sp2");
 
         List<String> validColors = new ArrayList<>();
@@ -815,13 +811,22 @@ public class CLI implements Runnable, SourceListener {
         possibleInput.add("big");
         possibleInput.add("small");
         possibleInput.add("mid");
-        possibleInput.add("sp1");
-        possibleInput.add("sp2");
 
         String source;
         String dest;
 
-        System.out.println("Select the first deposit, Possible choices: small, mid, big, sp1, sp2");
+        StringBuilder deps = new StringBuilder();
+        deps.append("Select the first deposit, Possible choices: small, mid, big");
+        if (modelView.getDeposits(modelView.getName()).containsKey("sp1res")) {
+            possibleInput.add("sp1");
+            deps.append(", sp1");
+        }
+        if (modelView.getDeposits(modelView.getName()).containsKey("sp2res")) {
+            possibleInput.add("sp2");
+            deps.append(", sp2");
+        }
+        System.out.println(deps.append(":"));
+        //System.out.println("Select the first deposit, Possible choices: small, mid, big, sp1, sp2");
         System.out.print(">");
         source = input.nextLine();
         if (!possibleInput.contains(source.toLowerCase())) {

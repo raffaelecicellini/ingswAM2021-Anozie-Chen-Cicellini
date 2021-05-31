@@ -151,7 +151,7 @@ public class ShowController extends GUIController{
             stage.setScene(show);
             stage.setTitle("Show");
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setResizable(false);
+            //stage.setResizable(false);
             stage.show();
         }
     }

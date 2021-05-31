@@ -129,7 +129,7 @@ public class BuyController extends GUIController{
         stage.setScene(decks);
         stage.setTitle("Buy");
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setResizable(false);
+        //stage.setResizable(false);
         stage.show();
     }
 

@@ -99,10 +99,23 @@ public class BuyController extends GUIController{
             }
         }
 
+        //CREATE THE CONFIRMATION STRING.
+        StringBuilder move= new StringBuilder();
+        move.append("This is your move:\n");
+        int j = 1;
+        for (String x : cost) {
+            if (x != null) {
+                move.append("Resource " + x + ": " + action.get("res" + j)+"\n");
+                j++;
+            }
+        }
+        move.append("Do you want to confirm?");
+
         //ASK THE USER IF HE WANTS TO CONFIRM THE MOVE.
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initModality(Modality.APPLICATION_MODAL);
-        alert.setContentText("Do you want to confirm?");
+        alert.setContentText(move.toString());
+        alert.setHeaderText("Buy confirmation");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) {
             action.clear();
@@ -209,7 +222,13 @@ public class BuyController extends GUIController{
         ButtonType buttonTypeFive = new ButtonType("sp2");
         ButtonType buttonTypeSix = new ButtonType("strongbox");
 
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree,buttonTypeFour,buttonTypeFive,buttonTypeSix);
+        //alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree,buttonTypeFour,buttonTypeFive,buttonTypeSix);
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
+        if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp1res"))
+            alert.getButtonTypes().add(buttonTypeFour);
+        if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp2res"))
+            alert.getButtonTypes().add(buttonTypeFive);
+        alert.getButtonTypes().add(buttonTypeSix);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne){

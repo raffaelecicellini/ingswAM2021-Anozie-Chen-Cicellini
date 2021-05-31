@@ -52,35 +52,19 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
     private void chooseLeaders(Message message) {
-        //private void chooseLeaders(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
-            //if (model.getCurrentPlayer().getName().equals(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.LEADER) {
 
-                // to lowercase the entire map
-                /*Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                        e1 -> e1.getKey().toLowerCase(),
-                        e1 -> e1.getValue().toLowerCase()));*/
-
                 if (message.getLeader(1) >= 1 && message.getLeader(1) <= 4 &&
                         message.getLeader(2) >= 1 && message.getLeader(2) <= 4) {
-                    /*if (  *//*mapCopy.size() == 2 && *//*
-                        mapCopy.containsKey("ind1") && mapCopy.containsKey("ind2") &&
-                                Integer.parseInt(mapCopy.get("ind1")) >= 1 && Integer.parseInt(mapCopy.get("ind1")) <= 4 &&
-                                Integer.parseInt(mapCopy.get("ind2")) >= 1 && Integer.parseInt(mapCopy.get("ind2")) <= 4) {*/
                     try {
-                        //mapCopy.remove("player");
-                        //mapCopy.remove("action");
                         model.chooseLeaders(model.getCurrentPlayer().getName(), message);
-                        //model.chooseLeaders(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
-                        //e.printStackTrace();
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        //error.put("player", map.get("player"));
                         error.put("content", "There is an error in chooseLeaders: " + e.getMessage());
                         error.put("method", "chooseLeaders");
                         Message errorAnswer = new ErrorAnswer(error);
@@ -90,7 +74,6 @@ public class Controller implements SourceListener {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "chooseLeaders");
                     Message errorAnswer = new ErrorAnswer(error);
@@ -100,7 +83,6 @@ public class Controller implements SourceListener {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "chooseLeaders");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -110,7 +92,6 @@ public class Controller implements SourceListener {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
-            //error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "chooseLeaders");
             Message errorAnswer = new ErrorAnswer(error);
@@ -124,32 +105,19 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
     private void chooseResources(Message message) {
-        //private void chooseResources(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
-            //if (model.getCurrentPlayer().getName().equals(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.RESOURCE) {
 
-                // to lowercase the entire map
-                /*Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                        e1 -> e1.getKey().toLowerCase(),
-                        e1 -> e1.getValue().toLowerCase()));*/
-
                 if (message.getResource(1) != null && message.getPosition(1) != null) {
-                /*if (mapCopy.containsKey("res1") && mapCopy.containsKey("pos1") &&
-                        mapCopy.get("res1") != null && mapCopy.get("pos1") != null) {*/
+
                     try {
-                        //mapCopy.remove("player");
-                        //mapCopy.remove("action");
                         model.chooseInitialResource(model.getCurrentPlayer().getName(), message);
-                        //model.chooseInitialResource(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
-                        //e.printStackTrace();
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        //error.put("player", map.get("player"));
                         error.put("content", "There is an error in chooseResources: " + e.getMessage());
                         error.put("method", "chooseResources");
                         Message errorAnswer = new ErrorAnswer(error);
@@ -159,7 +127,6 @@ public class Controller implements SourceListener {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "chooseResources");
                     Message errorAnswer = new ErrorAnswer(error);
@@ -169,7 +136,6 @@ public class Controller implements SourceListener {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "chooseResources");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -179,7 +145,6 @@ public class Controller implements SourceListener {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
-            //error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "chooseResources");
             Message errorAnswer = new ErrorAnswer(error);
@@ -192,39 +157,21 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
     private void buy(Message message) {
-    //private void buy(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
-            //if (model.getCurrentPlayer().getName().equals(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
-
-                // to lowercase the entire map
-                /*Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                        e1 -> e1.getKey().toLowerCase(),
-                        e1 -> e1.getValue().toLowerCase()));*/
 
                 // NOTA: CONTROLLO SOLO RES1
                 if (message.getRow() >= 0 && message.getRow() <= 2 &&
                         message.getCol() >= 0 && message.getCol() <= 3 &&
                         message.getSlot() >= 0 && message.getSlot() <= 2) {
-                /*if (mapCopy.containsKey("row") && mapCopy.get("row") != null &&
-                        Integer.parseInt(mapCopy.get("row")) >= 0 && Integer.parseInt(mapCopy.get("row")) <= 2 &&
-                        mapCopy.containsKey("column") && mapCopy.get("column") != null &&
-                        Integer.parseInt(mapCopy.get("column")) >= 0 && Integer.parseInt(mapCopy.get("column")) <= 3 &&
-                        mapCopy.containsKey("ind") && mapCopy.get("ind") != null &&
-                        Integer.parseInt(mapCopy.get("ind")) >= 0 && Integer.parseInt(mapCopy.get("ind")) <= 2 &&
-                        mapCopy.containsKey("res1") && mapCopy.get("res1") != null) {*/
                         try {
-                            //mapCopy.remove("player");
-                            //mapCopy.remove("action");
                             model.buy(model.getCurrentPlayer().getName(), message);
-                            //model.buy(model.getCurrentPlayer().getName(), mapCopy);
                         } catch (InvalidActionException e) {
                             Map<String, String> error = new HashMap<>();
                             error.put("action", "error");
                             error.put("player", message.getPlayer());
-                            //error.put("player", map.get("player"));
                             error.put("content", "There is an error in Buy: " + e.getMessage());
                             error.put("method", "buy");
                             Message errorAnswer = new ErrorAnswer(error);
@@ -234,7 +181,6 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        //error.put("player", map.get("player"));
                         error.put("content", "Attention! You did not type correctly! Try again!");
                         error.put("method", "buy");
                         Message errorAnswer = new ErrorAnswer(error);
@@ -244,7 +190,6 @@ public class Controller implements SourceListener {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
                     error.put("content", "Attention! You can not do this action in this phase!");
                     error.put("method", "buy");
                     Message errorAnswer = new ErrorAnswer(error);
@@ -254,7 +199,6 @@ public class Controller implements SourceListener {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! It is not your turn!");
                 error.put("method", "buy");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -267,35 +211,20 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
     private void produce(Message message) {
-    //private void produce(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equalsIgnoreCase(message.getPlayer())) {
-        //if (model.getCurrentPlayer().getName().equalsIgnoreCase(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
 
-                /*// to lowercase the entire map
-                Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                        e1 -> e1.getKey().toLowerCase(),
-                        e1 -> e1.getValue().toLowerCase()));*/
 
                 if (message.isSelected(0) || message.isSelected(1) || message.isSelected(2) ||
                         message.isSelected(3)  || message.isSelected(4) || message.isSelected(5)) {
-                /*if (mapCopy.containsKey("prod0") && mapCopy.containsKey("prod1") && mapCopy.containsKey("prod2") &&
-                        mapCopy.containsKey("prod3") *//*&& mapCopy.containsKey("prod4") && mapCopy.containsKey("prod5")*//* &&
-                        mapCopy.get("prod0") != null && mapCopy.get("prod1") != null && mapCopy.get("prod2") != null &&
-                        mapCopy.get("prod3") != null *//*&& mapCopy.get("prod4") != null && mapCopy.get("prod5") != null*//* ) {*/
                     try {
-                        //mapCopy.remove("player");
-                        //mapCopy.remove("action");
                         model.produce(model.getCurrentPlayer().getName(), message);
-                        //model.produce(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
-                        //e.printStackTrace();
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        //error.put("player", map.get("player"));
                         error.put("content", "There is an error in Produce: " + e.getMessage());
                         error.put("method", "produce");
                         Message errorAnswer = new ErrorAnswer(error);
@@ -305,7 +234,6 @@ public class Controller implements SourceListener {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "produce");
                     Message errorAnswer = new ErrorAnswer(error);
@@ -315,7 +243,6 @@ public class Controller implements SourceListener {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "produce");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -325,7 +252,6 @@ public class Controller implements SourceListener {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
-            //error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "produce");
             Message errorAnswer = new ErrorAnswer(error);
@@ -339,53 +265,31 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
     private void fromMarket(Message message) {
-    //private void fromMarket(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
-        //if (model.getCurrentPlayer().getName().equals(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
 
-                // to lowercase the entire map
-                /*Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                        e1 -> e1.getKey().toLowerCase(),
-                        e1 -> e1.getValue().toLowerCase()));*/
-
                 if (message.isRow() && message.size() >= 5) {
-                //if (mapCopy.containsKey("row")) {
-                    //if (mapCopy.size() >= 5) {
-                        try {
-                            //mapCopy.remove("player");
-                            //mapCopy.remove("action");
-                            model.fromMarket(model.getCurrentPlayer().getName(), message);
-                            //model.fromMarket(model.getCurrentPlayer().getName(), mapCopy);
-                        } catch (InvalidActionException e) {
-                            //e.printStackTrace();
-                            Map<String, String> error = new HashMap<>();
-                            error.put("action", "error");
-                            error.put("player", message.getPlayer());
-                            //error.put("player", map.get("player"));
-                            error.put("content", "There is an error in fromMarket: " + e.getMessage());
-                            error.put("method", "fromMarket");
-                            Message errorAnswer = new ErrorAnswer(error);
-                            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                        }
-                    //}
+                    try {
+                        model.fromMarket(model.getCurrentPlayer().getName(), message);
+                    } catch (InvalidActionException e) {
+                        Map<String, String> error = new HashMap<>();
+                        error.put("action", "error");
+                        error.put("player", message.getPlayer());
+                        error.put("content", "There is an error in fromMarket: " + e.getMessage());
+                        error.put("method", "fromMarket");
+                        Message errorAnswer = new ErrorAnswer(error);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                    }
                 } else
                     if (message.isCol() && message.size() >= 4) {
-                        //if (mapCopy.containsKey("col")) {
-                        //if (mapCopy.size() >= 4) {
                         try {
-                            //mapCopy.remove("player");
-                            //mapCopy.remove("action");
                             model.fromMarket(model.getCurrentPlayer().getName(), message);
-                            //model.fromMarket(model.getCurrentPlayer().getName(), mapCopy);
                         } catch (InvalidActionException e) {
-                            //e.printStackTrace();
                             Map<String, String> error = new HashMap<>();
                             error.put("action", "error");
                             error.put("player", message.getPlayer());
-                            //error.put("player", map.get("player"));
                             error.put("content", "There is an error in fromMarket: " + e.getMessage());
                             error.put("method", "fromMarket");
                             Message errorAnswer = new ErrorAnswer(error);
@@ -395,7 +299,6 @@ public class Controller implements SourceListener {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "fromMarket");
                     Message errorAnswer = new ErrorAnswer(error);
@@ -405,7 +308,6 @@ public class Controller implements SourceListener {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "fromMarket");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -415,7 +317,6 @@ public class Controller implements SourceListener {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
-            //error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "fromMarket");
             Message errorAnswer = new ErrorAnswer(error);
@@ -429,36 +330,18 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
     private void swapDeposits(Message message) {
-    //private void swapDeposits(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
-        //if (model.getCurrentPlayer().getName().equals(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
-
-                // to lowercase the entire map
-                /*Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                        e1 -> e1.getKey().toLowerCase(),
-                        e1 -> e1.getValue().toLowerCase()));*/
-
-                //mapCopy.remove("player");
-
                 if (message.size() == 2 &&
                         message.getSource() != null && message.getDest() != null) {
-                //if (mapCopy.size() == 2 &&
-                        //mapCopy.containsKey("source") && mapCopy.containsKey("dest") &&
-                        //mapCopy.get("source") != null && mapCopy.get("dest") != null) {
                     try {
-                        //mapCopy.remove("player");
-                        //mapCopy.remove("action");
                         model.swapDeposit(model.getCurrentPlayer().getName(), message);
-                        //model.swapDeposit(model.getCurrentPlayer().getName(), mapCopy);
                     } catch (InvalidActionException e) {
-                        //e.printStackTrace();
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        //error.put("player", map.get("player"));
                         error.put("content", "There is an error in swapDeposits: " + e.getMessage());
                         error.put("method", "swapDeposits");
                         Message errorAnswer = new ErrorAnswer(error);
@@ -468,7 +351,6 @@ public class Controller implements SourceListener {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "swapDeposits");
                     Message errorAnswer = new ErrorAnswer(error);
@@ -478,7 +360,6 @@ public class Controller implements SourceListener {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "swapDeposits");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -488,7 +369,6 @@ public class Controller implements SourceListener {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
-            //error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "swapDeposits");
             Message errorAnswer = new ErrorAnswer(error);
@@ -502,35 +382,18 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
     private void activateLeader(Message message) {
-    //private void activateLeader(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
-        // if (model.getCurrentPlayer().getName().equals(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
 
-                // to lowercase the entire map
-                /*Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                        e1 -> e1.getKey().toLowerCase(),
-                        e1 -> e1.getValue().toLowerCase()));*/
-
                 if (message.size() >= 1 && message.getIndex() >= 0 && message.getIndex() <= 1) {
-                    //if (mapCopy.size() >= 1 && mapCopy.get("pos") != null) {
-
-                    //int pos = Integer.parseInt(mapCopy.get("pos"));
-
-                    //if (pos >= 0 && pos <= 1) {
                     try {
-                        //mapCopy.remove("player");
-                        //mapCopy.remove("action");
                         model.activateLeader(model.getCurrentPlayer().getName(), message.getIndex());
-                        //model.activateLeader(model.getCurrentPlayer().getName(), pos);
                     } catch (InvalidActionException e) {
-                        //e.printStackTrace();
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        //error.put("player", map.get("player"));
                         error.put("content", "There is an error in activateLeader: " + e.getMessage());
                         error.put("method", "activateLeader");
                         Message errorAnswer = new ErrorAnswer(error);
@@ -540,26 +403,15 @@ public class Controller implements SourceListener {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
                     error.put("content", "Attention! You did not type the index correctly! Try again!");
                     error.put("method", "activateLeader");
                     Message errorAnswer = new ErrorAnswer(error);
                     gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
-                /*} else {
-                    Map<String, String> error = new HashMap<>();
-                    error.put("action", "error");
-                    error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
-                    error.put("content", "Attention! You did not type correctly! Try again!");
-                    error.put("method", "activateLeader");
-                    ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer); }*/
             } else {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "activateLeader");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -569,7 +421,6 @@ public class Controller implements SourceListener {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
-            //error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "activateLeader");
             Message errorAnswer = new ErrorAnswer(error);
@@ -582,65 +433,36 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
     private void discardLeader(Message message) {
-    //private void discardLeader(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
-        //if (model.getCurrentPlayer().getName().equals(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
 
-                // to lowercase the entire map
-                /*Map<String, String> mapCopy = map.entrySet().stream().collect(Collectors.toMap(
-                        e1 -> e1.getKey().toLowerCase(),
-                        e1 -> e1.getValue().toLowerCase()));*/
-
                 if (message.size() >= 1 && message.getIndex() >= 0 && message.getIndex() <= 1) {
-                //if (mapCopy.size() >= 1 && mapCopy.get("pos") != null) {
-
-                    //int pos = Integer.parseInt(mapCopy.get("pos"));
-
-                    //if (pos >= 0 && pos <= 1) {
-                        try {
-                            //mapCopy.remove("player");
-                            //mapCopy.remove("action");
-                            model.discardLeader(model.getCurrentPlayer().getName(), message.getIndex());
-                            //model.discardLeader(model.getCurrentPlayer().getName(), pos);
-                        } catch (InvalidActionException e) {
-                            //e.printStackTrace();
-                            Map<String, String> error = new HashMap<>();
-                            error.put("action", "error");
-                            error.put("player", message.getPlayer());
-                            //error.put("player", map.get("player"));
-                            error.put("content", "There is an error in discardLeader: " + e.getMessage());
-                            error.put("method", "discardLeader");
-                            Message errorAnswer = new ErrorAnswer(error);
-                            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                        }
-                    } else {
+                    try {
+                        model.discardLeader(model.getCurrentPlayer().getName(), message.getIndex());
+                    } catch (InvalidActionException e) {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        //error.put("player", map.get("player"));
-                        error.put("content", "Attention! You did not type the index correctly! Try again!");
+                        error.put("content", "There is an error in discardLeader: " + e.getMessage());
                         error.put("method", "discardLeader");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
-                /*} else {
+                } else {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    //error.put("player", map.get("player"));
-                    error.put("content", "Attention! You did not type correctly! Try again!");
+                    error.put("content", "Attention! You did not type the index correctly! Try again!");
                     error.put("method", "discardLeader");
-                    ErrorAnswer errorAnswer = new ErrorAnswer(error);
-                    //gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                }*/
+                    Message errorAnswer = new ErrorAnswer(error);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                }
             } else {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "discardLeader");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -650,7 +472,6 @@ public class Controller implements SourceListener {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
-            //error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "discardLeader");
             Message errorAnswer = new ErrorAnswer(error);
@@ -664,16 +485,12 @@ public class Controller implements SourceListener {
      * @param message is the message that contains all the info about the action.
      */
      public void endTurn(Message message) {
-     //public void endTurn(Map<String, String> map) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
-        //if (model.getCurrentPlayer().getName().equalsIgnoreCase(map.get("player"))) {
 
             if (model.getPhase() == GamePhase.FULLGAME) {
                 try {
-                    //System.out.println("Passing control to model...");
                     model.endTurn(message.getPlayer());
-                    //model.endTurn(map.get("player"));
                 } catch (InvalidActionException e) {
                     e.printStackTrace();
                 }
@@ -682,7 +499,6 @@ public class Controller implements SourceListener {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                //error.put("player", map.get("player"));
                 error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "endturn");
                 Message errorAnswer = new ErrorAnswer(error);
@@ -693,7 +509,6 @@ public class Controller implements SourceListener {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
-            //error.put("player", map.get("player"));
             error.put("content", "Attention! It is not your turn!");
             error.put("method", "endturn");
             Message errorAnswer = new ErrorAnswer(error);
@@ -705,7 +520,6 @@ public class Controller implements SourceListener {
 
 
     @Override
-    //public void update(String propertyName, Map<String, String> value) {
     public void update(String propertyName, Message message) {
         switch (propertyName.toUpperCase()){
             case "START":
@@ -713,48 +527,30 @@ public class Controller implements SourceListener {
                 break;
             case "BUY":
                 buy(message);
-                //value.remove("action");
-                //buy(value);
                 break;
             case "PRODUCE":
                 produce(message);
-                //value.remove("action");
-                //produce(value);
                 break;
             case "MARKET":
                 fromMarket(message);
-                //value.remove("action");
-                //fromMarket(value);
                 break;
             case "SWAP":
                 swapDeposits(message);
-                //value.remove("action");
-                //swapDeposits(value);
                 break;
             case "CHOOSELEADERS":
                 chooseLeaders(message);
-                //value.remove("action");
-                //chooseLeaders(value);
                 break;
             case "CHOOSERESOURCES":
                 chooseResources(message);
-                //value.remove("action");
-                //chooseResources(value);
                 break;
             case "ACTIVATE":
                 activateLeader(message);
-                //value.remove("action");
-                //activateLeader(value);
                 break;
             case "DISCARD":
                 discardLeader(message);
-                //value.remove("action");
-                //discardLeader(value);
                 break;
             case "ENDTURN":
                 endTurn(message);
-                //message.remove("action");
-                //endTurn(value);
                 break;
             case "DISCONNECT":
                 model.setPhase(GamePhase.ENDED);
@@ -763,7 +559,6 @@ public class Controller implements SourceListener {
                 Map<String, String> map = new HashMap<>();
                 map.put("action", "error");
                 map.put("player", message.getPlayer());
-                //map.put("player", value.get("player"));
                 map.put("content", "Illegal action! Try typing again!");
                 Message error = new ErrorAnswer(map);
                 gameHandlerListener.fireUpdates(map.get("action"), error);

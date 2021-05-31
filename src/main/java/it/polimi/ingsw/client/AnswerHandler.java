@@ -33,18 +33,8 @@ public class AnswerHandler implements SourceListener {
 
     @Override
     public void update(String propertyName, Message message) {
-
-        // Map used just to notify other players who hasn't done the action with a message containing the name of the
-        // player who has done the action and the action.
-        //Map<String, String> map = new HashMap<>();
-
         Map<String,String> leaders;
-        //Map<String, String> deposits;
-        //String player_name;
         int[][] developDecks;
-        //map.put("player", value.get("player"));
-        //map.put("action", value.get("action"));
-
 
         switch (propertyName.toUpperCase()) {
 
@@ -103,16 +93,6 @@ public class AnswerHandler implements SourceListener {
                 }
                 modelView.setLeaders(leaders, message.getPlayer());
 
-
-                /*if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                    viewListener.fireUpdates(message.getAction(), null);
-                } else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.fireUpdates(message.getAction(), message);
-                }*/
-
                 viewListener.fireUpdates(message.getAction(), message);
 
                 break;
@@ -128,17 +108,6 @@ public class AnswerHandler implements SourceListener {
                     leaders.put("state" + i, "available");
                 }
                 modelView.setLeaders(leaders, message.getPlayer());
-
-                /*if (modelView.getName().equalsIgnoreCase(message.getPlayer())){
-
-                    viewListener.fireUpdates(message.getAction(), null);
-
-                } else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.fireUpdates(message.getPlayer(), message);
-                }*/
 
                 viewListener.fireUpdates(message.getAction(), message);
 
@@ -158,14 +127,6 @@ public class AnswerHandler implements SourceListener {
                     // the player who has to choose initial resources
 
                     modelView.setInitialRes(message.getResQty());
-
-                    // in newValues there are: player, action and qty
-                    //viewListener.fireUpdates(message.getAction(), message); //UNICO
-                }else {
-                    // other players
-                    /*map.put("other", map.get("player"));
-                    map.remove("player");*/
-                    //viewListener.fireUpdates(message.getAction(), message); //UNICO
                 }
 
                 viewListener.fireUpdates(message.getAction(), message); //UNICO
@@ -177,17 +138,6 @@ public class AnswerHandler implements SourceListener {
                 modelView.setPhase(GamePhase.FULLGAME);
 
                 modelView.setDeposits(message.getDeposits(), message.getPlayer());
-
-                /*if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                    // the player who has chosen the correct
-
-                    viewListener.fireUpdates(message.getAction(), null);
-                } else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.fireUpdates(message.getAction(), message);
-                }*/
 
                 viewListener.fireUpdates(message.getAction(), message);
 
@@ -212,28 +162,8 @@ public class AnswerHandler implements SourceListener {
 
                 modelView.setDevelopDecks(developDecks);
 
-                /*deposits = new HashMap<>();
-                deposits.put("smallres", value.get("smallres"));
-                deposits.put("smallqty", value.get("smallqty"));
-                deposits.put("midres", value.get("midres"));
-                deposits.put("midqty", value.get("midqty"));
-                deposits.put("bigres", value.get("bigres"));
-                deposits.put("bigqty", value.get("bigqty"));
-                if (modelView.getDeposits(value.get("player")).size() > 6) {
-                    deposits.put("sp1res", value.get("sp1res"));
-                    deposits.put("sp1qty", value.get("sp1qty"));
-                    if (modelView.getDeposits(value.get("player")).size() > 8) {
-                        deposits.put("sp2res", value.get("sp2res"));
-                        deposits.put("sp2qty", value.get("sp2qty"));
-                    }
-                }*/
                 modelView.setDeposits(message.getDeposits(), message.getPlayer());
 
-                /*Map<String, String> strongbox = new HashMap<>();
-                for (int i = 0; i < 4; i++) {
-                    strongbox.put("strres" + i, value.get("strres" + i));
-                    strongbox.put("strqty" + i, value.get("strqty" + i));
-                }*/
                 modelView.setStrongbox(message.getStrongbox(), message.getPlayer());
 
 
@@ -251,13 +181,7 @@ public class AnswerHandler implements SourceListener {
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    //viewListener.fireUpdates(message.getAction(), null);
-                }/* else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    //viewListener.fireUpdates(message.getAction(), message);
-                }*/
+                }
                 viewListener.fireUpdates(message.getAction(), message);
 
                 break;
@@ -266,29 +190,8 @@ public class AnswerHandler implements SourceListener {
 
                 modelView.setPhase(GamePhase.FULLGAME);
 
-                /*deposits = new HashMap<>();
-                deposits.put("smallres", value.get("smallres"));
-                deposits.put("smallqty", value.get("smallqty"));
-                deposits.put("midres", value.get("midres"));
-                deposits.put("midqty", value.get("midqty"));
-                deposits.put("bigres", value.get("bigres"));
-                deposits.put("bigqty", value.get("bigqty"));
-                if (modelView.getDeposits(value.get("player")).size() > 6) {
-                    deposits.put("sp1res", value.get("sp1res"));
-                    deposits.put("sp1qty", value.get("sp1qty"));
-                    if (modelView.getDeposits(value.get("player")).size() > 8) {
-                        deposits.put("sp2res", value.get("sp2res"));
-                        deposits.put("sp2qty", value.get("sp2qty"));
-                    }
-                }*/
-
                 modelView.setDeposits(message.getDeposits(), message.getPlayer());
 
-                /*strongbox = new HashMap<>();
-                for (int i = 0; i < 4; i++) {
-                    strongbox.put("strres" + i, value.get("strres" + i));
-                    strongbox.put("strqty" + i, value.get("strqty" + i));
-                }*/
                 modelView.setStrongbox(message.getStrongbox(), message.getPlayer());
 
                 modelView.setPosition(message.getNewPos(), message.getPlayer());
@@ -298,14 +201,7 @@ public class AnswerHandler implements SourceListener {
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    //viewListener.fireUpdates(message.getAction(), null);
-
-                } /*else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.fireUpdates(message.getAction(), message);
-                }*/
+                }
 
                 viewListener.fireUpdates(message.getAction(), message);
 
@@ -336,21 +232,6 @@ public class AnswerHandler implements SourceListener {
                     modelView.setBlackCross(message.getBlackPos());
                 }
 
-                /*deposits = new HashMap<>();
-                deposits.put("smallres", value.get("smallres"));
-                deposits.put("smallqty", value.get("smallqty"));
-                deposits.put("midres", value.get("midres"));
-                deposits.put("midqty", value.get("midqty"));
-                deposits.put("bigres", value.get("bigres"));
-                deposits.put("bigqty", value.get("bigqty"));
-                if (modelView.getDeposits(value.get("player")).size() > 6) {
-                    deposits.put("sp1res", value.get("sp1res"));
-                    deposits.put("sp1qty", value.get("sp1qty"));
-                    if (modelView.getDeposits(value.get("player")).size() > 8) {
-                        deposits.put("sp2res", value.get("sp2res"));
-                        deposits.put("sp2qty", value.get("sp2qty"));
-                    }
-                }*/
                 modelView.setDeposits(message.getDeposits(), message.getPlayer());
 
                 modelView.setPosition(message.getNewPos(), message.getPlayer());
@@ -366,12 +247,7 @@ public class AnswerHandler implements SourceListener {
                     modelView.setDoneMandatory(true);
                     modelView.setActiveTurn(true);
 
-                    //viewListener.fireUpdates(message.getAction(), null);
-
-                }/* else {
-                    // other players
-                    viewListener.fireUpdates(message.getAction(), message);
-                }*/
+                }
 
                 viewListener.fireUpdates(message.getAction(), message);
 
@@ -386,13 +262,7 @@ public class AnswerHandler implements SourceListener {
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                     // the player who called the swap method
                     modelView.setActiveTurn(true);
-                    //viewListener.fireUpdates(message.getAction(), null);
-                } /*else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.fireUpdates(message.getAction(), message);
-                }*/
+                }
 
                 viewListener.fireUpdates(message.getAction(), message);
 
@@ -404,21 +274,6 @@ public class AnswerHandler implements SourceListener {
 
                 // If the activated leader is a "resource" leader, it notifies the player by adding him the new deposit
                 if (message.isDep()) {
-                    /*deposits = new HashMap<>();
-                    deposits.put("smallres", value.get("smallres"));
-                    deposits.put("smallqty", value.get("smallqty"));
-                    deposits.put("midres", value.get("midres"));
-                    deposits.put("midqty", value.get("midqty"));
-                    deposits.put("bigres", value.get("bigres"));
-                    deposits.put("bigqty", value.get("bigqty"));
-                    if (value.containsKey("sp1res")) {
-                        deposits.put("sp1res", value.get("sp1res"));
-                        deposits.put("sp1qty", value.get("sp1qty"));
-                    }
-                    if (value.containsKey("sp2res")) {
-                        deposits.put("sp2res", value.get("sp2res"));
-                        deposits.put("sp2qty", value.get("sp2qty"));
-                    }*/
                     modelView.setDeposits(message.getDeposits(), message.getPlayer());
                 }
 
@@ -432,13 +287,7 @@ public class AnswerHandler implements SourceListener {
 
                     modelView.setCountLeader(message.getCountLeader());
 
-                    //viewListener.fireUpdates(message.getAction(), null);
-                }/* else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.fireUpdates(message.getAction(), message);
-                }*/
+                }
 
                 viewListener.fireUpdates(message.getAction(), message);
 
@@ -459,13 +308,7 @@ public class AnswerHandler implements SourceListener {
 
                     modelView.setCountLeader(message.getCountLeader());
 
-                    //viewListener.fireUpdates(message.getAction(), null);
-                } /*else {
-                    // other players
-                    map.put("other", map.get("player"));
-                    map.remove("player");
-                    viewListener.fireUpdates(message.getAction(), message);
-                }*/
+                }
 
                 viewListener.fireUpdates(message.getAction(), message);
 
@@ -517,12 +360,7 @@ public class AnswerHandler implements SourceListener {
                         modelView.setActiveTurn(false);
                     }
 
-                    //viewListener.fireUpdates(message.getAction(), message); //UNICO
-
-                } /*else {
-                    // other players
-                    viewListener.fireUpdates(message.getAction(), message); //UNICO
-                }*/
+                }
 
                 viewListener.fireUpdates(message.getAction(), message); //UNICO
 

@@ -379,7 +379,6 @@ public class GUI extends Application implements SourceListener {
             case "CHOOSELEADERS":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     chooseLeaders();
                 } else {
                     Platform.runLater(() -> {
@@ -395,7 +394,6 @@ public class GUI extends Application implements SourceListener {
             case "OKLEADERS":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {
@@ -426,7 +424,6 @@ public class GUI extends Application implements SourceListener {
             case "OKRESOURCES":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     Platform.runLater(() -> {
                         BoardController board = (BoardController) getControllerFromName("board.fxml");
                         board.updateDeposits();
@@ -458,7 +455,6 @@ public class GUI extends Application implements SourceListener {
             case "PRODUCE":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     updateProduce();
                 } else {
                     Platform.runLater(() -> {
@@ -474,7 +470,6 @@ public class GUI extends Application implements SourceListener {
             case "BUY":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     updateBuy();
                 } else {
                     updateBuy();
@@ -490,7 +485,6 @@ public class GUI extends Application implements SourceListener {
             case "MARKET":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     updateMarket();
                 } else {
                     updateMarket();
@@ -507,7 +501,6 @@ public class GUI extends Application implements SourceListener {
             case "SWAP":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     updateSwap();
                 } else {
                     Platform.runLater(() -> {
@@ -523,7 +516,6 @@ public class GUI extends Application implements SourceListener {
             case "ACTIVATE":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {
@@ -539,7 +531,6 @@ public class GUI extends Application implements SourceListener {
             case "DISCARD":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
                     updateLeader();
                 } else {
                     Platform.runLater(() -> {
@@ -576,7 +567,7 @@ public class GUI extends Application implements SourceListener {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("EndTurn");
-                        alert.setContentText(message.getPlayer() + " has ended his turn!"+" It is " + message.getCurrentPlayer() + " turn now!");
+                        alert.setContentText(message.getEndedPlayer() + " has ended his turn!"+" It is " + message.getCurrentPlayer() + " turn now!");
                         alert.showAndWait();
                     });
                 }
@@ -609,7 +600,6 @@ public class GUI extends Application implements SourceListener {
 
                 setActiveGame(false);
                 if (connectionSocket!=null) connectionSocket.close();
-                //System.exit(0);
 
                 break;
 

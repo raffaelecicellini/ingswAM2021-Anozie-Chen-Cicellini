@@ -155,6 +155,7 @@
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
+          <finalName>Maestri-AM59</finalName>
           <archive>
             <manifest>
               <mainClass>it.polimi.ingsw.App</mainClass>
@@ -163,6 +164,7 @@
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
+          <appendAssemblyId>false</appendAssemblyId>
         </configuration>
         <executions>
           <execution>

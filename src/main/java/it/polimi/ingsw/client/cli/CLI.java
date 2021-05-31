@@ -1578,12 +1578,10 @@ public class CLI implements Runnable, SourceListener {
         switch (propertyName.toUpperCase()) {
             case "START":
                 System.out.println(message.getContent());
-                //System.out.println(value.get("content"));
                 break;
 
             case "OTHERCONNECTED":
                 System.out.println(message.getContent());
-                //System.out.println(value.get("content"));
                 break;
 
             case "STARTED":
@@ -1593,12 +1591,9 @@ public class CLI implements Runnable, SourceListener {
             case "CHOOSELEADERS":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                //if (value == null) {
                     chooseLeaders();
                 } else {
                     System.out.println(message.getPlayer() + " is choosing his leaders!" );
-                    //System.out.println(value.get("other") + " is choosing his leaders!" );
                 }
 
                 break;
@@ -1606,12 +1601,9 @@ public class CLI implements Runnable, SourceListener {
             case "OKLEADERS":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                //if (value == null) {
                     printBoard();
                 } else {
                     System.out.println(message.getPlayer() + " has chosen his leaders!" );
-                    //System.out.println(value.get("other") + " has chosen his leaders!" );
                 }
 
                 break;
@@ -1619,12 +1611,9 @@ public class CLI implements Runnable, SourceListener {
             case "CHOOSERESOURCES":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (modelView.getName().equalsIgnoreCase(value.get("player"))) {
                     chooseResources(message.getResQty());
-                    //chooseResources(Integer.parseInt(value.get("qty")));
                 } else {
                     System.out.println(message.getPlayer() + " is choosing his initial resources!" );
-                    //System.out.println(value.get("other") + " is choosing his initial resources!" );
                 }
 
                 break;
@@ -1632,12 +1621,9 @@ public class CLI implements Runnable, SourceListener {
             case "OKRESOURCES":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                //if (value == null) {
                     printBoard();
                 } else {
                     System.out.println(message.getPlayer() + " has chosen his initial resources!" );
-                    //System.out.println(value.get("other") + " has chosen his initial resources!" );
                 }
 
                 if(modelView.getPhase()==GamePhase.FULLGAME) printActions();
@@ -1647,12 +1633,9 @@ public class CLI implements Runnable, SourceListener {
             case "YOURTURN":
 
                 if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
-                    //if (value.get("player").equalsIgnoreCase(modelView.getName())) {
                     System.out.println(message.getContent());
-                    //System.out.println(value.get("content"));
                 } else {
                     System.out.println("It's " + message.getPlayer() + "'s turn now!");
-                    //System.out.println("It's " + value.get("player") + "'s turn now!");
                 }
 
                 printActions();
@@ -1661,12 +1644,9 @@ public class CLI implements Runnable, SourceListener {
             case "PRODUCE":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                //if (value == null) {
                     printBoard();
                 } else {
                     System.out.println(message.getPlayer() + " has made some productions!" );
-                    //System.out.println(value.get("other") + " has made some productions!" );
                 }
 
                 printActions();
@@ -1677,12 +1657,7 @@ public class CLI implements Runnable, SourceListener {
                 printBoard();
 
                 if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                    //if (value == null) {
-                    // the player that has bought a dev card
-                //} else {
                     System.out.println(message.getPlayer() + " has bought a Develop Card!" );
-                    //System.out.println(value.get("other") + " has bought a Develop Card!" );
                 }
 
                 printActions();
@@ -1693,15 +1668,8 @@ public class CLI implements Runnable, SourceListener {
                 printBoard();
 
                 if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                //if (value == null) {
-                    // the player that has bought a dev card
-                    //printActions();
-                //} else {
                     System.out.println(message.getPlayer() + " has taken resources from the Market!" );
-                    //System.out.println(value.get("other") + " has taken resources from the Market!" );
                     if (message.getDiscarded() != 0) {
-                    //if (Integer.parseInt(value.get("discarded")) != 0) {
                         System.out.println("Your position has been increased!");
                     }
                 }
@@ -1711,13 +1679,9 @@ public class CLI implements Runnable, SourceListener {
             case "SWAP":
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                //if (value == null) {
                     printBoard();
-
                 } else {
                     System.out.println(message.getPlayer() + " has swapped his deposits!" );
-                    //System.out.println(value.get("other") + " has swapped his deposits!" );
                 }
                 printActions();
                 break;
@@ -1725,12 +1689,9 @@ public class CLI implements Runnable, SourceListener {
             case "ACTIVATE":
 
                 if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                //if (value == null) {
                     printBoard();
                 } else {
                     System.out.println(message.getPlayer() + " has activated his leader!");
-                    //System.out.println(value.get("other") + " has activated his leader!");
                 }
                 printActions();
                 break;
@@ -1738,12 +1699,9 @@ public class CLI implements Runnable, SourceListener {
             case "DISCARD":
 
                 if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
-                //if (message == null) {
-                //if (value == null) {
                     printBoard();
                 } else {
                     System.out.println(message.getPlayer() + " has discarded his leader!");
-                    //System.out.println(value.get("other") + " has discarded his leader!");
                 }
                 printActions();
                 break;
@@ -1753,18 +1711,13 @@ public class CLI implements Runnable, SourceListener {
                 printBoard();
 
                 if (modelView.getName().equalsIgnoreCase(message.getEndedPlayer())) {
-                //if (modelView.getName().equalsIgnoreCase(value.get("endedTurnPlayer"))) {
                     if (modelView.isSoloGame()){
                         System.out.println("The Token that has been activated is: " + Cards.getTokenById(message.getToken()));
-                        //System.out.println("The Token that has been activated is: " + Cards.getTokenById(Integer.parseInt(value.get("tokenActivated"))));
                     }
                 } else {
                     System.out.println(message.getEndedPlayer() + " has ended his turn!" );
-                    //System.out.println(value.get("other") + " has ended his turn!" );
                     if (!modelView.getName().equalsIgnoreCase(message.getCurrentPlayer())) {
-                    //if (!modelView.getName().equalsIgnoreCase(value.get("currentPlayer"))) {
                         System.out.println("It's' " + message.getCurrentPlayer() + " turn now!");
-                        //System.out.println("It's " + value.get("currentPlayer") + " turn now!");
                     }
                 }
 
@@ -1776,15 +1729,11 @@ public class CLI implements Runnable, SourceListener {
             case "ENDGAME":
 
                 if (message.getWinner().equalsIgnoreCase(modelView.getName())) {
-                //if (value.containsKey("winner") && value.get("winner").equalsIgnoreCase(modelView.getName())) {
                     System.out.println("You won! You made " + message.getWinnerPoints() + " points!");
-                    //System.out.println("You won! You made " + value.get("winnerpoints") + " points!");
                 } else {
                     System.out.println("You lost! You made " + message.getPoints() + " points! ");
-                    //System.out.println("You lost! You made " + value.get("points") + " points! ");
                     if (!modelView.isSoloGame()) {
                         System.out.println(message.getWinner() + " won with " + message.getWinnerPoints() + " points! ");
-                        //System.out.println(value.get("winner") + " won with " + value.get("winnerpoints") + " points! ");
                     }
                 }
 
@@ -1797,16 +1746,12 @@ public class CLI implements Runnable, SourceListener {
             case "ERROR":
 
                 if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
-                //if (value.get("player").equalsIgnoreCase(modelView.getName())) {
                     System.out.println(message.getContent());
-                    //System.out.println(value.get("content"));
                 }
                 if (message.getMethod().equalsIgnoreCase("chooseleaders")){
-                //if (value.get("method").equalsIgnoreCase("chooseleaders")){
                     chooseLeaders();
                 }
                 else if (message.getMethod().equalsIgnoreCase("chooseresources")){
-                //else if (value.get("method").equalsIgnoreCase("chooseresources")){
                     chooseResources(modelView.getInitialRes());
                 }
                 else printActions();
@@ -1814,13 +1759,11 @@ public class CLI implements Runnable, SourceListener {
 
             case "END":
                 System.out.println(message.getContent());
-                //System.out.println(value.get("content"));
                 System.exit(0);
                 break;
 
             case "OTHERDISCONNECTED":
                 System.out.println(message.getContent());
-                //System.out.println(value.get("content"));
                 break;
 
             default:

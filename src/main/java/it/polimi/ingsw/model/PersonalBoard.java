@@ -140,29 +140,22 @@ public class PersonalBoard {
                 } else throw new InvalidActionException("You can't swap these deposits! Too much resource to contain");
             } else if (idx1 >= 3 && idx2 < 3) {
                 if (deposits.size() > idx1) {
-                    if (deposits.get(idx1).getColor() == deposits.get(idx2).getColor() || deposits.get(idx2).getAmount() == 0) {
-                        int amt1, amt2;
+                    if ((deposits.get(idx1).getColor() == deposits.get(idx2).getColor() && deposits.get(idx2).getAmount() <= 2 && deposits.get(idx1).getAmount() <= idx2+1) || deposits.get(idx2).getAmount() == 0) {
+                        int tmp = deposits.get(idx1).getAmount();
+                        deposits.get(idx1).setAmount(deposits.get(idx2).getAmount());
+                        deposits.get(idx2).setAmount(tmp);
                         deposits.get(idx2).setColor(deposits.get(idx1).getColor());
-                        while (deposits.get(idx2).getAmount() < idx2 + 1 && deposits.get(idx1).getAmount() > 0) {
-                            amt1 = deposits.get(idx1).getAmount() - 1;
-                            amt2 = deposits.get(idx2).getAmount() + 1;
-                            deposits.get(idx1).setAmount(amt1);
-                            deposits.get(idx2).setAmount(amt2);
-                        }
                     } else
                         throw new InvalidActionException("You can't swap these deposits! They store different resources");
                 } else throw new InvalidActionException("You don't have a leader deposit!");
             } else if (idx1 < 3 && idx2 >= 3) {
                 if (deposits.size() > idx2) {
-                    if (deposits.get(idx1).getColor() == deposits.get(idx2).getColor()) {
-                        int amt1, amt2;
-                        while (deposits.get(idx2).getAmount() < 2 && deposits.get(idx1).getAmount() > 0) {
-                            amt1 = deposits.get(idx1).getAmount() - 1;
-                            amt2 = deposits.get(idx2).getAmount() + 1;
-                            deposits.get(idx1).setAmount(amt1);
-                            deposits.get(idx2).setAmount(amt2);
-                        }
-                    }
+                    if ((deposits.get(idx1).getColor() == deposits.get(idx2).getColor() && deposits.get(idx1).getAmount() <= 2 && deposits.get(idx2).getAmount() <= idx1+1) || deposits.get(idx1).getAmount() == 0) {
+                        int tmp = deposits.get(idx1).getAmount();
+                        deposits.get(idx1).setAmount(deposits.get(idx2).getAmount());
+                        deposits.get(idx2).setAmount(tmp);
+                        deposits.get(idx1).setColor(deposits.get(idx2).getColor());
+                    } else throw new InvalidActionException("You can't swap these deposits! They store different resources");
                 } else throw new InvalidActionException("You don't have a leader deposit!");
             } else throw new InvalidActionException("You can't swap two leader deposits!");
         }

@@ -26,7 +26,7 @@ public class BoardController extends GUIController{
     @FXML private ImageView tile0, tile1, tile2;
     @FXML private ImageView pos, blackCross;
     @FXML private Label current;
-    @FXML private Button show;
+    @FXML private Button show, buy, produce, market, activate, discard, swap, endturn;
 
     //Tutti i metodi seguenti sono in risposta alla pressione di un tasto. Recuperano controller corrispondente alla scena
     //da GUI e chiamano su di essi il metodo appropriato
@@ -551,6 +551,28 @@ public class BoardController extends GUIController{
     public void disableShow(){
         this.show.setDisable(true);
     }
+
+    public void disableButtons(){
+        ArrayList<Button> buttons= new ArrayList<>(Arrays.asList(buy, produce, market, activate, discard, swap, endturn));
+        for (Button button: buttons){
+            button.setDisable(true);
+        }
+    }
+
+    public void enableButtons(){
+        ArrayList<Button> buttons= new ArrayList<>(Arrays.asList(buy, produce, market, activate, discard, swap, endturn));
+        for (Button button: buttons){
+            button.setDisable(false);
+        }
+    }
+
+    public void disableMandatory(){
+        ArrayList<Button> buttons= new ArrayList<>(Arrays.asList(buy, produce, market));
+        for (Button button: buttons){
+            button.setDisable(true);
+        }
+    }
+
     /**
      * @see GUIController
      * @param gui the gui to be set

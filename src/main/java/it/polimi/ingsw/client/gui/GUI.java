@@ -221,11 +221,6 @@ public class GUI extends Application implements SourceListener {
         return mapNameScene.get(name);
     }
 
-    private void updateBoard(){
-        //Chiamato quando riceve aggiornamenti dal model. Modifica situazione della board leggendo ModelView. Forse meglio
-        //tanti metodi separati uno per ogni azione?
-    }
-
     /**
      * This method is used to update the situation after a Market action.
      */
@@ -339,6 +334,21 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    private void disableButtons(){
+        BoardController board= (BoardController) getControllerFromName("board.fxml");
+        board.disableButtons();
+    }
+
+    private void enableButtons(){
+        BoardController board= (BoardController) getControllerFromName("board.fxml");
+        board.enableButtons();
+    }
+
+    private void disableMandatory(){
+        BoardController board= (BoardController) getControllerFromName("board.fxml");
+        board.disableMandatory();
+    }
+
     /**
      * @see SourceListener
      */
@@ -444,6 +454,7 @@ public class GUI extends Application implements SourceListener {
 
                 if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
                     Platform.runLater(() -> {
+                        enableButtons();
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Your Turn");
                         alert.setContentText("It is your turn now! Choose your move!");
@@ -456,6 +467,7 @@ public class GUI extends Application implements SourceListener {
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                     updateProduce();
+                    Platform.runLater(this::disableMandatory);
                 } else {
                     Platform.runLater(() -> {
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
@@ -471,6 +483,7 @@ public class GUI extends Application implements SourceListener {
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                     updateBuy();
+                    Platform.runLater(this::disableMandatory);
                 } else {
                     updateBuy();
                     Platform.runLater(() -> {
@@ -486,6 +499,7 @@ public class GUI extends Application implements SourceListener {
 
                 if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                     updateMarket();
+                    Platform.runLater(this::disableMandatory);
                 } else {
                     updateMarket();
                     Platform.runLater(() -> {
@@ -562,6 +576,9 @@ public class GUI extends Application implements SourceListener {
                             alert.setGraphic(img);
                             alert.showAndWait();
                         });
+                    }
+                    else {
+                        Platform.runLater(this::disableButtons);
                     }
                 } else {
                     Platform.runLater(() -> {

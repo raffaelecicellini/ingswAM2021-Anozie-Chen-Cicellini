@@ -334,16 +334,28 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    /**
+     * Method called when the user receives confirmation of an ending turn action. It calls the corresponding method
+     * on the BoardController
+     */
     private void disableButtons(){
         BoardController board= (BoardController) getControllerFromName("board.fxml");
         board.disableButtons();
     }
 
+    /**
+     * Method called when the user receives a message telling that it is his turn. It calls the corresponding method
+     * on the BoardController
+     */
     private void enableButtons(){
         BoardController board= (BoardController) getControllerFromName("board.fxml");
         board.enableButtons();
     }
 
+    /**
+     * Method called when the user receives confirmation of a mandatory action. It calls the corresponding method on the
+     * BoardController
+     */
     private void disableMandatory(){
         BoardController board= (BoardController) getControllerFromName("board.fxml");
         board.disableMandatory();

@@ -548,10 +548,18 @@ public class BoardController extends GUIController{
         current.setText(gui.getModelView().getCurrentPlayer());
     }
 
+    /**
+     * This method is called when the user choose to play a singleplayer game (local/online). It disables the show button
+     * because this move is available only in multiplayer game
+     */
     public void disableShow(){
         this.show.setDisable(true);
     }
 
+    /**
+     * This method is called when the user receives confirmation of his ending turn action. It disables all the buttons
+     * except show
+     */
     public void disableButtons(){
         ArrayList<Button> buttons= new ArrayList<>(Arrays.asList(buy, produce, market, activate, discard, swap, endturn));
         for (Button button: buttons){
@@ -559,6 +567,9 @@ public class BoardController extends GUIController{
         }
     }
 
+    /**
+     * This method is called when it is the turn of the user. It enables all the buttons
+     */
     public void enableButtons(){
         ArrayList<Button> buttons= new ArrayList<>(Arrays.asList(buy, produce, market, activate, discard, swap, endturn));
         for (Button button: buttons){
@@ -566,6 +577,10 @@ public class BoardController extends GUIController{
         }
     }
 
+    /**
+     * Utility method called when a user correctly did a mandatory action. This method disables the button for mandatory
+     * actions because he cannot do another one in the same turn
+     */
     public void disableMandatory(){
         ArrayList<Button> buttons= new ArrayList<>(Arrays.asList(buy, produce, market));
         for (Button button: buttons){

@@ -70,6 +70,9 @@ public class Server{
                 break;
             }
         }
+
+        System.out.println("Server closed down");
+
         executor.shutdown();
     }
 

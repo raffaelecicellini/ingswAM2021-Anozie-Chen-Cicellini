@@ -461,44 +461,18 @@ public class BoardController extends GUIController{
         Image image;
         Map<String, String> leaders = gui.getModelView().getLeaders(gui.getModelView().getName());
         ImageView[] leaderImages = new ImageView[]{leader0, leader1};
+        Label[] leaderLabels = new Label[]{sp_leader0, sp_leader1};
         for (int i = 0; i < leaders.size() / 2; i++) {
             if (leaders.get("state" + i).equalsIgnoreCase("discarded")) image = null;
             else image = new Image("/PNG/cards/lc_" + leaders.get("leader" + i) + ".png");
 
-            // now setting the labels if there are two extraDepositLeaders
-            switch (i) {
-                case 0:
-                    if (Integer.parseInt(leaders.get("leader" + i)) >= 7 &&
-                            Integer.parseInt(leaders.get("leader" + i)) <= 10 &&
-                            leaders.get("state" + i).equalsIgnoreCase("active")) {
-                        if (Integer.parseInt(leaders.get("leader" + (i + 1))) >= 7 &&
-                                Integer.parseInt(leaders.get("leader" + (i + 1))) <= 10 &&
-                                leaders.get("state" + (i + 1)).equalsIgnoreCase("active")) {
-                            if (sp_leader1.getText().equalsIgnoreCase("SP1"))
-                                sp_leader0.setText("SP2");
-                        }
-                        else sp_leader0.setText("SP1");
-
-                        sp_leader0.setOpacity(1);
-                    }
-                    else sp_leader0.setOpacity(0);
-                    break;
-                case 1:
-                    if (Integer.parseInt(leaders.get("leader" + i)) >= 7 &&
-                            Integer.parseInt(leaders.get("leader" + i)) <= 10 &&
-                            leaders.get("state" + i).equalsIgnoreCase("active")) {
-                        if (Integer.parseInt(leaders.get("leader" + (i - 1))) >= 7 &&
-                                Integer.parseInt(leaders.get("leader" + (i - 1))) <= 10 &&
-                                leaders.get("state" + (i - 1)).equalsIgnoreCase("active")) {
-                            if (sp_leader0.getText().equalsIgnoreCase("SP1"))
-                                sp_leader1.setText("SP2");
-                        }
-                        else sp_leader1.setText("SP1");
-
-                        sp_leader1.setOpacity(1);
-                    }
-                    else sp_leader1.setOpacity(0);
-                    break;
+            //if leader is dep and activated, set the label.
+            if (Integer.parseInt(leaders.get("leader" + i)) >= 7 &&
+                    Integer.parseInt(leaders.get("leader" + i)) <= 10 &&
+                    leaders.get("state" + i).equalsIgnoreCase("active")) {
+                int index = gui.getModelView().getLeaderDepsOrder(i);
+                leaderLabels[i].setText("SP"+(index+1));
+                leaderLabels[i].setOpacity(1);
             }
 
             leaderImages[i].setImage(image);

@@ -3,13 +3,9 @@ package it.polimi.ingsw.client.gui.Controllers;
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
 import it.polimi.ingsw.messages.*;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -18,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.*;
 
 public class ProduceController extends GUIController{
@@ -125,22 +120,13 @@ public class ProduceController extends GUIController{
 
         ImageView[] leaders = new ImageView[]{leader0, leader1};
         if (leaders[leader].getImage() == null) return;
-        /*switch (leader) {
-            case 0:
-                if (leader0.getImage() == null) return;
-                break;
-            case 1:
-                if (leader1.getImage() == null) return;
-                break;
-            default:
-                break;
-        }*/
 
-        info.put("prod" + (leader + 4), "yes");
+        int index = gui.getModelView().getLeaderProdOrder(leader);
+        info.put("prod" + (index + 4), "yes");
         String input = Cards.getProductionById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader" + leader)));
-        info.put("pos" + (leader + 4) + "1", choosePos(input));
+        info.put("pos" + (index + 4) + "1", choosePos(input));
 
-        info.put("out" + (leader + 4), chooseColor("out"));
+        info.put("out" + (index + 4), chooseColor("out"));
     }
 
     /**

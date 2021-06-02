@@ -524,11 +524,12 @@ public class CLI implements Runnable, SourceListener {
                     System.out.print(">");
                     answer = input.nextLine();
                 }
-
+                int index = modelView.getLeaderProdOrder(leadercardpos);
                 if (answer.equalsIgnoreCase("yes")) {
                     yes_count++;
                     // prod4, yes
-                    map.put("prod" + (num_slot+1), answer.toLowerCase());
+
+                    map.put("prod" + (index + 4), answer.toLowerCase());
 
                     System.out.println(">From where would you like to take the " + color + " resource from? [small, mid, big, sp1, sp2, strongbox] ");
                     System.out.print(">");
@@ -539,7 +540,7 @@ public class CLI implements Runnable, SourceListener {
                         answer = input.nextLine();
                     }
                     // "pos41" o "pos51"
-                    map.put("pos" + (num_slot+1) + "1", answer.toLowerCase());
+                    map.put("pos" + (index + 4) + "1", answer.toLowerCase());
 
                     System.out.println(">Which resource would you like to produce? ");
                     System.out.print(">");
@@ -550,10 +551,10 @@ public class CLI implements Runnable, SourceListener {
                         answer = input.nextLine();
                     }
                     // "out4"
-                    map.put("out" + (num_slot+1), answer.toUpperCase());
+                    map.put("out" + (index + 4), answer.toUpperCase());
                 } else
                 if (answer.equalsIgnoreCase("no")){
-                    map.put("prod" + (num_slot+1), answer.toLowerCase());
+                    map.put("prod" + (index + 4), answer.toLowerCase());
                 }
 
 

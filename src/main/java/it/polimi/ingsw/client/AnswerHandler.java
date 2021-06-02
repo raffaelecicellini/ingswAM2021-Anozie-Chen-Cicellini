@@ -275,7 +275,13 @@ public class AnswerHandler implements SourceListener {
                 // If the activated leader is a "resource" leader, it notifies the player by adding him the new deposit
                 if (message.isDep()) {
                     modelView.setDeposits(message.getDeposits(), message.getPlayer());
+                    modelView.addLeaderDepOrder(message.getIndex());
                 }
+
+                //if the activated leader is a production leader
+                int id = Integer.parseInt(modelView.getLeaders(modelView.getName()).get("leader"+message.getIndex()));
+                if (id >= 15 && id <= 18)
+                    modelView.addLeaderProdOrder(message.getIndex());
 
                 leaders = modelView.getLeaders(message.getPlayer());
                 leaders.put("state" + message.getIndex(), "active");

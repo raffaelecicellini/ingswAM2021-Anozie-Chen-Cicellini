@@ -67,6 +67,16 @@ public class ModelView {
     private int countLeader;
 
     /**
+     * This list is used for storing in chronological order of activation the deposit leaders.
+     */
+    private List<Integer> leaderDepsOrder = new ArrayList<>();
+
+    /**
+     * This list is used for storing in chronological order of activation the production leaders.
+     */
+    private List<Integer> leaderProdOrder = new ArrayList<>();
+
+    /**
      * Constructor of the class. It instantiates the faithtrack and the tiles
      */
     public ModelView(){
@@ -441,6 +451,40 @@ public class ModelView {
      */
     public void setCountLeader(int num) {
         countLeader = num;
+    }
+
+    /**
+     * This method adds a leader to the list of deposit leaders.
+     * @param index is the index of the leader
+     */
+    public void addLeaderDepOrder(int index) {
+        leaderDepsOrder.add(index);
+    }
+
+    /**
+     * This method adds a leader to the list of production leaders.
+     * @param index is the index of the leader
+     */
+    public void addLeaderProdOrder(int index) {
+        leaderProdOrder.add(index);
+    }
+
+    /**
+     * This method returns the position of a leader in the list.
+     * @param leader is the index of the leader
+     * @return
+     */
+    public int getLeaderDepsOrder(int leader) {
+        return leaderDepsOrder.indexOf(leader);
+    }
+
+    /**
+     * This method returns the position of a leader in the list.
+     * @param leader is the index of the leader
+     * @return
+     */
+    public int getLeaderProdOrder(int leader) {
+        return leaderProdOrder.indexOf(leader);
     }
 
 }

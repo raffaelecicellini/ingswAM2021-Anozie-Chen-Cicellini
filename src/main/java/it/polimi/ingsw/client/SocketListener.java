@@ -152,6 +152,7 @@ public class SocketListener implements Runnable{
                 break;
             default:
                 message= new ErrorAnswer(map);
+                break;
         }
         listener.fireUpdates(message.getAction(), message);
         if (action.equalsIgnoreCase("end") || action.equalsIgnoreCase("endgame"))

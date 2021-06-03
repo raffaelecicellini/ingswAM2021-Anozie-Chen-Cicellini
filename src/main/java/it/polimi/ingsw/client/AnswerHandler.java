@@ -400,6 +400,7 @@ public class AnswerHandler implements SourceListener {
                 break;
             default:
                 viewListener.fireUpdates("default", null);
+                break;
         }
     }
 }

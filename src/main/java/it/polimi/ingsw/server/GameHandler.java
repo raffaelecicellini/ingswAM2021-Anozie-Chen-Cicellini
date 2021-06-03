@@ -399,6 +399,7 @@ public class GameHandler implements SourceListener {
             default:
                 System.out.println("Urecognized command!");
                 System.out.println(message.getAction());
+                break;
         }
     }
 }

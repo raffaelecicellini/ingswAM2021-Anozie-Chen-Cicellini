@@ -562,6 +562,7 @@ public class Controller implements SourceListener {
                 map.put("content", "Illegal action! Try typing again!");
                 Message error = new ErrorAnswer(map);
                 gameHandlerListener.fireUpdates(map.get("action"), error);
+                break;
         }
     }
 }

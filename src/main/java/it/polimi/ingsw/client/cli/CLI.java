@@ -1252,17 +1252,18 @@ public class CLI implements Runnable, SourceListener {
             System.out.println(" State: " + modelView.getLeaders(name).get("state1").toUpperCase());
             System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader1"))));
         } else {
-            if (modelView.getLeaders(name).get("state0").equalsIgnoreCase("active") || modelView.getLeaders(name).get("state0").equalsIgnoreCase("discarded")) {
-                System.out.println("Leader 0");
-                System.out.println(" State: " + modelView.getLeaders(name).get("state0").toUpperCase());
-                System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader0"))));
-            }
-
-            if(modelView.getLeaders(name).get("state1").equalsIgnoreCase("active") || modelView.getLeaders(name).get("state1").equalsIgnoreCase("discarded")) {
-                System.out.println("Leader 1");
-                System.out.println(" State: " + modelView.getLeaders(name).get("state1").toUpperCase());
-                System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader1"))));
-            }
+            if (modelView.getLeaders(name).containsKey("state0"))
+                if (modelView.getLeaders(name).get("state0").equalsIgnoreCase("active") || modelView.getLeaders(name).get("state0").equalsIgnoreCase("discarded")) {
+                    System.out.println("Leader 0");
+                    System.out.println(" State: " + modelView.getLeaders(name).get("state0").toUpperCase());
+                    System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader0"))));
+                }
+            if (modelView.getLeaders(name).containsKey("state1"))
+                if (modelView.getLeaders(name).get("state1").equalsIgnoreCase("active") || modelView.getLeaders(name).get("state1").equalsIgnoreCase("discarded")) {
+                    System.out.println("Leader 1");
+                    System.out.println(" State: " + modelView.getLeaders(name).get("state1").toUpperCase());
+                    System.out.println(" " + Cards.getLeaderById(Integer.parseInt(modelView.getLeaders(name).get("leader1"))));
+                }
         }
     }
 

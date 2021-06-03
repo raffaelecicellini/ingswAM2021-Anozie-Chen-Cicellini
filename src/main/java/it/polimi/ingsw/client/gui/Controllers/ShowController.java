@@ -38,9 +38,10 @@ public class ShowController extends GUIController{
             Map<String, String> leaders = gui.getModelView().getLeaders(name);
             ImageView[] leader = new ImageView[] {leader0, leader1};
             for (int i = 0; i < leaders.size() / 2; i++) {
-                if (leaders.get("state" + i).equalsIgnoreCase("active"))
-                    leader[i].setImage(new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png"));
-                else leader[i].setImage(null);
+                if (leaders.containsKey("state" + i))
+                    if (leaders.get("state" + i).equalsIgnoreCase("active"))
+                        leader[i].setImage(new Image("/PNG/cards/lc_" + leaders.get("leader" + i)+".png"));
+                    else leader[i].setImage(null);
             }
 
             // DEPOSITS

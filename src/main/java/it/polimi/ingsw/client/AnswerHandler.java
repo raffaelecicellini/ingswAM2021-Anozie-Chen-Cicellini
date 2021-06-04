@@ -31,6 +31,10 @@ public class AnswerHandler implements SourceListener {
         this.viewListener.addListener(view);
     }
 
+    /**
+     * Utility method used to set the initial state of the ModelView for the client
+     * @param message the message arrived from the model
+     */
     private void started(Message message){
         int[][] developDecks = new int[4][3];
         for (int col = 0; col < 4; col++) {
@@ -61,6 +65,10 @@ public class AnswerHandler implements SourceListener {
         modelView.setPhase(GamePhase.LEADER);
     }
 
+    /**
+     * Utility method used to set the leaders from which the player can choose
+     * @param message the message arrived from the model
+     */
     private void chooseLeaders(Message message){
         modelView.setPhase(GamePhase.LEADER);
 
@@ -74,6 +82,10 @@ public class AnswerHandler implements SourceListener {
         modelView.setLeaders(leaders, message.getPlayer());
     }
 
+    /**
+     * Utility method used to set the selected leaders in the ModelView
+     * @param message the message arrived from the model
+     */
     private void okLeaders(Message message){
         modelView.setPhase(GamePhase.RESOURCE);
 
@@ -86,6 +98,10 @@ public class AnswerHandler implements SourceListener {
         modelView.setLeaders(leaders, message.getPlayer());
     }
 
+    /**
+     * Utility method used to set the initial resources/position for the player
+     * @param message the message arrived from the model
+     */
     private void chooseResources(Message message){
         modelView.setPhase(GamePhase.RESOURCE);
 
@@ -101,12 +117,20 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used to update the deposits after a chooseResources
+     * @param message the message arrived from the model
+     */
     private void okResources(Message message){
         modelView.setPhase(GamePhase.FULLGAME);
 
         modelView.setDeposits(message.getDeposits(), message.getPlayer());
     }
 
+    /**
+     * Utility method used to update the ModelView when it is the turn of the player
+     * @param message the message arrived from the model
+     */
     private void yourTurn(Message message){
         if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
             modelView.setPhase(GamePhase.FULLGAME);
@@ -115,6 +139,11 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used when a BuyAnswer arrives from the model. It updates the decks in ModelView and the
+     * deposits/strongbox of the player who bought the card (PlayerView)
+     * @param message the message arrived from the model
+     */
     private void buy(Message message){
         modelView.setPhase(GamePhase.FULLGAME);
 
@@ -143,6 +172,11 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used when a ProductionAnswer arrives from the model. It updates the deposits and strongbox of the player
+     * who did the move (PlayerView)
+     * @param message the message arrived from the model
+     */
     private void produce(Message message){
         modelView.setPhase(GamePhase.FULLGAME);
 
@@ -160,6 +194,11 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used when a MarketAnswer arrives from the model. It updates the market in ModelView and the deposits
+     * of the player who did the move (PlayerView)
+     * @param message the message arrived from the model
+     */
     private void market(Message message){
         modelView.setPhase(GamePhase.FULLGAME);
 
@@ -202,6 +241,11 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used when a SwapAnswer arrives from the model. It updates the deposits of the player who did
+     * the move (PlayerView)
+     * @param message the message arrived from the model
+     */
     private void swap(Message message){
         modelView.setPhase(GamePhase.FULLGAME);
 
@@ -213,6 +257,11 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used when a LeaderActionAnswer arrives from the model. It updates the leaders of the player who
+     * did the move (PlayerView)
+     * @param message the message arrived from the model
+     */
     private void activate(Message message){
         modelView.setPhase(GamePhase.FULLGAME);
 
@@ -240,6 +289,11 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used when a LeaderActionAnswer arrives from the model. It updates the leaders of the player who
+     * did the move (PlayerView)
+     * @param message the message arrived from the model
+     */
     private void discard(Message message){
         modelView.setPhase(GamePhase.FULLGAME);
 
@@ -257,6 +311,11 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used when a player end the turn. It updates the position and FavorTiles of all the players in the
+     * current game. If it is a SoloGame, it sets the activated token in ModelView
+     * @param message the message arrived from the model
+     */
     private void endTurn(Message message){
         modelView.setPhase(GamePhase.FULLGAME);
 
@@ -305,10 +364,18 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * Utility method used when the game finishes. It notifies the player if he won or not
+     * @param message the message arrived from the model
+     */
     private void endGame(Message message){
         modelView.setPhase(GamePhase.ENDED);
     }
 
+    /**
+     * Utility method used when the player who did the move receives an error for a bad move
+     * @param message the message arrived from the model
+     */
     private void error(Message message){
         if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
             if (modelView.getCurrentPlayer().equalsIgnoreCase(modelView.getName())) {
@@ -317,6 +384,9 @@ public class AnswerHandler implements SourceListener {
         }
     }
 
+    /**
+     * @see SourceListener
+     */
     @Override
     public void update(String propertyName, Message message) {
 

@@ -615,7 +615,7 @@ public class GUI extends Application implements SourceListener {
                     });
                 } else {
                     Platform.runLater(() -> {
-                        String content="You lost! You made " + message.getPoints() + " points!";
+                        String content="You lost! You made " + message.getPoints() + " points! ";
                         if (!modelView.isSoloGame()) {
                             content=content+ message.getWinner() + " won with " + message.getWinnerPoints() + " points!";
                         }

@@ -38,6 +38,6 @@ public class App {
             System.out.println("Starting GUI...");
             GUI.main(null);
         }
-        System.out.println(args[0]);
+        //System.out.println(args[0]);
     }
 }

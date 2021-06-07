@@ -379,10 +379,8 @@ public class AnswerHandler implements SourceListener {
 
     /**
      * Utility method used when the game finishes. It notifies the player if he won or not
-     *
-     * @param message the message arrived from the model
      */
-    private void endGame(Message message) {
+    private void endGame() {
         modelView.setPhase(GamePhase.ENDED);
     }
 
@@ -519,7 +517,7 @@ public class AnswerHandler implements SourceListener {
 
             case "ENDGAME":
 
-                endGame(message);
+                endGame();
 
                 viewListener.fireUpdates(message.getAction(), message);
 

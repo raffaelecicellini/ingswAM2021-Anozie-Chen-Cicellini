@@ -90,20 +90,6 @@ public class ProduceController extends GUIController {
 
         if (devs[slot].getImage() == null) return;
 
-        /*switch (slot) {
-            case 0:
-                if (dev0.getImage() == null) return;
-                break;
-            case 1:
-                if (dev1.getImage() == null) return;
-                break;
-            case 2:
-                if (dev2.getImage() == null) return;
-                break;
-            default:
-                return;
-        }*/
-
         info.put("prod" + (slot + 1), "yes");
         List<String> input = Cards.getInputById(gui.getModelView().getTopId(gui.getModelView().getSlots(gui.getModelView().getName()).get(slot)));
         int i = 1;
@@ -310,18 +296,6 @@ public class ProduceController extends GUIController {
             else image = null;
 
             devs[i].setImage(image);
-
-            /*switch (i) {
-                case 0:
-                    dev0.setImage(image);
-                    break;
-                case 1:
-                    dev1.setImage(image);
-                    break;
-                case 2:
-                    dev2.setImage(image);
-                    break;
-            }*/
         }
 
         Map<String, String> leaders = gui.getModelView().getLeaders(gui.getModelView().getName());

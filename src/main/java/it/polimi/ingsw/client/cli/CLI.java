@@ -95,7 +95,6 @@ public class CLI implements Runnable, SourceListener {
             if (!connectionSocket.setup(message, answerHandler)) {
                 CLI.main(null);
             }
-            //System.out.println("Connection established!");
             listener.addListener(new ActionParser(connectionSocket));
         }
     }
@@ -160,7 +159,7 @@ public class CLI implements Runnable, SourceListener {
     public void run() {
         setup();
         while (isActiveGame()) {
-            if (/*modelView.isActiveTurn() && */modelView.getPhase() == GamePhase.FULLGAME) {
+            if (modelView.getPhase() == GamePhase.FULLGAME) {
                 String command = input.nextLine();
                 parseCommand(command);
             }
@@ -338,10 +337,7 @@ public class CLI implements Runnable, SourceListener {
             }
         }
 
-        ArrayList<String> possibleInput1 = new ArrayList<>();
-        possibleInput1.add("yes");
-        possibleInput1.add("no");
-        System.out.println("This is your move. Do you want to confirm it? [yes/no]");
+        System.out.println(">This is your move. Do you want to confirm it? [yes/no]");
         int j = 1;
         for (String x : cost) {
             if (x != null) {
@@ -350,19 +346,14 @@ public class CLI implements Runnable, SourceListener {
             }
         }
 
-        String confirmation;
         System.out.print(">");
-        confirmation = input.nextLine();
-        while (!possibleInput1.contains(confirmation.toLowerCase())) {
-            System.out.println("Select yes or no");
-            System.out.print(">");
-            confirmation = input.nextLine();
-        }
 
-        if (confirmation.equalsIgnoreCase("no")) {
+        if (!askConfirm()){
+            System.out.println(">Ok, you can do another action");
             printActions();
             return;
         }
+
         modelView.setActiveTurn(false);
         Message message = new BuyMessage(action);
         listener.fireUpdates("buy", message);
@@ -602,27 +593,20 @@ public class CLI implements Runnable, SourceListener {
 
             devCard++;
         }
-        //}
 
         System.out.print(">");
 
-        answer = input.nextLine();
-        while (!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no")) {
-            System.out.println(">I can't understand! Only type yes or no! ");
-            System.out.print(">");
-            answer = input.nextLine();
+        if (!askConfirm()){
+            System.out.println(">Ok, you can do another action");
+            printActions();
+            return;
         }
 
-        if (answer.equalsIgnoreCase("yes")) {
-            map.put("action", "produce");
-            map.put("player", modelView.getName());
-            modelView.setActiveTurn(false);
-            Message message = new ProductionMessage(map);
-            listener.fireUpdates(map.get("action"), message);
-        } else if (answer.equalsIgnoreCase("no")) {
-            System.out.println("Alright, you can type the action again!");
-            printActions();
-        }
+        map.put("action", "produce");
+        map.put("player", modelView.getName());
+        modelView.setActiveTurn(false);
+        Message message = new ProductionMessage(map);
+        listener.fireUpdates(message.getAction(), message);
     }
 
     /**
@@ -782,7 +766,7 @@ public class CLI implements Runnable, SourceListener {
                 if (confirmed.equalsIgnoreCase("yes")) {
                     modelView.setActiveTurn(false);
                     Message message = new MarketMessage(map);
-                    listener.fireUpdates(map.get("action"), message);
+                    listener.fireUpdates(message.getAction(), message);
                 } else printActions();
             }
         }
@@ -836,26 +820,15 @@ public class CLI implements Runnable, SourceListener {
         action.put("dest", dest.toLowerCase());
         action.put("action", "swap");
 
-        ArrayList<String> possibleInput1 = new ArrayList<>();
-        possibleInput1.add("yes");
-        possibleInput1.add("no");
-        String confirmation;
-
         System.out.println("This is your move. Do you want to confirm it? [yes/no]");
         System.out.println("Action: swap");
         System.out.println("First deposit: " + source);
         System.out.println("Second deposit: " + dest);
 
-
         System.out.print(">");
-        confirmation = input.nextLine();
-        while (!possibleInput1.contains(confirmation.toLowerCase())) {
-            System.out.println("Select yes or no");
-            System.out.print(">");
-            confirmation = input.nextLine();
-        }
 
-        if (confirmation.equalsIgnoreCase("no")) {
+        if (!askConfirm()){
+            System.out.println(">Ok, you can do another action");
             printActions();
             return;
         }
@@ -899,7 +872,7 @@ public class CLI implements Runnable, SourceListener {
         if (input.nextLine().equalsIgnoreCase("yes")) {
             modelView.setActiveTurn(false);
             Message message = new LeaderActionMessage(map);
-            listener.fireUpdates(map.get("action"), message);
+            listener.fireUpdates(message.getAction(), message);
             return;
         }
         printActions();
@@ -940,7 +913,7 @@ public class CLI implements Runnable, SourceListener {
         if (input.nextLine().equalsIgnoreCase("yes")) {
             modelView.setActiveTurn(false);
             Message message = new LeaderActionMessage(map);
-            listener.fireUpdates(map.get("action"), message);
+            listener.fireUpdates(message.getAction(), message);
             return;
         }
         printActions();
@@ -971,7 +944,7 @@ public class CLI implements Runnable, SourceListener {
                 modelView.setActiveTurn(false);
 
                 Message message = new EndTurnMessage(map);
-                listener.fireUpdates(map.get("action"), message);
+                listener.fireUpdates(message.getAction(), message);
             } else if (answer.equalsIgnoreCase("no")) {
                 System.out.println("Alright, you can type the action again!");
                 printActions();
@@ -988,21 +961,11 @@ public class CLI implements Runnable, SourceListener {
      */
     private void quit() {
         //chiede conferma
-        ArrayList<String> possibleInput1 = new ArrayList<>();
-        possibleInput1.add("yes");
-        possibleInput1.add("no");
-        String confirmation;
-
         System.out.println("Are you sure you want to quit? [yes/no]");
         System.out.print(">");
-        confirmation = input.nextLine();
-        while (!possibleInput1.contains(confirmation.toLowerCase())) {
-            System.out.println("Select yes or no");
-            System.out.print(">");
-            confirmation = input.nextLine();
-        }
 
-        if (confirmation.equalsIgnoreCase("no")) {
+        if (!askConfirm()){
+            System.out.println(">Ok, you can do another action");
             printActions();
             return;
         }
@@ -1018,6 +981,18 @@ public class CLI implements Runnable, SourceListener {
         System.exit(0);
     }
 
+    private boolean askConfirm(){
+        ArrayList<String> possibleInput= new ArrayList<>(Arrays.asList("yes", "no"));
+
+        String confirmation= input.nextLine();
+        while (!possibleInput.contains(confirmation.toLowerCase())) {
+            System.out.println("Select yes or no");
+            System.out.print(">");
+            confirmation = input.nextLine();
+        }
+
+        return confirmation.equalsIgnoreCase("yes");
+    }
     /**
      * Method used to clear the screen.
      */

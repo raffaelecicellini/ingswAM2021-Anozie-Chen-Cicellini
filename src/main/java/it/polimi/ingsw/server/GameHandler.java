@@ -218,52 +218,6 @@ public class GameHandler implements SourceListener {
     }
 
     /**
-     * Utility method used to create a different message for the other players when a player has bought a card
-     *
-     * @param original the original message that will be sent only to the player that did the action
-     * @return a message that is to be sent to all the other players
-     */
-    private Map<String, String> createBuyMessage(Map<String, String> original) {
-        Map<String, String> copy = new HashMap<>();
-        copy.put("action", original.get("action"));
-        copy.put("player", original.get("player"));
-        copy.put("row", original.get("row"));
-        copy.put("col", original.get("col"));
-        copy.put("idNew", original.get("idNew"));
-        return copy;
-    }
-
-    /**
-     * Utility method used to create a different message for the other players when a player has taken resources from the market
-     *
-     * @param original the original message that will be sent only to the player that did the action
-     * @return a message that is to be sent to all the other players
-     */
-    private Map<String, String> createMarketMessage(Map<String, String> original) {
-        Map<String, String> copy = new HashMap<>();
-        copy.put("action", original.get("action"));
-        copy.put("player", original.get("player"));
-        if (original.containsKey("row")) {
-            copy.put("row", original.get("row"));
-            String res;
-            for (int i = 0; i < 4; i++) {
-                res = "res" + i;
-                copy.put(res, original.get(res));
-            }
-        } else if (original.containsKey("col")) {
-            copy.put("col", original.get("col"));
-            String res;
-            for (int i = 0; i < 3; i++) {
-                res = "res" + i;
-                copy.put(res, original.get(res));
-            }
-        }
-        copy.put("out", original.get("out"));
-        copy.put("discarded", original.remove("discarded"));
-        return copy;
-    }
-
-    /**
      * Simple method to get the model of the current game
      *
      * @return the model (Game class) of the current game
@@ -317,9 +271,7 @@ public class GameHandler implements SourceListener {
                 System.out.println("I am sending a choose leaders message");
                 break;
             case "OKLEADERS":
-                addressee = message.getPlayer();
                 jsonMessage = gson.toJson(value);
-                //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
                 break;
             case "CHOOSERESOURCES":
@@ -327,68 +279,35 @@ public class GameHandler implements SourceListener {
                 sendAll(jsonMessage);
                 break;
             case "OKRESOURCES":
-                //addressee=value.get("player");
                 jsonMessage = gson.toJson(value);
-                //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
                 break;
             case "BUY":
-                //different sendall
                 jsonMessage = gson.toJson(value);
-                //addressee=value.get("player");
-                //sendSingle(jsonMessage, addressee)
-                //if (playersNumber>1){
-                //    Map<String, String> buyToOthers=createBuyMessage(value);
-                //    String jsonBuyOthers=gson.toJson(buyToOthers);
-                //    sendAllExcept(jsonBuyOthers, addressee);
-                //}
                 sendAll(jsonMessage);
                 break;
             case "PRODUCE":
-                //singlesend
-                //addressee=value.get("player");
                 jsonMessage = gson.toJson(value);
-                //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
                 break;
             case "MARKET":
-                //different sendall
                 jsonMessage = gson.toJson(value);
-                //addressee=value.get("player");
-                //sendSingle(jsonMessage, addressee);
-                //if (playersNumber>1){
-                //    Map<String, String> buyToOthers=createMarketMessage(value);
-                //    String jsonMarketToOthers=gson.toJson(buyToOthers);
-                //    sendAllExcept(jsonMarketToOthers, addressee);
-                //}
                 sendAll(jsonMessage);
                 break;
             case "SWAP":
-                //singlesend
-                //addressee=value.get("player");
                 jsonMessage = gson.toJson(value);
-                //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
                 break;
             case "ACTIVATE":
-                //singlesend
-                //addressee=value.get("player");
                 jsonMessage = gson.toJson(value);
-                //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
                 break;
             case "DISCARD":
-                //singlesend
-                //addressee=value.get("player");
                 jsonMessage = gson.toJson(value);
-                //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
                 break;
             case "ENDTURN":
-                //singlesend (model fires different messages for each client/player)
-                //addressee=value.get("player");
                 jsonMessage = gson.toJson(value);
-                //sendSingle(jsonMessage, addressee);
                 sendAll(jsonMessage);
                 break;
             case "ENDGAME":

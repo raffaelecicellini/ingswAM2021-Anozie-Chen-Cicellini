@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.Tile;
 import it.polimi.ingsw.client.Cards;
 import it.polimi.ingsw.client.gui.GUI;
 import it.polimi.ingsw.messages.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -174,7 +173,6 @@ public class BoardController extends GUIController {
             gui.getModelView().setActiveTurn(false);
             Message message = new LeaderActionMessage(pack);
             gui.getListeners().fireUpdates(message.getAction(), message);
-            //gui.getListeners().fireUpdates(pack.get("action"), message);
         }
     }
 
@@ -223,7 +221,6 @@ public class BoardController extends GUIController {
             gui.getModelView().setActiveTurn(false);
             Message message = new LeaderActionMessage(pack);
             gui.getListeners().fireUpdates(message.getAction(), message);
-            //gui.getListeners().fireUpdates(pack.get("action"), message);
         }
     }
 

@@ -180,7 +180,6 @@ public class ClientHandler implements Runnable {
                 makeAction(message);
                 break;
             case "ping":
-                //System.out.println("Received a ping");
                 break;
             default:
                 Map<String, String> error = new HashMap<>();

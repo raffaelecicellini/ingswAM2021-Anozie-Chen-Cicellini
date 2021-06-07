@@ -391,6 +391,56 @@ public class GUI extends Application implements SourceListener {
     }
 
     /**
+     * Method called when a started message arrives from the model. It does the first update of the personalboard, market
+     * and decks
+     */
+    private void started(){
+        Platform.runLater(() -> {
+            WaitController controller = (WaitController) mapNameController.get("wait.fxml");
+            controller.setText("Game started!");
+            BoardController board = (BoardController) mapNameController.get("board.fxml");
+            board.updateTiles();
+            board.updateCurrentPlayer();
+            BuyController buy = (BuyController) mapNameController.get("buy.fxml");
+            buy.updateDecks();
+            MarketController market = (MarketController) mapNameController.get("market.fxml");
+            market.updateMarket();
+        });
+    }
+
+    /**
+     * Method called when a EndTurnAnswer arrives from the model. If the player ended the turn and it is a solo game,
+     * this method shows an alert containing the token activated. If the player ended the turn but it is a multiplayer
+     * game, the buttons on the board.fxml are disabled. Otherwise, this method shows an alert containing infos about the
+     * player that ended the turn and the current player
+     * @param message the Message arrived from the model
+     */
+    private void endTurn(Message message){
+        if (modelView.getName().equalsIgnoreCase(message.getEndedPlayer())) {
+            if (modelView.isSoloGame()) {
+                Platform.runLater(() -> {
+                    BuyController buy = (BuyController) getControllerFromName("buy.fxml");
+                    buy.updateDecks();
+                    BoardController board = (BoardController) getControllerFromName("board.fxml");
+                    board.updatePosition();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("EndTurn");
+                    alert.setContentText("The Token that has been activated is: ");
+                    String token = "/PNG/punchboard/cerchio" + message.getToken() + ".png";
+                    Image image = new Image(token);
+                    ImageView img = new ImageView(image);
+                    alert.setGraphic(img);
+                    alert.showAndWait();
+                });
+            } else {
+                Platform.runLater(this::disableButtons);
+            }
+        } else {
+            showAlert(message.getAction(), message.getEndedPlayer() + " has ended his turn! " + " It is " + message.getCurrentPlayer() + " turn now!");
+        }
+    }
+
+    /**
      * @see SourceListener
      */
     @Override
@@ -414,17 +464,8 @@ public class GUI extends Application implements SourceListener {
                 break;
 
             case "STARTED":
-                Platform.runLater(() -> {
-                    WaitController controller = (WaitController) mapNameController.get("wait.fxml");
-                    controller.setText("Game started!");
-                    BoardController board = (BoardController) mapNameController.get("board.fxml");
-                    board.updateTiles();
-                    board.updateCurrentPlayer();
-                    BuyController buy = (BuyController) mapNameController.get("buy.fxml");
-                    buy.updateDecks();
-                    MarketController market = (MarketController) mapNameController.get("market.fxml");
-                    market.updateMarket();
-                });
+
+                started();
                 break;
 
             case "CHOOSELEADERS":
@@ -546,28 +587,8 @@ public class GUI extends Application implements SourceListener {
             case "ENDTURN":
 
                 updateEndTurn();
-                if (modelView.getName().equalsIgnoreCase(message.getEndedPlayer())) {
-                    if (modelView.isSoloGame()) {
-                        Platform.runLater(() -> {
-                            BuyController buy = (BuyController) getControllerFromName("buy.fxml");
-                            buy.updateDecks();
-                            BoardController board = (BoardController) getControllerFromName("board.fxml");
-                            board.updatePosition();
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setHeaderText("EndTurn");
-                            alert.setContentText("The Token that has been activated is: ");
-                            String token = "/PNG/punchboard/cerchio" + message.getToken() + ".png";
-                            Image image = new Image(token);
-                            ImageView img = new ImageView(image);
-                            alert.setGraphic(img);
-                            alert.showAndWait();
-                        });
-                    } else {
-                        Platform.runLater(this::disableButtons);
-                    }
-                } else {
-                    showAlert(message.getAction(), message.getEndedPlayer() + " has ended his turn! " + " It is " + message.getCurrentPlayer() + " turn now!");
-                }
+
+                endTurn(message);
 
                 break;
 
@@ -583,9 +604,7 @@ public class GUI extends Application implements SourceListener {
                     showAlert("Loser", content);
                 }
 
-                Platform.runLater(() -> {
-                    System.exit(0);
-                });
+                Platform.runLater(() -> System.exit(0));
 
                 setActiveGame(false);
                 if (connectionSocket != null) connectionSocket.close();
@@ -606,9 +625,7 @@ public class GUI extends Application implements SourceListener {
 
             case "END":
                 showAlert("End", message.getContent());
-                Platform.runLater(() -> {
-                    System.exit(0);
-                });
+                Platform.runLater(() -> System.exit(0));
                 break;
 
             case "OTHERDISCONNECTED":

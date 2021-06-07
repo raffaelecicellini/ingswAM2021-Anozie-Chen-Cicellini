@@ -153,7 +153,6 @@ public class MarketController extends GUIController {
             gui.getModelView().setActiveTurn(false);
             Message message = new MarketMessage(info);
             gui.getListeners().fireUpdates(message.getAction(), message);
-            //gui.getListeners().fireUpdates(info.get("action"), message);
         }
         info.clear();
         stage.close();

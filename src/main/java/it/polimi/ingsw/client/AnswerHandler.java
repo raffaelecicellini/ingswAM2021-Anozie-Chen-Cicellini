@@ -128,7 +128,9 @@ public class AnswerHandler implements SourceListener {
      * @param message the message arrived from the model
      */
     private void okResources(Message message) {
-        modelView.setPhase(GamePhase.FULLGAME);
+        if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
+            modelView.setPhase(GamePhase.FULLGAME);
+        }
 
         modelView.setDeposits(message.getDeposits(), message.getPlayer());
     }

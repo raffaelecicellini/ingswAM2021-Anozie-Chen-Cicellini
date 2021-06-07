@@ -10,7 +10,8 @@ public class ResourceAmount {
 
     /**
      * Constructor ResourceAmount creates a new ResourceAmount instance.
-     * @param color is the type of resource.
+     *
+     * @param color  is the type of resource.
      * @param amount is the resource's quantity.
      */
     public ResourceAmount(Color color, int amount) {
@@ -20,6 +21,7 @@ public class ResourceAmount {
 
     /**
      * This method returns the color of the resource.
+     *
      * @return the color of the resource.
      */
     public Color getColor() {
@@ -28,6 +30,7 @@ public class ResourceAmount {
 
     /**
      * This method sets the color of the resource.
+     *
      * @param color is the new type of the resource.
      */
     public void setColor(Color color) {
@@ -36,6 +39,7 @@ public class ResourceAmount {
 
     /**
      * This method return the amount of resources.
+     *
      * @return the amount of resource.
      */
     public int getAmount() {
@@ -44,6 +48,7 @@ public class ResourceAmount {
 
     /**
      * This method sets the amount of resources.
+     *
      * @param amount is the new quantity.
      */
     public void setAmount(int amount) {
@@ -52,6 +57,7 @@ public class ResourceAmount {
 
     /**
      * This method converts the class to a String.
+     *
      * @return a String which represents the class.
      */
     @Override

@@ -18,6 +18,7 @@ public class Cell {
 
     /**
      * This method returns the amount of the Cell's Victory Points.
+     *
      * @return Cell's Victory Points
      */
     public int getVictoryPoints() {
@@ -26,6 +27,7 @@ public class Cell {
 
     /**
      * This method sets the Cell's amount of Victory Points
+     *
      * @param victoryPoints is the amount of Victory Points to give to the Cell
      */
     public void setVictoryPoints(int victoryPoints) {
@@ -34,6 +36,7 @@ public class Cell {
 
     /**
      * This method returns if the Cell is a Pope Space.
+     *
      * @return if the Cell is Pope Space.
      */
     public boolean isPopeSpace() {
@@ -42,6 +45,7 @@ public class Cell {
 
     /**
      * This method sets PopeSpace attribute of the Cell.
+     *
      * @param popeSpace sets the PopeSpace attribute for the class.
      */
     public void setPopeSpace(boolean popeSpace) {

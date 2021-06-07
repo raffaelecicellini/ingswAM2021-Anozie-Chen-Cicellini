@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import com.google.gson.Gson;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import java.util.Map;
  * This class represents a ServerPing. It is a thread instantiated by the client when it connects to the server.
  * It will be in charge of sending ping messages to the server.
  */
-public class ServerPing implements Runnable{
+public class ServerPing implements Runnable {
 
     /**
      * Is the ConnectionSocket.
@@ -17,6 +18,7 @@ public class ServerPing implements Runnable{
 
     /**
      * Constructor ServerPing creates a new ServerPing instance.
+     *
      * @param connectionSocket is the ConnectionSocket.
      */
     public ServerPing(ConnectionSocket connectionSocket) {
@@ -24,11 +26,11 @@ public class ServerPing implements Runnable{
     }
 
     /**
-     *This method sends a ping message to the server.
+     * This method sends a ping message to the server.
      */
     private void pingServer() {
-        Map<String,String> ping = new HashMap<>();
-        ping.put("action","ping");
+        Map<String, String> ping = new HashMap<>();
+        ping.put("action", "ping");
         connectionSocket.send(new Gson().toJson(ping));
     }
 
@@ -46,8 +48,8 @@ public class ServerPing implements Runnable{
                 System.err.println(e.getMessage());
                 System.exit(0);
             }
-        }while (connectionSocket.isActive());
-            Thread.currentThread().interrupt();
-        }
+        } while (connectionSocket.isActive());
+        Thread.currentThread().interrupt();
+    }
 
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class LeaderMessage extends Message{
+public class LeaderMessage extends Message {
 
     public LeaderMessage(Map<String, String> info) {
         super(info);
@@ -13,6 +13,6 @@ public class LeaderMessage extends Message{
 
     @Override
     public int getLeader(int ind) {
-        return info.containsKey("ind"+ind) ? Integer.parseInt(info.get("ind"+ind)) : 0;
+        return info.containsKey("ind" + ind) ? Integer.parseInt(info.get("ind" + ind)) : 0;
     }
 }

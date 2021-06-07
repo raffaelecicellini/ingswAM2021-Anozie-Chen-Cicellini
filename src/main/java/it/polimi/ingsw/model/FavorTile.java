@@ -13,12 +13,13 @@ public class FavorTile {
 
     /**
      * Constructor FavorTile creates a new FavorTile instance.
+     *
      * @param victoryPoints is the amount of Victory Points this FavorTile has.
-     * @param active is the state of the FavorTile.
-     * @param start is where the vatican report section starts, might be null.
-     * @param end is where the vatican report section ends, might be null.
+     * @param active        is the state of the FavorTile.
+     * @param start         is where the vatican report section starts, might be null.
+     * @param end           is where the vatican report section ends, might be null.
      */
-    public FavorTile(int victoryPoints,boolean active, int start, int end) {
+    public FavorTile(int victoryPoints, boolean active, int start, int end) {
         this.victoryPoints = victoryPoints;
         this.active = active;
         this.start = start;
@@ -27,6 +28,7 @@ public class FavorTile {
 
     /**
      * This method sets the FavorTile's victory points.
+     *
      * @param victoryPoints the new amount of victory points contained in the FavorTile.
      */
     public void setVictoryPoints(int victoryPoints) {
@@ -35,6 +37,7 @@ public class FavorTile {
 
     /**
      * This method returns the amount of victory points contained in the FavorTile.
+     *
      * @return amount of victory points contained in the FavorTile.
      */
     public int getVictoryPoints() {
@@ -43,6 +46,7 @@ public class FavorTile {
 
     /**
      * This method sets the state (active) of the FavorTile.
+     *
      * @param active is the new state of the FavorTIle.
      */
     public void setActive(boolean active) {
@@ -51,6 +55,7 @@ public class FavorTile {
 
     /**
      * This method sets the state (discarded) of the FavorTile.
+     *
      * @param discarded is the new state of the FavorTIle.
      */
     public void setDiscarded(boolean discarded) {
@@ -59,6 +64,7 @@ public class FavorTile {
 
     /**
      * This method returns the state of the FavorTile.
+     *
      * @return the state (active) of the FavorTile.
      */
     public boolean isActive() {
@@ -67,6 +73,7 @@ public class FavorTile {
 
     /**
      * This method sets the state of the FavorTile.
+     *
      * @return the state(discarded) of the FavorTile.
      */
     public boolean isDiscarded() {
@@ -75,6 +82,7 @@ public class FavorTile {
 
     /**
      * This method returns the end of the report section.
+     *
      * @return end of the report section.
      */
     public int getEnd() {
@@ -83,6 +91,7 @@ public class FavorTile {
 
     /**
      * This method returns the start of the report section.
+     *
      * @return the start of the report section.
      */
     public int getStart() {

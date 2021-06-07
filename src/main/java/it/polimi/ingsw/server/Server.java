@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 /**
  * This class represents the server used for the game.
  */
-public class Server{
+public class Server {
     /**
      * Server Port.
      */
@@ -41,10 +41,11 @@ public class Server{
 
     /**
      * This method sets the server port.
+     *
      * @param port is the new server port.
      */
-    public void setPort(int port){
-        this.port=port;
+    public void setPort(int port) {
+        this.port = port;
         connectedClients = new ArrayList<>();
         games = new ArrayList<>();
         waitingClients = new ArrayList<>();
@@ -53,20 +54,20 @@ public class Server{
     /**
      * This method starts the server.
      */
-    public void start(){
-        ExecutorService executor= Executors.newCachedThreadPool();
-        try{
+    public void start() {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        try {
             socket = new ServerSocket(port);
-        }catch (IOException e){
-            System.err.println("Failed to initialize server on port "+port+". Application will now close...");
+        } catch (IOException e) {
+            System.err.println("Failed to initialize server on port " + port + ". Application will now close...");
             System.exit(0);
         }
         System.out.println("Server socket ready on port: " + port);
         while (true) {
             try {
                 Socket client = socket.accept();
-                executor.submit(new ClientHandler(client,this));
-            } catch(IOException e) {
+                executor.submit(new ClientHandler(client, this));
+            } catch (IOException e) {
                 break;
             }
         }
@@ -75,6 +76,7 @@ public class Server{
 
     /**
      * This method is used when a client disconnects from the server.
+     *
      * @param client is the disconnected client.
      */
     public synchronized void manageDisconnection(ClientHandler client) {
@@ -96,6 +98,7 @@ public class Server{
 
     /**
      * This method removes a client from the server. It is mainly used when a game ends.
+     *
      * @param client is the client to remove.
      */
     public synchronized void removeClient(ClientHandler client) {
@@ -106,29 +109,29 @@ public class Server{
 
     /**
      * This method is used to add a waiting client to a game.
+     *
      * @param client is the client that will be added to a game.
      */
-    public synchronized void addToGame(ClientHandler client){
+    public synchronized void addToGame(ClientHandler client) {
         if (client.getPrefNumber() == 1) {
             GameHandler game = new GameHandler(1);
             client.setGame(game);
             game.setPlayer(client.getName(), client);
-            System.out.println("Starting singleplayer game for "+client.getName().toUpperCase());
+            System.out.println("Starting singleplayer game for " + client.getName().toUpperCase());
             client.getGame().start();
         } else {
             waitingClients.add(client);
-            if (waitingClients.size() == 1 && (games.isEmpty() || games.get(games.size()-1).isStarted())) {
+            if (waitingClients.size() == 1 && (games.isEmpty() || games.get(games.size() - 1).isStarted())) {
                 GameHandler game = new GameHandler(client.getPrefNumber());
                 client.setGame(game);
                 game.setPlayer(client.getName(), client);
                 games.add(game);
-                System.out.println("Created new multiplayer game for "+client.getName().toUpperCase()+", server.addToGame");
-            } else if (waitingClients.size() < games.get(games.size() - 1).getPlayersNumber()){
+                System.out.println("Created new multiplayer game for " + client.getName().toUpperCase() + ", server.addToGame");
+            } else if (waitingClients.size() < games.get(games.size() - 1).getPlayersNumber()) {
                 client.setGame(games.get(games.size() - 1));
                 waitingClients.get(0).getGame().setPlayer(client.getName(), client);
-                System.out.println("Added player "+client.getName().toUpperCase()+" to the current game, server.addToGame");
-            }
-            else if (waitingClients.size() == games.get(games.size() - 1).getPlayersNumber()) {
+                System.out.println("Added player " + client.getName().toUpperCase() + " to the current game, server.addToGame");
+            } else if (waitingClients.size() == games.get(games.size() - 1).getPlayersNumber()) {
                 client.setGame(games.get(games.size() - 1));
                 waitingClients.get(0).getGame().setPlayer(client.getName(), client);
                 System.out.println("Last player connected, starting..., server.addToGame");
@@ -140,12 +143,13 @@ public class Server{
 
     /**
      * This method is used to check if an username is already stored in the server.
+     *
      * @param name is the name that will be checked.
      * @return if the name is stored in the server.
      */
-    public synchronized boolean checkName(String name){
-        System.out.println("I am in server.checkName, searching for duplicates of "+name);
-        if (name !=null && !connectedClients.contains(name)) {
+    public synchronized boolean checkName(String name) {
+        System.out.println("I am in server.checkName, searching for duplicates of " + name);
+        if (name != null && !connectedClients.contains(name)) {
             this.connectedClients.add(name);
             return false;
         }
@@ -154,6 +158,7 @@ public class Server{
 
     /**
      * Main method. used if you want to start the application as a server.
+     *
      * @param args array of Strings passed as parameters when you run the application through command line.
      */
     public static void main(String[] args) {
@@ -172,13 +177,13 @@ public class Server{
             System.err.println("Error: ports accepted start from 1024! Please insert a new value.");
             main(null);
         }
-        Server server=new Server();
+        Server server = new Server();
         server.setPort(port);
         System.out.println("Starting server...");
         server.start();
     }
 
-    public synchronized List<String> getConnectedClients(){
+    public synchronized List<String> getConnectedClients() {
         return this.connectedClients;
     }
 }

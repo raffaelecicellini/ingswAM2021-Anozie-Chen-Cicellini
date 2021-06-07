@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SoloGame extends Game{
+public class SoloGame extends Game {
 
     /**
      * this attribute represents Lorenzo il Magnifico in a Single Player Game
@@ -34,14 +34,16 @@ public class SoloGame extends Game{
 
     /**
      * Simple method used to set the view as listener of the model
+     *
      * @param view the view object that implements PropertyChangeListener
      */
-    public void setListener(SourceListener view){
+    public void setListener(SourceListener view) {
         this.listener.addListener(view);
     }
 
     /**
      * This method is used when the player joins the game
+     *
      * @param name is the Player's name
      */
     @Override
@@ -52,6 +54,7 @@ public class SoloGame extends Game{
 
     /**
      * This method returns the active players in the current game.
+     *
      * @return the list of ActivePlayer
      */
     public ArrayList<Player> getActivePlayers() {
@@ -60,9 +63,10 @@ public class SoloGame extends Game{
 
     /**
      * Simple method that returns the current GamePhase.
+     *
      * @return the current GamePhase
      */
-    public GamePhase getPhase(){
+    public GamePhase getPhase() {
         return this.phase;
     }
 
@@ -131,14 +135,14 @@ public class SoloGame extends Game{
         }
 
         String curr;
-        int i=0;
-        for (Player x: activePlayers){
-            curr="player"+i;
+        int i = 0;
+        for (Player x : activePlayers) {
+            curr = "player" + i;
             state.put(curr, x.getName());
             i++;
         }
 
-        Message message= new StartedAnswer(state);
+        Message message = new StartedAnswer(state);
         //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
@@ -146,7 +150,7 @@ public class SoloGame extends Game{
     /**
      * This method is called when the player chooses his leaders.
      *
-     * @param player is ignored
+     * @param player  is ignored
      * @param message is the message that contains all the info about the action.
      * @throws InvalidActionException when one or both indexes are missing
      */
@@ -175,7 +179,7 @@ public class SoloGame extends Game{
         state.put("action", "yourTurn");
         state.put("content", content);
         state.put("player", currentPlayer.getName());
-        Message message= new YourTurnAnswer(state);
+        Message message = new YourTurnAnswer(state);
 
         //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
@@ -184,6 +188,7 @@ public class SoloGame extends Game{
     /**
      * Utility method used to notify the view that the currentPlayer needs to choose his leaders or to notify him of the
      * correct selection of the leaders
+     *
      * @param action the action that is to be sent to the player (choose leader: the player needs to choose his leaders,
      *               the id of the leaders between the player needs to choose are sent; ok leaders: the selection of the
      *               leaders is correct and the id of the selected leaders are sent)
@@ -204,24 +209,24 @@ public class SoloGame extends Game{
         }
 
         Message message;
-        if (action.equalsIgnoreCase("chooseleaders")){
-            message= new ChooseLeadersAnswer(state);
-        }
-        else message= new OkLeadersAnswer(state);
+        if (action.equalsIgnoreCase("chooseleaders")) {
+            message = new ChooseLeadersAnswer(state);
+        } else message = new OkLeadersAnswer(state);
         //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
     /**
      * This method is used for a buy move during the turn.
-     * @param player is ignored.
+     *
+     * @param player  is ignored.
      * @param message is the message that contains all the info about the action.
      * @throws InvalidActionException if the move is not valid.
-     * @throws NumberFormatException if the format is not valid.
+     * @throws NumberFormatException  if the format is not valid.
      */
     @Override
     public void buy(String player, Message message) throws InvalidActionException, NumberFormatException {
-    //public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
+        //public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory operation in this turn.");
         /*if (map.get("row") == null || map.get("column") == null)
@@ -248,10 +253,11 @@ public class SoloGame extends Game{
      * Utility method used to notify the view that the buy action went fine. It sends to the client the new situation of
      * deposits and strongbox, the id of the new top card for the deck from where he bought the card, and the id of the bought
      * card
-     * @param slot the index of the slot where the player put the bought card
+     *
+     * @param slot   the index of the slot where the player put the bought card
      * @param bought the id of the bought card
-     * @param col the col of the deck where the player bought the card
-     * @param row the row of the deck where the player bought the card
+     * @param col    the col of the deck where the player bought the card
+     * @param row    the row of the deck where the player bought the card
      */
     private void notifyBuy(int slot, int bought, int col, int row) {
         Map<String, String> state = new HashMap<>();
@@ -298,20 +304,21 @@ public class SoloGame extends Game{
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        Message message= new BuyAnswer(state);
+        Message message = new BuyAnswer(state);
         //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
     /**
      * This method is called by the controller when the player decided to activate productions. It calls the player's produce method.
-     * @param player is ignored
+     *
+     * @param player  is ignored
      * @param message is the message that contains all the info about the action.
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
     public void produce(String player, Message message) throws InvalidActionException {
-    //public void produce(String player, Map<String, String> info) throws InvalidActionException {
+        //public void produce(String player, Map<String, String> info) throws InvalidActionException {
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory operation in this turn.");
 
@@ -363,14 +370,15 @@ public class SoloGame extends Game{
             state.put(boxqty, String.valueOf(box[i].getAmount()));
         }
 
-        Message message= new ProduceAnswer(state);
+        Message message = new ProduceAnswer(state);
         //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
     /**
      * This method is used for taking resources from the Market
-     * @param player is ignored
+     *
+     * @param player  is ignored
      * @param message is the message that contains all the info about the action.
      * @throws InvalidActionException if the move is not valid.
      */
@@ -402,8 +410,9 @@ public class SoloGame extends Game{
      * Utility method used to notify the view that a fromMarket action went fine. It sends to the client the new situation
      * of the deposits and strongbox, the new situation of the market and the new positions of the client faithmarker and
      * of the blackCross
+     *
      * @param chosen row or col of the market chosen by the player
-     * @param value the index of the row or col
+     * @param value  the index of the row or col
      */
     private void notifyMarket(String chosen, int value) {
         Map<String, String> state = new HashMap<>();
@@ -455,14 +464,15 @@ public class SoloGame extends Game{
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        Message message= new MarketAnswer(state);
+        Message message = new MarketAnswer(state);
         //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
     /**
      * This method is used for a swapDeposit move during the turn.
-     * @param player is ignored
+     *
+     * @param player  is ignored
      * @param message is the message that contains all the info about the action.
      * @throws InvalidActionException if the move is not valid.
      */
@@ -503,39 +513,40 @@ public class SoloGame extends Game{
             state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
         }
 
-        Message message= new SwapAnswer(state);
+        Message message = new SwapAnswer(state);
         //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
     /**
      * This method is called by the controller when the player decided to activate a leader. It calls the player's activateLeader method.
+     *
      * @param player is ignored
-     * @param pos it represents the leader that the player wants to activate
+     * @param pos    it represents the leader that the player wants to activate
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void activateLeader(String player, int pos) throws InvalidActionException{
-        if (doneLeader<2) {
+    public void activateLeader(String player, int pos) throws InvalidActionException {
+        if (doneLeader < 2) {
             currentPlayer.activateLeader(pos);
             doneLeader++;
-        } else if (doneLeader==2) throw new InvalidActionException("You can't activate another leader");
+        } else if (doneLeader == 2) throw new InvalidActionException("You can't activate another leader");
         notifyLeaderAction("activate", pos);
     }
 
     /**
-     *  This method is called by the controller when the player decided to discard a leader. It calls the player's discardLeader method.
+     * This method is called by the controller when the player decided to discard a leader. It calls the player's discardLeader method.
+     *
      * @param player is ignored
-     * @param pos it represents the leader that the player wants to discard
+     * @param pos    it represents the leader that the player wants to discard
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void discardLeader(String player, int pos) throws InvalidActionException{
-        if (doneLeader<2) {
+    public void discardLeader(String player, int pos) throws InvalidActionException {
+        if (doneLeader < 2) {
             currentPlayer.discardLeader(pos);
             doneLeader++;
-        }
-        else if (doneLeader==2) throw new InvalidActionException("You can't discard another leader");
+        } else if (doneLeader == 2) throw new InvalidActionException("You can't discard another leader");
         notifyLeaderAction("discard", pos);
     }
 
@@ -543,12 +554,13 @@ public class SoloGame extends Game{
      * Utility method used to notify the view of a corrected execution of a leader action (activate/discard). it sends to
      * the view the index of the activated/discarded leader, the action performed and the new position of the player (if
      * the leader has been discarded)
+     *
      * @param action the action performed
-     * @param pos the new position of the player
+     * @param pos    the new position of the player
      */
-    private void notifyLeaderAction(String action, int pos){
+    private void notifyLeaderAction(String action, int pos) {
         Map<String, String> state = new HashMap<>();
-        List<ResourceAmount> deps =currentPlayer.getPersonalBoard().getDeposits();
+        List<ResourceAmount> deps = currentPlayer.getPersonalBoard().getDeposits();
         String[] colors = new String[deps.size()];
 
         state.put("action", action);
@@ -556,11 +568,11 @@ public class SoloGame extends Game{
         state.put("index", String.valueOf(pos));
 
         // IF ACTION IS ACTIVATE A LEADER THAT GIVES AN EXTRA DEPOSIT
-        if (currentPlayer.getLeaders().get(pos).getType().equalsIgnoreCase("resource")){
+        if (currentPlayer.getLeaders().get(pos).getType().equalsIgnoreCase("resource")) {
             state.put("isDep", "yes");
-            for (int i=0; i<deps.size(); i++){
-                if (deps.get(i).getColor()!=null) colors[i]=deps.get(i).getColor().toString();
-                else colors[i]="empty";
+            for (int i = 0; i < deps.size(); i++) {
+                if (deps.get(i).getColor() != null) colors[i] = deps.get(i).getColor().toString();
+                else colors[i] = "empty";
             }
             state.put("smallres", colors[0]);
             state.put("smallqty", String.valueOf(deps.get(0).getAmount()));
@@ -568,24 +580,24 @@ public class SoloGame extends Game{
             state.put("midqty", String.valueOf(deps.get(1).getAmount()));
             state.put("bigres", colors[2]);
             state.put("bigqty", String.valueOf(deps.get(2).getAmount()));
-            if (deps.size()>3){
+            if (deps.size() > 3) {
                 state.put("sp1res", colors[3]);
                 state.put("sp1qty", String.valueOf(deps.get(3).getAmount()));
             }
-            if (deps.size()==5){
+            if (deps.size() == 5) {
                 state.put("sp2res", colors[4]);
                 state.put("sp2qty", String.valueOf(deps.get(4).getAmount()));
             }
         }
 
-        if (action.equalsIgnoreCase("discard")){
-            int newPos= currentPlayer.getPersonalBoard().getPosition();
+        if (action.equalsIgnoreCase("discard")) {
+            int newPos = currentPlayer.getPersonalBoard().getPosition();
             state.put("newPos", String.valueOf(newPos));
         }
 
         state.put("countLeader", String.valueOf(doneLeader));
 
-        Message message= new LeaderActionAnswer(state);
+        Message message = new LeaderActionAnswer(state);
         //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
@@ -594,78 +606,81 @@ public class SoloGame extends Game{
      * This method is called by the controller when the player decided to end his turn. It activates the Pope's reports if needed (setting or
      * discarding the FavorTiles of each player) and controls if the game is at the end: if so, if the player won, it counts his points notify
      * that he is the winner; otherwise, it notifies that he lost.
+     *
      * @param player is ignored
      * @throws InvalidActionException if the move is not valid.
      */
     @Override
-    public void endTurn(String player) throws InvalidActionException{
+    public void endTurn(String player) throws InvalidActionException {
 
-     if (!doneMandatory) throw new InvalidActionException("You have to do a mandatory action (buy a DevelopCard, activate production or take resources from market)");
-
-
-     if (!isEndGame) {
-
-         int id=soloActions.getCurrentId();
-         soloActions.doAction(blackCross, developDecks);
-
-         doneLeader = 0;
-         doneMandatory = false;
-
-         int i = 0;
-         while (i < 3 && !isEndGame) {
-             if (developDecks[i][2].getTop() == -1) isEndGame = true;
-             else i++;
-         }
-         if (isEndGame) {
-             notifyEndGame(false, getPoints(currentPlayer));
-             phase=GamePhase.ENDED;
-             return;
-         }
+        if (!doneMandatory)
+            throw new InvalidActionException("You have to do a mandatory action (buy a DevelopCard, activate production or take resources from market)");
 
 
-         //select max position and set the tiles if needed: if someone is at the end, set isEndgame
+        if (!isEndGame) {
 
-         if (blackCross.getPosition() > currentPlayer.getPersonalBoard().getPosition()) {
-             if (blackCross.getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
-                 isEndGame = true;
-                 notifyEndGame(false, getPoints(currentPlayer));
-                 phase=GamePhase.ENDED;
-                 return;
-             }
-             for (int j = 1; j >= 0; j--) {
-                 FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
-                 if (blackCross.getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
-                     if (currentPlayer.getPersonalBoard().getPosition() >= tile.getStart() && !tile.isDiscarded()) {
-                         tile.setActive(true);
-                     } else tile.setDiscarded(true);
-                 }
-             }
-         } else {
-             for (int j = 1; j >= 0; j--) {
-                 FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
-                 if (currentPlayer.getPersonalBoard().getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
-                     tile.setActive(true);
-                 }
-             }
-         }
-         if (currentPlayer.getPersonalBoard().getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
-             isEndGame = true;
-             currentPlayer.getPersonalBoard().getTile(2).setActive(true);
-             notifyEndGame(true, getPoints(currentPlayer));
-             phase=GamePhase.ENDED;
-             return;
-         }
-         if (!isEndGame){
-             notifyEndTurn(id);
-             notifyTurn();
-         }
-     }
+            int id = soloActions.getCurrentId();
+            soloActions.doAction(blackCross, developDecks);
+
+            doneLeader = 0;
+            doneMandatory = false;
+
+            int i = 0;
+            while (i < 3 && !isEndGame) {
+                if (developDecks[i][2].getTop() == -1) isEndGame = true;
+                else i++;
+            }
+            if (isEndGame) {
+                notifyEndGame(false, getPoints(currentPlayer));
+                phase = GamePhase.ENDED;
+                return;
+            }
+
+
+            //select max position and set the tiles if needed: if someone is at the end, set isEndgame
+
+            if (blackCross.getPosition() > currentPlayer.getPersonalBoard().getPosition()) {
+                if (blackCross.getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
+                    isEndGame = true;
+                    notifyEndGame(false, getPoints(currentPlayer));
+                    phase = GamePhase.ENDED;
+                    return;
+                }
+                for (int j = 1; j >= 0; j--) {
+                    FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
+                    if (blackCross.getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
+                        if (currentPlayer.getPersonalBoard().getPosition() >= tile.getStart() && !tile.isDiscarded()) {
+                            tile.setActive(true);
+                        } else tile.setDiscarded(true);
+                    }
+                }
+            } else {
+                for (int j = 1; j >= 0; j--) {
+                    FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
+                    if (currentPlayer.getPersonalBoard().getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
+                        tile.setActive(true);
+                    }
+                }
+            }
+            if (currentPlayer.getPersonalBoard().getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
+                isEndGame = true;
+                currentPlayer.getPersonalBoard().getTile(2).setActive(true);
+                notifyEndGame(true, getPoints(currentPlayer));
+                phase = GamePhase.ENDED;
+                return;
+            }
+            if (!isEndGame) {
+                notifyEndTurn(id);
+                notifyTurn();
+            }
+        }
 
     }
 
     /**
      * Utility method used to notify the corrected execution of the end turn action. It sends to the view the new situation
      * of the player's FavorTile. This method also sends the current position of the blackCross and the activated token
+     *
      * @param token is the activated token at the end of the turn
      */
     private void notifyEndTurn(int token) {
@@ -702,14 +717,15 @@ public class SoloGame extends Game{
 
         state.put("tokenActivated", String.valueOf(token));
 
-        Message message= new EndTurnAnswer(state);
+        Message message = new EndTurnAnswer(state);
         //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
     /**
      * This method notifies the view that the game is ended. It sends the client the points scored and if he won or lost
-     * @param win boolean indicating if the client won
+     *
+     * @param win    boolean indicating if the client won
      * @param points the points scored by the client
      */
     private void notifyEndGame(boolean win, int points) {
@@ -717,28 +733,27 @@ public class SoloGame extends Game{
         String content;
         state.put("action", "endgame");
         state.put("player", currentPlayer.getName());
-        if (win){
+        if (win) {
             content = "You won!";
             state.put("winner", currentPlayer.getName());
-        }
-        else {
+        } else {
             content = "You lost!";
         }
         state.put("content", content);
         state.put("points", String.valueOf(points));
         state.put("winnerpoints", String.valueOf(points));
 
-        Message message= new EndgameAnswer(state);
+        Message message = new EndgameAnswer(state);
         //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
-
 
 
     // some testing needed methods
 
     /**
      * Method to get the black cross (JUST FOR TESTING)
+     *
      * @return the blackCross
      */
     protected FaithMarker getBlackCross() {
@@ -754,6 +769,7 @@ public class SoloGame extends Game{
 
     /**
      * Just for testing
+     *
      * @param soloActions soloActions
      */
     protected void setSoloActions(SoloActions soloActions) {

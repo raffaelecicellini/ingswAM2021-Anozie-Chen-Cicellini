@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class YourTurnAnswer extends Message{
+public class YourTurnAnswer extends Message {
 
     public YourTurnAnswer(Map<String, String> info) {
         super(info);

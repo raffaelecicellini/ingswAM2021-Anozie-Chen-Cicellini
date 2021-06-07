@@ -20,7 +20,7 @@ public class SoloGameTest {
      * Testing a Solo Game
      */
     @Test
-    public void soloGameTest1(){
+    public void soloGameTest1() {
         SoloGame soloGame = new SoloGame();
         soloGame.createPlayer("player");
         soloGame.start();
@@ -28,13 +28,13 @@ public class SoloGameTest {
         // setting soloActions
         SoloActions soloActions = new SoloActions();
         ActionToken[] actionTokens = new ActionToken[7];
-        actionTokens[0]= new DiscardToken(Color.BLUE, 2);
-        actionTokens[1]= new DiscardToken(Color.GREEN, 2);
-        actionTokens[2]= new DiscardToken(Color.PURPLE, 2);
-        actionTokens[3]= new DiscardToken(Color.YELLOW, 2);
-        actionTokens[4]= new MoveToken(2);
-        actionTokens[5]= new MoveToken(2);
-        actionTokens[6]= new MoveandShuffleToken(1);
+        actionTokens[0] = new DiscardToken(Color.BLUE, 2);
+        actionTokens[1] = new DiscardToken(Color.GREEN, 2);
+        actionTokens[2] = new DiscardToken(Color.PURPLE, 2);
+        actionTokens[3] = new DiscardToken(Color.YELLOW, 2);
+        actionTokens[4] = new MoveToken(2);
+        actionTokens[5] = new MoveToken(2);
+        actionTokens[6] = new MoveandShuffleToken(1);
         soloActions.setTokens(actionTokens);
         soloGame.setSoloActions(soloActions);
 
@@ -53,7 +53,7 @@ public class SoloGameTest {
         map.put("ind1", "2");
         map.put("ind2", "1");
 
-        Message message= new ResourceMessage(map);
+        Message message = new ResourceMessage(map);
         try {
             soloGame.chooseLeaders("", message);
         } catch (InvalidActionException e) {
@@ -84,8 +84,8 @@ public class SoloGameTest {
         map.put("pos2", "mid");
         map.put("pos3", "big");
         map.put("pos4", "big");
-        map.put("action","market");
-        map.put("player","test");
+        map.put("action", "market");
+        map.put("player", "test");
 
 
         try {
@@ -116,8 +116,8 @@ public class SoloGameTest {
         map.clear();
         map.put("source", "small");
         map.put("dest", "big");
-        map.put("action","swap");
-        map.put("player","test");
+        map.put("action", "swap");
+        map.put("player", "test");
 
         try {
             soloGame.swapDeposit("", new SwapMessage(map));
@@ -138,8 +138,8 @@ public class SoloGameTest {
         map.put("pos1", "mid");
         map.put("pos2", "big");
         map.put("pos3", "big");
-        map.put("action","market");
-        map.put("player","test");
+        map.put("action", "market");
+        map.put("player", "test");
 
         try {
             soloGame.fromMarket("", new MarketMessage(map));
@@ -174,8 +174,8 @@ public class SoloGameTest {
         map.put("pos1", "big");
         map.put("pos2", "big");
         map.put("pos3", "big");
-        map.put("action","market");
-        map.put("player","test");
+        map.put("action", "market");
+        map.put("player", "test");
 
         try {
             soloGame.fromMarket("", new MarketMessage(map));
@@ -208,7 +208,7 @@ public class SoloGameTest {
      * Testing endTurn in SoloGame - no more develop cards
      */
     @Test
-    public void soloGameTest2(){
+    public void soloGameTest2() {
         SoloGame soloGame = new SoloGame();
         soloGame.createPlayer("player");
         soloGame.start();
@@ -216,13 +216,13 @@ public class SoloGameTest {
         // setting soloActions
         SoloActions soloActions = new SoloActions();
         ActionToken[] actionTokens = new ActionToken[7];
-        actionTokens[0]= new DiscardToken(Color.BLUE, 2);
-        actionTokens[1]= new DiscardToken(Color.BLUE, 2);
-        actionTokens[2]= new DiscardToken(Color.BLUE, 2);
-        actionTokens[3]= new DiscardToken(Color.BLUE, 2);
-        actionTokens[4]= new DiscardToken(Color.BLUE, 2);
-        actionTokens[5]= new DiscardToken(Color.BLUE, 2);
-        actionTokens[6]= new DiscardToken(Color.BLUE, 2);
+        actionTokens[0] = new DiscardToken(Color.BLUE, 2);
+        actionTokens[1] = new DiscardToken(Color.BLUE, 2);
+        actionTokens[2] = new DiscardToken(Color.BLUE, 2);
+        actionTokens[3] = new DiscardToken(Color.BLUE, 2);
+        actionTokens[4] = new DiscardToken(Color.BLUE, 2);
+        actionTokens[5] = new DiscardToken(Color.BLUE, 2);
+        actionTokens[6] = new DiscardToken(Color.BLUE, 2);
         soloActions.setTokens(actionTokens);
         soloGame.setSoloActions(soloActions);
 
@@ -248,8 +248,8 @@ public class SoloGameTest {
         map.put("pos1", "small");
         map.put("pos2", "mid");
         map.put("pos3", "big");
-        map.put("action","market");
-        map.put("player","test");
+        map.put("action", "market");
+        map.put("player", "test");
 
         try {
             soloGame.fromMarket("", new MarketMessage(map));
@@ -334,7 +334,7 @@ public class SoloGameTest {
      * Testing endTurn in SoloGame - black cross at the end
      */
     @Test
-    public void soloGameTest3(){
+    public void soloGameTest3() {
         SoloGame soloGame = new SoloGame();
         soloGame.createPlayer("player");
         soloGame.start();
@@ -342,13 +342,13 @@ public class SoloGameTest {
         // setting soloActions
         SoloActions soloActions = new SoloActions();
         ActionToken[] actionTokens = new ActionToken[7];
-        actionTokens[0]= new MoveToken(2);
-        actionTokens[1]= new MoveToken(2);
-        actionTokens[2]= new MoveToken(2);
-        actionTokens[3]= new MoveToken(2);
-        actionTokens[4]= new MoveToken(2);
-        actionTokens[5]= new MoveToken(2);
-        actionTokens[6]= new MoveToken(2);
+        actionTokens[0] = new MoveToken(2);
+        actionTokens[1] = new MoveToken(2);
+        actionTokens[2] = new MoveToken(2);
+        actionTokens[3] = new MoveToken(2);
+        actionTokens[4] = new MoveToken(2);
+        actionTokens[5] = new MoveToken(2);
+        actionTokens[6] = new MoveToken(2);
         soloActions.setTokens(actionTokens);
         soloGame.setSoloActions(soloActions);
 
@@ -374,8 +374,8 @@ public class SoloGameTest {
         map.put("pos1", "small");
         map.put("pos2", "mid");
         map.put("pos3", "big");
-        map.put("action","market");
-        map.put("player","test");
+        map.put("action", "market");
+        map.put("player", "test");
 
         try {
             soloGame.fromMarket("", new MarketMessage(map));

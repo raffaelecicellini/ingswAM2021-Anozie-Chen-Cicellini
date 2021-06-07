@@ -16,23 +16,23 @@ class TwoAndOneLeaderTest {
      */
     @Test
     void checkRequirements() {
-        TwoAndOneLeader a = new TwoAndOneLeader(2,"OneAndOne",false,false,Color.PURPLE,Color.GREEN,Color.GREY, 0);
+        TwoAndOneLeader a = new TwoAndOneLeader(2, "OneAndOne", false, false, Color.PURPLE, Color.GREEN, Color.GREY, 0);
         DevelopCard[] b = new DevelopCard[4];
-        ArrayList<DevelopCard[]> slots= new ArrayList<>();
+        ArrayList<DevelopCard[]> slots = new ArrayList<>();
         slots.add(b);
         slots.add(b);
         slots.add(b);
-        assertFalse(a.checkRequirements(null,slots,null,null));
-        DevelopCard q = new DevelopCard(1,1,1, Color.PURPLE,null,null,null, 0);
-        DevelopCard w = new DevelopCard(1,1,1, Color.PURPLE,null,null,null, 0);
+        assertFalse(a.checkRequirements(null, slots, null, null));
+        DevelopCard q = new DevelopCard(1, 1, 1, Color.PURPLE, null, null, null, 0);
+        DevelopCard w = new DevelopCard(1, 1, 1, Color.PURPLE, null, null, null, 0);
         b[0] = q;
         b[1] = w;
-        assertFalse(a.checkRequirements(null,slots,null,null));
-        DevelopCard e = new DevelopCard(1,1,1, Color.YELLOW,null,null,null, 0);
+        assertFalse(a.checkRequirements(null, slots, null, null));
+        DevelopCard e = new DevelopCard(1, 1, 1, Color.YELLOW, null, null, null, 0);
         b[2] = e;
-        assertFalse(a.checkRequirements(null,slots,null,null));
-        b[3] = new DevelopCard(1,1,1,Color.GREEN,null,null,null, 0);
-        assertTrue(a.checkRequirements(null,slots,null,null));
+        assertFalse(a.checkRequirements(null, slots, null, null));
+        b[3] = new DevelopCard(1, 1, 1, Color.GREEN, null, null, null, 0);
+        assertTrue(a.checkRequirements(null, slots, null, null));
     }
 
     /**
@@ -40,7 +40,7 @@ class TwoAndOneLeaderTest {
      */
     @Test
     void getWhiteBall() {
-        TwoAndOneLeader a = new TwoAndOneLeader(2,"OneAndOne",false,false,Color.PURPLE,Color.GREEN,Color.GREY, 0);
-        assertEquals(a.getWhiteBall(),Color.GREY);
+        TwoAndOneLeader a = new TwoAndOneLeader(2, "OneAndOne", false, false, Color.PURPLE, Color.GREEN, Color.GREY, 0);
+        assertEquals(a.getWhiteBall(), Color.GREY);
     }
 }

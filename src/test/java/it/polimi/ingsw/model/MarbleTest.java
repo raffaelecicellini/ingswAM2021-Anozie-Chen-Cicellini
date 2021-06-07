@@ -2,7 +2,9 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -18,25 +20,24 @@ public class MarbleTest {
      * empty deposits without duplicates).
      */
     @Test
-    public void okActionTest(){
+    public void okActionTest() {
         //For each color, test when an action can be done
         //BLUE
-        String chosen="big";
-        ArrayList<ResourceAmount> deposits= new ArrayList<>();
+        String chosen = "big";
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        FaithMarker faith= new FaithMarker(0);
-        Color chosenColor=null;
-        Marble test= BlueMarble.getInstance();
+        FaithMarker faith = new FaithMarker(0);
+        Color chosenColor = null;
+        Marble test = BlueMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -44,22 +45,21 @@ public class MarbleTest {
         }
 
         //GREY
-        chosen="mid";
-        deposits= new ArrayList<>();
+        chosen = "mid";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= GreyMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = GreyMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -67,22 +67,21 @@ public class MarbleTest {
         }
 
         //PURPLE
-        chosen="small";
-        deposits= new ArrayList<>();
+        chosen = "small";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.PURPLE, 0));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= PurpleMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = PurpleMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -90,22 +89,21 @@ public class MarbleTest {
         }
 
         //YELLOW
-        chosen="small";
-        deposits= new ArrayList<>();
+        chosen = "small";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.PURPLE, 0));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= YellowMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = YellowMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -113,70 +111,67 @@ public class MarbleTest {
         }
 
         //dep leader ok
-        chosen="sp1";
-        deposits= new ArrayList<>();
+        chosen = "sp1";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
         deposits.add(3, new ResourceAmount(Color.YELLOW, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= YellowMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = YellowMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        chosen="sp1";
-        deposits= new ArrayList<>();
+        chosen = "sp1";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
         deposits.add(3, new ResourceAmount(Color.GREY, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= GreyMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = GreyMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        chosen="sp2";
-        deposits= new ArrayList<>();
+        chosen = "sp2";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
         deposits.add(3, new ResourceAmount(Color.PURPLE, 0));
         deposits.add(4, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= BlueMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = BlueMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -190,25 +185,24 @@ public class MarbleTest {
      * already contains the selected resource, the selected resource is already in another deposit but it is full).
      */
     @Test
-    public void discardedTest(){
+    public void discardedTest() {
         //For each color, test when a resource needs to be discarded (no space to contain it)
         //BLUE (Magazzino ok ma pieno e no leader dep)
-        String chosen="big";
-        ArrayList<ResourceAmount> deposits= new ArrayList<>();
+        String chosen = "big";
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 2));
         deposits.add(2, new ResourceAmount(Color.BLUE, 3));
-        FaithMarker faith= new FaithMarker(0);
-        Color chosenColor=null;
-        Marble test= BlueMarble.getInstance();
+        FaithMarker faith = new FaithMarker(0);
+        Color chosenColor = null;
+        Marble test = BlueMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(1, res);
-            if (res==1) {
+            if (res == 1) {
                 System.out.println("Ok, a resource needs to be discarded.");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Something went wrong (I had to discard and I didn't");
             }
         } catch (InvalidActionException e) {
@@ -216,22 +210,21 @@ public class MarbleTest {
         }
 
         //GREY (non è nel magazzino indicato ma non ci sono posti)
-        chosen="mid";
-        deposits= new ArrayList<>();
+        chosen = "mid";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.BLUE, 1));
         deposits.add(2, new ResourceAmount(Color.PURPLE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= GreyMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = GreyMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(1, res);
-            if (res==1) {
+            if (res == 1) {
                 System.out.println("Ok, a resource needs to be discarded.");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Something went wrong (I had to discard and I didn't");
             }
         } catch (InvalidActionException e) {
@@ -239,22 +232,21 @@ public class MarbleTest {
         }
 
         //PURPLE (è già in altro magazzino ma pieno)
-        chosen="mid";
-        deposits= new ArrayList<>();
+        chosen = "mid";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.BLUE, 0));
         deposits.add(2, new ResourceAmount(Color.PURPLE, 3));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= PurpleMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = PurpleMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(1, res);
-            if (res==1) {
+            if (res == 1) {
                 System.out.println("Ok, a resource needs to be discarded.");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Something went wrong (I had to discard and I didn't");
             }
         } catch (InvalidActionException e) {
@@ -262,22 +254,21 @@ public class MarbleTest {
         }
 
         //YELLOW (già pieno e no leader)
-        chosen="small";
-        deposits= new ArrayList<>();
+        chosen = "small";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.BLUE, 2));
         deposits.add(2, new ResourceAmount(Color.PURPLE, 2));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= YellowMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = YellowMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(1, res);
-            if (res==1) {
+            if (res == 1) {
                 System.out.println("Ok, a resource needs to be discarded.");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Something went wrong (I had to discard and I didn't");
             }
         } catch (InvalidActionException e) {
@@ -292,19 +283,19 @@ public class MarbleTest {
      * of a different resource/is not present, the deposit is full but it can be swapped to have more space).
      */
     @Test
-    public void invalidActionTest(){
+    public void invalidActionTest() {
         //For each color, test when an action is invalid (resource where it cannot be insert into)
         //BLUE (già in altro magazzino non pieno)
-        String chosen="small";
-        ArrayList<ResourceAmount> deposits= new ArrayList<>();
+        String chosen = "small";
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 0));
         deposits.add(1, new ResourceAmount(Color.GREY, 2));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        FaithMarker faith= new FaithMarker(0);
-        Color chosenColor=null;
-        Marble test= BlueMarble.getInstance();
+        FaithMarker faith = new FaithMarker(0);
+        Color chosenColor = null;
+        Marble test = BlueMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -312,16 +303,16 @@ public class MarbleTest {
         }
 
         //GREY (magazzino sbagliato e c'è magazzino libero)
-        chosen="big";
-        deposits= new ArrayList<>();
+        chosen = "big";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 0));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= GreyMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = GreyMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -329,16 +320,16 @@ public class MarbleTest {
         }
 
         //PURPLE (non esiste leader dep)
-        chosen="sp1";
-        deposits= new ArrayList<>();
+        chosen = "sp1";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 0));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= PurpleMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = PurpleMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -346,17 +337,17 @@ public class MarbleTest {
         }
 
         //YELLOW (magazzino pieno e c'è leader dep libero)
-        chosen="small";
-        deposits= new ArrayList<>();
+        chosen = "small";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
         deposits.add(3, new ResourceAmount(Color.YELLOW, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= YellowMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = YellowMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -364,17 +355,17 @@ public class MarbleTest {
         }
 
         //No swap ma ho magazzino leader
-        chosen="small";
-        deposits= new ArrayList<>();
+        chosen = "small";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 2));
         deposits.add(2, new ResourceAmount(Color.BLUE, 2));
         deposits.add(3, new ResourceAmount(Color.YELLOW, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= YellowMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = YellowMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -382,18 +373,18 @@ public class MarbleTest {
         }
 
         //Secondo dep leader
-        chosen="small";
-        deposits= new ArrayList<>();
+        chosen = "small";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 2));
         deposits.add(2, new ResourceAmount(Color.BLUE, 3));
         deposits.add(3, new ResourceAmount(Color.BLUE, 1));
         deposits.add(4, new ResourceAmount(Color.YELLOW, 0));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= YellowMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = YellowMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -401,16 +392,16 @@ public class MarbleTest {
         }
 
         //Colore sbagliato ma c'è posto con swap
-        chosen="mid";
-        deposits= new ArrayList<>();
+        chosen = "mid";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= YellowMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = YellowMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -418,16 +409,16 @@ public class MarbleTest {
         }
 
         //colore giusto ma pieno, c'è posto con swap
-        chosen="mid";
-        deposits= new ArrayList<>();
+        chosen = "mid";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 2));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= GreyMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = GreyMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -435,17 +426,17 @@ public class MarbleTest {
         }
 
         //Leader pieno ma c'è posto con swap
-        chosen="sp1";
-        deposits= new ArrayList<>();
+        chosen = "sp1";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.PURPLE, 2));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
         deposits.add(3, new ResourceAmount(Color.PURPLE, 2));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= PurpleMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = PurpleMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -453,68 +444,68 @@ public class MarbleTest {
         }
 
         //Leader 2 pieno ma c'è posto
-        chosen="sp2";
-        deposits= new ArrayList<>();
+        chosen = "sp2";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
         deposits.add(3, new ResourceAmount(Color.PURPLE, 1));
         deposits.add(4, new ResourceAmount(Color.BLUE, 2));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= BlueMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = BlueMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
             System.out.println("Exception thrown correctly");
         }
 
-        chosen="big";
-        deposits= new ArrayList<>();
+        chosen = "big";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 0));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= PurpleMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = PurpleMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
             System.out.println("Exception thrown correctly");
         }
 
-        chosen="big";
-        deposits= new ArrayList<>();
+        chosen = "big";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 0));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.PURPLE, 3));
         deposits.add(3, new ResourceAmount(Color.PURPLE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= PurpleMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = PurpleMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
             System.out.println("Exception thrown correctly");
         }
 
-        chosen="big";
-        deposits= new ArrayList<>();
+        chosen = "big";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 0));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 3));
         deposits.add(3, new ResourceAmount(Color.BLUE, 0));
-        faith= new FaithMarker(0);
-        chosenColor=null;
-        test= BlueMarble.getInstance();
+        faith = new FaithMarker(0);
+        chosenColor = null;
+        test = BlueMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -526,52 +517,50 @@ public class MarbleTest {
      * This method tests the WhiteMarble action() method when there is no active leader of this kind
      */
     @Test
-    public void whiteNoLeaderTest(){
+    public void whiteNoLeaderTest() {
         //Test when there is not an active leader/not the right leader
-        String chosen="big";
-        ArrayList<ResourceAmount> deposits= new ArrayList<>();
+        String chosen = "big";
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        FaithMarker faith= new FaithMarker(0);
-        Color chosenColor=null;
-        ArrayList<LeaderCard> leaders= new ArrayList<LeaderCard>();
-        leaders.add( new LevTwoLeader(4, "LevTwo", true, false, Color.YELLOW, Color.BLUE, 0) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
-        Marble test= WhiteMarble.getInstance();
+        FaithMarker faith = new FaithMarker(0);
+        Color chosenColor = null;
+        ArrayList<LeaderCard> leaders = new ArrayList<LeaderCard>();
+        leaders.add(new LevTwoLeader(4, "LevTwo", true, false, Color.YELLOW, Color.BLUE, 0));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        Marble test = WhiteMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, leaders, chosenColor);
+            int res = test.action(chosen, deposits, faith, leaders, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
-        chosen="big";
-        deposits= new ArrayList<>();
+        chosen = "big";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        faith= new FaithMarker(0);
-        chosenColor=null;
+        faith = new FaithMarker(0);
+        chosenColor = null;
         leaders.clear();
-        leaders.add( new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE, 0) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
-        test= WhiteMarble.getInstance();
+        leaders.add(new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE, 0));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        test = WhiteMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, leaders, chosenColor);
+            int res = test.action(chosen, deposits, faith, leaders, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -584,28 +573,27 @@ public class MarbleTest {
      * be done/the resource is discarded/the action is invalid.
      */
     @Test
-    public void whiteLeaderTest(){
+    public void whiteLeaderTest() {
         //Test when there is only one active WhiteBallLeader: valid and invalid
         //WhiteBallLeader is active: action ok
-        String chosen="big";
-        ArrayList<ResourceAmount> deposits= new ArrayList<>();
+        String chosen = "big";
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.BLUE, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.YELLOW, 1));
-        FaithMarker faith= new FaithMarker(0);
-        Color chosenColor=null;
-        ArrayList<LeaderCard> leaders= new ArrayList<LeaderCard>();
-        leaders.add( new LevTwoLeader(4, "LevTwo", true, false, Color.YELLOW, Color.BLUE, 0) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
-        Marble test= WhiteMarble.getInstance();
+        FaithMarker faith = new FaithMarker(0);
+        Color chosenColor = null;
+        ArrayList<LeaderCard> leaders = new ArrayList<LeaderCard>();
+        leaders.add(new LevTwoLeader(4, "LevTwo", true, false, Color.YELLOW, Color.BLUE, 0));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        Marble test = WhiteMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, leaders, chosenColor);
+            int res = test.action(chosen, deposits, faith, leaders, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -613,25 +601,24 @@ public class MarbleTest {
         }
 
         //WhiteBallLeader is active: action ko
-        chosen="small";
-        deposits= new ArrayList<>();
+        chosen = "small";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.BLUE, 2));
         deposits.add(2, new ResourceAmount(Color.PURPLE, 2));
-        faith= new FaithMarker(0);
-        chosenColor=null;
+        faith = new FaithMarker(0);
+        chosenColor = null;
         leaders.clear();
-        leaders.add( new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE, 0) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
-        test= WhiteMarble.getInstance();
+        leaders.add(new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE, 0));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        test = WhiteMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, leaders, chosenColor);
+            int res = test.action(chosen, deposits, faith, leaders, chosenColor);
             assertEquals(1, res);
-            if (res==1) {
+            if (res == 1) {
                 System.out.println("Ok, a resource needs to be discarded.");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Something went wrong (I had to discard and I didn't");
             }
         } catch (InvalidActionException e) {
@@ -639,20 +626,20 @@ public class MarbleTest {
         }
 
         //WhiteBallLeader is active: exception
-        chosen="sp1";
-        deposits= new ArrayList<>();
+        chosen = "sp1";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.PURPLE, 2));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
         deposits.add(3, new ResourceAmount(Color.PURPLE, 2));
-        faith= new FaithMarker(0);
-        chosenColor=null;
+        faith = new FaithMarker(0);
+        chosenColor = null;
         leaders.clear();
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 0) );
-        leaders.add( new ResourceLeader(3,"Resource",true,false, new ResourceAmount(Color.GREY,5),Color.PURPLE, 0) );
-        test= WhiteMarble.getInstance();
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.YELLOW, Color.BLUE, Color.PURPLE, 0));
+        leaders.add(new ResourceLeader(3, "Resource", true, false, new ResourceAmount(Color.GREY, 5), Color.PURPLE, 0));
+        test = WhiteMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, leaders, chosenColor);
+            int res = test.action(chosen, deposits, faith, leaders, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -666,28 +653,27 @@ public class MarbleTest {
      * an exception is thrown because the selected color is wrong.
      */
     @Test
-    public void whiteTwoLeaderTest(){
+    public void whiteTwoLeaderTest() {
         //Test when there are two active WhiteBallLeader and user selected the color: valid and invalid
         //WhiteBallLeaders both active, ok the first one
-        String chosen="big";
-        ArrayList<ResourceAmount> deposits= new ArrayList<>();
+        String chosen = "big";
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.BLUE, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.YELLOW, 1));
-        FaithMarker faith= new FaithMarker(0);
-        Color chosenColor=Color.YELLOW;
-        ArrayList<LeaderCard> leaders= new ArrayList<LeaderCard>();
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY, 0) );
-        Marble test= WhiteMarble.getInstance();
+        FaithMarker faith = new FaithMarker(0);
+        Color chosenColor = Color.YELLOW;
+        ArrayList<LeaderCard> leaders = new ArrayList<LeaderCard>();
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.BLUE, Color.YELLOW, Color.GREY, 0));
+        Marble test = WhiteMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, leaders, chosenColor);
+            int res = test.action(chosen, deposits, faith, leaders, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -695,25 +681,24 @@ public class MarbleTest {
         }
 
         //WhiteBallLeaders both active, ok the second one
-        chosen="mid";
-        deposits= new ArrayList<>();
+        chosen = "mid";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.BLUE, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.YELLOW, 1));
-        faith= new FaithMarker(0);
-        chosenColor=Color.GREY;
+        faith = new FaithMarker(0);
+        chosenColor = Color.GREY;
         leaders.clear();
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY, 0) );
-        test= WhiteMarble.getInstance();
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.BLUE, Color.YELLOW, Color.GREY, 0));
+        test = WhiteMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, leaders, chosenColor);
+            int res = test.action(chosen, deposits, faith, leaders, chosenColor);
             assertEquals(0, res);
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {
@@ -721,19 +706,19 @@ public class MarbleTest {
         }
 
         //WhiteBallLeaders both active, exception
-        chosen="big";
-        deposits= new ArrayList<>();
+        chosen = "big";
+        deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.BLUE, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.YELLOW, 1));
-        faith= new FaithMarker(0);
-        chosenColor=Color.BLUE;
+        faith = new FaithMarker(0);
+        chosenColor = Color.BLUE;
         leaders.clear();
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0) );
-        leaders.add( new TwoAndOneLeader(5,"TwoAndOne",true, false,Color.BLUE,Color.YELLOW,Color.GREY, 0) );
-        test= WhiteMarble.getInstance();
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", true, false, Color.BLUE, Color.YELLOW, Color.GREY, 0));
+        test = WhiteMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, leaders, chosenColor);
+            int res = test.action(chosen, deposits, faith, leaders, chosenColor);
             System.out.println("Something went wrong. I needed an exception");
         } catch (InvalidActionException e) {
             e.printStackTrace();
@@ -746,25 +731,24 @@ public class MarbleTest {
      * by the method.
      */
     @Test
-    public void redActionTest(){
+    public void redActionTest() {
         //Test for RedMarble to increase faith position
-        String chosen=null;
-        ArrayList<ResourceAmount> deposits= new ArrayList<>();
+        String chosen = null;
+        ArrayList<ResourceAmount> deposits = new ArrayList<>();
         deposits.add(0, new ResourceAmount(Color.YELLOW, 1));
         deposits.add(1, new ResourceAmount(Color.GREY, 1));
         deposits.add(2, new ResourceAmount(Color.BLUE, 1));
-        FaithMarker faith= new FaithMarker(5);
-        Color chosenColor=null;
-        Marble test= RedMarble.getInstance();
+        FaithMarker faith = new FaithMarker(5);
+        Color chosenColor = null;
+        Marble test = RedMarble.getInstance();
         try {
-            int res= test.action(chosen, deposits, faith, null, chosenColor);
+            int res = test.action(chosen, deposits, faith, null, chosenColor);
             assertEquals(0, res);
             assertEquals(6, faith.getPosition());
-            if (res==0) {
+            if (res == 0) {
                 System.out.println("Azione andata a buon fine, Player agisca di conseguenza");
                 System.out.println(deposits.toString());
-            }
-            else {
+            } else {
                 System.out.println("Errore nell'esecuzione (ho scartato quando non dovevo)");
             }
         } catch (InvalidActionException e) {

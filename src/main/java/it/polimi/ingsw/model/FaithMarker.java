@@ -8,7 +8,8 @@ public class FaithMarker {
     private int position;
 
     /**
-     *Constructor FaithMarker creates a new FaithMarker instance.
+     * Constructor FaithMarker creates a new FaithMarker instance.
+     *
      * @param position is the FaithMarker's initial position.
      */
     public FaithMarker(int position) {
@@ -17,6 +18,7 @@ public class FaithMarker {
 
     /**
      * This method returns the position of the FaithMarker.
+     *
      * @return the position of the FaithMarker.
      */
     public int getPosition() {
@@ -25,6 +27,7 @@ public class FaithMarker {
 
     /**
      * This methods sets the position of the FaithMarker.
+     *
      * @param position is the new position of the FaithMarker.
      */
     public void setPosition(int position) {
@@ -34,6 +37,7 @@ public class FaithMarker {
 
     /**
      * This method converts the class to a String.
+     *
      * @return a String which represents the class.
      */
     @Override

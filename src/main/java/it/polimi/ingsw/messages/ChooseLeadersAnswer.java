@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class ChooseLeadersAnswer extends Message{
+public class ChooseLeadersAnswer extends Message {
 
     public ChooseLeadersAnswer(Map<String, String> info) {
         super(info);
@@ -13,6 +13,6 @@ public class ChooseLeadersAnswer extends Message{
 
     @Override
     public String getLeaders(int ind) {
-        return info.get("leader"+ind);
+        return info.get("leader" + ind);
     }
 }

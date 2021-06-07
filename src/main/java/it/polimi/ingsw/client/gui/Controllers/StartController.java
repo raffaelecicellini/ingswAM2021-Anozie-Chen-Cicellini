@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class StartController extends GUIController{
+public class StartController extends GUIController {
     private GUI gui;
     @FXML
     private TextField nameLocal;
@@ -42,15 +42,16 @@ public class StartController extends GUIController{
 
     /**
      * This method is called once the player decides to play a local game. It will show a new scene.
+     *
      * @param actionEvent is the event caught by the player's click.
      */
-    public void handleLocal(ActionEvent actionEvent){
+    public void handleLocal(ActionEvent actionEvent) {
         String name = nameLocal.getText();
         ModelView modelView = gui.getModelView();
         if (!name.equals(""))
             modelView.setName(name);
         else {
-            Alert alert= new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Error! Missing parameters!");
             alert.showAndWait();
             return;
@@ -59,65 +60,65 @@ public class StartController extends GUIController{
         gui.setModel(new SoloGame());
         gui.getModel().setListener(gui.getAnswerHandler());
         gui.getModel().createPlayer(name);
-        gui.setController(new Controller(gui.getModel(),gui.getAnswerHandler()));
+        gui.setController(new Controller(gui.getModel(), gui.getAnswerHandler()));
         gui.getListeners().addListener(gui.getController());
-        gui.getListeners().fireUpdates("start",null);
-        BoardController board=(BoardController) gui.getControllerFromName("board.fxml");
+        gui.getListeners().fireUpdates("start", null);
+        BoardController board = (BoardController) gui.getControllerFromName("board.fxml");
         board.disableShow();
         gui.changeScene("board.fxml");
     }
 
     /**
      * This method is called once the player decides to play an online game. It will show a new scene.
+     *
      * @param actionEvent is the event caught by the player's click.
      */
-    public void handleOnline(ActionEvent actionEvent){
-        String name= nameOnline.getText();
-        String addr= address.getText();
-        int players=0;
-        int serverPort=0;
+    public void handleOnline(ActionEvent actionEvent) {
+        String name = nameOnline.getText();
+        String addr = address.getText();
+        int players = 0;
+        int serverPort = 0;
         try {
             players = Integer.parseInt(number.getText());
-            if (players<1 || players>4){
-                Alert alert= new Alert(Alert.AlertType.ERROR);
+            if (players < 1 || players > 4) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Error! Players must be between 1 and 4!");
                 alert.showAndWait();
                 return;
             }
             serverPort = Integer.parseInt(port.getText());
-            if (serverPort<1024){
-                Alert alert= new Alert(Alert.AlertType.ERROR);
+            if (serverPort < 1024) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Error! Port must be greater than 1024!");
                 alert.showAndWait();
                 return;
             }
-        }
-        catch (NumberFormatException e){
-            Alert alert= new Alert(Alert.AlertType.ERROR);
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Error! Port and number must be integers!");
             alert.showAndWait();
             return;
         }
-        if (name.equals("") || addr.equals("")){
-            Alert alert= new Alert(Alert.AlertType.ERROR);
+        if (name.equals("") || addr.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Error! Missing parameters!");
             alert.showAndWait();
             return;
         }
-        ModelView modelView=gui.getModelView();
+        ModelView modelView = gui.getModelView();
         modelView.setName(name);
-        modelView.setSoloGame(players==1);
+        modelView.setSoloGame(players == 1);
 
-        System.out.println(players + " "+serverPort+" "+name+" "+addr);
+        System.out.println(players + " " + serverPort + " " + name + " " + addr);
         ConnectionSocket connectionSocket = new ConnectionSocket(addr, serverPort);
-        Map<String, String> map= new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("action", "setup");
         map.put("number", String.valueOf(players));
         map.put("username", name);
-        Gson gson= new Gson();
-        String message=gson.toJson(map);
+        Gson gson = new Gson();
+        String message = gson.toJson(map);
         gui.changeScene("wait.fxml");
-        WaitController controller= (WaitController) gui.getControllerFromName("wait.fxml");
+        WaitController controller = (WaitController) gui.getControllerFromName("wait.fxml");
         controller.setText("Configuring socket connection...");
         if (!connectionSocket.setup(message, gui.getAnswerHandler())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -132,8 +133,8 @@ public class StartController extends GUIController{
         controller.setText("Socket setup completed!");
         controller.setText("Waiting for players...");
         gui.getListeners().addListener(new ActionParser(connectionSocket));
-        if (players==1) {
-            BoardController board= (BoardController) gui.getControllerFromName("board.fxml");
+        if (players == 1) {
+            BoardController board = (BoardController) gui.getControllerFromName("board.fxml");
             board.disableShow();
         }
     }
@@ -141,6 +142,7 @@ public class StartController extends GUIController{
 
     /**
      * This method changes the scene to local.fxml.
+     *
      * @param event is the event caught by the player's click.
      */
     public void setLocal(ActionEvent event) {
@@ -149,18 +151,19 @@ public class StartController extends GUIController{
 
     /**
      * This method changes the scene to online.fxml.
+     *
      * @param event is the event caught by the player's click.
      */
-    public void setOnline(ActionEvent event){
+    public void setOnline(ActionEvent event) {
         gui.changeScene("online.fxml");
     }
 
     /**
-     * @see GUIController
      * @param gui the gui to be set
+     * @see GUIController
      */
     @Override
     public void setGui(GUI gui) {
-        this.gui=gui;
+        this.gui = gui;
     }
 }

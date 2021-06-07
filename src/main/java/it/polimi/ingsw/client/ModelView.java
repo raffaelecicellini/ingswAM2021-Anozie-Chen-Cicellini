@@ -62,7 +62,7 @@ public class ModelView {
      */
     private String currentPlayer;
     /**
-     *  this attribute counts how many Leader actions a Player has done.
+     * this attribute counts how many Leader actions a Player has done.
      */
     private int countLeader;
 
@@ -79,27 +79,27 @@ public class ModelView {
     /**
      * Constructor of the class. It instantiates the faithtrack and the tiles
      */
-    public ModelView(){
-        this.players= new HashMap<>();
+    public ModelView() {
+        this.players = new HashMap<>();
     }
 
-    public List<String> getPlayers(){
+    public List<String> getPlayers() {
         return new ArrayList<>(players.keySet());
     }
 
-    public void setPlayers(List<String> players){
-        for (String x:players){
-            PlayerView player= new PlayerView();
+    public void setPlayers(List<String> players) {
+        for (String x : players) {
+            PlayerView player = new PlayerView();
             this.players.put(x, player);
         }
     }
 
-    public int getInitialRes(){
+    public int getInitialRes() {
         return this.initialRes;
     }
 
-    public void setInitialRes(int res){
-        this.initialRes=res;
+    public void setInitialRes(int res) {
+        this.initialRes = res;
     }
 
     public String getCurrentPlayer() {
@@ -112,6 +112,7 @@ public class ModelView {
 
     /**
      * Synchronized method used to check if the client can perform an action
+     *
      * @return the value of activeTurn
      */
     public synchronized boolean isActiveTurn() {
@@ -120,6 +121,7 @@ public class ModelView {
 
     /**
      * Synchronized method used to set activeTurn attribute
+     *
      * @param activeTurn the new value of activeTurn
      */
     public synchronized void setActiveTurn(boolean activeTurn) {
@@ -128,6 +130,7 @@ public class ModelView {
 
     /**
      * Player's name getter method
+     *
      * @return the player's name
      */
     public String getName() {
@@ -136,6 +139,7 @@ public class ModelView {
 
     /**
      * Player's name setter method
+     *
      * @param name the player's name
      */
     public void setName(String name) {
@@ -144,6 +148,7 @@ public class ModelView {
 
     /**
      * faith track getter method (used by cli to print)
+     *
      * @return the faith track
      */
     public int[] getFaithTrack(String name) {
@@ -152,6 +157,7 @@ public class ModelView {
 
     /**
      * Player's position getter method
+     *
      * @return player's position
      */
     public int getPosition(String name) {
@@ -160,6 +166,7 @@ public class ModelView {
 
     /**
      * Player's position setter method
+     *
      * @param position the new value for player's position
      */
     public void setPosition(int position, String name) {
@@ -169,6 +176,7 @@ public class ModelView {
 
     /**
      * Player's tiles getter method
+     *
      * @return the player's tiles
      */
     public Tile[] getTiles(String name) {
@@ -177,6 +185,7 @@ public class ModelView {
 
     /**
      * Player's tiles setter method
+     *
      * @param tiles the new values of the tiles (if activated or discarded)
      */
     public void setTiles(Tile[] tiles, String name) {
@@ -185,6 +194,7 @@ public class ModelView {
 
     /**
      * Player's deposits getter method
+     *
      * @return the player's deposits
      */
     public Map<String, String> getDeposits(String name) {
@@ -193,6 +203,7 @@ public class ModelView {
 
     /**
      * Player's deposits setter method
+     *
      * @param deposits the new value for player's deposits
      */
     public void setDeposits(Map<String, String> deposits, String name) {
@@ -201,6 +212,7 @@ public class ModelView {
 
     /**
      * Player's strongbox getter method
+     *
      * @return the player's strongbox
      */
     public Map<String, String> getStrongbox(String name) {
@@ -209,6 +221,7 @@ public class ModelView {
 
     /**
      * Player's strongbox setter method
+     *
      * @param strongbox the new value for player's strongbox
      */
     public void setStrongbox(Map<String, String> strongbox, String name) {
@@ -217,6 +230,7 @@ public class ModelView {
 
     /**
      * Market getter method
+     *
      * @return the current market
      */
     public String[][] getMarket() {
@@ -225,6 +239,7 @@ public class ModelView {
 
     /**
      * Market setter method
+     *
      * @param market the new market
      */
     public void setMarket(String[][] market) {
@@ -233,6 +248,7 @@ public class ModelView {
 
     /**
      * outMarble getter method
+     *
      * @return the current outMarble
      */
     public String getOutMarble() {
@@ -241,6 +257,7 @@ public class ModelView {
 
     /**
      * outMarble setter method
+     *
      * @param outMarble the new outMarble
      */
     public void setOutMarble(String outMarble) {
@@ -249,6 +266,7 @@ public class ModelView {
 
     /**
      * developDecks getter method
+     *
      * @return the current developDecks
      */
     public int[][] getDevelopDecks() {
@@ -257,6 +275,7 @@ public class ModelView {
 
     /**
      * developDecks setter method
+     *
      * @param developDecks the new developDecks
      */
     public void setDevelopDecks(int[][] developDecks) {
@@ -265,6 +284,7 @@ public class ModelView {
 
     /**
      * Player's token getter method
+     *
      * @return the current token
      */
     public int getToken() {
@@ -273,6 +293,7 @@ public class ModelView {
 
     /**
      * Player's token setter method
+     *
      * @param token the new token
      */
     public void setToken(int token) {
@@ -281,6 +302,7 @@ public class ModelView {
 
     /**
      * Player's leaders getter method
+     *
      * @return the player's leaders
      */
     public Map<String, String> getLeaders(String name) {
@@ -289,6 +311,7 @@ public class ModelView {
 
     /**
      * Player's leaders setter method
+     *
      * @param leaders the new player's leaders
      */
     public void setLeaders(Map<String, String> leaders, String name) {
@@ -297,6 +320,7 @@ public class ModelView {
 
     /**
      * Player's slots getter method
+     *
      * @return the player's slots
      */
     public List<int[]> getSlots(String name) {
@@ -305,6 +329,7 @@ public class ModelView {
 
     /**
      * Player's slots setter method
+     *
      * @param slots the new player's slots
      */
     public void setSlots(List<int[]> slots, String name) {
@@ -313,6 +338,7 @@ public class ModelView {
 
     /**
      * Used to check if the client already did a mandatory action
+     *
      * @return doneMandatory value
      */
     public boolean isDoneMandatory() {
@@ -321,6 +347,7 @@ public class ModelView {
 
     /**
      * Sets the new value of doneMandatory
+     *
      * @param doneMandatory the new value of doneMandatory
      */
     public void setDoneMandatory(boolean doneMandatory) {
@@ -329,6 +356,7 @@ public class ModelView {
 
     /**
      * Used to check if it is a soloGame
+     *
      * @return the soloGame value
      */
     public boolean isSoloGame() {
@@ -337,6 +365,7 @@ public class ModelView {
 
     /**
      * Used to set soloGame
+     *
      * @param soloGame the new value of soloGame
      */
     public void setSoloGame(boolean soloGame) {
@@ -345,6 +374,7 @@ public class ModelView {
 
     /**
      * Used to get the BlackCross position in a soloGame
+     *
      * @return the BlackCross position
      */
     public int getBlackCross() {
@@ -353,6 +383,7 @@ public class ModelView {
 
     /**
      * Used to set the BlackCross position in a soloGame
+     *
      * @param pos the new value for the BlackCross position
      */
     public void setBlackCross(int pos) {
@@ -362,6 +393,7 @@ public class ModelView {
 
     /**
      * phase getter method
+     *
      * @return the current value of phase
      */
     public GamePhase getPhase() {
@@ -370,6 +402,7 @@ public class ModelView {
 
     /**
      * phase setter method
+     *
      * @param phase the new value of phase
      */
     public void setPhase(GamePhase phase) {
@@ -378,8 +411,9 @@ public class ModelView {
 
     /**
      * Method used to return a list of marbles, given a row or col of the market.
+     *
      * @param chosen is the chosen line (row/col).
-     * @param ind is the index of the row/col.
+     * @param ind    is the index of the row/col.
      * @return the list of strings of marbles.
      */
     public ArrayList<String> getResMarket(String chosen, int ind) {
@@ -389,8 +423,7 @@ public class ModelView {
             for (int col = 0; col < 4; col++) {
                 res.add(getMarket()[col][ind]);
             }
-        } else
-        if (chosen.equalsIgnoreCase("col")) {
+        } else if (chosen.equalsIgnoreCase("col")) {
             for (int row = 0; row < 3; row++) {
                 res.add(getMarket()[ind][row]);
             }
@@ -401,6 +434,7 @@ public class ModelView {
 
     /**
      * Method used to return the Index of the Top Develop Card, given a slot.
+     *
      * @param slot is the array that represents the slot.
      * @return the Index of the Top Develop Card (-1 if empty slot).
      */
@@ -408,19 +442,20 @@ public class ModelView {
         int devCardIndex = 0;
 
         while (devCardIndex < slot.length) {
-            if (slot[devCardIndex] == 0) return devCardIndex-1;
+            if (slot[devCardIndex] == 0) return devCardIndex - 1;
             devCardIndex++;
         }
 
-        return devCardIndex-1;
+        return devCardIndex - 1;
     }
 
     /**
      * Method that return the ID of the top card in the slot.
+     *
      * @param slot the slot to search the card from.
      * @return the ID of the top card in the slot.
      */
-    public int getTopId(int[] slot){
+    public int getTopId(int[] slot) {
         int devCardIndex = 0;
 
         while (devCardIndex < slot.length) {
@@ -428,25 +463,27 @@ public class ModelView {
                 if (devCardIndex == 0) {
                     return 0;
                 } else {
-                    return slot[devCardIndex-1];
+                    return slot[devCardIndex - 1];
                 }
             }
             devCardIndex++;
         }
 
-        return slot[devCardIndex-1];
+        return slot[devCardIndex - 1];
     }
 
     /**
      * Method that return how many leader actions have been done by the Player.
+     *
      * @return the number of leader actions already done.
      */
-    public int getCountLeader(){
+    public int getCountLeader() {
         return countLeader;
     }
 
     /**
      * Method to set how many leader actions a Player has done.
+     *
      * @param num the number of leader actions.
      */
     public void setCountLeader(int num) {
@@ -455,6 +492,7 @@ public class ModelView {
 
     /**
      * This method adds a leader to the list of deposit leaders.
+     *
      * @param index is the index of the leader
      */
     public void addLeaderDepOrder(int index) {
@@ -463,6 +501,7 @@ public class ModelView {
 
     /**
      * This method adds a leader to the list of production leaders.
+     *
      * @param index is the index of the leader
      */
     public void addLeaderProdOrder(int index) {
@@ -471,6 +510,7 @@ public class ModelView {
 
     /**
      * This method returns the position of a leader in the list.
+     *
      * @param leader is the index of the leader
      * @return
      */
@@ -480,6 +520,7 @@ public class ModelView {
 
     /**
      * This method returns the position of a leader in the list.
+     *
      * @param leader is the index of the leader
      * @return
      */

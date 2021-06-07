@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.GamePhase;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,7 +31,8 @@ public class Controller implements SourceListener {
 
     /**
      * Controller constructor.
-     * @param model is the model that the Controller makes actions on.
+     *
+     * @param model       is the model that the Controller makes actions on.
      * @param gameHandler is the gameHandler that listens to the Controller.
      */
     public Controller(Game model, SourceListener gameHandler) {
@@ -41,7 +43,7 @@ public class Controller implements SourceListener {
     /**
      * Start method: the controller checks the inputs and calls start on the Game.
      */
-    private void start(){
+    private void start() {
         if (model.getPhase() == GamePhase.NOTSTARTED) {
             model.start();
         }
@@ -49,6 +51,7 @@ public class Controller implements SourceListener {
 
     /**
      * chooseLeaders method: the controller checks the inputs and calls chooseLeaders on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
     private void chooseLeaders(Message message) {
@@ -88,7 +91,7 @@ public class Controller implements SourceListener {
                 Message errorAnswer = new ErrorAnswer(error);
                 gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
-        }  else {
+        } else {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
@@ -102,6 +105,7 @@ public class Controller implements SourceListener {
 
     /**
      * chooseResources method: the controller checks the inputs and calls chooseResources on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
     private void chooseResources(Message message) {
@@ -154,6 +158,7 @@ public class Controller implements SourceListener {
 
     /**
      * Buy method: the controller checks the inputs and calls buy on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
     private void buy(Message message) {
@@ -166,22 +171,13 @@ public class Controller implements SourceListener {
                 if (message.getRow() >= 0 && message.getRow() <= 2 &&
                         message.getCol() >= 0 && message.getCol() <= 3 &&
                         message.getSlot() >= 0 && message.getSlot() <= 2) {
-                        try {
-                            model.buy(model.getCurrentPlayer().getName(), message);
-                        } catch (InvalidActionException e) {
-                            Map<String, String> error = new HashMap<>();
-                            error.put("action", "error");
-                            error.put("player", message.getPlayer());
-                            error.put("content", "There is an error in Buy: " + e.getMessage());
-                            error.put("method", "buy");
-                            Message errorAnswer = new ErrorAnswer(error);
-                            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                        }
-                    } else {
+                    try {
+                        model.buy(model.getCurrentPlayer().getName(), message);
+                    } catch (InvalidActionException e) {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "Attention! You did not type correctly! Try again!");
+                        error.put("content", "There is an error in Buy: " + e.getMessage());
                         error.put("method", "buy");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -190,7 +186,7 @@ public class Controller implements SourceListener {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
                     error.put("player", message.getPlayer());
-                    error.put("content", "Attention! You can not do this action in this phase!");
+                    error.put("content", "Attention! You did not type correctly! Try again!");
                     error.put("method", "buy");
                     Message errorAnswer = new ErrorAnswer(error);
                     gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -199,15 +195,25 @@ public class Controller implements SourceListener {
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
-                error.put("content", "Attention! It is not your turn!");
+                error.put("content", "Attention! You can not do this action in this phase!");
                 error.put("method", "buy");
                 Message errorAnswer = new ErrorAnswer(error);
                 gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
+        } else {
+            Map<String, String> error = new HashMap<>();
+            error.put("action", "error");
+            error.put("player", message.getPlayer());
+            error.put("content", "Attention! It is not your turn!");
+            error.put("method", "buy");
+            Message errorAnswer = new ErrorAnswer(error);
+            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+        }
     }
 
     /**
      * Produce method: the controller checks the inputs and calls produce on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
     private void produce(Message message) {
@@ -218,7 +224,7 @@ public class Controller implements SourceListener {
 
 
                 if (message.isSelected(0) || message.isSelected(1) || message.isSelected(2) ||
-                        message.isSelected(3)  || message.isSelected(4) || message.isSelected(5)) {
+                        message.isSelected(3) || message.isSelected(4) || message.isSelected(5)) {
                     try {
                         model.produce(model.getCurrentPlayer().getName(), message);
                     } catch (InvalidActionException e) {
@@ -262,6 +268,7 @@ public class Controller implements SourceListener {
 
     /**
      * fromMarket method: the controller checks the inputs and calls fromMarket on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
     private void fromMarket(Message message) {
@@ -282,19 +289,18 @@ public class Controller implements SourceListener {
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                     }
-                } else
-                    if (message.isCol() && message.size() >= 4) {
-                        try {
-                            model.fromMarket(model.getCurrentPlayer().getName(), message);
-                        } catch (InvalidActionException e) {
-                            Map<String, String> error = new HashMap<>();
-                            error.put("action", "error");
-                            error.put("player", message.getPlayer());
-                            error.put("content", "There is an error in fromMarket: " + e.getMessage());
-                            error.put("method", "fromMarket");
-                            Message errorAnswer = new ErrorAnswer(error);
-                            gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
-                        }
+                } else if (message.isCol() && message.size() >= 4) {
+                    try {
+                        model.fromMarket(model.getCurrentPlayer().getName(), message);
+                    } catch (InvalidActionException e) {
+                        Map<String, String> error = new HashMap<>();
+                        error.put("action", "error");
+                        error.put("player", message.getPlayer());
+                        error.put("content", "There is an error in fromMarket: " + e.getMessage());
+                        error.put("method", "fromMarket");
+                        Message errorAnswer = new ErrorAnswer(error);
+                        gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
+                    }
                 } else {
                     Map<String, String> error = new HashMap<>();
                     error.put("action", "error");
@@ -327,6 +333,7 @@ public class Controller implements SourceListener {
 
     /**
      * swapDeposits method: the controller checks the inputs and calls swapDeposits on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
     private void swapDeposits(Message message) {
@@ -379,6 +386,7 @@ public class Controller implements SourceListener {
 
     /**
      * ActivateLeader method: the controller checks the inputs and calls activateLeader on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
     private void activateLeader(Message message) {
@@ -430,6 +438,7 @@ public class Controller implements SourceListener {
 
     /**
      * ActivateLeader method: the controller checks the inputs and calls activateLeader on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
     private void discardLeader(Message message) {
@@ -468,7 +477,7 @@ public class Controller implements SourceListener {
                 Message errorAnswer = new ErrorAnswer(error);
                 gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
-        } else  {
+        } else {
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());
@@ -482,9 +491,10 @@ public class Controller implements SourceListener {
 
     /**
      * EndTurn method: the controller checks the inputs and calls endTurn on the Game.
+     *
      * @param message is the message that contains all the info about the action.
      */
-     public void endTurn(Message message) {
+    public void endTurn(Message message) {
 
         if (model.getCurrentPlayer().getName().equals(message.getPlayer())) {
 
@@ -518,10 +528,9 @@ public class Controller implements SourceListener {
     }
 
 
-
     @Override
     public void update(String propertyName, Message message) {
-        switch (propertyName.toUpperCase()){
+        switch (propertyName.toUpperCase()) {
             case "START":
                 start();
                 break;

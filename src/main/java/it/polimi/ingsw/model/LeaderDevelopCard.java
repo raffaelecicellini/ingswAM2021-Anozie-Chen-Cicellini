@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class LeaderDevelopCard extends DevelopCard{
+public class LeaderDevelopCard extends DevelopCard {
 
     /**
      * It instantiates a new DevelopCard, after the activation of a LevTwoLeader effect.
@@ -26,6 +26,7 @@ public class LeaderDevelopCard extends DevelopCard{
 
     /**
      * Method to activate a production on a Leader Develop Card
+     *
      * @param map             : the map indicates which resource and from where you want to take it, to start a production
      * @param strongbox       : indicates the reference to the strongbox
      * @param deposits        : indicates the reference to the deposits
@@ -41,8 +42,8 @@ public class LeaderDevelopCard extends DevelopCard{
             boolean exit = false;
             int i = parseChoice(m.getValue());
 
-                if (m.getValue().equalsIgnoreCase("strongbox")) {
-                    i = 0;
+            if (m.getValue().equalsIgnoreCase("strongbox")) {
+                i = 0;
                 while (i < strongbox.length && !exit) {
                     if (getInput()[0].getColor() == strongbox[i].getColor()) {
                         if (strongbox[i].getAmount() > 0) {
@@ -53,35 +54,36 @@ public class LeaderDevelopCard extends DevelopCard{
                     }
                     i++;
                 }
-            } else
-                if (i >= 0 && i <= 2) {
-                        if (deposits.get(i) != null) {
-                            if (getInput()[0].getColor() == deposits.get(i).getColor()) {
-                                if (deposits.get(i).getAmount() > 0) {
-                                    deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
-                                } else
-                                    throw new InvalidActionException("There's not enough " + getInput()[0].getColor() + " resource in that Deposit!");
-                            } else throw new InvalidActionException("There's no " + getInput()[0].getColor() + " resource in that Deposit! Try choosing another one!");
-                        } else throw new InvalidActionException("The chosen Deposit is empty!");
-                    } else
-                        if (i >= 3 && i <= 4) {
-                            if (deposits.get(parseChoice(m.getValue())) != null) {
-                                if (getInput()[0].getColor() == deposits.get(i).getColor()) {
-                                    if (deposits.get(i).getAmount() > 0) {
-                                        deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
-                                    } else throw new InvalidActionException("There's not enough " + getInput()[0].getColor() + " resource in that Deposits!");
-                                } else throw new InvalidActionException("There's no " + getInput()[0].getColor() + " resource in that Deposits! Try choosing another one!");
-                            } else throw new InvalidActionException("That Deposit does not exist, yet!");
+            } else if (i >= 0 && i <= 2) {
+                if (deposits.get(i) != null) {
+                    if (getInput()[0].getColor() == deposits.get(i).getColor()) {
+                        if (deposits.get(i).getAmount() > 0) {
+                            deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
                         } else
-                            if (m.getKey().equals("Resout")) {
-                                i = 0;
-                                while (i < strongboxOutput.length && !exit) {
-                                    if (!strongboxOutput[i].getColor().toString().toLowerCase().equals(m.getValue().toLowerCase())) i++;
-                                    else exit = true;
-                                }
-                                strongboxOutput[i].setAmount(strongboxOutput[i].getAmount() + 1);
-                    } else throw new InvalidActionException("Invalid action! ( suggestion: ([\"Res1\"], [\"Strongbox\"]/[\"Deposits\"]), ([\"Resout\"], [\"COLOR\"]) )");
+                            throw new InvalidActionException("There's not enough " + getInput()[0].getColor() + " resource in that Deposit!");
+                    } else
+                        throw new InvalidActionException("There's no " + getInput()[0].getColor() + " resource in that Deposit! Try choosing another one!");
+                } else throw new InvalidActionException("The chosen Deposit is empty!");
+            } else if (i >= 3 && i <= 4) {
+                if (deposits.get(parseChoice(m.getValue())) != null) {
+                    if (getInput()[0].getColor() == deposits.get(i).getColor()) {
+                        if (deposits.get(i).getAmount() > 0) {
+                            deposits.get(i).setAmount(deposits.get(i).getAmount() - 1);
+                        } else
+                            throw new InvalidActionException("There's not enough " + getInput()[0].getColor() + " resource in that Deposits!");
+                    } else
+                        throw new InvalidActionException("There's no " + getInput()[0].getColor() + " resource in that Deposits! Try choosing another one!");
+                } else throw new InvalidActionException("That Deposit does not exist, yet!");
+            } else if (m.getKey().equals("Resout")) {
+                i = 0;
+                while (i < strongboxOutput.length && !exit) {
+                    if (!strongboxOutput[i].getColor().toString().toLowerCase().equals(m.getValue().toLowerCase())) i++;
+                    else exit = true;
                 }
+                strongboxOutput[i].setAmount(strongboxOutput[i].getAmount() + 1);
+            } else
+                throw new InvalidActionException("Invalid action! ( suggestion: ([\"Res1\"], [\"Strongbox\"]/[\"Deposits\"]), ([\"Resout\"], [\"COLOR\"]) )");
+        }
         return getFaithOutput();
     }
 }

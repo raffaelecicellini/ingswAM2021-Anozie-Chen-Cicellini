@@ -16,15 +16,15 @@ class ResourceLeaderTest {
      */
     @Test
     void checkRequirements() {
-        ResourceAmount req = new ResourceAmount(Color.YELLOW,5);
+        ResourceAmount req = new ResourceAmount(Color.YELLOW, 5);
         ResourceAmount[] ts = new ResourceAmount[4];
-        LeaderCard a = new ResourceLeader(3,"Deposit",false,false,req,Color.GREY, 0);
+        LeaderCard a = new ResourceLeader(3, "Deposit", false, false, req, Color.GREY, 0);
         ArrayList<ResourceAmount> deposit = new ArrayList<>();
-        ResourceAmount q = new ResourceAmount(Color.YELLOW,3);
-        ResourceAmount w = new ResourceAmount(Color.BLUE,2);
-        ResourceAmount e = new ResourceAmount(Color.YELLOW,1);
-        ResourceAmount r = new ResourceAmount(Color.GREEN,2);
-        ResourceAmount t = new ResourceAmount(Color.YELLOW,2);
+        ResourceAmount q = new ResourceAmount(Color.YELLOW, 3);
+        ResourceAmount w = new ResourceAmount(Color.BLUE, 2);
+        ResourceAmount e = new ResourceAmount(Color.YELLOW, 1);
+        ResourceAmount r = new ResourceAmount(Color.GREEN, 2);
+        ResourceAmount t = new ResourceAmount(Color.YELLOW, 2);
         deposit.add(q);
         deposit.add(w);
         deposit.add(e);
@@ -34,10 +34,10 @@ class ResourceLeaderTest {
         ts[1] = w;
         ts[2] = e;
         ts[3] = r;
-        assertTrue(a.checkRequirements(deposit,null,null,ts));
+        assertTrue(a.checkRequirements(deposit, null, null, ts));
         deposit.remove(0);
         ResourceAmount[] tr = new ResourceAmount[4];
-        assertFalse(a.checkRequirements(deposit,null,null,tr));
+        assertFalse(a.checkRequirements(deposit, null, null, tr));
     }
 
     /**
@@ -45,8 +45,8 @@ class ResourceLeaderTest {
      */
     @Test
     void getDeposit() {
-        ResourceAmount req = new ResourceAmount(Color.YELLOW,5);
-        LeaderCard a = new ResourceLeader(3,"Deposit",false,false,req,Color.GREY, 0);
-        assertEquals(a.getDeposit(),Color.GREY);
+        ResourceAmount req = new ResourceAmount(Color.YELLOW, 5);
+        LeaderCard a = new ResourceLeader(3, "Deposit", false, false, req, Color.GREY, 0);
+        assertEquals(a.getDeposit(), Color.GREY);
     }
 }

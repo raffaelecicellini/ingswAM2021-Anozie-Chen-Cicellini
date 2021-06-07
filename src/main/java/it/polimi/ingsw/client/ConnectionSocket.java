@@ -51,16 +51,17 @@ public class ConnectionSocket {
      */
     private SocketListener socketListener;
 
-    private final Logger logger= Logger.getLogger(getClass().getName());
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     /**
      * Constructor ConnectionSocket create a new ConnectionSocket instance.
+     *
      * @param serverAddress is the server's ip address.
-     * @param serverPort is the server's port.
+     * @param serverPort    is the server's port.
      */
     public ConnectionSocket(String serverAddress, int serverPort) {
         try {
-            FileHandler fh= new FileHandler("%h/ConnectionSocket.log");
+            FileHandler fh = new FileHandler("%h/ConnectionSocket.log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -74,11 +75,12 @@ public class ConnectionSocket {
 
     /**
      * This method sends a message to the server.
+     *
      * @param message is the message that will be sent to the server.
      */
     public synchronized void send(String message) {
         try {
-            output.write(message+"\n");
+            output.write(message + "\n");
             output.flush();
             logger.log(Level.INFO, message);
         } catch (IOException e) {
@@ -103,7 +105,8 @@ public class ConnectionSocket {
 
     /**
      * This method is called when a client wants connect to the server.
-     * @param message is the message containing the client's setup message.
+     *
+     * @param message       is the message containing the client's setup message.
      * @param answerHandler is the answerHandler that will be given to the SocketListener.
      * @return if the client successfully connected to the server
      */
@@ -132,12 +135,12 @@ public class ConnectionSocket {
         try {
             //10000 is the timeout
             socket.setSoTimeout(20000);
-        }catch (SocketException e) {
+        } catch (SocketException e) {
             System.err.println(e.getMessage());
         }
 
         try {
-            output.write(message+"\n");
+            output.write(message + "\n");
             output.flush();
         } catch (IOException e) {
             System.out.println("Failed to send the message.");
@@ -167,7 +170,7 @@ public class ConnectionSocket {
                 socket.close();
             } catch (IOException e) {
                 System.out.println("Couldn't close the socket");
-            }finally {
+            } finally {
                 System.err.println(answer.get("content"));
                 return false;
             }

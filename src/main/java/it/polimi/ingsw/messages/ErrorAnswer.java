@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class ErrorAnswer extends Message{
+public class ErrorAnswer extends Message {
 
     public ErrorAnswer(Map<String, String> info) {
         super(info);

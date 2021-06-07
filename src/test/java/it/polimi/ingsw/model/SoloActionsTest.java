@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Arrays;
 
 class SoloActionsTest {
@@ -11,7 +13,7 @@ class SoloActionsTest {
      */
     @Test
     public void creationTest() {
-        SoloActions test= new SoloActions();
+        SoloActions test = new SoloActions();
         System.out.println(test.toString());
     }
 
@@ -20,28 +22,28 @@ class SoloActionsTest {
      */
     @Test
     public void doActionTest() {
-        SoloActions test= new SoloActions();
-        FaithMarker black= new FaithMarker(0);
-        DevelopDeck[][] decks= new DevelopDeck[4][3];
-        Color actual= Color.GREEN;
-        int col=0;
-        for (int row=0; row<3; row++) {
-            decks[col][row]= new DevelopDeck(row+1, actual);
+        SoloActions test = new SoloActions();
+        FaithMarker black = new FaithMarker(0);
+        DevelopDeck[][] decks = new DevelopDeck[4][3];
+        Color actual = Color.GREEN;
+        int col = 0;
+        for (int row = 0; row < 3; row++) {
+            decks[col][row] = new DevelopDeck(row + 1, actual);
         }
-        actual=Color.BLUE;
+        actual = Color.BLUE;
         col++;
-        for (int row=0; row<3; row++) {
-            decks[col][row]= new DevelopDeck(row+1, actual);
+        for (int row = 0; row < 3; row++) {
+            decks[col][row] = new DevelopDeck(row + 1, actual);
         }
-        actual= Color.YELLOW;
+        actual = Color.YELLOW;
         col++;
-        for (int row=0; row<3; row++) {
-            decks[col][row]= new DevelopDeck(row+1, actual);
+        for (int row = 0; row < 3; row++) {
+            decks[col][row] = new DevelopDeck(row + 1, actual);
         }
-        actual=Color.PURPLE;
+        actual = Color.PURPLE;
         col++;
-        for (int row=0; row<3; row++) {
-            decks[col][row]= new DevelopDeck(row+1, actual);
+        for (int row = 0; row < 3; row++) {
+            decks[col][row] = new DevelopDeck(row + 1, actual);
         }
         System.out.println(test.toString());
         System.out.println(Arrays.deepToString(decks));

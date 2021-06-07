@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class LeaderActionMessage extends Message{
+public class LeaderActionMessage extends Message {
 
     public LeaderActionMessage(Map<String, String> info) {
         super(info);

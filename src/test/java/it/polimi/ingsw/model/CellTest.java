@@ -15,11 +15,11 @@ class CellTest {
      */
     @Test
     void getVictoryPoints() {
-        Cell a = new Cell(2,true);
-        assertEquals(a.getVictoryPoints(),2);
+        Cell a = new Cell(2, true);
+        assertEquals(a.getVictoryPoints(), 2);
 
-        Cell b = new Cell(10,false);
-        assertEquals(b.getVictoryPoints(),10);
+        Cell b = new Cell(10, false);
+        assertEquals(b.getVictoryPoints(), 10);
     }
 
     /**
@@ -27,13 +27,13 @@ class CellTest {
      */
     @Test
     void setVictoryPoints() {
-        Cell a = new Cell(0,true);
+        Cell a = new Cell(0, true);
         a.setVictoryPoints(1);
-        assertEquals(a.getVictoryPoints(),1);
+        assertEquals(a.getVictoryPoints(), 1);
 
-        Cell b = new Cell(1,true);
+        Cell b = new Cell(1, true);
         b.setVictoryPoints(99);
-        assertEquals(b.getVictoryPoints(),99);
+        assertEquals(b.getVictoryPoints(), 99);
     }
 
     /**
@@ -41,10 +41,10 @@ class CellTest {
      */
     @Test
     void isPopeSpace() {
-        Cell a = new Cell(0,true);
+        Cell a = new Cell(0, true);
         assertTrue(a.isPopeSpace());
 
-        Cell b = new Cell(0,false);
+        Cell b = new Cell(0, false);
         assertFalse(b.isPopeSpace());
     }
 
@@ -53,12 +53,12 @@ class CellTest {
      */
     @Test
     void setPopeSpace() {
-        Cell a = new Cell(0,true);
+        Cell a = new Cell(0, true);
         assertTrue(a.isPopeSpace());
         a.setPopeSpace(false);
         assertFalse(a.isPopeSpace());
 
-        Cell b = new Cell(0,false);
+        Cell b = new Cell(0, false);
         assertFalse(b.isPopeSpace());
         b.setPopeSpace(true);
         assertTrue(b.isPopeSpace());

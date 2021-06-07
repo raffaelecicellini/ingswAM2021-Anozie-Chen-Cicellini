@@ -18,26 +18,28 @@ public class ResourceController extends GUIController {
     private GUI gui;
     private int resources;
     private Map<String, String> action = new HashMap<>();
-    private int count=1;
+    private int count = 1;
 
     @FXML
     Label label;
 
     /**
      * Utility method used for updating the label that informs the player on how many resources he can choose.
+     *
      * @param resources it's the number of resources the player can choose.
      */
     public void setResources(int resources) {
-        this.resources=resources;
-        label.setText("You can choose "+resources+" initial resources. Make your choice!");
+        this.resources = resources;
+        label.setText("You can choose " + resources + " initial resources. Make your choice!");
     }
 
     /**
      * This method is called when the player chose his resources. Once the player confirms it will change the scene to
      * board.fxml
+     *
      * @param event is the event caught once the player clicks on an Imageview which represents a resource.
      */
-    public void chosen(MouseEvent event){
+    public void chosen(MouseEvent event) {
         //Controlla colore scelto, mostra Alert.CONFIRMATION per chiedere posizione in cui salvare. Salva in mappa le due
         //info. Controlla se ha diritto a un'altra risorsa: se si rimane in questa schermata (cambiando label?), altrimenti
         //Alert.CONFIRMATION per chiedere se mossa va bene. Alla conferma manda pack, altrimenti pulisce mappa e resetta la scena
@@ -51,10 +53,10 @@ public class ResourceController extends GUIController {
             return;
         }
         String color = ((Node) event.getSource()).getId();
-        action.put("res"+count,color);
-        action.put("pos"+count,position);
+        action.put("res" + count, color);
+        action.put("pos" + count, position);
         count++;
-        if (count == resources+1) {
+        if (count == resources + 1) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("Do you want to confirm?");
@@ -64,9 +66,9 @@ public class ResourceController extends GUIController {
                 action.clear();
                 return;
             }
-            action.put("action","chooseresources");
-            action.put("player",gui.getModelView().getName());
-            Message message= new ResourceMessage(action);
+            action.put("action", "chooseresources");
+            action.put("player", gui.getModelView().getName());
+            Message message = new ResourceMessage(action);
             gui.getListeners().fireUpdates("chooseresources", message);
             gui.changeScene("board.fxml");
 
@@ -80,9 +82,10 @@ public class ResourceController extends GUIController {
     /**
      * Utility method used for displaying a confirmation that will ask the user where he wants to place the selected
      * resource.
+     *
      * @return a String which represents the player's choice.
      */
-    private String position () {
+    private String position() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);
@@ -95,7 +98,7 @@ public class ResourceController extends GUIController {
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
+        if (result.get() == buttonTypeOne) {
             return buttonTypeOne.getText();
         } else if (result.get() == buttonTypeTwo) {
             return buttonTypeTwo.getText();
@@ -108,11 +111,11 @@ public class ResourceController extends GUIController {
     }
 
     /**
-     * @see GUIController
      * @param gui the gui to be set
+     * @see GUIController
      */
     @Override
     public void setGui(GUI gui) {
-        this.gui=gui;
+        this.gui = gui;
     }
 }

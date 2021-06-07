@@ -16,11 +16,14 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
-public class ProduceController extends GUIController{
-    @FXML private Button base, confirm;
+public class ProduceController extends GUIController {
+    @FXML
+    private Button base, confirm;
 
-    @FXML private ImageView dev0, dev1, dev2;
-    @FXML private ImageView leader0, leader1;
+    @FXML
+    private ImageView dev0, dev1, dev2;
+    @FXML
+    private ImageView leader0, leader1;
 
 
     private GUI gui;
@@ -47,7 +50,7 @@ public class ProduceController extends GUIController{
         stage.setScene(produce);
         stage.setTitle("Produce");
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setOnCloseRequest((e)->{
+        stage.setOnCloseRequest((e) -> {
             info.clear();
         });
         //stage.setResizable(false);
@@ -56,9 +59,10 @@ public class ProduceController extends GUIController{
 
     /**
      * This method is activated when the user clicks on the base production.
+     *
      * @param event the mouse click of the user.
      */
-    public void base(ActionEvent event){
+    public void base(ActionEvent event) {
         //Metodo chiamato quando utente seleziona una produzione da produce.fxml. Prima si recupera produzione scelta,
         //poi per ogni risorsa di input si chiede da dove prenderla mediante Alert.CONFIRMATION. Salva info in mappa
 
@@ -75,6 +79,7 @@ public class ProduceController extends GUIController{
     /**
      * This method is activated when a player clicks on one of the develop cards. It asks the player from where he wants to
      * take his resources.
+     *
      * @param event the mouse click of the player on a develop card.
      */
     public void selectDev(MouseEvent event) {
@@ -111,6 +116,7 @@ public class ProduceController extends GUIController{
     /**
      * This method is activated when the player clicks on one of the leader productions. It asks which resource and
      * from where he wants to take it and the resource he wants to produce.
+     *
      * @param event when the player clicks on a leader.
      */
     public void selectLeader(MouseEvent event) {
@@ -132,9 +138,10 @@ public class ProduceController extends GUIController{
     /**
      * This method is activated when the user clicks confirm to confirm his production. Is asks for confirmation and if
      * it is confirmed, it notifies the answer handler of the change.
+     *
      * @param event when the player clicks on confirm.
      */
-    public void confirm (ActionEvent event) {
+    public void confirm(ActionEvent event) {
         //Metodo chiamato quando utente conferma la mossa. Check per controllare se almeno una produzione è stata attivata
         //(altrimenti Alert.ERROR). Alert.CONFIRMATION per chiedere conferma: se si pack inviato, altrimenti si chiude stage
         //e si torna a board.fxml
@@ -189,8 +196,8 @@ public class ProduceController extends GUIController{
                     devCard++;
                 }
             }
-            
-            
+
+
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setHeaderText("Confirm production");
@@ -200,13 +207,12 @@ public class ProduceController extends GUIController{
                 info.put("player", gui.getModelView().getName());
                 info.put("action", "produce");
                 gui.getModelView().setActiveTurn(false);
-                Message message= new ProductionMessage(info);
+                Message message = new ProductionMessage(info);
                 gui.getListeners().fireUpdates("produce", message);
             }
             info.clear();
             stage.close();
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("You must start at least one production!");
@@ -216,6 +222,7 @@ public class ProduceController extends GUIController{
 
     /**
      * This method asks the user which color of resource he prefers to trade in/out (using a confimation alert).
+     *
      * @param in_out in/out indicates if the player wants to trade in or produce the resource, respectively.
      * @return the chosen color.
      */
@@ -223,7 +230,7 @@ public class ProduceController extends GUIController{
         Alert chooseColor = new Alert(Alert.AlertType.CONFIRMATION);
         chooseColor.setHeaderText("Choose color");
         if (in_out.equalsIgnoreCase("in")) chooseColor.setContentText("Choose the color you want to trade in!");
-        else if (in_out.equalsIgnoreCase("out"))  chooseColor.setContentText("Choose the color you want to produce!");
+        else if (in_out.equalsIgnoreCase("out")) chooseColor.setContentText("Choose the color you want to produce!");
         ButtonType blue = new ButtonType("BLUE");
         ButtonType grey = new ButtonType("GREY");
         ButtonType yellow = new ButtonType("YELLOW");
@@ -243,6 +250,7 @@ public class ProduceController extends GUIController{
 
     /**
      * This method asks the user where he wants to take the resource from (using a confimation alert).
+     *
      * @param color is the color of the resource.
      * @return the chosen position.
      */
@@ -274,8 +282,7 @@ public class ProduceController extends GUIController{
                     alert.showAndWait();
                     return choosePos(color);
                 }
-            }
-            else if (pos.get().equals(sp2)) {
+            } else if (pos.get().equals(sp2)) {
                 if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp2res")) return "sp2";
                 else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -331,11 +338,11 @@ public class ProduceController extends GUIController{
     }
 
     /**
-     * @see GUIController
      * @param gui the gui to be set
+     * @see GUIController
      */
     @Override
     public void setGui(GUI gui) {
-        this.gui=gui;
+        this.gui = gui;
     }
 }

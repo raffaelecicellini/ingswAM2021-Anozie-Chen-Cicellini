@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class EndgameAnswer extends Message{
+public class EndgameAnswer extends Message {
 
     public EndgameAnswer(Map<String, String> info) {
         super(info);
@@ -13,7 +13,7 @@ public class EndgameAnswer extends Message{
 
     @Override
     public String getWinner() {
-        return  info.get("winner");
+        return info.get("winner");
     }
 
     @Override

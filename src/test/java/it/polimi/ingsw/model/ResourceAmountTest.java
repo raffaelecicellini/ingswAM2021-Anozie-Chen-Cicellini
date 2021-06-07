@@ -13,7 +13,7 @@ public class ResourceAmountTest {
      * Random value setting and getting test
      */
     @Test
-    public void test2(){
+    public void test2() {
         Color color1 = Color.BLUE;
         ResourceAmount resourceAmount = new ResourceAmount(color1, 7);
 
@@ -21,7 +21,7 @@ public class ResourceAmountTest {
 
         resourceAmount.setColor(Color.PURPLE);
 
-        resourceAmount.setAmount(resourceAmount.getAmount()+2);
+        resourceAmount.setAmount(resourceAmount.getAmount() + 2);
 
         System.out.println(resourceAmount.getColor() + " " + resourceAmount.getAmount());
     }

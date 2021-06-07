@@ -14,9 +14,10 @@ import java.util.Scanner;
 public class App {
     /**
      * Method main selects CLI, GUI or Server based on the arguments provided.
+     *
      * @param args of type String[]
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         if (args.length > 0) {
             switch (args[0].toUpperCase()) {
                 case "SERVER":
@@ -33,8 +34,7 @@ public class App {
                     System.err.println("Invalid argument, please run the executable again.");
                     break;
             }
-        }
-        else {
+        } else {
             System.out.println("Starting GUI...");
             GUI.main(null);
         }

@@ -15,10 +15,10 @@ class FavorTileTest {
      */
     @Test
     void setVictoryPoints() {
-        FavorTile a = new FavorTile(4,true,-1,-1);
-        assertEquals(a.getVictoryPoints(),4);
+        FavorTile a = new FavorTile(4, true, -1, -1);
+        assertEquals(a.getVictoryPoints(), 4);
         a.setVictoryPoints(5);
-        assertEquals(a.getVictoryPoints(),5);
+        assertEquals(a.getVictoryPoints(), 5);
 
     }
 
@@ -27,11 +27,11 @@ class FavorTileTest {
      */
     @Test
     void getVictoryPoints() {
-        FavorTile a = new FavorTile(99,true,-1,-1);
-        assertEquals(a.getVictoryPoints(),99);
+        FavorTile a = new FavorTile(99, true, -1, -1);
+        assertEquals(a.getVictoryPoints(), 99);
 
-        FavorTile b = new FavorTile(0,true,-1,-1);
-        assertEquals(b.getVictoryPoints(),0);
+        FavorTile b = new FavorTile(0, true, -1, -1);
+        assertEquals(b.getVictoryPoints(), 0);
     }
 
     /**
@@ -39,7 +39,7 @@ class FavorTileTest {
      */
     @Test
     void setActive() {
-        FavorTile a = new FavorTile(2,true,-1,-1);
+        FavorTile a = new FavorTile(2, true, -1, -1);
         a.setActive(true);
         assertTrue(a.isActive());
         a.setActive(false);
@@ -52,10 +52,10 @@ class FavorTileTest {
      */
     @Test
     void isActive() {
-        FavorTile a = new FavorTile(2,true,-1,-1);
+        FavorTile a = new FavorTile(2, true, -1, -1);
         assertTrue(a.isActive());
 
-        FavorTile b = new FavorTile(4,false,-1,-1);
+        FavorTile b = new FavorTile(4, false, -1, -1);
         assertFalse(b.isActive());
     }
 
@@ -64,16 +64,16 @@ class FavorTileTest {
      */
     @Test
     void getEnd() {
-        FavorTile a = new FavorTile(2,true,-1,-1);
-        assertEquals(a.getEnd(),-1);
+        FavorTile a = new FavorTile(2, true, -1, -1);
+        assertEquals(a.getEnd(), -1);
     }
 
     /**
      * Tests if the correct value is returned by the method.
      */
     @Test
-    void  getStart() {
-        FavorTile a = new FavorTile(2,true,-1,-1);
-        assertEquals(a.getStart(),-1);
+    void getStart() {
+        FavorTile a = new FavorTile(2, true, -1, -1);
+        assertEquals(a.getStart(), -1);
     }
 }

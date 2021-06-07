@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import com.google.gson.Gson;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.notifications.SourceListener;
+
 import java.util.Map;
 
 /**
@@ -23,6 +24,7 @@ public class ActionParser implements SourceListener {
 
     /**
      * Action Parser's constructor.
+     *
      * @param connection is the the Connection Socket.
      */
     public ActionParser(ConnectionSocket connection) {
@@ -31,7 +33,7 @@ public class ActionParser implements SourceListener {
 
     @Override
     public void update(String propertyName, Message action) {
-        Map<String, String> value= action.getAll();
+        Map<String, String> value = action.getAll();
         Gson gson = new Gson();
         String message = gson.toJson(value);
         // sending serialized message

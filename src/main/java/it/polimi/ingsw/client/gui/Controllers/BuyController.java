@@ -21,9 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class BuyController extends GUIController{
+public class BuyController extends GUIController {
     private GUI gui;
-    private Map<String, String> action =  new HashMap<>();
+    private Map<String, String> action = new HashMap<>();
     private Stage stage;
     @FXML
     private GridPane decks;
@@ -32,7 +32,7 @@ public class BuyController extends GUIController{
      * This method is called when the user, while he's on the board.fxml page clicks the buy button.
      * It will just show a new stage in which the user will see all the cards he can buy.
      */
-    public void buy(){
+    public void buy() {
         //Metodo chiamato quando utente da board schiaccia su tasto buy. Mostra un nuovo stage buy.fxml da cui non si può uscire
         //se non dopo aver fatto mossa o aver chiuso la finestra
         action.clear();
@@ -41,9 +41,10 @@ public class BuyController extends GUIController{
 
     /**
      * This method is called when the user clicks on a card. It will ask him all the info's needed for the buy move.
+     *
      * @param event is the event caught when the user clicks on a card.
      */
-    public void select(MouseEvent event){
+    public void select(MouseEvent event) {
         //Si recuperano info su carta scelta cosi da recuperare costo (check per sconti). Per ogni risorsa, Alert.CONFIRMATION
         //per chiedere da dove recuperarla. Finito il ciclo, ultimo Alert per chiedere conferma: se ok si manda pack, altrimenti
         //si chiude stage.
@@ -57,10 +58,10 @@ public class BuyController extends GUIController{
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("You must select the index!");
             alert.showAndWait();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
             return;
         }
-        action.put("ind",ind);
+        action.put("ind", ind);
 
         //CONSTRUCT ARRAY OF COSTS (FROM THE SELECTED CARD)
         ArrayList<String> discounts = new ArrayList<>();
@@ -69,14 +70,14 @@ public class BuyController extends GUIController{
         if (gui.getModelView().getLeaders(gui.getModelView().getName()).get("state1").equalsIgnoreCase("active"))
             discounts.add(Cards.getDiscountById(Integer.parseInt(gui.getModelView().getLeaders(gui.getModelView().getName()).get("leader1"))));
         ArrayList<String> cost;
-        if (gui.getModelView().getDevelopDecks()[Integer.parseInt(action.get("column"))][Integer.parseInt(action.get("row"))]!=0) {
+        if (gui.getModelView().getDevelopDecks()[Integer.parseInt(action.get("column"))][Integer.parseInt(action.get("row"))] != 0) {
             cost = Cards.getCostById(gui.getModelView().getDevelopDecks()[Integer.parseInt(action.get("column"))][Integer.parseInt(action.get("row"))], discounts);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("There are no more cards in this deck! Try another one!");
             alert.showAndWait();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
             return;
         }
 
@@ -90,22 +91,22 @@ public class BuyController extends GUIController{
                     alert.initModality(Modality.APPLICATION_MODAL);
                     alert.setContentText("You must chose for each resource!");
                     alert.showAndWait();
-                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                    ((Node) (event.getSource())).getScene().getWindow().hide();
                     return;
                 } else {
-                    action.put("res"+i,choice.toLowerCase());
+                    action.put("res" + i, choice.toLowerCase());
                     i++;
                 }
             }
         }
 
         //CREATE THE CONFIRMATION STRING.
-        StringBuilder move= new StringBuilder();
+        StringBuilder move = new StringBuilder();
         move.append("This is your move:\n");
         int j = 1;
         for (String x : cost) {
             if (x != null) {
-                move.append("Resource " + x + ": " + action.get("res" + j)+"\n");
+                move.append("Resource " + x + ": " + action.get("res" + j) + "\n");
                 j++;
             }
         }
@@ -119,17 +120,17 @@ public class BuyController extends GUIController{
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) {
             action.clear();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            ((Node) (event.getSource())).getScene().getWindow().hide();
             return;
         }
 
         //NOTIFIES THE LISTENER AND CLOSES THE WINDOW
-        action.put("action","buy");
-        action.put("player",gui.getModelView().getName());
+        action.put("action", "buy");
+        action.put("player", gui.getModelView().getName());
         gui.getModelView().setActiveTurn(false);
-        Message message= new BuyMessage(action);
+        Message message = new BuyMessage(action);
         gui.getListeners().fireUpdates("buy", message);
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
         //stage.close();
     }
 
@@ -148,6 +149,7 @@ public class BuyController extends GUIController{
 
     /**
      * Utility method used for storing the information about the card the user clicked.
+     *
      * @param card is a string representation of the card the user clicked.
      */
     private void putInfo(String card) {
@@ -206,14 +208,15 @@ public class BuyController extends GUIController{
     /**
      * Utility method used for displaying a Confirmation box asking the user where he would like to take
      * the resource needed for buying the card from.
+     *
      * @param resource is the resource needed for buying the card.
      * @return a String which contains the source of the resource used for buying the card.
      */
-    private String askResource (String resource) {
+    private String askResource(String resource) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);
-        alert.setContentText("Where do you want to take resource "+resource+" from?");
+        alert.setContentText("Where do you want to take resource " + resource + " from?");
 
         ButtonType buttonTypeOne = new ButtonType("small");
         ButtonType buttonTypeTwo = new ButtonType("mid");
@@ -231,7 +234,7 @@ public class BuyController extends GUIController{
         alert.getButtonTypes().add(buttonTypeSix);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
+        if (result.get() == buttonTypeOne) {
             return buttonTypeOne.getText();
         } else if (result.get() == buttonTypeTwo) {
             return buttonTypeTwo.getText();
@@ -239,9 +242,9 @@ public class BuyController extends GUIController{
             return buttonTypeThree.getText();
         } else if (result.get() == buttonTypeFour) {
             return buttonTypeFour.getText();
-        }else if (result.get() == buttonTypeFive) {
+        } else if (result.get() == buttonTypeFive) {
             return buttonTypeFive.getText();
-        }else if (result.get() == buttonTypeSix) {
+        } else if (result.get() == buttonTypeSix) {
             return buttonTypeSix.getText();
         } else {
             //what to do?? :user chose CANCEL or closed the dialog
@@ -252,9 +255,10 @@ public class BuyController extends GUIController{
     /**
      * Utility method used for displaying a confirmation box which will ask the user the slot in which he wants
      * to place the card.
+     *
      * @return a String which represents the slot.
      */
-    private String askInd () {
+    private String askInd() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         //I don't know..
         alert.initModality(Modality.APPLICATION_MODAL);
@@ -266,7 +270,7 @@ public class BuyController extends GUIController{
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
+        if (result.get() == buttonTypeOne) {
             return buttonTypeOne.getText();
         } else if (result.get() == buttonTypeTwo) {
             return buttonTypeTwo.getText();
@@ -305,11 +309,11 @@ public class BuyController extends GUIController{
     }
 
     /**
-     * @see GUIController
      * @param gui the gui to be set
+     * @see GUIController
      */
     @Override
     public void setGui(GUI gui) {
-        this.gui=gui;
+        this.gui = gui;
     }
 }

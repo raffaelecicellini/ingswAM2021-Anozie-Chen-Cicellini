@@ -17,21 +17,23 @@ public abstract class LeaderCard {
 
     /**
      * Constructor LeaderCard creates a new LeaderCard instance.
+     *
      * @param victoryPoints are the card's victory points.
-     * @param type is the leader's type.
-     * @param active is the state of the card.
-     * @param discarded is the state of the card.
+     * @param type          is the leader's type.
+     * @param active        is the state of the card.
+     * @param discarded     is the state of the card.
      */
     public LeaderCard(int victoryPoints, String type, boolean active, boolean discarded, int id) {
         this.victoryPoints = victoryPoints;
         this.type = type;
         this.active = active;
         this.discarded = discarded;
-        this.id=id;
+        this.id = id;
     }
 
     /**
      * This method returns the leader card's type.
+     *
      * @return the leader card's type.
      */
     public String getType() {
@@ -40,6 +42,7 @@ public abstract class LeaderCard {
 
     /**
      * This method returns if the card is active.
+     *
      * @return if the card is active.
      */
     public boolean isActive() {
@@ -48,6 +51,7 @@ public abstract class LeaderCard {
 
     /**
      * This method changes the state of the card.
+     *
      * @param active is the new state of the card.
      */
     public void setActive(boolean active) {
@@ -56,6 +60,7 @@ public abstract class LeaderCard {
 
     /**
      * This method returns if the card is discarded.
+     *
      * @return if the card is discarded.
      */
     public boolean isDiscarded() {
@@ -64,6 +69,7 @@ public abstract class LeaderCard {
 
     /**
      * This method changes the card's state.
+     *
      * @param discarded is the card's new state.
      */
     public void setDiscarded(boolean discarded) {
@@ -72,6 +78,7 @@ public abstract class LeaderCard {
 
     /**
      * This method returns the card's victory points.
+     *
      * @return the card's victory points.
      */
     public int getVictoryPoints() {
@@ -80,6 +87,7 @@ public abstract class LeaderCard {
 
     /**
      * This method returns how the white marbles need to be handled.
+     *
      * @return how the white marbles need to be handled.
      */
     public Color getWhiteBall() {
@@ -88,6 +96,7 @@ public abstract class LeaderCard {
 
     /**
      * This method returns the color of the extra deposit.
+     *
      * @return the color of the extra deposit.
      */
     public Color getDeposit() {
@@ -96,6 +105,7 @@ public abstract class LeaderCard {
 
     /**
      * This method returns the color of the discount.
+     *
      * @return the color of the discount.
      */
     public Color getDiscount() {
@@ -104,6 +114,7 @@ public abstract class LeaderCard {
 
     /**
      * This method returns the color required for the extra production.
+     *
      * @return the color required for the extra production.
      */
     public Color getProduction() {
@@ -112,24 +123,27 @@ public abstract class LeaderCard {
 
     /**
      * This method checks if the player respects the requirements. Not all parameters may be used.
-     * @param deposits is the list of the player's deposits.
-     * @param slots is the list of the player's DevelopCard slots.
+     *
+     * @param deposits    is the list of the player's deposits.
+     * @param slots       is the list of the player's DevelopCard slots.
      * @param faithMarker is the player's faith marker.
-     * @param strongbox is the player's strongbox
+     * @param strongbox   is the player's strongbox
      * @return if the player respects the requirements.
      */
     public abstract boolean checkRequirements(ArrayList<ResourceAmount> deposits, ArrayList<DevelopCard[]> slots, FaithMarker faithMarker, ResourceAmount[] strongbox);
 
     /**
      * This method returns the id representing the card
+     *
      * @return the id of the card
      */
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
     /**
      * This method returns a String which represents the object.
+     *
      * @return a String which represents the object.
      */
     @Override

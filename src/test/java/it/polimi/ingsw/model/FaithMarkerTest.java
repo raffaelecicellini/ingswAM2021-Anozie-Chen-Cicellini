@@ -16,10 +16,10 @@ class FaithMarkerTest {
     @Test
     void getPosition() {
         FaithMarker a = new FaithMarker(2);
-        assertEquals(a.getPosition(),2);
+        assertEquals(a.getPosition(), 2);
 
         FaithMarker b = new FaithMarker(40);
-        assertEquals(b.getPosition(),40);
+        assertEquals(b.getPosition(), 40);
 
     }
 
@@ -30,10 +30,10 @@ class FaithMarkerTest {
     void setPosition() {
         FaithMarker a = new FaithMarker(2);
         a.setPosition(21);
-        assertEquals(a.getPosition(),21);
+        assertEquals(a.getPosition(), 21);
 
         FaithMarker b = new FaithMarker(40);
         b.setPosition(1);
-        assertEquals(b.getPosition(),1);
+        assertEquals(b.getPosition(), 1);
     }
 }

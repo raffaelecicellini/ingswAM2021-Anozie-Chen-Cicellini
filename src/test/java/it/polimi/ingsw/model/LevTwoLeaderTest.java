@@ -16,23 +16,23 @@ class LevTwoLeaderTest {
      */
     @Test
     void checkRequirements() {
-        LevTwoLeader a = new LevTwoLeader(2,"LevTwo",false,false,Color.GREEN,Color.GREY, 0);
+        LevTwoLeader a = new LevTwoLeader(2, "LevTwo", false, false, Color.GREEN, Color.GREY, 0);
         DevelopCard[] b = new DevelopCard[3];
-        DevelopCard q = new DevelopCard(1,1,1, Color.GREY,null,null,null, 0);
-        DevelopCard w = new DevelopCard(1,1,1, Color.GREY,null,null,null, 0);
+        DevelopCard q = new DevelopCard(1, 1, 1, Color.GREY, null, null, null, 0);
+        DevelopCard w = new DevelopCard(1, 1, 1, Color.GREY, null, null, null, 0);
         b[0] = q;
         b[1] = w;
-        ArrayList<DevelopCard[]> slots= new ArrayList<>();
+        ArrayList<DevelopCard[]> slots = new ArrayList<>();
         slots.add(b);
         slots.add(b);
         slots.add(b);
-        assertFalse(a.checkRequirements(null,slots,null,null));
-        DevelopCard e = new DevelopCard(1,1,1, Color.GREY,null,null,null, 0);
+        assertFalse(a.checkRequirements(null, slots, null, null));
+        DevelopCard e = new DevelopCard(1, 1, 1, Color.GREY, null, null, null, 0);
         b[2] = e;
-        assertFalse(a.checkRequirements(null,slots,null,null));
+        assertFalse(a.checkRequirements(null, slots, null, null));
         e.setLevel(2);
         e.setColor(Color.GREEN);
-        assertTrue(a.checkRequirements(null,slots,null,null));
+        assertTrue(a.checkRequirements(null, slots, null, null));
     }
 
     /**
@@ -40,7 +40,7 @@ class LevTwoLeaderTest {
      */
     @Test
     void getProduction() {
-        LevTwoLeader a = new LevTwoLeader(2,"LevTwo",false,false,Color.GREEN,Color.GREY, 0);
-        assertEquals(a.getProduction(),Color.GREY);
+        LevTwoLeader a = new LevTwoLeader(2, "LevTwo", false, false, Color.GREEN, Color.GREY, 0);
+        assertEquals(a.getProduction(), Color.GREY);
     }
 }

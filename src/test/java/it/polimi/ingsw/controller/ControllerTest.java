@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.exceptions.InvalidActionException;
 import it.polimi.ingsw.notifications.SourceListener;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.beans.PropertyChangeEvent;
@@ -22,7 +23,7 @@ public class ControllerTest {
      * Testing Controller: START, CHOOSELEADERS & CHOOSERESOURCES
      */
     @Test
-    public void ControllerTest1(){
+    public void ControllerTest1() {
 
         SourceListener gameHandlerListener = (name, evt) -> {
             Gson gson = new Gson();
@@ -93,7 +94,7 @@ public class ControllerTest {
      * Testing Controller: BUY, PRODUCE, FROMMAKET, SWAP, ENDTURN
      */
     @Test
-    public void ControllerTest2(){
+    public void ControllerTest2() {
 
         SourceListener gameHandlerListener = (name, evt) -> {
             Gson gson = new Gson();
@@ -114,7 +115,7 @@ public class ControllerTest {
 
         controller.update(map.get("action"), null);
 
-        for (int i = 0; i < game.getActivePlayers().size(); i++){
+        for (int i = 0; i < game.getActivePlayers().size(); i++) {
             System.out.println("Player " + i + ": " + game.getActivePlayers().get(i).getName());
         }
 

@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class EndTurnMessage extends Message{
+public class EndTurnMessage extends Message {
 
     public EndTurnMessage(Map<String, String> info) {
         super(info);

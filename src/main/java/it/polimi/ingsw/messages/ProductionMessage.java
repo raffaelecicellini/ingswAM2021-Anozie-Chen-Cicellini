@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class ProductionMessage extends Message{
+public class ProductionMessage extends Message {
 
     public ProductionMessage(Map<String, String> info) {
         super(info);
@@ -14,24 +14,24 @@ public class ProductionMessage extends Message{
 
     @Override
     public boolean isSelected(int ind) {
-        if (!info.containsKey("prod"+ind))
+        if (!info.containsKey("prod" + ind))
             return false;
-        String selected = info.get("prod"+ind);
+        String selected = info.get("prod" + ind);
         return selected.equalsIgnoreCase("yes");
     }
 
     @Override
     public String getRes(int prod, int res) {
-        return info.get("in"+ prod + res);
+        return info.get("in" + prod + res);
     }
 
     @Override
     public String getPos(int prod, int res) {
-        return info.get("pos"+ prod + res);
+        return info.get("pos" + prod + res);
     }
 
     @Override
     public String getOut(int prod) {
-        return info.get("out"+prod);
+        return info.get("out" + prod);
     }
 }

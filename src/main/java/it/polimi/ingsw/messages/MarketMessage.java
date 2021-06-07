@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class MarketMessage extends Message{
+public class MarketMessage extends Message {
 
     public MarketMessage(Map<String, String> info) {
         super(info);
@@ -13,12 +13,12 @@ public class MarketMessage extends Message{
 
     @Override
     public String getPos(int ind) {
-        return info.get("pos"+ind);
+        return info.get("pos" + ind);
     }
 
     @Override
     public String getRes(int ind) {
-        return info.get("res"+ind);
+        return info.get("res" + ind);
     }
 
     @Override

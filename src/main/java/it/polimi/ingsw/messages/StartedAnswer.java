@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class StartedAnswer extends Message{
+public class StartedAnswer extends Message {
 
     public StartedAnswer(Map<String, String> info) {
         super(info);
@@ -13,17 +13,17 @@ public class StartedAnswer extends Message{
 
     @Override
     public int getCard(int col, int row) {
-        return info.containsKey("card"+col+row) ? Integer.parseInt(info.get("card"+col+row)) : -1;
+        return info.containsKey("card" + col + row) ? Integer.parseInt(info.get("card" + col + row)) : -1;
     }
 
     @Override
     public String getMarble(int col, int row) {
-        return info.get("marble"+col+row);
+        return info.get("marble" + col + row);
     }
 
     @Override
     public String getPlayer(int ind) {
-        return info.get("player"+ind);
+        return info.get("player" + ind);
     }
 
     @Override

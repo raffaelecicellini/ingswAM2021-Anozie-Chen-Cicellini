@@ -5,62 +5,93 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.Controllers.ShowController">
-   <children>
-      <ImageView fitHeight="500.0" fitWidth="1000.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../PNG/marbles_bg/background_rinascimento.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="500.0" fitWidth="740.0" layoutX="200.0" pickOnBounds="true" scaleX="0.9" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../PNG/board/board.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="leader0" fitHeight="233.0" fitWidth="162.0" layoutX="1.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <ImageView fx:id="leader1" fitHeight="270.0" fitWidth="154.0" layoutX="1.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-      <ImageView fx:id="small" fitHeight="26.0" fitWidth="26.0" layoutX="251.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="mid1" fitHeight="26.0" fitWidth="26.0" layoutX="237.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="mid2" fitHeight="26.0" fitWidth="26.0" layoutX="264.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="big1" fitHeight="26.0" fitWidth="26.0" layoutX="224.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="big3" fitHeight="26.0" fitWidth="26.0" layoutX="275.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="big2" fitHeight="26.0" fitWidth="26.0" layoutX="250.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="str_blue" fitHeight="20.0" fitWidth="20.0" layoutX="235.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../PNG/marbles_bg/blue_ball.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="str_purple" fitHeight="20.0" fitWidth="20.0" layoutX="235.0" layoutY="395.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../PNG/marbles_bg/purple_ball.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="str_grey" fitHeight="20.0" fitWidth="20.0" layoutX="235.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../PNG/marbles_bg/grey_ball.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="str_yellow" fitHeight="20.0" fitWidth="20.0" layoutX="235.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../PNG/marbles_bg/yellow_ball.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="blue_qty" layoutX="259.0" layoutY="375.0" prefHeight="18.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0" />
-      <Label fx:id="purple_qty" layoutX="259.0" layoutY="396.0" prefHeight="18.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0" />
-      <Label fx:id="grey_qty" layoutX="259.0" layoutY="418.0" prefHeight="18.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0" />
-      <Label fx:id="yellow_qty" layoutX="259.0" layoutY="440.0" prefHeight="18.0" prefWidth="23.0" style="-fx-background-color: white;" text="x 0" />
-      <ImageView fx:id="dev0" fitHeight="176.0" fitWidth="110.0" layoutX="437.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="dev1" fitHeight="176.0" fitWidth="110.0" layoutX="565.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="dev2" fitHeight="176.0" fitWidth="110.0" layoutX="695.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leaderRes00" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leaderRes01" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leaderRes10" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leaderRes11" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="tile0" fitHeight="51.0" fitWidth="51.0" layoutX="339.0" layoutY="72.0" pickOnBounds="true" />
-      <ImageView fx:id="tile1" fitHeight="51.0" fitWidth="51.0" layoutX="502.0" layoutY="37.0" pickOnBounds="true" />
-      <ImageView fx:id="tile2" fitHeight="51.0" fitWidth="51.0" layoutX="698.0" layoutY="73.0" pickOnBounds="true" />
-      <Label fx:id="sp_leader0" alignment="CENTER" layoutX="43.0" layoutY="13.0" opacity="0.0" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: white;" text="SP" />
-      <Label fx:id="sp_leader1" alignment="CENTER" layoutX="43.0" layoutY="208.0" opacity="0.0" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: white;" text="SP" />
-      <ImageView fx:id="pos" fitHeight="33.0" fitWidth="39.0" layoutX="217.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.polimi.ingsw.client.gui.Controllers.ShowController">
+    <children>
+        <ImageView fitHeight="500.0" fitWidth="1000.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../PNG/marbles_bg/background_rinascimento.png"/>
+            </image>
+        </ImageView>
+        <ImageView fitHeight="500.0" fitWidth="740.0" layoutX="200.0" pickOnBounds="true" scaleX="0.9"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0"
+                   AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../PNG/board/board.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="leader0" fitHeight="233.0" fitWidth="162.0" layoutX="1.0" layoutY="23.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0"/>
+        <ImageView fx:id="leader1" fitHeight="270.0" fitWidth="154.0" layoutX="1.0" layoutY="237.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
+        <ImageView fx:id="small" fitHeight="26.0" fitWidth="26.0" layoutX="251.0" layoutY="217.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="mid1" fitHeight="26.0" fitWidth="26.0" layoutX="237.0" layoutY="260.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="mid2" fitHeight="26.0" fitWidth="26.0" layoutX="264.0" layoutY="260.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="big1" fitHeight="26.0" fitWidth="26.0" layoutX="224.0" layoutY="303.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="big3" fitHeight="26.0" fitWidth="26.0" layoutX="275.0" layoutY="303.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="big2" fitHeight="26.0" fitWidth="26.0" layoutX="250.0" layoutY="303.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="str_blue" fitHeight="20.0" fitWidth="20.0" layoutX="235.0" layoutY="373.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../PNG/marbles_bg/blue_ball.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="str_purple" fitHeight="20.0" fitWidth="20.0" layoutX="235.0" layoutY="395.0"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../PNG/marbles_bg/purple_ball.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="str_grey" fitHeight="20.0" fitWidth="20.0" layoutX="235.0" layoutY="417.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../PNG/marbles_bg/grey_ball.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="str_yellow" fitHeight="20.0" fitWidth="20.0" layoutX="235.0" layoutY="439.0"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../PNG/marbles_bg/yellow_ball.png"/>
+            </image>
+        </ImageView>
+        <Label fx:id="blue_qty" layoutX="259.0" layoutY="375.0" prefHeight="18.0" prefWidth="23.0"
+               style="-fx-background-color: white;" text="x 0"/>
+        <Label fx:id="purple_qty" layoutX="259.0" layoutY="396.0" prefHeight="18.0" prefWidth="23.0"
+               style="-fx-background-color: white;" text="x 0"/>
+        <Label fx:id="grey_qty" layoutX="259.0" layoutY="418.0" prefHeight="18.0" prefWidth="23.0"
+               style="-fx-background-color: white;" text="x 0"/>
+        <Label fx:id="yellow_qty" layoutX="259.0" layoutY="440.0" prefHeight="18.0" prefWidth="23.0"
+               style="-fx-background-color: white;" text="x 0"/>
+        <ImageView fx:id="dev0" fitHeight="176.0" fitWidth="110.0" layoutX="437.0" layoutY="218.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="dev1" fitHeight="176.0" fitWidth="110.0" layoutX="565.0" layoutY="218.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="dev2" fitHeight="176.0" fitWidth="110.0" layoutX="695.0" layoutY="218.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="leaderRes00" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="197.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="leaderRes01" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="197.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="leaderRes10" fitHeight="28.0" fitWidth="28.0" layoutX="46.0" layoutY="446.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="leaderRes11" fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="446.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="tile0" fitHeight="51.0" fitWidth="51.0" layoutX="339.0" layoutY="72.0" pickOnBounds="true"/>
+        <ImageView fx:id="tile1" fitHeight="51.0" fitWidth="51.0" layoutX="502.0" layoutY="37.0" pickOnBounds="true"/>
+        <ImageView fx:id="tile2" fitHeight="51.0" fitWidth="51.0" layoutX="698.0" layoutY="73.0" pickOnBounds="true"/>
+        <Label fx:id="sp_leader0" alignment="CENTER" layoutX="43.0" layoutY="13.0" opacity="0.0" prefHeight="18.0"
+               prefWidth="32.0" style="-fx-background-color: white;" text="SP"/>
+        <Label fx:id="sp_leader1" alignment="CENTER" layoutX="43.0" layoutY="208.0" opacity="0.0" prefHeight="18.0"
+               prefWidth="32.0" style="-fx-background-color: white;" text="SP"/>
+        <ImageView fx:id="pos" fitHeight="33.0" fitWidth="39.0" layoutX="217.0" layoutY="98.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+    </children>
 </AnchorPane>

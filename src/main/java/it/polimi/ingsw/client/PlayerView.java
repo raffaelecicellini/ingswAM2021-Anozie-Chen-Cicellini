@@ -38,43 +38,43 @@ public class PlayerView {
      */
     private List<int[]> slots;
 
-    public PlayerView(){
-        faithTrack=new int[25];
-        tiles=new Tile[3];
-        for (int i=0; i<3; i++){
-            tiles[i]=new Tile(i+2);
+    public PlayerView() {
+        faithTrack = new int[25];
+        tiles = new Tile[3];
+        for (int i = 0; i < 3; i++) {
+            tiles[i] = new Tile(i + 2);
         }
-        for (int i=0; i<25; i++){
-            if (i==8 || i==16 || i==24){
-                if (i==8) faithTrack[i]= 2;
-                else if (i==16) faithTrack[i]= 9;
-                else faithTrack[i]= 20;
-            } else if (i<=2) faithTrack[i]= 0;
-            else if (i>=3 && i<=5) faithTrack[i]= 1;
-            else if (i>=6 && i<=8) faithTrack[i]= 2;
-            else if (i>=9 && i<=11) faithTrack[i]= 4;
-            else if (i>=12 && i<=14) faithTrack[i]= 6;
-            else if (i>=15 && i<=17) faithTrack[i]= 9;
-            else if (i>=18 && i<=20) faithTrack[i]= 12;
-            else if (i>=21 && i<=23) faithTrack[i]= 16;
+        for (int i = 0; i < 25; i++) {
+            if (i == 8 || i == 16 || i == 24) {
+                if (i == 8) faithTrack[i] = 2;
+                else if (i == 16) faithTrack[i] = 9;
+                else faithTrack[i] = 20;
+            } else if (i <= 2) faithTrack[i] = 0;
+            else if (i >= 3 && i <= 5) faithTrack[i] = 1;
+            else if (i >= 6 && i <= 8) faithTrack[i] = 2;
+            else if (i >= 9 && i <= 11) faithTrack[i] = 4;
+            else if (i >= 12 && i <= 14) faithTrack[i] = 6;
+            else if (i >= 15 && i <= 17) faithTrack[i] = 9;
+            else if (i >= 18 && i <= 20) faithTrack[i] = 12;
+            else if (i >= 21 && i <= 23) faithTrack[i] = 16;
         }
-        this.slots= new ArrayList<>();
+        this.slots = new ArrayList<>();
         this.slots.add(new int[3]);
         this.slots.add(new int[3]);
         this.slots.add(new int[3]);
-        this.deposits=new HashMap<>();
+        this.deposits = new HashMap<>();
         deposits.put("smallres", "empty");
         deposits.put("smallqty", String.valueOf(0));
         deposits.put("midres", "empty");
         deposits.put("midqty", String.valueOf(0));
         deposits.put("bigres", "empty");
         deposits.put("bigqty", String.valueOf(0));
-        this.strongbox= new HashMap<>();
-        String[] res={"BLUE", "PURPLE", "GREY", "YELLOW"};
+        this.strongbox = new HashMap<>();
+        String[] res = {"BLUE", "PURPLE", "GREY", "YELLOW"};
         String box, qty;
-        for (int i=0; i<res.length; i++){
-            box="strres"+i;
-            qty="strqty"+i;
+        for (int i = 0; i < res.length; i++) {
+            box = "strres" + i;
+            qty = "strqty" + i;
             strongbox.put(box, res[i]);
             strongbox.put(qty, String.valueOf(0));
         }
@@ -89,7 +89,7 @@ public class PlayerView {
     }
 
     public void setPosition(int position) {
-        this.position=position;
+        this.position = position;
     }
 
     public Tile[] getTiles() {
@@ -97,7 +97,7 @@ public class PlayerView {
     }
 
     public void setTiles(Tile[] tiles) {
-        this.tiles=tiles;
+        this.tiles = tiles;
     }
 
     public Map<String, String> getDeposits() {
@@ -105,7 +105,7 @@ public class PlayerView {
     }
 
     public void setDeposits(Map<String, String> deposits) {
-        this.deposits=deposits;
+        this.deposits = deposits;
     }
 
     public Map<String, String> getStrongbox() {
@@ -113,7 +113,7 @@ public class PlayerView {
     }
 
     public void setStrongbox(Map<String, String> strongbox) {
-        this.strongbox=strongbox;
+        this.strongbox = strongbox;
     }
 
     public Map<String, String> getLeaders() {
@@ -121,7 +121,7 @@ public class PlayerView {
     }
 
     public void setLeaders(Map<String, String> leaders) {
-        this.leaders=leaders;
+        this.leaders = leaders;
     }
 
     public List<int[]> getSlots() {
@@ -129,6 +129,6 @@ public class PlayerView {
     }
 
     public void setSlots(List<int[]> slots) {
-        this.slots=slots;
+        this.slots = slots;
     }
 }

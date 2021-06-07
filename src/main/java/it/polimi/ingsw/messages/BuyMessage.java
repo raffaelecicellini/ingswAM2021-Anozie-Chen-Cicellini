@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class BuyMessage extends Message{
+public class BuyMessage extends Message {
 
     public BuyMessage(Map<String, String> info) {
         super(info);
@@ -29,8 +29,8 @@ public class BuyMessage extends Message{
     }
 
     @Override
-    public Map<String,String> getCost() {
-        Map<String,String> cost = new HashMap<>(info);
+    public Map<String, String> getCost() {
+        Map<String, String> cost = new HashMap<>(info);
         System.out.println(cost);
         cost.remove("ind");
         cost.remove("row");

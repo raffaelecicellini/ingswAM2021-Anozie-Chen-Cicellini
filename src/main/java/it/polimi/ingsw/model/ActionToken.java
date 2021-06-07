@@ -6,14 +6,16 @@ package it.polimi.ingsw.model;
 public interface ActionToken {
     /**
      * This method defines the action done by a specific ActionToken.
+     *
      * @param blackCross: this is the position of "Lorenzo il Magnifico" on the FaithTrack.
-     * @param decks: these are all of the DevelopDecks of the current game.
+     * @param decks:      these are all of the DevelopDecks of the current game.
      * @return: this method returns true if the array of the ActionTokens needs to be shuffled.
      */
     boolean doAction(FaithMarker blackCross, DevelopDeck[][] decks);
 
     /**
      * Method used to get the id for the ActionToken (it is overridden by each type of ActionToken)
+     *
      * @return the value of the id
      */
     int getId();

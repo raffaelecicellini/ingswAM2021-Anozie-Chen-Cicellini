@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class EndTurnAnswer extends Message{
+public class EndTurnAnswer extends Message {
 
     public EndTurnAnswer(Map<String, String> info) {
         super(info);
@@ -13,12 +13,12 @@ public class EndTurnAnswer extends Message{
 
     @Override
     public String getPlayer(int ind) {
-        return info.get("player"+ind);
+        return info.get("player" + ind);
     }
 
     @Override
     public String getTileState(int player, int index) {
-        return info.get("tile"+player+index);
+        return info.get("tile" + player + index);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class EndTurnAnswer extends Message{
     }
 
     @Override
-    public boolean containsPlayer(int i){
-        return info.containsKey("player"+i);
+    public boolean containsPlayer(int i) {
+        return info.containsKey("player" + i);
     }
 }

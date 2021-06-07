@@ -19,16 +19,18 @@ public class Tile {
 
     /**
      * Constructor of a Tile
+     *
      * @param id the value of the id attribute
      */
-    public Tile(int id){
-        this.id=id;
-        this.isActive=false;
-        this.isDiscarded=false;
+    public Tile(int id) {
+        this.id = id;
+        this.isActive = false;
+        this.isDiscarded = false;
     }
 
     /**
      * Used to check if the tile is discarded
+     *
      * @return the value of isDiscarded
      */
     public boolean isDiscarded() {
@@ -37,6 +39,7 @@ public class Tile {
 
     /**
      * isDiscarded setter method
+     *
      * @param discarded the new value of isDiscarded
      */
     public void setDiscarded(boolean discarded) {
@@ -45,6 +48,7 @@ public class Tile {
 
     /**
      * Used to check if the tile is active
+     *
      * @return the value of isActive
      */
     public boolean isActive() {
@@ -53,6 +57,7 @@ public class Tile {
 
     /**
      * isActive setter method
+     *
      * @param active the new value of isActive
      */
     public void setActive(boolean active) {
@@ -61,6 +66,7 @@ public class Tile {
 
     /**
      * id getter method
+     *
      * @return the value of the id
      */
     public int getId() {
@@ -69,6 +75,7 @@ public class Tile {
 
     /**
      * id setter method
+     *
      * @param id the new value for the id
      */
     public void setId(int id) {

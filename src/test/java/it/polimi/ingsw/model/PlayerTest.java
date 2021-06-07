@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
     @Test
-    public void leaderTest(){
-        Player test= new Player("test");
+    public void leaderTest() {
+        Player test = new Player("test");
         assertEquals("test", test.getName());
-        test.getLeaders().add(0, new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY, 0));
-        test.getLeaders().add(1, new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE, 0));
+        test.getLeaders().add(0, new ResourceLeader(3, "Resource", false, false, new ResourceAmount(Color.YELLOW, 5), Color.GREY, 0));
+        test.getLeaders().add(1, new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE, 0));
 
         try {
             test.discardLeader(0);
@@ -35,45 +35,45 @@ public class PlayerTest {
             e.printStackTrace();
         }
 
-        PersonalBoard pb= test.getPersonalBoard();
-        int vp= 1;
-        int faith=1;
-        ResourceAmount[] cost= new ResourceAmount[4];
-        cost[0]= new ResourceAmount(Color.PURPLE, 2);
-        cost[1]= new ResourceAmount(Color.BLUE, 0);
-        cost[2]= new ResourceAmount(Color.YELLOW, 0);
-        cost[3]= new ResourceAmount(Color.GREY, 0);
-        ResourceAmount[] input= new ResourceAmount[4];
-        input[0]= new ResourceAmount(Color.GREY, 1);
-        input[1]= new ResourceAmount(Color.BLUE, 0);
-        input[2]= new ResourceAmount(Color.YELLOW, 0);
-        input[3]= new ResourceAmount(Color.PURPLE, 0);
-        ResourceAmount[] output= new ResourceAmount[4];
-        output[0]= new ResourceAmount(Color.GREY, 0);
-        output[1]= new ResourceAmount(Color.BLUE, 0);
-        output[2]= new ResourceAmount(Color.YELLOW, 0);
-        output[3]= new ResourceAmount(Color.PURPLE, 0);
-        DevelopCard card1= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
+        PersonalBoard pb = test.getPersonalBoard();
+        int vp = 1;
+        int faith = 1;
+        ResourceAmount[] cost = new ResourceAmount[4];
+        cost[0] = new ResourceAmount(Color.PURPLE, 2);
+        cost[1] = new ResourceAmount(Color.BLUE, 0);
+        cost[2] = new ResourceAmount(Color.YELLOW, 0);
+        cost[3] = new ResourceAmount(Color.GREY, 0);
+        ResourceAmount[] input = new ResourceAmount[4];
+        input[0] = new ResourceAmount(Color.GREY, 1);
+        input[1] = new ResourceAmount(Color.BLUE, 0);
+        input[2] = new ResourceAmount(Color.YELLOW, 0);
+        input[3] = new ResourceAmount(Color.PURPLE, 0);
+        ResourceAmount[] output = new ResourceAmount[4];
+        output[0] = new ResourceAmount(Color.GREY, 0);
+        output[1] = new ResourceAmount(Color.BLUE, 0);
+        output[2] = new ResourceAmount(Color.YELLOW, 0);
+        output[3] = new ResourceAmount(Color.PURPLE, 0);
+        DevelopCard card1 = new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
         pb.addCard(0, card1, false);
 
-        vp= 6;
-        faith=0;
-        cost= new ResourceAmount[4];
-        cost[0]= new ResourceAmount(Color.GREY, 3);
-        cost[1]= new ResourceAmount(Color.BLUE, 2);
-        cost[2]= new ResourceAmount(Color.YELLOW, 0);
-        cost[3]= new ResourceAmount(Color.PURPLE, 0);
-        input= new ResourceAmount[4];
-        input[0]= new ResourceAmount(Color.GREY, 1);
-        input[1]= new ResourceAmount(Color.BLUE, 1);
-        input[2]= new ResourceAmount(Color.YELLOW, 0);
-        input[3]= new ResourceAmount(Color.PURPLE, 0);
-        output= new ResourceAmount[4];
-        output[0]= new ResourceAmount(Color.YELLOW, 3);
-        output[1]= new ResourceAmount(Color.BLUE, 0);
-        output[2]= new ResourceAmount(Color.GREY, 0);
-        output[3]= new ResourceAmount(Color.PURPLE, 0);
-        DevelopCard card2= new DevelopCard(2, vp, faith, Color.YELLOW, cost, input, output, 0);
+        vp = 6;
+        faith = 0;
+        cost = new ResourceAmount[4];
+        cost[0] = new ResourceAmount(Color.GREY, 3);
+        cost[1] = new ResourceAmount(Color.BLUE, 2);
+        cost[2] = new ResourceAmount(Color.YELLOW, 0);
+        cost[3] = new ResourceAmount(Color.PURPLE, 0);
+        input = new ResourceAmount[4];
+        input[0] = new ResourceAmount(Color.GREY, 1);
+        input[1] = new ResourceAmount(Color.BLUE, 1);
+        input[2] = new ResourceAmount(Color.YELLOW, 0);
+        input[3] = new ResourceAmount(Color.PURPLE, 0);
+        output = new ResourceAmount[4];
+        output[0] = new ResourceAmount(Color.YELLOW, 3);
+        output[1] = new ResourceAmount(Color.BLUE, 0);
+        output[2] = new ResourceAmount(Color.GREY, 0);
+        output[3] = new ResourceAmount(Color.PURPLE, 0);
+        DevelopCard card2 = new DevelopCard(2, vp, faith, Color.YELLOW, cost, input, output, 0);
         pb.addCard(0, card2, false);
 
         try {
@@ -102,7 +102,7 @@ public class PlayerTest {
             e.printStackTrace();
             assertFalse(test.getLeaders().get(0).isActive());
         }
-        ResourceAmount[] strongbox= {new ResourceAmount(Color.YELLOW, 5), new ResourceAmount(Color.BLUE, 0), new ResourceAmount(Color.GREY, 0), new ResourceAmount(Color.PURPLE, 0)};
+        ResourceAmount[] strongbox = {new ResourceAmount(Color.YELLOW, 5), new ResourceAmount(Color.BLUE, 0), new ResourceAmount(Color.GREY, 0), new ResourceAmount(Color.PURPLE, 0)};
         test.getPersonalBoard().setStrongbox(strongbox);
         try {
             test.activateLeader(0);
@@ -112,19 +112,20 @@ public class PlayerTest {
             e.printStackTrace();
         }
     }
+
     @Test
-    public void baseProductionTest(){
-        Player test= new Player("test");
-        Map<String, String> info= new HashMap<>();
+    public void baseProductionTest() {
+        Player test = new Player("test");
+        Map<String, String> info = new HashMap<>();
         info.put("prod0", "yes");
         info.put("in01", "blue");
         info.put("pos01", "big");
         info.put("in02", "grey");
         info.put("pos02", "mid");
         info.put("out0", "purple");
-        info.put("action","produce");
-        info.put("player","test");
-        ArrayList<ResourceAmount> deps= new ArrayList<>();
+        info.put("action", "produce");
+        info.put("player", "test");
+        ArrayList<ResourceAmount> deps = new ArrayList<>();
         deps.add(new ResourceAmount(Color.PURPLE, 0));
         deps.add(new ResourceAmount(Color.GREY, 2));
         deps.add(new ResourceAmount(Color.BLUE, 2));
@@ -202,7 +203,7 @@ public class PlayerTest {
             System.out.println(test.getPersonalBoard().getDeposits().toString());
             System.out.println(Arrays.toString(test.getPersonalBoard().getStrongbox()));
         }
-        
+
         //spdep ko
         test.getPersonalBoard().addSpecialDeposit(Color.BLUE);
         info.clear();
@@ -226,7 +227,7 @@ public class PlayerTest {
         }
 
         //spdep ok
-        deps= test.getPersonalBoard().getDeposits();
+        deps = test.getPersonalBoard().getDeposits();
         deps.set(3, new ResourceAmount(Color.BLUE, 2));
         test.getPersonalBoard().setDeposits(deps);
         test.getPersonalBoard().setDeposits(deps);
@@ -273,10 +274,11 @@ public class PlayerTest {
             System.out.println(Arrays.toString(test.getPersonalBoard().getStrongbox()));
         }
     }
+
     @Test
-    public void productionTest(){
-        Player test= new Player("test");
-        Map<String, String> info= new HashMap<>();
+    public void productionTest() {
+        Player test = new Player("test");
+        Map<String, String> info = new HashMap<>();
         info.put("prod0", "no");
         info.put("prod1", "yes");
         info.put("pos11", "small");
@@ -288,68 +290,68 @@ public class PlayerTest {
         info.put("pos31", "big");
         info.put("player", "test");
         info.put("action", "produce");
-        ArrayList<ResourceAmount> deps= new ArrayList<>();
+        ArrayList<ResourceAmount> deps = new ArrayList<>();
         deps.add(new ResourceAmount(Color.BLUE, 1));
         deps.add(new ResourceAmount(Color.YELLOW, 2));
         deps.add(new ResourceAmount(Color.GREY, 3));
         test.getPersonalBoard().setDeposits(deps);
 
-        int vp= 1;
-        int faith=1;
-        ResourceAmount[] cost= new ResourceAmount[4];
-        cost[0]= new ResourceAmount(Color.PURPLE, 2);
-        cost[1]= new ResourceAmount(Color.BLUE, 0);
-        cost[2]= new ResourceAmount(Color.YELLOW, 0);
-        cost[3]= new ResourceAmount(Color.GREY, 0);
-        ResourceAmount[]input= new ResourceAmount[4];
-        input[0]= new ResourceAmount(Color.GREY, 1);
-        input[1]= new ResourceAmount(Color.BLUE, 0);
-        input[2]= new ResourceAmount(Color.YELLOW, 0);
-        input[3]= new ResourceAmount(Color.PURPLE, 0);
-        ResourceAmount[]output= new ResourceAmount[4];
-        output[0]= new ResourceAmount(Color.GREY, 0);
-        output[1]= new ResourceAmount(Color.BLUE, 0);
-        output[2]= new ResourceAmount(Color.YELLOW, 0);
-        output[3]= new ResourceAmount(Color.PURPLE, 0);
-        DevelopCard card= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
+        int vp = 1;
+        int faith = 1;
+        ResourceAmount[] cost = new ResourceAmount[4];
+        cost[0] = new ResourceAmount(Color.PURPLE, 2);
+        cost[1] = new ResourceAmount(Color.BLUE, 0);
+        cost[2] = new ResourceAmount(Color.YELLOW, 0);
+        cost[3] = new ResourceAmount(Color.GREY, 0);
+        ResourceAmount[] input = new ResourceAmount[4];
+        input[0] = new ResourceAmount(Color.GREY, 1);
+        input[1] = new ResourceAmount(Color.BLUE, 0);
+        input[2] = new ResourceAmount(Color.YELLOW, 0);
+        input[3] = new ResourceAmount(Color.PURPLE, 0);
+        ResourceAmount[] output = new ResourceAmount[4];
+        output[0] = new ResourceAmount(Color.GREY, 0);
+        output[1] = new ResourceAmount(Color.BLUE, 0);
+        output[2] = new ResourceAmount(Color.YELLOW, 0);
+        output[3] = new ResourceAmount(Color.PURPLE, 0);
+        DevelopCard card = new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
         test.getPersonalBoard().addCard(2, card, false);
-        vp= 3;
-        faith=0;
-        cost= new ResourceAmount[4];
-        cost[0]= new ResourceAmount(Color.PURPLE, 3);
-        cost[1]= new ResourceAmount(Color.BLUE, 0);
-        cost[2]= new ResourceAmount(Color.YELLOW, 0);
-        cost[3]= new ResourceAmount(Color.GREY, 0);
-        input= new ResourceAmount[4];
-        input[0]= new ResourceAmount(Color.YELLOW, 2);
-        input[1]= new ResourceAmount(Color.BLUE, 0);
-        input[2]= new ResourceAmount(Color.GREY, 0);
-        input[3]= new ResourceAmount(Color.PURPLE, 0);
-        output= new ResourceAmount[4];
-        output[0]= new ResourceAmount(Color.PURPLE, 1);
-        output[1]= new ResourceAmount(Color.BLUE, 1);
-        output[2]= new ResourceAmount(Color.GREY, 1);
-        output[3]= new ResourceAmount(Color.YELLOW, 0);
-        card= new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
+        vp = 3;
+        faith = 0;
+        cost = new ResourceAmount[4];
+        cost[0] = new ResourceAmount(Color.PURPLE, 3);
+        cost[1] = new ResourceAmount(Color.BLUE, 0);
+        cost[2] = new ResourceAmount(Color.YELLOW, 0);
+        cost[3] = new ResourceAmount(Color.GREY, 0);
+        input = new ResourceAmount[4];
+        input[0] = new ResourceAmount(Color.YELLOW, 2);
+        input[1] = new ResourceAmount(Color.BLUE, 0);
+        input[2] = new ResourceAmount(Color.GREY, 0);
+        input[3] = new ResourceAmount(Color.PURPLE, 0);
+        output = new ResourceAmount[4];
+        output[0] = new ResourceAmount(Color.PURPLE, 1);
+        output[1] = new ResourceAmount(Color.BLUE, 1);
+        output[2] = new ResourceAmount(Color.GREY, 1);
+        output[3] = new ResourceAmount(Color.YELLOW, 0);
+        card = new DevelopCard(1, vp, faith, Color.PURPLE, cost, input, output, 0);
         test.getPersonalBoard().addCard(1, card, false);
-        vp= 4;
-        faith=1;
-        cost= new ResourceAmount[4];
-        cost[0]= new ResourceAmount(Color.YELLOW, 2);
-        cost[1]= new ResourceAmount(Color.PURPLE, 2);
-        cost[2]= new ResourceAmount(Color.GREY, 0);
-        cost[3]= new ResourceAmount(Color.BLUE, 0);
-        input= new ResourceAmount[4];
-        input[0]= new ResourceAmount(Color.BLUE, 1);
-        input[1]= new ResourceAmount(Color.GREY, 1);
-        input[2]= new ResourceAmount(Color.YELLOW, 0);
-        input[3]= new ResourceAmount(Color.PURPLE, 0);
-        output= new ResourceAmount[4];
-        output[0]= new ResourceAmount(Color.PURPLE, 2);
-        output[1]= new ResourceAmount(Color.BLUE, 0);
-        output[2]= new ResourceAmount(Color.YELLOW, 0);
-        output[3]= new ResourceAmount(Color.GREY, 0);
-        card= new DevelopCard(1, vp, faith, Color.BLUE, cost, input, output, 0);
+        vp = 4;
+        faith = 1;
+        cost = new ResourceAmount[4];
+        cost[0] = new ResourceAmount(Color.YELLOW, 2);
+        cost[1] = new ResourceAmount(Color.PURPLE, 2);
+        cost[2] = new ResourceAmount(Color.GREY, 0);
+        cost[3] = new ResourceAmount(Color.BLUE, 0);
+        input = new ResourceAmount[4];
+        input[0] = new ResourceAmount(Color.BLUE, 1);
+        input[1] = new ResourceAmount(Color.GREY, 1);
+        input[2] = new ResourceAmount(Color.YELLOW, 0);
+        input[3] = new ResourceAmount(Color.PURPLE, 0);
+        output = new ResourceAmount[4];
+        output[0] = new ResourceAmount(Color.PURPLE, 2);
+        output[1] = new ResourceAmount(Color.BLUE, 0);
+        output[2] = new ResourceAmount(Color.YELLOW, 0);
+        output[3] = new ResourceAmount(Color.GREY, 0);
+        card = new DevelopCard(1, vp, faith, Color.BLUE, cost, input, output, 0);
         test.getPersonalBoard().addCard(0, card, false);
 
         try {
@@ -377,7 +379,7 @@ public class PlayerTest {
         info.put("out4", "blue");
         info.put("player", "test");
         info.put("action", "produce");
-        deps= new ArrayList<>();
+        deps = new ArrayList<>();
         deps.add(new ResourceAmount(Color.BLUE, 1));
         deps.add(new ResourceAmount(Color.YELLOW, 2));
         deps.add(new ResourceAmount(Color.GREY, 3));
@@ -407,13 +409,13 @@ public class PlayerTest {
         info.put("out4", "blue");
         info.put("player", "test");
         info.put("action", "produce");
-        deps= new ArrayList<>();
+        deps = new ArrayList<>();
         deps.add(new ResourceAmount(Color.BLUE, 1));
         deps.add(new ResourceAmount(Color.YELLOW, 2));
         deps.add(new ResourceAmount(Color.GREY, 3));
         test.getPersonalBoard().setDeposits(deps);
 
-        ResourceAmount[] inputcard={new ResourceAmount(Color.BLUE,1), new ResourceAmount(Color.PURPLE, 0), new ResourceAmount(Color.YELLOW, 0), new ResourceAmount(Color.GREY, 0)};
+        ResourceAmount[] inputcard = {new ResourceAmount(Color.BLUE, 1), new ResourceAmount(Color.PURPLE, 0), new ResourceAmount(Color.YELLOW, 0), new ResourceAmount(Color.GREY, 0)};
         test.getPersonalBoard().addCard(0, new LeaderDevelopCard(0, 0, 1, Color.BLUE, null, inputcard, null, 0), true);
         try {
             test.produce(new ProductionMessage(info));
@@ -433,12 +435,12 @@ public class PlayerTest {
      * testing chooseLeader
      */
     @Test
-    public void chooseLeaderTest(){
+    public void chooseLeaderTest() {
         ArrayList<LeaderCard> leaders = new ArrayList<>();
-        leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE, 0));
-        leaders.add(new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY, 0));
-        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 0));
-        leaders.add(new LevTwoLeader(4,"LevTwo",false,false,Color.YELLOW,Color.BLUE, 0));
+        leaders.add(new OneAndOneLeader(2, "OneAndOne", false, false, Color.YELLOW, Color.GREEN, Color.PURPLE, 0));
+        leaders.add(new ResourceLeader(3, "Resource", false, false, new ResourceAmount(Color.YELLOW, 5), Color.GREY, 0));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.YELLOW, Color.BLUE, Color.PURPLE, 0));
+        leaders.add(new LevTwoLeader(4, "LevTwo", false, false, Color.YELLOW, Color.BLUE, 0));
 
         Player player = new Player("giacomino");
         player.receiveLeaders(leaders);
@@ -459,53 +461,53 @@ public class PlayerTest {
      */
     @Test
     public void chooseInitialResourceTest1() {
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","yellow");
-        test.put("pos1","mid");
-        test.put("pos2","mid");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "yellow");
+        test.put("pos1", "mid");
+        test.put("pos2", "mid");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
         p1.receiveInitialResource(2);
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),2);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-        }catch (InvalidActionException e) {
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 2);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+        } catch (InvalidActionException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     *Test where you can see that the player can't put two different resources in the same deposit. The deposits are unchanged.
+     * Test where you can see that the player can't put two different resources in the same deposit. The deposits are unchanged.
      */
     @Test
     public void chooseInitialResourceTest2() {
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","blue");
-        test.put("pos1","mid");
-        test.put("pos2","mid");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "blue");
+        test.put("pos1", "mid");
+        test.put("pos2", "mid");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
         p1.receiveInitialResource(2);
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
-        }catch (InvalidActionException e) {
+        } catch (InvalidActionException e) {
             e.printStackTrace();
             p1.receiveInitialResource(2);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
         }
     }
 
@@ -514,24 +516,24 @@ public class PlayerTest {
      */
     @Test
     public void chooseInitialResourceTest3() {
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","blue");
-        test.put("pos1","mid");
-        test.put("pos2","small");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "blue");
+        test.put("pos1", "mid");
+        test.put("pos2", "small");
         Player p1 = new Player("test");
         test.put("action", "chooseresources");
         test.put("player", "test");
         p1.receiveInitialResource(2);
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
-        }catch (InvalidActionException e) {
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), Color.BLUE);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
+        } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
@@ -542,24 +544,24 @@ public class PlayerTest {
      */
     @Test
     public void chooseInitialResourceTest4() {
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","blue");
-        test.put("pos1","mid");
-        test.put("pos2","big");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "blue");
+        test.put("pos1", "mid");
+        test.put("pos2", "big");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
         p1.receiveInitialResource(2);
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),Color.BLUE);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-        }catch (InvalidActionException e) {
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), Color.BLUE);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+        } catch (InvalidActionException e) {
             e.printStackTrace();
         }
 
@@ -570,33 +572,33 @@ public class PlayerTest {
      */
     @Test
     public void chooseInitialResourceTest5() {
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","blue");
-        test.put("pos1","mid");
-        test.put("pos2","sp2");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "blue");
+        test.put("pos1", "mid");
+        test.put("pos2", "sp2");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
         p1.receiveInitialResource(2);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
         p1.receiveInitialResource(2);
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
-        }catch (InvalidActionException e) {
+        } catch (InvalidActionException e) {
             e.printStackTrace();
             p1.receiveInitialResource(2);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
         }
     }
 
@@ -605,35 +607,35 @@ public class PlayerTest {
      */
     @Test
     public void chooseInitialResourceTest6() {
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","blue");
-        test.put("pos1","mid");
-        test.put("pos2","sp2");
-        test.put("pos3","mid");
-        test.put("res3","yellow");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "blue");
+        test.put("pos1", "mid");
+        test.put("pos2", "sp2");
+        test.put("pos3", "mid");
+        test.put("res3", "yellow");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
         p1.receiveInitialResource(2);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
         p1.receiveInitialResource(2);
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
-        }catch (InvalidActionException e) {
+        } catch (InvalidActionException e) {
             e.printStackTrace();
             p1.receiveInitialResource(2);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
         }
     }
 
@@ -642,31 +644,31 @@ public class PlayerTest {
      */
     @Test
     public void chooseInitialResourceTest7() {
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","yellow");
-        test.put("pos1","mid");
-        test.put("pos2","small");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "yellow");
+        test.put("pos1", "mid");
+        test.put("pos2", "small");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
         p1.receiveInitialResource(2);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
-        }catch (InvalidActionException e) {
+        } catch (InvalidActionException e) {
             e.printStackTrace();
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
         }
     }
 
@@ -675,16 +677,16 @@ public class PlayerTest {
      */
     @Test
     public void swapTest1() {
-        Map<String,String> map = new HashMap<>();
-        map.put("source","big");
-        map.put("dest","mid");
+        Map<String, String> map = new HashMap<>();
+        map.put("source", "big");
+        map.put("dest", "mid");
         map.put("action", "swap");
         map.put("player", "test");
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","blue");
-        test.put("pos1","mid");
-        test.put("pos2","big");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "blue");
+        test.put("pos1", "mid");
+        test.put("pos2", "big");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
@@ -692,13 +694,13 @@ public class PlayerTest {
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
             p1.swapDeposit(new SwapMessage(map));
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),Color.YELLOW);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.BLUE);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-        }catch (InvalidActionException e) {
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), Color.BLUE);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+        } catch (InvalidActionException e) {
             e.printStackTrace();
         }
     }
@@ -708,16 +710,16 @@ public class PlayerTest {
      */
     @Test
     public void swapTest2() {
-        Map<String,String> map = new HashMap<>();
-        map.put("source","big");
-        map.put("dest","mid");
-        map.put("player","test");
-        map.put("action","swap");
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("res2","blue");
-        test.put("pos1","mid");
-        test.put("pos2","big");
+        Map<String, String> map = new HashMap<>();
+        map.put("source", "big");
+        map.put("dest", "mid");
+        map.put("player", "test");
+        map.put("action", "swap");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("res2", "blue");
+        test.put("pos1", "mid");
+        test.put("pos2", "big");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
@@ -725,14 +727,14 @@ public class PlayerTest {
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
             p1.swapDeposit(new SwapMessage(map));
-        }catch (InvalidActionException e) {
+        } catch (InvalidActionException e) {
             e.printStackTrace();
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),Color.BLUE);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), Color.BLUE);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
         }
     }
 
@@ -749,10 +751,10 @@ public class PlayerTest {
         p2.receiveInitialFaith(1);
         p3.receiveInitialFaith(2);
         p4.receiveInitialFaith(3);
-        assertEquals(p1.getPersonalBoard().getPosition(),0);
-        assertEquals(p2.getPersonalBoard().getPosition(),1);
-        assertEquals(p3.getPersonalBoard().getPosition(),2);
-        assertEquals(p4.getPersonalBoard().getPosition(),3);
+        assertEquals(p1.getPersonalBoard().getPosition(), 0);
+        assertEquals(p2.getPersonalBoard().getPosition(), 1);
+        assertEquals(p3.getPersonalBoard().getPosition(), 2);
+        assertEquals(p4.getPersonalBoard().getPosition(), 3);
     }
 
     /**
@@ -762,64 +764,64 @@ public class PlayerTest {
     public void buyTest1() {
         Player p = new Player("test");
         ResourceAmount[] strongbox = new ResourceAmount[4];
-        strongbox[0]= new ResourceAmount(Color.BLUE, 10);
-        strongbox[1]= new ResourceAmount(Color.PURPLE, 10);
-        strongbox[2]= new ResourceAmount(Color.GREY, 10);
-        strongbox[3]= new ResourceAmount(Color.YELLOW, 10);
+        strongbox[0] = new ResourceAmount(Color.BLUE, 10);
+        strongbox[1] = new ResourceAmount(Color.PURPLE, 10);
+        strongbox[2] = new ResourceAmount(Color.GREY, 10);
+        strongbox[3] = new ResourceAmount(Color.YELLOW, 10);
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,1));
-        deposits.add(new ResourceAmount(Color.GREY,2));
-        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        deposits.add(new ResourceAmount(Color.BLUE, 1));
+        deposits.add(new ResourceAmount(Color.GREY, 2));
+        deposits.add(new ResourceAmount(Color.YELLOW, 3));
         ResourceAmount[] cost = new ResourceAmount[4];
-        cost[0] = new ResourceAmount(Color.BLUE,1);
-        cost[1] = new ResourceAmount(Color.PURPLE,1);
-        cost[2] = new ResourceAmount(Color.GREY,1);
-        cost[3] = new ResourceAmount(Color.YELLOW,0);
+        cost[0] = new ResourceAmount(Color.BLUE, 1);
+        cost[1] = new ResourceAmount(Color.PURPLE, 1);
+        cost[2] = new ResourceAmount(Color.GREY, 1);
+        cost[3] = new ResourceAmount(Color.YELLOW, 0);
         ResourceAmount[] cost1 = new ResourceAmount[4];
-        cost1[0] = new ResourceAmount(Color.BLUE,0);
-        cost1[1] = new ResourceAmount(Color.PURPLE,0);
-        cost1[2] = new ResourceAmount(Color.GREY,3);
-        cost1[3] = new ResourceAmount(Color.YELLOW,3);
+        cost1[0] = new ResourceAmount(Color.BLUE, 0);
+        cost1[1] = new ResourceAmount(Color.PURPLE, 0);
+        cost1[2] = new ResourceAmount(Color.GREY, 3);
+        cost1[3] = new ResourceAmount(Color.YELLOW, 3);
         p.getPersonalBoard().setDeposits(deposits);
         p.getPersonalBoard().setStrongbox(strongbox);
-        DevelopCard t = new DevelopCard(1,2,0,Color.GREEN,cost,null,null, 0);
-        DevelopCard t1 = new DevelopCard(2,1,0,Color.BLUE,cost1,null,null, 0);
-        Map<String,String> map = new HashMap<>();
-        map.put("res1","small");
-        map.put("res2","strongbox");
-        map.put("res3","mid");
-        map.put("ind","1");
-        map.put("action","buy");
-        map.put("player","test");
-        Map<String,String> map1 = new HashMap<>();
-        map1.put("res1","mid");
-        map1.put("res2","strongbox");
-        map1.put("res3","strongbox");
-        map1.put("res4","strongbox");
-        map1.put("res5","strongbox");
-        map1.put("res6","strongbox");
-        map1.put("ind","1");
-        map1.put("action","buy");
-        map1.put("player","test");
-        ArrayList<LeaderCard>leaders= new ArrayList<>();
-        leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE, 3));
-        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 11));
+        DevelopCard t = new DevelopCard(1, 2, 0, Color.GREEN, cost, null, null, 0);
+        DevelopCard t1 = new DevelopCard(2, 1, 0, Color.BLUE, cost1, null, null, 0);
+        Map<String, String> map = new HashMap<>();
+        map.put("res1", "small");
+        map.put("res2", "strongbox");
+        map.put("res3", "mid");
+        map.put("ind", "1");
+        map.put("action", "buy");
+        map.put("player", "test");
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("res1", "mid");
+        map1.put("res2", "strongbox");
+        map1.put("res3", "strongbox");
+        map1.put("res4", "strongbox");
+        map1.put("res5", "strongbox");
+        map1.put("res6", "strongbox");
+        map1.put("ind", "1");
+        map1.put("action", "buy");
+        map1.put("player", "test");
+        ArrayList<LeaderCard> leaders = new ArrayList<>();
+        leaders.add(new OneAndOneLeader(2, "OneAndOne", false, false, Color.YELLOW, Color.GREEN, Color.PURPLE, 3));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.YELLOW, Color.BLUE, Color.PURPLE, 11));
         p.receiveLeaders(leaders);
         try {
-            p.buy(new BuyMessage(map),t);
-            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
-            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(),Color.GREY);
-            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(),1);
-            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(),Color.YELLOW);
-            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(),3);
-            assertEquals(p.getPersonalBoard().getStrongbox()[1].getAmount(),9);
-            assertEquals(p.getPersonalBoard().getStrongbox()[1].getColor(),Color.PURPLE);
-            p.buy((new BuyMessage(map1)),t1);
-            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(),Color.GREY);
-            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-            assertEquals(p.getPersonalBoard().getTopCard(1),t1);
-        }catch (InvalidActionException e) {
+            p.buy(new BuyMessage(map), t);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(), Color.BLUE);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(), Color.GREY);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(), 1);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(), Color.YELLOW);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(), 3);
+            assertEquals(p.getPersonalBoard().getStrongbox()[1].getAmount(), 9);
+            assertEquals(p.getPersonalBoard().getStrongbox()[1].getColor(), Color.PURPLE);
+            p.buy((new BuyMessage(map1)), t1);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(), Color.GREY);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+            assertEquals(p.getPersonalBoard().getTopCard(1), t1);
+        } catch (InvalidActionException e) {
             e.printStackTrace();
         }
     }
@@ -831,87 +833,87 @@ public class PlayerTest {
     public void buyTest2() {
         Player p = new Player("test");
         ResourceAmount[] strongbox = new ResourceAmount[4];
-        strongbox[0]= new ResourceAmount(Color.BLUE, 10);
-        strongbox[1]= new ResourceAmount(Color.PURPLE, 10);
-        strongbox[2]= new ResourceAmount(Color.GREY, 10);
-        strongbox[3]= new ResourceAmount(Color.YELLOW, 10);
+        strongbox[0] = new ResourceAmount(Color.BLUE, 10);
+        strongbox[1] = new ResourceAmount(Color.PURPLE, 10);
+        strongbox[2] = new ResourceAmount(Color.GREY, 10);
+        strongbox[3] = new ResourceAmount(Color.YELLOW, 10);
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,1));
-        deposits.add(new ResourceAmount(Color.GREY,2));
-        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        deposits.add(new ResourceAmount(Color.BLUE, 1));
+        deposits.add(new ResourceAmount(Color.GREY, 2));
+        deposits.add(new ResourceAmount(Color.YELLOW, 3));
         ResourceAmount[] cost = new ResourceAmount[4];
-        cost[0] = new ResourceAmount(Color.BLUE,1);
-        cost[1] = new ResourceAmount(Color.PURPLE,1);
-        cost[2] = new ResourceAmount(Color.GREY,1);
-        cost[3] = new ResourceAmount(Color.YELLOW,0);
+        cost[0] = new ResourceAmount(Color.BLUE, 1);
+        cost[1] = new ResourceAmount(Color.PURPLE, 1);
+        cost[2] = new ResourceAmount(Color.GREY, 1);
+        cost[3] = new ResourceAmount(Color.YELLOW, 0);
         p.getPersonalBoard().setDeposits(deposits);
         p.getPersonalBoard().setStrongbox(strongbox);
-        DevelopCard t = new DevelopCard(2,2,0,Color.GREEN,cost,null,null, 0);
-        Map<String,String> map = new HashMap<>();
-        map.put("res1","small");
-        map.put("res2","strongbox");
-        map.put("res3","mid");
-        map.put("ind","1");
-        map.put("action","buy");
-        map.put("player","test");
-        ArrayList<LeaderCard>leaders= new ArrayList<>();
-        leaders.add(new OneAndOneLeader(2,"OneAndOne",false,false,Color.YELLOW,Color.GREEN,Color.PURPLE, 3));
-        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 11));
+        DevelopCard t = new DevelopCard(2, 2, 0, Color.GREEN, cost, null, null, 0);
+        Map<String, String> map = new HashMap<>();
+        map.put("res1", "small");
+        map.put("res2", "strongbox");
+        map.put("res3", "mid");
+        map.put("ind", "1");
+        map.put("action", "buy");
+        map.put("player", "test");
+        ArrayList<LeaderCard> leaders = new ArrayList<>();
+        leaders.add(new OneAndOneLeader(2, "OneAndOne", false, false, Color.YELLOW, Color.GREEN, Color.PURPLE, 3));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.YELLOW, Color.BLUE, Color.PURPLE, 11));
         p.receiveLeaders(leaders);
         try {
-            p.buy(new BuyMessage(map),t);
-        }catch (InvalidActionException e) {
+            p.buy(new BuyMessage(map), t);
+        } catch (InvalidActionException e) {
             e.printStackTrace();
-            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
-            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(),1);
-            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(),Color.GREY);
-            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(),2);
-            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(),Color.YELLOW);
-            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(),3);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(), Color.BLUE);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(), 1);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(), Color.GREY);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(), 2);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(), Color.YELLOW);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(), 3);
         }
     }
 
     @Test
-    public void buyTest3(){
+    public void buyTest3() {
         Player p = new Player("test");
         ResourceAmount[] strongbox = new ResourceAmount[4];
-        strongbox[0]= new ResourceAmount(Color.BLUE, 10);
-        strongbox[1]= new ResourceAmount(Color.PURPLE, 10);
-        strongbox[2]= new ResourceAmount(Color.GREY, 10);
-        strongbox[3]= new ResourceAmount(Color.YELLOW, 10);
+        strongbox[0] = new ResourceAmount(Color.BLUE, 10);
+        strongbox[1] = new ResourceAmount(Color.PURPLE, 10);
+        strongbox[2] = new ResourceAmount(Color.GREY, 10);
+        strongbox[3] = new ResourceAmount(Color.YELLOW, 10);
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,1));
-        deposits.add(new ResourceAmount(Color.GREY,2));
-        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        deposits.add(new ResourceAmount(Color.BLUE, 1));
+        deposits.add(new ResourceAmount(Color.GREY, 2));
+        deposits.add(new ResourceAmount(Color.YELLOW, 3));
         ResourceAmount[] cost = new ResourceAmount[4];
-        cost[0] = new ResourceAmount(Color.BLUE,1);
-        cost[1] = new ResourceAmount(Color.PURPLE,1);
-        cost[2] = new ResourceAmount(Color.GREY,1);
-        cost[3] = new ResourceAmount(Color.YELLOW,0);
+        cost[0] = new ResourceAmount(Color.BLUE, 1);
+        cost[1] = new ResourceAmount(Color.PURPLE, 1);
+        cost[2] = new ResourceAmount(Color.GREY, 1);
+        cost[3] = new ResourceAmount(Color.YELLOW, 0);
         p.getPersonalBoard().setDeposits(deposits);
         p.getPersonalBoard().setStrongbox(strongbox);
-        DevelopCard t = new DevelopCard(1,2,0,Color.GREEN,cost,null,null, 0);
-        Map<String,String> map = new HashMap<>();
-        map.put("res1","small");
-        map.put("res2","mid");
-        map.put("ind","1");
-        map.put("action","buy");
-        map.put("player","test");
-        ArrayList<LeaderCard>leaders= new ArrayList<>();
-        leaders.add(new OneAndOneLeader(2,"OneAndOne",true,false,Color.YELLOW,Color.GREEN,Color.PURPLE, 3));
-        leaders.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.YELLOW,Color.BLUE,Color.PURPLE, 11));
+        DevelopCard t = new DevelopCard(1, 2, 0, Color.GREEN, cost, null, null, 0);
+        Map<String, String> map = new HashMap<>();
+        map.put("res1", "small");
+        map.put("res2", "mid");
+        map.put("ind", "1");
+        map.put("action", "buy");
+        map.put("player", "test");
+        ArrayList<LeaderCard> leaders = new ArrayList<>();
+        leaders.add(new OneAndOneLeader(2, "OneAndOne", true, false, Color.YELLOW, Color.GREEN, Color.PURPLE, 3));
+        leaders.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.YELLOW, Color.BLUE, Color.PURPLE, 11));
         p.receiveLeaders(leaders);
         try {
-            p.buy(new BuyMessage(map),t);
-            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(),Color.BLUE);
-            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(),Color.GREY);
-            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(),1);
-            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(),Color.YELLOW);
-            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(),3);
-            assertEquals(p.getPersonalBoard().getStrongbox()[1].getAmount(),10);
-            assertEquals(p.getPersonalBoard().getStrongbox()[1].getColor(),Color.PURPLE);
-        }catch (InvalidActionException e) {
+            p.buy(new BuyMessage(map), t);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getColor(), Color.BLUE);
+            assertEquals(p.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getColor(), Color.GREY);
+            assertEquals(p.getPersonalBoard().getDeposits().get(1).getAmount(), 1);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getColor(), Color.YELLOW);
+            assertEquals(p.getPersonalBoard().getDeposits().get(2).getAmount(), 3);
+            assertEquals(p.getPersonalBoard().getStrongbox()[1].getAmount(), 10);
+            assertEquals(p.getPersonalBoard().getStrongbox()[1].getColor(), Color.PURPLE);
+        } catch (InvalidActionException e) {
             e.printStackTrace();
         }
     }
@@ -920,28 +922,28 @@ public class PlayerTest {
      * Testing fromMarket, all successful inserts
      */
     @Test
-    public void fromMarketTest1(){
+    public void fromMarketTest1() {
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.GREEN, Color.PURPLE, Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(null,0));
-        deposits.add(new ResourceAmount(null,0));
-        deposits.add(new ResourceAmount(null,0));
-        deposits.add(new ResourceAmount(Color.YELLOW,0));
-        deposits.add(new ResourceAmount(Color.GREY,0));
+        deposits.add(new ResourceAmount(null, 0));
+        deposits.add(new ResourceAmount(null, 0));
+        deposits.add(new ResourceAmount(null, 0));
+        deposits.add(new ResourceAmount(Color.YELLOW, 0));
+        deposits.add(new ResourceAmount(Color.GREY, 0));
         p.getPersonalBoard().setDeposits(deposits);
 
-        Map<String,String> map = new HashMap<>();
-        map.put("pos1","small");
-        map.put("pos2","mid");
-        map.put("pos3","big");
+        Map<String, String> map = new HashMap<>();
+        map.put("pos1", "small");
+        map.put("pos2", "mid");
+        map.put("pos3", "big");
         map.put("pos4", "mid");
-        map.put("action","produce");
-        map.put("player","test");
+        map.put("action", "produce");
+        map.put("player", "test");
 
         Marble[] marbles = new Marble[4];
         marbles[0] = BlueMarble.getInstance();
@@ -975,11 +977,11 @@ public class PlayerTest {
         marbles[2] = YellowMarble.getInstance();
 
         map.clear();
-        map.put("pos1","sP2");
-        map.put("pos2","big");
-        map.put("pos3","big");
-        map.put("action","produce");
-        map.put("player","test");
+        map.put("pos1", "sP2");
+        map.put("pos2", "big");
+        map.put("pos3", "big");
+        map.put("action", "produce");
+        map.put("player", "test");
         try {
             p.fromMarket(new MarketMessage(map), marbles);
         } catch (InvalidActionException e) {
@@ -1004,11 +1006,11 @@ public class PlayerTest {
         marbles[2] = YellowMarble.getInstance();
 
         map.clear();
-        map.put("pos1","sP2");
-        map.put("pos2","Sp1");
-        map.put("pos3","SP1");
-        map.put("action","produce");
-        map.put("player","test");
+        map.put("pos1", "sP2");
+        map.put("pos2", "Sp1");
+        map.put("pos3", "SP1");
+        map.put("action", "produce");
+        map.put("player", "test");
         try {
             p.fromMarket(new MarketMessage(map), marbles);
         } catch (InvalidActionException e) {
@@ -1032,11 +1034,11 @@ public class PlayerTest {
         marbles[2] = RedMarble.getInstance();
 
         map.clear();
-        map.put("pos1","sP2");
-        map.put("pos2","Sp1");
-        map.put("pos3","SP1");
-        map.put("action","produce");
-        map.put("player","test");
+        map.put("pos1", "sP2");
+        map.put("pos2", "Sp1");
+        map.put("pos3", "SP1");
+        map.put("action", "produce");
+        map.put("player", "test");
         try {
             p.fromMarket(new MarketMessage(map), marbles);
         } catch (InvalidActionException e) {
@@ -1061,17 +1063,17 @@ public class PlayerTest {
      * Testing fromMarket, random order inserting
      */
     @Test
-    public void fromMarketTest2(){
+    public void fromMarketTest2() {
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.GREEN, Color.PURPLE, Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,0));
-        deposits.add(new ResourceAmount(Color.GREY,0));
-        deposits.add(new ResourceAmount(Color.YELLOW,0));
+        deposits.add(new ResourceAmount(Color.BLUE, 0));
+        deposits.add(new ResourceAmount(Color.GREY, 0));
+        deposits.add(new ResourceAmount(Color.YELLOW, 0));
         p.getPersonalBoard().setDeposits(deposits);
 
         Marble[] marbles = new Marble[3];
@@ -1079,12 +1081,12 @@ public class PlayerTest {
         marbles[1] = GreyMarble.getInstance();
         marbles[2] = YellowMarble.getInstance();
 
-        Map<String,String> map = new HashMap<>();
-        map.put("pos1","mid");
-        map.put("pos2","BIG");
-        map.put("pos3","SmAlL");
-        map.put("action","produce");
-        map.put("player","test");
+        Map<String, String> map = new HashMap<>();
+        map.put("pos1", "mid");
+        map.put("pos2", "BIG");
+        map.put("pos3", "SmAlL");
+        map.put("action", "produce");
+        map.put("player", "test");
 
         try {
             p.fromMarket(new MarketMessage(map), marbles);
@@ -1106,11 +1108,11 @@ public class PlayerTest {
         marbles[2] = WhiteMarble.getInstance();
 
         map.clear();
-        map.put("pos1","mid");
-        map.put("pos2","BIG");
-        map.put("pos3","SmAlL");
-        map.put("action","produce");
-        map.put("player","test");
+        map.put("pos1", "mid");
+        map.put("pos2", "BIG");
+        map.put("pos3", "SmAlL");
+        map.put("action", "produce");
+        map.put("player", "test");
 
         try {
             p.fromMarket(new MarketMessage(map), marbles);
@@ -1130,17 +1132,17 @@ public class PlayerTest {
      * Testing fromMarket, full deposits
      */
     @Test
-    public void fromMarketTest3(){
+    public void fromMarketTest3() {
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.GREEN, Color.PURPLE, Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,1));
-        deposits.add(new ResourceAmount(Color.GREY,2));
-        deposits.add(new ResourceAmount(Color.YELLOW,3));
+        deposits.add(new ResourceAmount(Color.BLUE, 1));
+        deposits.add(new ResourceAmount(Color.GREY, 2));
+        deposits.add(new ResourceAmount(Color.YELLOW, 3));
         p.getPersonalBoard().setDeposits(deposits);
 
         Marble[] marbles = new Marble[3];
@@ -1148,12 +1150,12 @@ public class PlayerTest {
         marbles[1] = GreyMarble.getInstance();
         marbles[2] = YellowMarble.getInstance();
 
-        Map<String,String> map = new HashMap<>();
-        map.put("pos1","mid");
-        map.put("pos2","BIG");
-        map.put("pos3","SmAlL");
-        map.put("action","produce");
-        map.put("player","test");
+        Map<String, String> map = new HashMap<>();
+        map.put("pos1", "mid");
+        map.put("pos2", "BIG");
+        map.put("pos3", "SmAlL");
+        map.put("action", "produce");
+        map.put("player", "test");
         int disc = 0;
 
         try {
@@ -1175,17 +1177,17 @@ public class PlayerTest {
      * Testing fromMarket, exceptions
      */
     @Test
-    public void fromMarketTest4(){
+    public void fromMarketTest4() {
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.GREEN, Color.PURPLE, Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,0));
-        deposits.add(new ResourceAmount(Color.GREY,2));
-        deposits.add(new ResourceAmount(Color.YELLOW,0));
+        deposits.add(new ResourceAmount(Color.BLUE, 0));
+        deposits.add(new ResourceAmount(Color.GREY, 2));
+        deposits.add(new ResourceAmount(Color.YELLOW, 0));
         p.getPersonalBoard().setDeposits(deposits);
 
         Marble[] marbles = new Marble[4];
@@ -1194,12 +1196,12 @@ public class PlayerTest {
         marbles[2] = YellowMarble.getInstance();
         marbles[3] = WhiteMarble.getInstance();
 
-        Map<String,String> map = new HashMap<>();
-        map.put("pos1","mid");
+        Map<String, String> map = new HashMap<>();
+        map.put("pos1", "mid");
         //map.put("pos2","BIG");
         //map.put("pos3","SmAlL");
-        map.put("action","produce");
-        map.put("player","test");
+        map.put("action", "produce");
+        map.put("player", "test");
 
         try {
             p.fromMarket(new MarketMessage(map), marbles);
@@ -1219,11 +1221,11 @@ public class PlayerTest {
      * Testing fromMarket, with TwoAndOneLeader
      */
     @Test
-    public void fromMarketTest5(){
+    public void fromMarketTest5() {
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
-        leaderCards.add(new ResourceLeader(3,"Resource",false,false, new ResourceAmount(Color.YELLOW,5),Color.GREY, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaderCards.add(new ResourceLeader(3, "Resource", false, false, new ResourceAmount(Color.YELLOW, 5), Color.GREY, 0));
         p.receiveLeaders(leaderCards);
 
         DevelopCard developCard1 = new DevelopCard(0, 0, 0, Color.PURPLE, null, null, null, 0);
@@ -1240,9 +1242,9 @@ public class PlayerTest {
         }
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,0));
-        deposits.add(new ResourceAmount(Color.GREY,0));
-        deposits.add(new ResourceAmount(Color.YELLOW,0));
+        deposits.add(new ResourceAmount(Color.BLUE, 0));
+        deposits.add(new ResourceAmount(Color.GREY, 0));
+        deposits.add(new ResourceAmount(Color.YELLOW, 0));
         p.getPersonalBoard().setDeposits(deposits);
 
         Marble[] marbles = new Marble[3];
@@ -1250,12 +1252,12 @@ public class PlayerTest {
         marbles[1] = GreyMarble.getInstance();
         marbles[2] = YellowMarble.getInstance();
 
-        Map<String,String> map = new HashMap<>();
-        map.put("pos1","BIG");
-        map.put("pos2","mid");
-        map.put("pos3","BIG");
-        map.put("action","produce");
-        map.put("player","test");
+        Map<String, String> map = new HashMap<>();
+        map.put("pos1", "BIG");
+        map.put("pos2", "mid");
+        map.put("pos3", "BIG");
+        map.put("action", "produce");
+        map.put("player", "test");
 
         try {
             p.fromMarket(new MarketMessage(map), marbles);
@@ -1276,11 +1278,11 @@ public class PlayerTest {
      * Testing fromMarket, with 2 TwoAndOneLeaders
      */
     @Test
-    public void fromMarketTest6(){
+    public void fromMarketTest6() {
         Player p = new Player("test");
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.PURPLE,Color.GREEN,Color.YELLOW, 0));
-        leaderCards.add(new TwoAndOneLeader(5,"TwoAndOne",false, false,Color.GREEN,Color.PURPLE,Color.BLUE, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.PURPLE, Color.GREEN, Color.YELLOW, 0));
+        leaderCards.add(new TwoAndOneLeader(5, "TwoAndOne", false, false, Color.GREEN, Color.PURPLE, Color.BLUE, 0));
         p.receiveLeaders(leaderCards);
 
         DevelopCard developCard1 = new DevelopCard(1, 0, 0, Color.PURPLE, null, null, null, 0);
@@ -1305,9 +1307,9 @@ public class PlayerTest {
         }
 
         ArrayList<ResourceAmount> deposits = new ArrayList<>();
-        deposits.add(new ResourceAmount(Color.BLUE,0));
-        deposits.add(new ResourceAmount(Color.GREY,0));
-        deposits.add(new ResourceAmount(Color.YELLOW,0));
+        deposits.add(new ResourceAmount(Color.BLUE, 0));
+        deposits.add(new ResourceAmount(Color.GREY, 0));
+        deposits.add(new ResourceAmount(Color.YELLOW, 0));
         p.getPersonalBoard().setDeposits(deposits);
 
         Marble[] marbles = new Marble[3];
@@ -1315,14 +1317,14 @@ public class PlayerTest {
         marbles[1] = GreyMarble.getInstance();
         marbles[2] = YellowMarble.getInstance();
 
-        Map<String,String> map = new HashMap<>();
-        map.put("pos1","big");
+        Map<String, String> map = new HashMap<>();
+        map.put("pos1", "big");
         //map.put("res1","BLUE");
-        map.put("res1","YELLOW");
-        map.put("pos2","mid");
-        map.put("pos3","BIG");
-        map.put("action","produce");
-        map.put("player","test");
+        map.put("res1", "YELLOW");
+        map.put("pos2", "mid");
+        map.put("pos3", "BIG");
+        map.put("action", "produce");
+        map.put("player", "test");
 
         try {
             p.fromMarket(new MarketMessage(map), marbles);
@@ -1343,28 +1345,28 @@ public class PlayerTest {
      */
     @Test
     public void chooseInitialResourceTest8() {
-        Map<String,String> test = new HashMap<>();
-        test.put("res1","yellow");
-        test.put("pos1","mid");
+        Map<String, String> test = new HashMap<>();
+        test.put("res1", "yellow");
+        test.put("pos1", "mid");
         test.put("action", "chooseresources");
         test.put("player", "test");
         Player p1 = new Player("test");
         p1.receiveInitialResource(1);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),0);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 0);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+        assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
         try {
             p1.chooseInitialResource(new ResourceMessage(test));
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(),1);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(),Color.YELLOW);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(),null);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(),0);
-            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(),null);
-        }catch (InvalidActionException e) {
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getAmount(), 1);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(1).getColor(), Color.YELLOW);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(0).getColor(), null);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getAmount(), 0);
+            assertEquals(p1.getPersonalBoard().getDeposits().get(2).getColor(), null);
+        } catch (InvalidActionException e) {
             e.printStackTrace();
         }
     }

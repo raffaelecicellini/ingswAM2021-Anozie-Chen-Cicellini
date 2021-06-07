@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
@@ -18,8 +19,8 @@ import java.util.logging.SimpleFormatter;
 /**
  * This class represents a SocketListener, a thread that will just read from the Input stream and update the listener.
  */
-public class SocketListener implements Runnable{
-    private final Logger logger= Logger.getLogger(getClass().getName());
+public class SocketListener implements Runnable {
+    private final Logger logger = Logger.getLogger(getClass().getName());
     /**
      * Is the socket.
      */
@@ -42,13 +43,14 @@ public class SocketListener implements Runnable{
 
     /**
      * Constructor SocketListener creates a new SocketListener instance.
-     * @param socket is the client's socket.
-     * @param input is the input stream.
+     *
+     * @param socket        is the client's socket.
+     * @param input         is the input stream.
      * @param answerHandler is the AnswerHandler.
      */
     public SocketListener(Socket socket, BufferedReader input, SourceListener answerHandler) {
         try {
-            FileHandler fh= new FileHandler("%h/SocketListener.log");
+            FileHandler fh = new FileHandler("%h/SocketListener.log");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -64,6 +66,7 @@ public class SocketListener implements Runnable{
 
     /**
      * This method returns the state of the thread.
+     *
      * @return the state of the thread.
      */
     public synchronized boolean isActive() {
@@ -72,14 +75,16 @@ public class SocketListener implements Runnable{
 
     /**
      * This method reads a message from the socket.
+     *
      * @throws IOException if the connection is interrupted.
      */
-    public void readMessage() throws SocketTimeoutException, IOException{
+    public void readMessage() throws SocketTimeoutException, IOException {
         Gson gson = new Gson();
         String line = input.readLine();
         logger.log(Level.INFO, line);
-        Map<String,String > message;
-        message = gson.fromJson(line, new TypeToken<Map<String,String>>(){}.getType());
+        Map<String, String> message;
+        message = gson.fromJson(line, new TypeToken<Map<String, String>>() {
+        }.getType());
         if (message != null)
             if (!message.get("action").equalsIgnoreCase("ping"))
                 actionHandler(message);
@@ -87,71 +92,72 @@ public class SocketListener implements Runnable{
 
     /**
      * This method updates the listener with the message received from the server.
+     *
      * @param map is the message received from the server.
      */
-    public void actionHandler(Map<String,String> map) {
+    public void actionHandler(Map<String, String> map) {
         String action = map.get("action");
-        Message message=null;
-        switch (action.toUpperCase()){
+        Message message = null;
+        switch (action.toUpperCase()) {
             case "START":
-                message= new StartedAnswer(map);
+                message = new StartedAnswer(map);
                 break;
             case "OTHERCONNECTED":
-                message= new OtherConnectedAnswer(map);
+                message = new OtherConnectedAnswer(map);
                 break;
             case "STARTED":
-                message= new StartedAnswer(map);
+                message = new StartedAnswer(map);
                 break;
             case "CHOOSELEADERS":
-                message= new ChooseLeadersAnswer(map);
+                message = new ChooseLeadersAnswer(map);
                 break;
             case "OKLEADERS":
-                message= new OkLeadersAnswer(map);
+                message = new OkLeadersAnswer(map);
                 break;
             case "CHOOSERESOURCES":
-                message= new ChooseResourcesAnswer(map);
+                message = new ChooseResourcesAnswer(map);
                 break;
             case "OKRESOURCES":
-                message= new OkResourcesAnswer(map);
+                message = new OkResourcesAnswer(map);
                 break;
             case "YOURTURN":
-                message= new YourTurnAnswer(map);
+                message = new YourTurnAnswer(map);
                 break;
-            case "BUY" :
-                message= new BuyAnswer(map);
+            case "BUY":
+                message = new BuyAnswer(map);
                 break;
             case "PRODUCE":
-                message= new ProduceAnswer(map);
+                message = new ProduceAnswer(map);
                 break;
             case "MARKET":
-                message= new MarketAnswer(map);
+                message = new MarketAnswer(map);
                 break;
             case "SWAP":
-                message= new SwapAnswer(map);
+                message = new SwapAnswer(map);
                 break;
             case "ACTIVATE":
-                message= new LeaderActionAnswer(map);
+                message = new LeaderActionAnswer(map);
                 break;
             case "DISCARD":
-                message= new LeaderActionAnswer(map);
+                message = new LeaderActionAnswer(map);
                 break;
             case "ENDTURN":
-                message= new EndTurnAnswer(map);
+                message = new EndTurnAnswer(map);
                 break;
             case "ENDGAME":
-                message= new EndgameAnswer(map);
+                message = new EndgameAnswer(map);
                 break;
             case "ERROR":
-                message= new ErrorAnswer(map);
+                message = new ErrorAnswer(map);
                 break;
             case "END":
-                message= new EndAnswer(map);
+                message = new EndAnswer(map);
                 break;
             case "OTHERDISCONNECTED":
-                message= new OtherDisconnectedAnswer(map);
+                message = new OtherDisconnectedAnswer(map);
                 break;
             default:
-                message= new ErrorAnswer(map);
+                message = new ErrorAnswer(map);
                 break;
         }
         listener.fireUpdates(message.getAction(), message);
@@ -174,6 +180,7 @@ public class SocketListener implements Runnable{
 
     /**
      * This method sets the state of the thread.
+     *
      * @param active is the new state of the thread.
      */
     public synchronized void setActive(boolean active) {
@@ -208,4 +215,3 @@ public class SocketListener implements Runnable{
         }
     }
 }
-

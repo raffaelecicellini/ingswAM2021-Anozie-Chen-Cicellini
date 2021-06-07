@@ -58,9 +58,9 @@ public class LeaderDevelopCardTest {
         Map<String, String> map = new HashMap<>();
         map.put("Res1", "Strongbox");
         map.put("Resout", "BLUE");
-        int i=0;
+        int i = 0;
         try {
-            i=test.activateProduction(map, strongbox, deposits, strongboxOutput);
+            i = test.activateProduction(map, strongbox, deposits, strongboxOutput);
         } catch (InvalidActionException e) {
             e.printStackTrace();
         }

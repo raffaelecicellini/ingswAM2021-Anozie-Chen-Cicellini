@@ -12,9 +12,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
+
 import java.util.*;
 
-public class LeadersController extends GUIController{
+public class LeadersController extends GUIController {
     private GUI gui;
     @FXML
     private ImageView leader1, leader2, leader3, leader4;
@@ -24,13 +25,14 @@ public class LeadersController extends GUIController{
 
     /**
      * This method displays the leathers the player can choose.
+     *
      * @param location is the list of leaders the player can choose.
      */
     public void setLeaders(ArrayList<String> location) {
-        List<ImageView> list= new ArrayList<>(Arrays.asList(leader1, leader2, leader3, leader4));
+        List<ImageView> list = new ArrayList<>(Arrays.asList(leader1, leader2, leader3, leader4));
         Image img;
-        for (int i=0; i<location.size(); i++){
-            img= new Image(location.get(i));
+        for (int i = 0; i < location.size(); i++) {
+            img = new Image(location.get(i));
             list.get(i).setImage(img);
         }
         setShadesOfGray();
@@ -38,6 +40,7 @@ public class LeadersController extends GUIController{
 
     /**
      * This method is called once the player selected a leader. It will just save the information about the move.
+     *
      * @param event is the event caught when the players clicks on a leader.
      */
     public void chosen(MouseEvent event) {
@@ -53,7 +56,7 @@ public class LeadersController extends GUIController{
         ImageView card = ((ImageView) event.getSource());
         ColorAdjust color = (ColorAdjust) card.getEffect();
         if (color.getSaturation() == 0) {
-            String ind = getKeyByValue(action,selected);
+            String ind = getKeyByValue(action, selected);
             if (ind != null) action.remove(ind);
             card.setEffect(grayscale);
             count--;
@@ -61,13 +64,14 @@ public class LeadersController extends GUIController{
         }
         if (count == 3) return;
         card.setEffect(normal);
-        action.put("ind"+count,selected);
+        action.put("ind" + count, selected);
         count++;
     }
 
     /**
      * This method is called when the user clicks on the "confirm" button. It asks the player if he wants to confirm.
      * And changes scene.
+     *
      * @param event is the event caught when the user clicks on the "confirm" button.
      */
     public void confirm(ActionEvent event) {
@@ -92,12 +96,12 @@ public class LeadersController extends GUIController{
     }
 
     /**
-     * @see GUIController
      * @param gui the gui to be set
+     * @see GUIController
      */
     @Override
     public void setGui(GUI gui) {
-        this.gui=gui;
+        this.gui = gui;
     }
 
     /**
@@ -106,14 +110,15 @@ public class LeadersController extends GUIController{
     private void setShadesOfGray() {
         ColorAdjust grayscale = new ColorAdjust();
         grayscale.setSaturation(-1);
-        List<ImageView> list= new ArrayList<>(Arrays.asList(leader1, leader2, leader3, leader4));
+        List<ImageView> list = new ArrayList<>(Arrays.asList(leader1, leader2, leader3, leader4));
         for (ImageView x : list)
             x.setEffect(grayscale);
     }
 
     /**
      * This method returns the key of a certain map value.
-     * @param map is the map
+     *
+     * @param map   is the map
      * @param value is the value
      * @return the key of the value.
      */

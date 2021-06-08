@@ -5,9 +5,9 @@ import java.util.Map;
 /**
  * @see Message
  */
-public class EndgameAnswer extends Message {
+public class EndGameAnswer extends Message {
 
-    public EndgameAnswer(Map<String, String> info) {
+    public EndGameAnswer(Map<String, String> info) {
         super(info);
     }
 

@@ -145,7 +145,7 @@ public class SocketListener implements Runnable {
                 message = new EndTurnAnswer(map);
                 break;
             case "ENDGAME":
-                message = new EndgameAnswer(map);
+                message = new EndGameAnswer(map);
                 break;
             case "ERROR":
                 message = new ErrorAnswer(map);

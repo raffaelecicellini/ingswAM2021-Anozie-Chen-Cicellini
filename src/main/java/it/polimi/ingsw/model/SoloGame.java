@@ -743,7 +743,7 @@ public class SoloGame extends Game {
         state.put("points", String.valueOf(points));
         state.put("winnerpoints", String.valueOf(points));
 
-        Message message = new EndgameAnswer(state);
+        Message message = new EndGameAnswer(state);
         //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }

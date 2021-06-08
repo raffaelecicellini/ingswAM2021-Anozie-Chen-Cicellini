@@ -6,7 +6,6 @@ import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Game {
     /**
@@ -606,7 +605,7 @@ public class Game {
         state.put("points", String.valueOf(points));
         state.put("winnerpoints", String.valueOf(winnerpoints));
 
-        Message message = new EndgameAnswer(state);
+        Message message = new EndGameAnswer(state);
         //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }

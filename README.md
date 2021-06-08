@@ -5,7 +5,7 @@ Final examination for "Computer Science and Engineering" held at Politecnico di 
 ## Authors
 | Personal Data | Username |
 |:-----------------------|:------------------------------------:|
-| Anozie Obinna Hanson | [@hansonobi9](https://github.com/hansonobi9) |
+| Anozie Hanson Obinna | [@hansonobi9](https://github.com/hansonobi9) |
 | Chen Peizhou | [@cheeeeenais](https://github.com/cheeeeenais) |
 | Cicellini Raffaele | [@raffaelecicellini](https://github.com/raffaelecicellini) |
 

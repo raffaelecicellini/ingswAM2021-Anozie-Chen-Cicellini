@@ -1532,7 +1532,7 @@ public class CLI implements Runnable, SourceListener {
 
         switch (propertyName.toUpperCase()) {
             case "START":
-                System.out.println(message.getContent());
+                System.out.println("Game is starting! Have fun!");
                 break;
 
             case "OTHERCONNECTED":

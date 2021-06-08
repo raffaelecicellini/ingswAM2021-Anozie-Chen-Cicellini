@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * This class represents a specific type of Marble, the RedMarble. It is a singleton.
  */
-public class RedMarble implements Marble {
+public class RedMarble extends Marble {
     /**
      * This attribute represents the instance of the RedMarble
      */

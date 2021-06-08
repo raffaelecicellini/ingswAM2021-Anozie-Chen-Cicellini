@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * This class represents a specific type of Marble, the BlueMarble. It is a singleton.
  */
-public class BlueMarble implements Marble {
+public class BlueMarble extends Marble {
     /**
      * This attribute represents the instance of the BlueMarble
      */
@@ -51,7 +51,7 @@ public class BlueMarble implements Marble {
             // small, mid or big
             ResourceAmount current = deposits.get(dep); // current situation in the selected deposit
             if (current.getAmount() == 0 || (current.getColor() == Color.BLUE && current.getAmount() < (dep + 1))) {
-                int duplicate = checkDuplicates(deposits, dep);
+                int duplicate = checkDuplicates(deposits, dep, Color.BLUE);
                 if (duplicate >= 0 && deposits.get(duplicate).getAmount() < (duplicate + 1)) {
                     // another deposit has the BLUE ResourceAmount && it's not full
                     throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one!");
@@ -80,7 +80,7 @@ public class BlueMarble implements Marble {
                 }
                 return 1;
             } else if (current.getColor() != Color.BLUE && current.getAmount() > 0) {
-                boolean space = checkSpace(deposits);
+                boolean space = checkSpace(deposits, Color.BLUE);
                 if (space) {
                     throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one! (maybe with a swap)");
                 }
@@ -102,7 +102,7 @@ public class BlueMarble implements Marble {
                     deposits.set(dep, newval);
                     return 0;
                 } else if (current.getColor() == Color.BLUE && current.getAmount() == 2) {
-                    boolean space = checkSpace(deposits);
+                    boolean space = checkSpace(deposits, Color.BLUE);
                     if (space) {
                         throw new InvalidActionException("You can't put the " + BlueMarble.getInstance() + " in the " + chosen + " deposit, but you can put it in another one! (maybe with a swap)");
                     }
@@ -113,87 +113,6 @@ public class BlueMarble implements Marble {
             }
         }
         return 0;
-    }
-
-    /**
-     * Utility method used to parse the String representation of the chosen deposit in a index of the deposits' list
-     *
-     * @param chosen: the String representation of the chosen deposit
-     * @return: the index of the chosen deposit
-     */
-    private int parseChoice(String chosen) {
-        switch (chosen.toLowerCase()) {
-            case "small":
-                return 0;
-            case "mid":
-                return 1;
-            case "big":
-                return 2;
-            case "sp1":
-                return 3;
-            case "sp2":
-                return 4;
-        }
-        return -1;
-    }
-
-    /**
-     * Utility method used to check if a Shield is already stored in a different deposit
-     *
-     * @param deposits: the list of the player's deposit
-     * @param curr:     the index of the chosen deposit
-     * @return: the index of the deposit which already contains a Shield if present, otherwise it returns -1
-     */
-    private int checkDuplicates(ArrayList<ResourceAmount> deposits, int curr) {
-        for (int i = 0; i < 3; i++) {
-            ResourceAmount res = deposits.get(i);
-            if (res.getColor() == Color.BLUE && res.getAmount() > 0 && i != curr) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Utility method used to check if there is a deposit that can store a Shield
-     *
-     * @param deposits: the list of the player's deposit
-     * @return: true if there is a deposit, false otherwise
-     */
-    private boolean checkSpace(ArrayList<ResourceAmount> deposits) {
-        boolean ret = false;
-        for (int i = 0; i < 3; i++) {
-            ResourceAmount res = deposits.get(i);
-            if ((res.getColor() == Color.BLUE && res.getAmount() > 0 && res.getAmount() < (i + 1)) || (res.getAmount() == 0)) {
-                ret = true;
-            } else if (res.getColor() == Color.BLUE && res.getAmount() == (i + 1)) {
-                if (checkSwap(deposits, i)) {
-                    ret = true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return ret;
-    }
-
-    /**
-     * Utility method used to check if two deposit can be swapped.
-     *
-     * @param deposits: the list of the player's deposits
-     * @param curr:     the index of the chosen deposit
-     * @return: true if two deposits can be swapped, false otherwise
-     */
-    private boolean checkSwap(ArrayList<ResourceAmount> deposits, int curr) {
-        ResourceAmount res = deposits.get(curr);
-        for (int i = 0; i < 3; i++) {
-            if (i < curr && res.getAmount() <= i + 1) {
-                return true;
-            } else if (i > curr && deposits.get(i).getAmount() <= curr + 1) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

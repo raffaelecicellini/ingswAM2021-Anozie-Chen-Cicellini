@@ -401,7 +401,7 @@ public class Cards {
             case 42:
                 card[0] = "+----------------------------------------+";
                 card[1] = "|Col:Green; " + "Lev:3; " + "Cost:[6B];" + "            |";
-                card[2] = "|In:[2P]; " + "Out:[3G, 2F]; " + "VP:9;" + "            |";
+                card[2] = "|In:[2Y]; " + "Out:[3G, 2F]; " + "VP:9;" + "            |";
                 card[3] = "+----------------------------------------+";
                 return card;
             case 43:
@@ -955,8 +955,8 @@ public class Cards {
                 input.add("PURPLE");
                 return input;
             case 42:
-                input.add("PURPLE");
-                input.add("PURPLE");
+                input.add("YELLOW");
+                input.add("YELLOW");
                 return input;
             case 43:
                 input.add("GREY");

@@ -92,3 +92,9 @@ All tests in model and controller has a classes' coverage at 100%.
 | Model | Global Package | 250/270 (92%)
 
 ## Deliveries
+In the "deliveries" folder you will find:
+* Initial UML diagram (done with StarUML)
+* Final UML diagram (generated with Intellij IDEA)
+* Javadoc
+* Final jar (the same for both the client and the server)
+* A pdf file describing the Communication Protocol

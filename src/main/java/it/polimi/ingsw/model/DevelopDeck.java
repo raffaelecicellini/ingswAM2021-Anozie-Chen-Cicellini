@@ -882,10 +882,10 @@ public class DevelopDeck {
                         cost[2] = new ResourceAmount(Color.YELLOW, 0);
                         cost[3] = new ResourceAmount(Color.PURPLE, 0);
                         input = new ResourceAmount[4];
-                        input[0] = new ResourceAmount(Color.PURPLE, 2);
+                        input[0] = new ResourceAmount(Color.YELLOW, 2);
                         input[1] = new ResourceAmount(Color.BLUE, 0);
                         input[2] = new ResourceAmount(Color.GREY, 0);
-                        input[3] = new ResourceAmount(Color.YELLOW, 0);
+                        input[3] = new ResourceAmount(Color.PURPLE, 0);
                         output = new ResourceAmount[4];
                         output[0] = new ResourceAmount(Color.GREY, 3);
                         output[1] = new ResourceAmount(Color.BLUE, 0);

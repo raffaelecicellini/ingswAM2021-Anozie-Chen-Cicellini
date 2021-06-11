@@ -103,6 +103,7 @@ public class GUI extends Application implements SourceListener {
         stage.setTitle("Maestri");
         stage.getIcons().add(new Image("/PNG/punchboard/calamaio.png"));
         stage.setOnCloseRequest(e -> {
+            e.consume();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Quit");
             alert.setHeaderText("Are you sure you want to quit?");
@@ -117,6 +118,8 @@ public class GUI extends Application implements SourceListener {
                     listener.fireUpdates("disconnect", message);
                 }
             }
+            Platform.exit();
+            System.exit(0);
         });
         stage.setResizable(false);
         stage.show();

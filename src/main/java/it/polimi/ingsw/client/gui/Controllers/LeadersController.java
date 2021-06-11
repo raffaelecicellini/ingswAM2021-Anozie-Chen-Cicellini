@@ -64,7 +64,11 @@ public class LeadersController extends GUIController {
         }
         if (count == 3) return;
         card.setEffect(normal);
-        action.put("ind" + count, selected);
+
+        if (count == 2 && action.get("ind"+count) != null)
+            action.put("ind" + 1, selected);
+        else
+            action.put("ind" + count, selected);
         count++;
     }
 
@@ -122,9 +126,9 @@ public class LeadersController extends GUIController {
      * @param value is the value
      * @return the key of the value.
      */
-    private static String getKeyByValue(Map<String, String> map, String value) {
+    private String getKeyByValue(Map<String, String> map, String value) {
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            if (Objects.equals(value, entry.getValue())) {
+            if (entry.getValue().equals(value)) {
                 return entry.getKey();
             }
         }

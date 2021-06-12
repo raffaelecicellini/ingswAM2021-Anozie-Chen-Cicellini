@@ -491,6 +491,9 @@ public class BoardController extends GUIController {
             else if (leaders.get("state" + i).equalsIgnoreCase("available")) opacity = 0.45;
             leaderImages[i].setOpacity(opacity);
         }
+
+        if (gui.getModelView().getCountLeader() == 2)
+            disableLeaderButtons();
     }
 
     /**
@@ -555,7 +558,11 @@ public class BoardController extends GUIController {
      * This method is called when it is the turn of the user. It enables all the buttons
      */
     public void enableButtons() {
-        ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(buy, produce, market, activate, discard, swap, endturn));
+        ArrayList<Button> buttons = new ArrayList<>(Arrays.asList(buy, produce, market, /*activate, discard,*/ swap, endturn));
+        if (gui.getModelView().getCountLeader() < 2) {
+            buttons.add(activate);
+            buttons.add(discard);
+        }
         for (Button button : buttons) {
             button.setDisable(false);
         }
@@ -570,6 +577,15 @@ public class BoardController extends GUIController {
         for (Button button : buttons) {
             button.setDisable(true);
         }
+    }
+
+    /**
+     * Utility method called when a user correctly did 2 leader actions. This method disables the buttons for leader
+     * actions because he cannot do them anymore in that game.
+     */
+    private void disableLeaderButtons() {
+        activate.setDisable(true);
+        discard.setDisable(true);
     }
 
     /**

@@ -117,9 +117,9 @@ public class GUI extends Application implements SourceListener {
                     Message message = new DisconnectionMessage(map);
                     listener.fireUpdates("disconnect", message);
                 }
+                Platform.exit();
+                System.exit(0);
             }
-            Platform.exit();
-            System.exit(0);
         });
         stage.setResizable(false);
         stage.show();

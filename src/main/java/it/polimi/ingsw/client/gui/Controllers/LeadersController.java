@@ -80,12 +80,14 @@ public class LeadersController extends GUIController {
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("Do you want to confirm?");
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
+            if (result.isPresent() && result.get() == ButtonType.OK) {
                 action.put("action", "chooseleaders");
                 action.put("player", gui.getModelView().getName());
                 Message message = new LeaderMessage(action);
+                count=1;
                 gui.getListeners().fireUpdates("chooseleaders", message);
                 gui.changeScene("board.fxml");
+                action.clear();
             } else {
                 action.clear();
                 setShadesOfGray();

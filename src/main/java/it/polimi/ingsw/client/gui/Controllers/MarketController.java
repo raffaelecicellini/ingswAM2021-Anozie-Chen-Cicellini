@@ -128,7 +128,7 @@ public class MarketController extends GUIController {
                     return;
                 }
             }
-            System.out.println(selection.get(i - 1));
+            //System.out.println(selection.get(i - 1));
             i++;
         }
 

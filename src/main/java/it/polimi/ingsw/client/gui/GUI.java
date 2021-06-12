@@ -393,6 +393,18 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    private void showEndAlert(String header, String message) {
+        setActiveGame(false);
+        if (connectionSocket != null) connectionSocket.close();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(header);
+            alert.setContentText(message);
+            alert.showAndWait();
+            System.exit(0);
+        });
+    }
+
     /**
      * Method called when a started message arrives from the model. It does the first update of the personalboard, market
      * and decks
@@ -598,19 +610,14 @@ public class GUI extends Application implements SourceListener {
             case "ENDGAME":
 
                 if (message.getWinner() != null && message.getWinner().equalsIgnoreCase(modelView.getName())) {
-                    showAlert("Winner", "You won! You made " + message.getWinnerPoints() + " points!");
+                    showEndAlert("Winner", "You won! You made " + message.getWinnerPoints() + " points!");
                 } else {
                     String content = "You lost! You made " + message.getPoints() + " points! ";
                     if (!modelView.isSoloGame()) {
                         content = content + message.getWinner() + " won with " + message.getWinnerPoints() + " points!";
                     }
-                    showAlert("Loser", content);
+                    showEndAlert("Loser", content);
                 }
-
-                Platform.runLater(() -> System.exit(0));
-
-                setActiveGame(false);
-                if (connectionSocket != null) connectionSocket.close();
 
                 break;
 

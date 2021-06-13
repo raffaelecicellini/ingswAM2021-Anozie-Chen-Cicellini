@@ -297,7 +297,7 @@ public class AnswerHandler implements SourceListener {
             // the player who activated a leader
             modelView.setActiveTurn(true);
 
-            modelView.setCountLeader(message.getCountLeader());
+            modelView.setCountLeader(modelView.getCountLeader()+1);
 
         }
     }
@@ -320,7 +320,7 @@ public class AnswerHandler implements SourceListener {
         if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
             modelView.setActiveTurn(true);
 
-            modelView.setCountLeader(message.getCountLeader());
+            modelView.setCountLeader(modelView.getCountLeader()+1);
 
         }
     }

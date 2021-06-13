@@ -541,6 +541,9 @@ public class AnswerHandler implements SourceListener {
             case "OTHERDISCONNECTED":
                 viewListener.fireUpdates(message.getAction(), message);
                 break;
+            case "EXCEPTION":
+                viewListener.fireUpdates("exception", null);
+                break;
             default:
                 viewListener.fireUpdates("default", null);
                 break;

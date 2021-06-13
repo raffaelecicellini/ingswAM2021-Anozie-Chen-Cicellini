@@ -634,13 +634,16 @@ public class GUI extends Application implements SourceListener {
                 break;
 
             case "END":
-                showAlert("End", message.getContent());
-                Platform.runLater(() -> System.exit(0));
+                showEndAlert("End", message.getContent());
                 break;
 
             case "OTHERDISCONNECTED":
                 showAlert("End", message.getContent());
                 System.out.println(message.getContent());
+                break;
+
+            case "EXCEPTION":
+                showEndAlert("Server unreachable", "Server is unreachable. Game will now end...");
                 break;
 
             default:

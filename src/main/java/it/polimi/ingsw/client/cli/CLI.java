@@ -1719,6 +1719,11 @@ public class CLI implements Runnable, SourceListener {
                 System.out.println(message.getContent());
                 break;
 
+            case "EXCEPTION":
+                System.out.println("\n\nServer is unreachable. Game is now ending...");
+                System.exit(0);
+                break;
+
             default:
                 System.out.println("\n");
                 System.out.println("Unrecognized answer!");

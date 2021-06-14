@@ -626,7 +626,7 @@ public class SoloGame extends Game {
             doneMandatory = false;
 
             int i = 0;
-            while (i < 3 && !isEndGame) {
+            while (i <= 3 && !isEndGame) {
                 if (developDecks[i][2].getTop() == -1) isEndGame = true;
                 else i++;
             }

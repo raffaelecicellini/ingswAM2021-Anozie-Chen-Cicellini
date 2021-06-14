@@ -805,7 +805,7 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
 
-        System.out.println("Select the second deposit, Possible choices: small, mid, big, sp1, sp2");
+        System.out.println(deps);
         System.out.print(">");
         dest = input.nextLine();
         if (!possibleInput.contains(dest.toLowerCase())) {

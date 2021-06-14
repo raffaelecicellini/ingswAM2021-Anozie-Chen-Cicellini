@@ -493,7 +493,7 @@ public class Game {
                 tile.setActive(true);
                 this.setTiles(maxPlayer, i);
                 if (i == 2) {
-                    System.out.println("Someone reached the end of the track");
+                    //System.out.println("Someone reached the end of the track");
                     this.isEndGame = true;
                 }
             }
@@ -585,7 +585,6 @@ public class Game {
         }
 
         Message message = new EndTurnAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 

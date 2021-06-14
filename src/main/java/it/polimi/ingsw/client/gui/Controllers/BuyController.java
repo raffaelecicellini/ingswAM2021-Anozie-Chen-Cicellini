@@ -106,7 +106,7 @@ public class BuyController extends GUIController {
         int j = 1;
         for (String x : cost) {
             if (x != null) {
-                move.append("Resource " + x + ": " + action.get("res" + j) + "\n");
+                move.append("Resource ").append(x).append(": ").append(action.get("res" + j)).append("\n");
                 j++;
             }
         }
@@ -118,7 +118,7 @@ public class BuyController extends GUIController {
         alert.setContentText(move.toString());
         alert.setHeaderText("Buy confirmation");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() != ButtonType.OK) {
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
             action.clear();
             ((Node) (event.getSource())).getScene().getWindow().hide();
             return;

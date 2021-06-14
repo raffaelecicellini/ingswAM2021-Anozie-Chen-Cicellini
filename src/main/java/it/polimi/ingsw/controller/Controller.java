@@ -505,7 +505,7 @@ public class Controller implements SourceListener {
                     e.printStackTrace();
                 }
             } else {
-                System.out.println("Wrong phase!");
+                //System.out.println("Wrong phase!");
                 Map<String, String> error = new HashMap<>();
                 error.put("action", "error");
                 error.put("player", message.getPlayer());
@@ -515,7 +515,7 @@ public class Controller implements SourceListener {
                 gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
             }
         } else {
-            System.out.println("Not your turn!");
+            //System.out.println("Not your turn!");
             Map<String, String> error = new HashMap<>();
             error.put("action", "error");
             error.put("player", message.getPlayer());

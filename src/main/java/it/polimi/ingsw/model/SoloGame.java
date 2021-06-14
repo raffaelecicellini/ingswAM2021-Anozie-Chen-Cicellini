@@ -226,23 +226,14 @@ public class SoloGame extends Game {
      */
     @Override
     public void buy(String player, Message message) throws InvalidActionException, NumberFormatException {
-        //public void buy(String player, Map<String, String> map) throws InvalidActionException, NumberFormatException {
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory operation in this turn.");
-        /*if (map.get("row") == null || map.get("column") == null)
-            throw new InvalidActionException("You didn't select the card.");
-        int row = Integer.parseInt(map.get("row"));
-        int column = Integer.parseInt(map.get("column"));
-        if (row < 0 || row > 2 || column < 0 || column > 3) throw new InvalidActionException("Wrong indexes selected ");
-        int ind = Integer.parseInt(map.get("ind"));*/
 
         DevelopCard card = developDecks[message.getCol()][message.getRow()].getCard();
         isEndGame = currentPlayer.buy(message, card);
-        //isEndGame = currentPlayer.buy(map, card);
         developDecks[message.getCol()][message.getRow()].removeCard();
         doneMandatory = true;
         notifyBuy(message.getSlot(), card.getId(), message.getCol(), message.getRow());
-        //notifyBuy(ind, card.getId(), column, row);
         if (isEndGame) {
             notifyEndGame(true, getPoints(currentPlayer));
             phase = GamePhase.ENDED;
@@ -305,7 +296,6 @@ public class SoloGame extends Game {
         }
 
         Message message = new BuyAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 

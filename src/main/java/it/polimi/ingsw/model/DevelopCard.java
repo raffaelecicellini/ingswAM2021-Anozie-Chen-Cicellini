@@ -362,7 +362,7 @@ public class DevelopCard {
         }
         map.remove("disc0");
         map.remove("disc1");
-        System.out.println(map.size() + " - " + j);
+        //System.out.println(map.size() + " - " + j);
         if (map.size() != j) throw new InvalidActionException("Invalid action! Check the number of resources!");
 
         for (Map.Entry<String, String> m : map.entrySet()) {
@@ -374,7 +374,7 @@ public class DevelopCard {
             int i = parseChoice(m.getValue());
             int k = Integer.parseInt(s) - 1;
 
-            if (m.getValue().toLowerCase().equals("strongbox")) {
+            if (m.getValue().equalsIgnoreCase("strongbox")) {
                 i = 0;
                 while (i < strongbox.length && !exit) {
                     if (newCost.get(k).getColor() == strongbox[i].getColor()) {

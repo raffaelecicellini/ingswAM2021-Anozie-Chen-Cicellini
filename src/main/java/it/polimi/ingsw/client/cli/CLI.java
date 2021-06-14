@@ -785,17 +785,21 @@ public class CLI implements Runnable, SourceListener {
         String source;
         String dest;
 
-        StringBuilder deps = new StringBuilder();
-        deps.append("Select the first deposit, Possible choices: small, mid, big");
+        StringBuilder deps_src = new StringBuilder();
+        StringBuilder deps_dst = new StringBuilder();
+        deps_src.append("Select the first deposit, Possible choices: small, mid, big");
+        deps_dst.append("Select the second deposit, Possible choices: small, mid, big");
         if (modelView.getDeposits(modelView.getName()).containsKey("sp1res")) {
             possibleInput.add("sp1");
-            deps.append(", sp1");
+            deps_src.append(", sp1");
+            deps_dst.append(", sp1");
         }
         if (modelView.getDeposits(modelView.getName()).containsKey("sp2res")) {
             possibleInput.add("sp2");
-            deps.append(", sp2");
+            deps_src.append(", sp2");
+            deps_dst.append(", sp2");
         }
-        System.out.println(deps.append(":"));
+        System.out.println(deps_src.append(":"));
         //System.out.println("Select the first deposit, Possible choices: small, mid, big, sp1, sp2");
         System.out.print(">");
         source = input.nextLine();
@@ -805,7 +809,7 @@ public class CLI implements Runnable, SourceListener {
             return;
         }
 
-        System.out.println(deps);
+        System.out.println(deps_dst.append(":"));
         System.out.print(">");
         dest = input.nextLine();
         if (!possibleInput.contains(dest.toLowerCase())) {

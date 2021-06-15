@@ -243,7 +243,6 @@ public class Game {
         }
 
         Message message = new StartedAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -274,7 +273,6 @@ public class Game {
         if (action.equalsIgnoreCase("chooseleaders")) {
             message = new ChooseLeadersAnswer(state);
         } else message = new OkLeadersAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -366,7 +364,6 @@ public class Game {
         }
 
         Message message = new ProduceAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -438,7 +435,6 @@ public class Game {
         state.put("countLeader", String.valueOf(doneLeader));
 
         Message message = new LeaderActionAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -517,7 +513,6 @@ public class Game {
             int[] points = new int[activePlayers.size()];
             for (int i = 0; i < activePlayers.size(); i++) {
                 points[i] = getPoints(activePlayers.get(i));
-                //System.out.println("Points of "+activePlayers.get(i).getName()+": "+points[i]);
                 currpoints = points[i];
                 if (currpoints > maxpoints) {
                     maxpoints = points[i];
@@ -605,7 +600,6 @@ public class Game {
         state.put("winnerpoints", String.valueOf(winnerpoints));
 
         Message message = new EndGameAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -804,7 +798,6 @@ public class Game {
             message = new OkResourcesAnswer(state);
         }
 
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -819,7 +812,6 @@ public class Game {
         state.put("player", currentPlayer.getName());
 
         Message message = new YourTurnAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -913,7 +905,6 @@ public class Game {
         }
 
         Message message = new BuyAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -938,7 +929,7 @@ public class Game {
     private void notifySwap() {
         Map<String, String> state = new HashMap<>();
         List<ResourceAmount> deps = currentPlayer.getPersonalBoard().getDeposits();
-        String colors[] = new String[deps.size()];
+        String[] colors = new String[deps.size()];
 
         state.put("action", "swap");
         state.put("player", currentPlayer.getName());
@@ -963,7 +954,6 @@ public class Game {
         }
 
         Message message = new SwapAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -1031,7 +1021,7 @@ public class Game {
         Marble[] marbles;
         Marble out;
         String res;
-        String colors[] = new String[deps.size()];
+        String[] colors = new String[deps.size()];
 
         state.put("action", "market");
         state.put("player", currentPlayer.getName());
@@ -1076,7 +1066,6 @@ public class Game {
         }
 
         Message message = new MarketAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 

@@ -162,7 +162,6 @@ public class Player {
      */
     public void produce(Message info) throws InvalidActionException {
         int curr;
-        int key;
         DevelopCard card;
         int faith = 0;
         ResourceAmount[] strongbox = personalBoard.getStrongbox();
@@ -186,10 +185,8 @@ public class Player {
                     production.put("out", info.getOut(0));
                     this.baseProduction(production, strongbox, deposits, output);
                 } else if (i > 0 && i < 4) {
-                    //key="pos"+i+"1";
                     production.put("Res1", info.getPos(i, 1));
                     if (info.getPos(i, 2) != null) {
-                        //key="pos"+i+"2";
                         production.put("Res2", info.getPos(i, 2));
                     }
                     card = personalBoard.getTopCard(i - 1);
@@ -197,9 +194,7 @@ public class Player {
                         faith = faith + card.activateProduction(production, strongbox, deposits, output);
                     } else throw new InvalidActionException("You don't have a production in slot: " + (i - 1));
                 } else {
-                    //key="pos"+i+"1";
                     production.put("Res1", info.getPos(i, 1));
-                    //key="out"+i;
                     production.put("Resout", info.getOut(i));
                     card = personalBoard.getTopCard(i - 1);
                     faith = faith + card.activateProduction(production, strongbox, deposits, output);
@@ -240,7 +235,7 @@ public class Player {
                 boolean found = false;
                 //strongbox
                 for (ResourceAmount res : inputStrongbox) {
-                    if (res.getColor().toString().toLowerCase().equals(info.get(type).toLowerCase()) && res.getAmount() > 0) {
+                    if (res.getColor().toString().equalsIgnoreCase(info.get(type)) && res.getAmount() > 0) {
                         found = true;
                         res.setAmount(res.getAmount() - 1);
                     }
@@ -250,7 +245,7 @@ public class Player {
             } else if (index >= 0 && index <= 4) {
                 if (deps.size() > index) {
                     ResourceAmount dep = deps.get(index);
-                    if (dep.getColor() != null && dep.getColor().toString().toLowerCase().equals(info.get(type).toLowerCase()) && dep.getAmount() > 0) {
+                    if (dep.getColor() != null && dep.getColor().toString().equalsIgnoreCase(info.get(type)) && dep.getAmount() > 0) {
                         dep.setAmount(dep.getAmount() - 1);
                     } else
                         throw new InvalidActionException("The resource is not in the specified position (" + info.get(pos) + ")");
@@ -258,7 +253,7 @@ public class Player {
             } else throw new InvalidActionException("Wrong position!");
         }
         for (ResourceAmount res : outputStrongbox) {
-            if (res.getColor().toString().toLowerCase().equals(info.get("out").toLowerCase()))
+            if (res.getColor().toString().equalsIgnoreCase(info.get("out")))
                 res.setAmount(res.getAmount() + 1);
         }
     }
@@ -493,10 +488,7 @@ public class Player {
             }
         }
 
-        //System.out.println(deposits);
-
         personalBoard.setDeposits(deposits);
-        //personalBoard.setPosition(personalBoard.getPosition() + discarded);
         return discarded;
     }
 
@@ -507,7 +499,7 @@ public class Player {
      * @return the color in form of a Color type.
      */
     private Color parseColor(String color) {
-        switch (color) {
+        switch (color.toLowerCase()) {
             case "yellow":
                 return Color.YELLOW;
             case "blue":

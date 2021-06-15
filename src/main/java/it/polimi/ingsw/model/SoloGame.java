@@ -143,7 +143,6 @@ public class SoloGame extends Game {
         }
 
         Message message = new StartedAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -156,14 +155,7 @@ public class SoloGame extends Game {
      */
     @Override
     public void chooseLeaders(String player, Message message) throws InvalidActionException {
-        //public void chooseLeaders(String player, Map<String, String> map) throws InvalidActionException {
-        int leader1, leader2;
-        /*if (map.containsKey("ind1") && map.containsKey("ind2")) {
-            leader1 = Integer.parseInt(map.get("ind1"));
-            leader2 = Integer.parseInt(map.get("ind2"));*/
         currentPlayer.chooseLeader(message.getLeader(1), message.getLeader(2));
-        //currentPlayer.chooseLeader(leader1, leader2);
-        //} else throw new InvalidActionException("Missing parameters!");
         phase = GamePhase.FULLGAME;
 
         notifyLeaders("okLeaders");
@@ -181,7 +173,6 @@ public class SoloGame extends Game {
         state.put("player", currentPlayer.getName());
         Message message = new YourTurnAnswer(state);
 
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -212,7 +203,6 @@ public class SoloGame extends Game {
         if (action.equalsIgnoreCase("chooseleaders")) {
             message = new ChooseLeadersAnswer(state);
         } else message = new OkLeadersAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -308,12 +298,10 @@ public class SoloGame extends Game {
      */
     @Override
     public void produce(String player, Message message) throws InvalidActionException {
-        //public void produce(String player, Map<String, String> info) throws InvalidActionException {
         if (doneMandatory)
             throw new InvalidActionException("You have already done a mandatory operation in this turn.");
 
         currentPlayer.produce(message);
-        //currentPlayer.produce(info);
         doneMandatory = true;
         notifyProduce();
     }
@@ -361,7 +349,6 @@ public class SoloGame extends Game {
         }
 
         Message message = new ProduceAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -455,7 +442,6 @@ public class SoloGame extends Game {
         }
 
         Message message = new MarketAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -504,7 +490,6 @@ public class SoloGame extends Game {
         }
 
         Message message = new SwapAnswer(state);
-        //listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -588,7 +573,6 @@ public class SoloGame extends Game {
         state.put("countLeader", String.valueOf(doneLeader));
 
         Message message = new LeaderActionAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -708,7 +692,6 @@ public class SoloGame extends Game {
         state.put("tokenActivated", String.valueOf(token));
 
         Message message = new EndTurnAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 
@@ -734,7 +717,6 @@ public class SoloGame extends Game {
         state.put("winnerpoints", String.valueOf(points));
 
         Message message = new EndGameAnswer(state);
-        //this.listener.fireUpdates(state.get("action"), message);
         listener.fireUpdates(message.getAction(), message);
     }
 

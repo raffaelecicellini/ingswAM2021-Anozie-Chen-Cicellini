@@ -362,7 +362,6 @@ public class DevelopCard {
         }
         map.remove("disc0");
         map.remove("disc1");
-        //System.out.println(map.size() + " - " + j);
         if (map.size() != j) throw new InvalidActionException("Invalid action! Check the number of resources!");
 
         for (Map.Entry<String, String> m : map.entrySet()) {

@@ -341,11 +341,13 @@ public class ClientHandler implements Runnable {
         } catch (SocketTimeoutException e) {
             System.err.println("Connection Timeout. The client has disconnected.");
             if (name != null && game != null) server.manageDisconnection(this);
+            close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println("Error");
             if (name != null && game != null && server.getConnectedClients().contains(name))
                 server.manageDisconnection(this);
+            close();
         }
         if (name != null && game != null && server.getConnectedClients().contains(name))
             server.manageDisconnection(this);

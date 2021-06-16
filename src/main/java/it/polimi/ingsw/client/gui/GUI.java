@@ -405,6 +405,15 @@ public class GUI extends Application implements SourceListener {
         });
     }
 
+    private void showErrorAlert(String header, String message) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(header);
+            alert.setContentText(message);
+            alert.showAndWait();
+        });
+    }
+
     /**
      * Method called when a started message arrives from the model. It does the first update of the personalboard, market
      * and decks
@@ -624,7 +633,7 @@ public class GUI extends Application implements SourceListener {
             case "ERROR":
 
                 if (message.getPlayer().equalsIgnoreCase(modelView.getName())) {
-                    showAlert("Error", message.getContent());
+                    showErrorAlert("Error", message.getContent());
                 }
                 if (message.getMethod().equalsIgnoreCase("chooseleaders")) {
                     chooseLeaders();

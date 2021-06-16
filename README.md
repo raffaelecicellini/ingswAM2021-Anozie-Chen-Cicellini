@@ -1,6 +1,6 @@
 # Maestri del Rinascimento Board Game - AM59
 Final examination for "Computer Science and Engineering" held at Politecnico di Milano (2020/2021)
-<img src="MoR.jpg" width=300px height=400px align="right">
+<img src="MoR.png" width=300px height=400px align="right">
 
 ## Authors
 | Personal Data | Username |

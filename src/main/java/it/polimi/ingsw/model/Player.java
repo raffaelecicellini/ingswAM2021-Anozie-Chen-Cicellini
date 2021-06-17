@@ -103,8 +103,12 @@ public class Player {
     public void discardLeader(int pos) throws InvalidActionException {
         if (pos < 0 || pos > 1) throw new InvalidActionException("The index is invalid! Try again (index=0 || index=1");
         LeaderCard current = leaders.get(pos);
-        if (current.isActive())
+        if (current.isActive()){
             throw new InvalidActionException("The leader is already activated, you can't discard it");
+        }
+         if (current.isDiscarded()){
+             throw new InvalidActionException("The leader is already discarded!");
+         }
         if (!current.isActive() && !current.isDiscarded()) {
             current.setDiscarded(true);
             FaithMarker fm = this.personalBoard.getFaithMarker();
@@ -125,8 +129,12 @@ public class Player {
         if (pos < 0 || pos > 1)
             throw new InvalidActionException("The index is invalid! Try again (index=0 || index=1)");
         LeaderCard current = leaders.get(pos);
-        if (current.isDiscarded())
+        if (current.isDiscarded()) {
             throw new InvalidActionException("The leader is already discarded, you can't activate it");
+        }
+        if (current.isActive()){
+            throw new InvalidActionException("The leader is already activated!");
+        }
         if (!current.isActive() && !current.isDiscarded()) {
             ArrayList<ResourceAmount> deposits = this.personalBoard.getDeposits();
             ResourceAmount[] strongbox = this.personalBoard.getStrongbox();

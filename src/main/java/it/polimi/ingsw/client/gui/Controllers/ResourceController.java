@@ -61,7 +61,7 @@ public class ResourceController extends GUIController {
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setContentText("Do you want to confirm?");
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() != ButtonType.OK) {
+            if (result.isPresent() && result.get() != ButtonType.OK) {
                 count = 1;
                 action.clear();
                 return;
@@ -98,11 +98,11 @@ public class ResourceController extends GUIController {
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne) {
+        if (result.isPresent() && result.get() == buttonTypeOne) {
             return buttonTypeOne.getText();
-        } else if (result.get() == buttonTypeTwo) {
+        } else if (result.isPresent() && result.get() == buttonTypeTwo) {
             return buttonTypeTwo.getText();
-        } else if (result.get() == buttonTypeThree) {
+        } else if (result.isPresent() && result.get() == buttonTypeThree) {
             return buttonTypeThree.getText();
         } else {
             //what to do?? :user chose CANCEL or closed the dialog

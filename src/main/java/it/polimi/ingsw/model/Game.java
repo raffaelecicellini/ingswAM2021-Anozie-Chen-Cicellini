@@ -864,7 +864,7 @@ public class Game {
         int idNew = 0;
         if (card != null) idNew = card.getId();
 
-        String res, qty, boxres, boxqty;
+        String boxres, boxqty;
         List<ResourceAmount> deps = currentPlayer.getPersonalBoard().getDeposits();
         ResourceAmount[] box = currentPlayer.getPersonalBoard().getStrongbox();
         String[] colors = new String[deps.size()];

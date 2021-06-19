@@ -234,17 +234,17 @@ public class BuyController extends GUIController {
         alert.getButtonTypes().add(buttonTypeSix);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne) {
+        if (result.isPresent() && result.get() == buttonTypeOne) {
             return buttonTypeOne.getText();
-        } else if (result.get() == buttonTypeTwo) {
+        } else if (result.isPresent() && result.get() == buttonTypeTwo) {
             return buttonTypeTwo.getText();
-        } else if (result.get() == buttonTypeThree) {
+        } else if (result.isPresent() && result.get() == buttonTypeThree) {
             return buttonTypeThree.getText();
-        } else if (result.get() == buttonTypeFour) {
+        } else if (result.isPresent() && result.get() == buttonTypeFour) {
             return buttonTypeFour.getText();
-        } else if (result.get() == buttonTypeFive) {
+        } else if (result.isPresent() && result.get() == buttonTypeFive) {
             return buttonTypeFive.getText();
-        } else if (result.get() == buttonTypeSix) {
+        } else if (result.isPresent() && result.get() == buttonTypeSix) {
             return buttonTypeSix.getText();
         } else {
             //what to do?? :user chose CANCEL or closed the dialog
@@ -270,7 +270,7 @@ public class BuyController extends GUIController {
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne) {
+        if (result.isPresent() && result.get() == buttonTypeOne) {
             return buttonTypeOne.getText();
         } else if (result.get() == buttonTypeTwo) {
             return buttonTypeTwo.getText();

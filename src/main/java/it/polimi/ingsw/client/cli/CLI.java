@@ -620,8 +620,8 @@ public class CLI implements Runnable, SourceListener {
         validPositions.add("small");
         validPositions.add("mid");
         validPositions.add("big");
-        validPositions.add("sp1");
-        validPositions.add("sp2");
+        if (modelView.getDeposits(modelView.getName()).containsKey("sp1res")) validPositions.add("sp1");
+        if (modelView.getDeposits(modelView.getName()).containsKey("sp2res")) validPositions.add("sp2");
         validPositions.add("discard");
 
         List<String> validColors = new ArrayList<>();
@@ -1463,7 +1463,7 @@ public class CLI implements Runnable, SourceListener {
             }
             System.out.println("\n>Which player do you want to see?");
             chosen = input.nextLine();
-            while (!names.contains(chosen)) {
+            while (!names.contains(chosen.toLowerCase())) {
                 System.out.println("Select one of those players.");
                 chosen = input.nextLine();
             }

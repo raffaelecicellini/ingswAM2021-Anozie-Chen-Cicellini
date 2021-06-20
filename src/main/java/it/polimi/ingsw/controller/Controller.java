@@ -68,7 +68,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in chooseLeaders: " + e.getMessage());
+                        error.put("content", /*"There is an error in chooseLeaders: " +*/ e.getMessage());
                         error.put("method", "chooseLeaders");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -122,7 +122,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in chooseResources: " + e.getMessage());
+                        error.put("content", /*"There is an error in chooseResources: " +*/ e.getMessage());
                         error.put("method", "chooseResources");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -177,7 +177,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in Buy: " + e.getMessage());
+                        error.put("content", /*"There is an error in Buy: " +*/ e.getMessage());
                         error.put("method", "buy");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -231,7 +231,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in Produce: " + e.getMessage());
+                        error.put("content", /*"There is an error in Produce: " +*/ e.getMessage());
                         error.put("method", "produce");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -284,7 +284,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in fromMarket: " + e.getMessage());
+                        error.put("content", /*"There is an error in fromMarket: " +*/ e.getMessage());
                         error.put("method", "fromMarket");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -296,7 +296,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in fromMarket: " + e.getMessage());
+                        error.put("content", /*"There is an error in fromMarket: " +*/ e.getMessage());
                         error.put("method", "fromMarket");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -349,7 +349,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in swapDeposits: " + e.getMessage());
+                        error.put("content", /*"There is an error in swapDeposits: " +*/ e.getMessage());
                         error.put("method", "swapDeposits");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -402,7 +402,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in activateLeader: " + e.getMessage());
+                        error.put("content", /*"There is an error in activateLeader: " +*/ e.getMessage());
                         error.put("method", "activateLeader");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -454,7 +454,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", "There is an error in discardLeader: " + e.getMessage());
+                        error.put("content", /*"There is an error in discardLeader: " +*/ e.getMessage());
                         error.put("method", "discardLeader");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);

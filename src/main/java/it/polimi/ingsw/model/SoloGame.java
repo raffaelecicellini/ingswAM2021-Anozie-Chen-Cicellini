@@ -593,33 +593,16 @@ public class SoloGame extends Game {
 
         if (!isEndGame) {
 
+            //solo action
             int id = soloActions.getCurrentId();
             soloActions.doAction(blackCross, developDecks);
 
             doneLeader = 0;
             doneMandatory = false;
 
-            int i = 0;
-            while (i <= 3 && !isEndGame) {
-                if (developDecks[i][2].getTop() == -1) isEndGame = true;
-                else i++;
-            }
-            if (isEndGame) {
-                notifyEndGame(false, getPoints(currentPlayer));
-                phase = GamePhase.ENDED;
-                return;
-            }
-
-
             //select max position and set the tiles if needed: if someone is at the end, set isEndgame
 
             if (blackCross.getPosition() > currentPlayer.getPersonalBoard().getPosition()) {
-                if (blackCross.getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
-                    isEndGame = true;
-                    notifyEndGame(false, getPoints(currentPlayer));
-                    phase = GamePhase.ENDED;
-                    return;
-                }
                 for (int j = 1; j >= 0; j--) {
                     FavorTile tile = currentPlayer.getPersonalBoard().getTile(j);
                     if (blackCross.getPosition() >= tile.getEnd() && !tile.isActive() && !tile.isDiscarded()) {
@@ -636,6 +619,8 @@ public class SoloGame extends Game {
                     }
                 }
             }
+
+            //check if the player is at the end
             if (currentPlayer.getPersonalBoard().getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
                 isEndGame = true;
                 currentPlayer.getPersonalBoard().getTile(2).setActive(true);
@@ -643,10 +628,28 @@ public class SoloGame extends Game {
                 phase = GamePhase.ENDED;
                 return;
             }
-            if (!isEndGame) {
-                notifyEndTurn(id);
-                notifyTurn();
+
+            if (blackCross.getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
+                isEndGame = true;
+                notifyEndGame(false, getPoints(currentPlayer));
+                phase = GamePhase.ENDED;
+                return;
             }
+
+            //check decks
+            int i = 0;
+            while (i <= 3 && !isEndGame) {
+                if (developDecks[i][2].getTop() == -1) isEndGame = true;
+                else i++;
+            }
+            if (isEndGame) {
+                notifyEndGame(false, getPoints(currentPlayer));
+                phase = GamePhase.ENDED;
+                return;
+            }
+
+            notifyEndTurn(id);
+            notifyTurn();
         }
 
     }

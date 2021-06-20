@@ -489,7 +489,6 @@ public class Game {
                 tile.setActive(true);
                 this.setTiles(maxPlayer, i);
                 if (i == 2) {
-                    //System.out.println("Someone reached the end of the track");
                     this.isEndGame = true;
                 }
             }

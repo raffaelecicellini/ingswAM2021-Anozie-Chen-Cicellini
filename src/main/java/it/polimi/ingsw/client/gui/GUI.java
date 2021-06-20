@@ -26,13 +26,10 @@ import java.util.List;
 
 public class GUI extends Application implements SourceListener {
     //used in online
-    private int port;
-    private String address;
     private ConnectionSocket connectionSocket;
     //used in offline
     private Controller controller;
     private Game model;
-    private boolean isSolo;
     //used in both cases
     private final Source listener = new Source();
     private ModelView modelView;
@@ -45,8 +42,6 @@ public class GUI extends Application implements SourceListener {
 
     private Scene currentScene;
     private Stage stage;
-
-    private Stage window;
 
     public GUI() {
         modelView = new ModelView();

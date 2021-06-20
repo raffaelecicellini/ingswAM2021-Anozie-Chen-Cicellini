@@ -268,12 +268,11 @@ public class BoardController extends GUIController {
             confirm.setContentText("First dep: " + pack.get("source") + " ; Second dep: " + pack.get("dest") + ". Do you confirm the action?");
             confirm.initModality(Modality.APPLICATION_MODAL);
             Optional<ButtonType> res = confirm.showAndWait();
-            if (result.isPresent() && res.get() == ButtonType.OK) {
+            if (res.isPresent() && res.get() == ButtonType.OK) {
                 pack.put("action", "swap");
                 pack.put("player", gui.getModelView().getName());
                 Message message = new SwapMessage(pack);
                 gui.getListeners().fireUpdates(message.getAction(), message);
-                //gui.getListeners().fireUpdates(pack.get("action"), message);
             }
         }
     }
@@ -344,7 +343,6 @@ public class BoardController extends GUIController {
             pack.put("player", gui.getModelView().getName());
             Message message = new EndTurnMessage(pack);
             gui.getListeners().fireUpdates(message.getAction(), message);
-            //gui.getListeners().fireUpdates(pack.get("action"), message);
         }
 
     }

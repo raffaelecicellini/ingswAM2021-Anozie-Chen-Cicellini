@@ -248,9 +248,17 @@ public class ProduceController extends GUIController {
         ButtonType mid = new ButtonType("MID");
         ButtonType big = new ButtonType("BIG");
         ButtonType strongbox = new ButtonType("STRONGBOX");
-        ButtonType sp1 = new ButtonType("SP1");
-        ButtonType sp2 = new ButtonType("SP2");
-        chooseDep.getButtonTypes().setAll(small, mid, big, strongbox, sp1, sp2);
+        chooseDep.getButtonTypes().setAll(small, mid, big, strongbox);
+
+        ButtonType sp1= new ButtonType("SP1");
+        ButtonType sp2= new ButtonType("SP2");
+        if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp1res")){
+            chooseDep.getButtonTypes().add(sp1);
+        }
+        if (gui.getModelView().getDeposits(gui.getModelView().getName()).containsKey("sp2res")) {
+            chooseDep.getButtonTypes().add(sp2);
+        }
+
         chooseDep.initModality(Modality.APPLICATION_MODAL);
         Optional<ButtonType> pos = chooseDep.showAndWait();
         if (pos.isPresent()) {

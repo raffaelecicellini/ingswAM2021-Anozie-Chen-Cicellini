@@ -9,7 +9,6 @@ import it.polimi.ingsw.notifications.Source;
 import it.polimi.ingsw.notifications.SourceListener;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.*;
 
 public class CLI implements Runnable, SourceListener {
@@ -24,14 +23,12 @@ public class CLI implements Runnable, SourceListener {
     //used in both cases
     private final Source listener = new Source();
     private ModelView modelView;
-    private final PrintStream output;
     private final Scanner input;
     private final AnswerHandler answerHandler;
     private boolean activeGame;
 
     public CLI(boolean isSolo) {
         input = new Scanner(System.in);
-        output = new PrintStream(System.out);
         modelView = new ModelView();
         answerHandler = new AnswerHandler(modelView, this);
         activeGame = true;
@@ -549,28 +546,22 @@ public class CLI implements Runnable, SourceListener {
         // send back the situation and wait for confirmation
         System.out.println("Are you sure do you want activate the production with these resources? [yes/no] ");
         StringBuilder str = new StringBuilder();
-        //for (int devCard = 0; devCard < yes_count; devCard++) {
 
         int devCard = 0;
         for (int i = 0; i < yes_count; i++) {
-            //System.out.println(map);
             while (map.containsKey("prod" + devCard) && !map.get("prod" + devCard).equalsIgnoreCase("yes")) {
-                //System.out.println(devCard);
                 devCard++;
             }
 
             str.setLength(0);
             str.append("prod").append(devCard).append(": IN = (");
-            //System.out.print(map.get("prod" + devCard + ": IN = (")) ;
 
             if (devCard == 0) {
                 str.append(map.get("in01").toUpperCase()).append(", ").append(map.get("pos01").toLowerCase()).append("), (").append(map.get("in02").toUpperCase())
                         .append(", ").append(map.get("pos02").toLowerCase()).append("); OUT = ").append(map.get("out0").toUpperCase());
                 System.out.println(str);
-                //System.out.print(map.get("in01") + ", " + map.get("pos01") + "), (" + map.get("in02") + ", " + map.get("pos02") + "); OUT = "  + map.get("out0"));
             } else if (devCard >= 1 && devCard <= 3) {
                 int n_pos = 1;
-                //System.out.println(devCard);
                 ArrayList<String> inputRes = Cards.getInputById(modelView.getSlots(modelView.getName()).get(devCard - 1)[modelView.getTopIndex(modelView.getSlots(modelView.getName()).get(devCard - 1))]);
                 // pos11 o pos12
                 while (map.containsKey("pos" + devCard + n_pos)) {
@@ -800,7 +791,6 @@ public class CLI implements Runnable, SourceListener {
             deps_dst.append(", sp2");
         }
         System.out.println(deps_src.append(":"));
-        //System.out.println("Select the first deposit, Possible choices: small, mid, big, sp1, sp2");
         System.out.print(">");
         source = input.nextLine();
         if (!possibleInput.contains(source.toLowerCase())) {
@@ -1249,7 +1239,6 @@ public class CLI implements Runnable, SourceListener {
         System.out.println("+------+------+------+   +------+------+   +------+------+ ");
         System.out.println("|" + printDepCell(big, "bigres", name) + "|" + printDepCell(big, "bigres", name) + "|" + printDepCell(big, "bigres", name) + "|   |" + printDepCell(sp1, "sp1res", name) + "|" + printDepCell(sp1, "sp1res", name) + "|   |" + printDepCell(sp2, "sp2res", name) + "|" + printDepCell(sp2, "sp2res", name) + "|");
         System.out.println("+------+------+------+   +------+------+   +------+------+");
-        //System.out.println("\t\tnormal   sp1 "+ printLastLineDep(1)+"        sp2 "+ printLastLineDep(2)+"  ");
         System.out.println("        normal             sp1 " + printLastLineDep(1, name) + "        sp2 " + printLastLineDep(2, name) + "   ");
         System.out.println("\n");
         System.out.println("|STRONGBOX|");
@@ -1309,13 +1298,13 @@ public class CLI implements Runnable, SourceListener {
     private String printLastLineDep(int a, String name) {
         if (a == 1) {
             if (modelView.getDeposits(name).get("sp1res") != null)
-                if (modelView.getDeposits(name).get("sp1res").toUpperCase().equals("BLUE") || modelView.getDeposits(name).get("sp1res").toUpperCase().equals("GREY"))
+                if (modelView.getDeposits(name).get("sp1res").equalsIgnoreCase("BLUE") || modelView.getDeposits(name).get("sp1res").equalsIgnoreCase("GREY"))
                     return " " + modelView.getDeposits(name).get("sp1res").toUpperCase() + " ";
                 else return modelView.getDeposits(name).get("sp1res").toUpperCase();
             else return "      ";
         } else {
             if (modelView.getDeposits(name).get("sp2res") != null)
-                if (modelView.getDeposits(name).get("sp2res").toUpperCase().equals("BLUE") || modelView.getDeposits(name).get("sp2res").toUpperCase().equals("GREY"))
+                if (modelView.getDeposits(name).get("sp2res").equalsIgnoreCase("BLUE") || modelView.getDeposits(name).get("sp2res").equalsIgnoreCase("GREY"))
                     return " " + modelView.getDeposits(name).get("sp2res").toUpperCase() + " ";
                 else return modelView.getDeposits(name).get("sp2res").toUpperCase();
             else return "      ";

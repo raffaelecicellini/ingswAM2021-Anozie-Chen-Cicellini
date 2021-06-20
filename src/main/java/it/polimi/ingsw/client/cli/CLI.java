@@ -1665,7 +1665,7 @@ public class CLI implements Runnable, SourceListener {
                 } else {
                     System.out.println(message.getEndedPlayer() + " has ended his turn!");
                     if (!modelView.getName().equalsIgnoreCase(message.getCurrentPlayer())) {
-                        System.out.println("It's' " + message.getCurrentPlayer() + " turn now!");
+                        System.out.println("It's " + message.getCurrentPlayer() + "'s turn now!");
                     }
                 }
 

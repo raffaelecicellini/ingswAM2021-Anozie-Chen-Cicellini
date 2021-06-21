@@ -417,13 +417,13 @@ public class PersonalBoardTest {
         assertTrue(pb.getDeposits().get(3).getAmount() == 1 && pb.getDeposits().get(3).getColor() == Color.BLUE);
         try {
             pb.swapDeposits("small", "sp1");
-            assertTrue(pb.getDeposits().get(0).getAmount() == 1);
-            assertTrue(pb.getDeposits().get(0).getColor() == Color.BLUE);
+            assertTrue(pb.getDeposits().get(0).getAmount() == 0);
+            assertTrue(pb.getDeposits().get(0).getColor() == null);
             assertTrue(pb.getDeposits().get(1).getAmount() == 0);
             assertTrue(pb.getDeposits().get(1).getColor() == null);
             assertTrue(pb.getDeposits().get(2).getAmount() == 0);
             assertTrue(pb.getDeposits().get(2).getColor() == null);
-            assertTrue(pb.getDeposits().get(3).getAmount() == 0);
+            assertTrue(pb.getDeposits().get(3).getAmount() == 1);
             assertTrue(pb.getDeposits().get(3).getColor() == Color.BLUE);
         } catch (InvalidActionException e) {
             assertTrue(pb.getDeposits().get(0).getAmount() == 0);
@@ -455,13 +455,13 @@ public class PersonalBoardTest {
         assertTrue(pb.getDeposits().get(3).getAmount() == 1 && pb.getDeposits().get(3).getColor() == Color.BLUE);
         try {
             pb.swapDeposits("small", "sp1");
-            assertTrue(pb.getDeposits().get(0).getAmount() == 1);
-            assertTrue(pb.getDeposits().get(0).getColor() == Color.BLUE);
+            assertTrue(pb.getDeposits().get(0).getAmount() == 0);
+            assertTrue(pb.getDeposits().get(0).getColor() == Color.GREY);
             assertTrue(pb.getDeposits().get(1).getAmount() == 0);
             assertTrue(pb.getDeposits().get(1).getColor() == null);
             assertTrue(pb.getDeposits().get(2).getAmount() == 0);
             assertTrue(pb.getDeposits().get(2).getColor() == null);
-            assertTrue(pb.getDeposits().get(3).getAmount() == 0);
+            assertTrue(pb.getDeposits().get(3).getAmount() == 1);
             assertTrue(pb.getDeposits().get(3).getColor() == Color.BLUE);
         } catch (InvalidActionException e) {
             assertTrue(pb.getDeposits().get(0).getAmount() == 0);
@@ -495,11 +495,11 @@ public class PersonalBoardTest {
             pb.swapDeposits("mid", "sp1");
             assertTrue(pb.getDeposits().get(0).getAmount() == 0);
             assertTrue(pb.getDeposits().get(0).getColor() == null);
-            assertTrue(pb.getDeposits().get(1).getAmount() == 2);
-            assertTrue(pb.getDeposits().get(1).getColor() == Color.BLUE);
+            assertTrue(pb.getDeposits().get(1).getAmount() == 0);
+            assertTrue(pb.getDeposits().get(1).getColor() == null);
             assertTrue(pb.getDeposits().get(2).getAmount() == 0);
             assertTrue(pb.getDeposits().get(2).getColor() == null);
-            assertTrue(pb.getDeposits().get(3).getAmount() == 0);
+            assertTrue(pb.getDeposits().get(3).getAmount() == 2);
             assertTrue(pb.getDeposits().get(3).getColor() == Color.BLUE);
         } catch (InvalidActionException e) {
             assertTrue(pb.getDeposits().get(0).getAmount() == 0);
@@ -548,6 +548,37 @@ public class PersonalBoardTest {
             assertTrue(pb.getDeposits().get(2).getColor() == null);
             assertTrue(pb.getDeposits().get(3).getAmount() == 2);
             assertTrue(pb.getDeposits().get(3).getColor() == Color.BLUE);
+        }
+    }
+
+    /**
+     * Tests that a player can swap resources.
+     */
+    @Test
+    void swapTest4() {
+        PersonalBoard pb = new PersonalBoard();
+        ArrayList deposits = new ArrayList<>();
+        deposits.add(new ResourceAmount(null, 0));
+        deposits.add(new ResourceAmount(null, 0));
+        deposits.add(new ResourceAmount(Color.BLUE, 3));
+        deposits.add(new ResourceAmount(Color.BLUE, 0));
+        pb.setDeposits(deposits);
+        assertTrue(pb.getDeposits().get(0).getAmount() == 0 && pb.getDeposits().get(0).getColor() == null);
+        assertTrue(pb.getDeposits().get(1).getAmount() == 0 && pb.getDeposits().get(1).getColor() == null);
+        assertTrue(pb.getDeposits().get(2).getAmount() == 3 && pb.getDeposits().get(2).getColor() == Color.BLUE);
+        assertTrue(pb.getDeposits().get(3).getAmount() == 0 && pb.getDeposits().get(3).getColor() == Color.BLUE);
+        try {
+            pb.swapDeposits("big", "sp1");
+            assertTrue(pb.getDeposits().get(0).getAmount() == 0);
+            assertTrue(pb.getDeposits().get(0).getColor() == null);
+            assertTrue(pb.getDeposits().get(1).getAmount() == 0);
+            assertTrue(pb.getDeposits().get(1).getColor() == null);
+            assertTrue(pb.getDeposits().get(2).getAmount() == 1);
+            assertTrue(pb.getDeposits().get(2).getColor() == Color.BLUE);
+            assertTrue(pb.getDeposits().get(3).getAmount() == 2);
+            assertTrue(pb.getDeposits().get(3).getColor() == Color.BLUE);
+        } catch (InvalidActionException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -349,7 +349,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in swapDeposits: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "swapDeposits");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);

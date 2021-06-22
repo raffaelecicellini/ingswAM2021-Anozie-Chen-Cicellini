@@ -338,7 +338,6 @@ public class AnswerHandler implements SourceListener {
 
         while (message.containsPlayer(player)) {
 
-            System.out.println(message.getPlayer(player));
             Tile[] tiles = modelView.getTiles(message.getPlayer(player));
             for (int i = 0; i < 3; i++) {
                 if (message.getTileState(player, i).equalsIgnoreCase("active")) {

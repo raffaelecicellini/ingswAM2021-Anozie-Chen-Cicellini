@@ -145,10 +145,12 @@ public class PersonalBoard {
                 if (deposits.size() > idx1) {
 
                     //check if there is another deposit containing the spX resource
-                    for (int i = 0; i <= 2; i++)
-                        if (i != idx2)
+                    for (int i = 0; i <= 2; i++) {
+                        if (i != idx2) {
                             if (deposits.get(i).getAmount() > 0 && deposits.get(i).getColor() == deposits.get(idx1).getColor())
                                 throw new InvalidActionException("You already have a deposit containing this resource.");
+                        }
+                    }
 
                     if (deposits.get(idx1).getColor() == deposits.get(idx2).getColor() || deposits.get(idx2).getAmount() == 0) {
                         while (deposits.get(idx1).getAmount() > 0 && deposits.get(idx2).getAmount() < idx2+1) {

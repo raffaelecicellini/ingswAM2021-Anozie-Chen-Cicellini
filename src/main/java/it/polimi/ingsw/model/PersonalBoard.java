@@ -143,6 +143,13 @@ public class PersonalBoard {
                 } else throw new InvalidActionException("You can't swap these deposits! Too much resource to contain");
             } else if (idx1 >= 3 && idx2 < 3) {
                 if (deposits.size() > idx1) {
+
+                    //check if there is another deposit containing the spX resource
+                    for (int i = 0; i <= 2; i++)
+                        if (i != idx2)
+                            if (deposits.get(i).getAmount() > 0 && deposits.get(i).getColor() == deposits.get(idx1).getColor())
+                                throw new InvalidActionException("You already have a deposit containing this resource.");
+
                     if (deposits.get(idx1).getColor() == deposits.get(idx2).getColor() || deposits.get(idx2).getAmount() == 0) {
                         while (deposits.get(idx1).getAmount() > 0 && deposits.get(idx2).getAmount() < idx2+1) {
                             deposits.get(idx2).setColor(deposits.get(idx1).getColor());

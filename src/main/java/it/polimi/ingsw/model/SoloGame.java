@@ -624,6 +624,7 @@ public class SoloGame extends Game {
             if (currentPlayer.getPersonalBoard().getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
                 isEndGame = true;
                 currentPlayer.getPersonalBoard().getTile(2).setActive(true);
+                notifyEndTurn(id);
                 notifyEndGame(true, getPoints(currentPlayer));
                 phase = GamePhase.ENDED;
                 return;
@@ -631,6 +632,13 @@ public class SoloGame extends Game {
 
             if (blackCross.getPosition() >= currentPlayer.getPersonalBoard().getTile(2).getEnd()) {
                 isEndGame = true;
+                if (currentPlayer.getPersonalBoard().getPosition()>=currentPlayer.getPersonalBoard().getTile(2).getStart()){
+                    currentPlayer.getPersonalBoard().getTile(2).setActive(true);
+                }
+                else {
+                    currentPlayer.getPersonalBoard().getTile(2).setDiscarded(true);
+                }
+                notifyEndTurn(id);
                 notifyEndGame(false, getPoints(currentPlayer));
                 phase = GamePhase.ENDED;
                 return;
@@ -643,6 +651,7 @@ public class SoloGame extends Game {
                 else i++;
             }
             if (isEndGame) {
+                notifyEndTurn(id);
                 notifyEndGame(false, getPoints(currentPlayer));
                 phase = GamePhase.ENDED;
                 return;

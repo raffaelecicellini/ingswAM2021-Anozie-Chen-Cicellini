@@ -1676,7 +1676,7 @@ public class CLI implements Runnable, SourceListener {
 
             case "ENDGAME":
 
-                if (message.getWinner().equalsIgnoreCase(modelView.getName())) {
+                if (message.getWinner()!=null && message.getWinner().equalsIgnoreCase(modelView.getName())) {
                     System.out.println("You won! You made " + message.getWinnerPoints() + " points!");
                 } else {
                     System.out.println("You lost! You made " + message.getPoints() + " points! ");

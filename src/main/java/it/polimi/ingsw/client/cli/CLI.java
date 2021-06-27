@@ -1636,7 +1636,7 @@ public class CLI implements Runnable, SourceListener {
 
             case "ACTIVATE":
 
-                if (!modelView.getName().equalsIgnoreCase(message.getPlayer())) {
+                if (modelView.getName().equalsIgnoreCase(message.getPlayer())) {
                     printBoard();
                 } else {
                     System.out.println(message.getPlayer() + " has activated his leader!");

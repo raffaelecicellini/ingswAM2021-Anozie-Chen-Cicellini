@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller;
 
-import com.google.gson.Gson;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GamePhase;
@@ -10,7 +9,6 @@ import it.polimi.ingsw.notifications.SourceListener;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 /**
@@ -68,7 +66,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in chooseLeaders: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "chooseLeaders");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -122,7 +120,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in chooseResources: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "chooseResources");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -177,7 +175,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in Buy: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "buy");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -231,7 +229,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in Produce: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "produce");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -284,7 +282,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in fromMarket: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "fromMarket");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -296,7 +294,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in fromMarket: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "fromMarket");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -402,7 +400,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in activateLeader: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "activateLeader");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -454,7 +452,7 @@ public class Controller implements SourceListener {
                         Map<String, String> error = new HashMap<>();
                         error.put("action", "error");
                         error.put("player", message.getPlayer());
-                        error.put("content", /*"There is an error in discardLeader: " +*/ e.getMessage());
+                        error.put("content", e.getMessage());
                         error.put("method", "discardLeader");
                         Message errorAnswer = new ErrorAnswer(error);
                         gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
@@ -502,7 +500,13 @@ public class Controller implements SourceListener {
                 try {
                     model.endTurn(message.getPlayer());
                 } catch (InvalidActionException e) {
-                    e.printStackTrace();
+                    Map<String, String> error = new HashMap<>();
+                    error.put("action", "error");
+                    error.put("player", message.getPlayer());
+                    error.put("content", e.getMessage());
+                    error.put("method", "endTurn");
+                    Message errorAnswer = new ErrorAnswer(error);
+                    gameHandlerListener.fireUpdates(errorAnswer.getAction(), errorAnswer);
                 }
             } else {
                 //System.out.println("Wrong phase!");

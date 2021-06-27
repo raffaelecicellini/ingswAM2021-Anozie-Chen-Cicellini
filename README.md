@@ -88,7 +88,7 @@ All tests in model and controller has a classes' coverage at 100%.
 
 | Package |Tested Class | Coverage |
 |:-----------------------|:------------------|:------------------------------------:|
-| Controller | Global Package | 10/12 (83%)
+| Controller | Global Package | 12/12 (100%)
 | Model | Global Package | 250/270 (92%)
 
 ## Deliveries

@@ -111,7 +111,7 @@ public class StartController extends GUIController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Server not reachable");
-            alert.setContentText("The entered IP/port doesn't match any active server or the server is not running. Please try again!");
+            alert.setContentText("The entered IP/port doesn't match any active server or the entered nickname is already in use. Please try again!");
             alert.showAndWait();
             gui.changeScene("start.fxml");
             return;
